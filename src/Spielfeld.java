@@ -12,6 +12,7 @@ public class Spielfeld extends JFrame{
 //  ImageIcon Weg = new ImageIcon("Weg.jpg");
 //  Image Weg1 = Weg.getImage();	 	
 
+<<<<<<< Updated upstream
 	
 	public void malen(int i){
 		
@@ -41,6 +42,21 @@ public class Spielfeld extends JFrame{
 	
 				Spielfeld first = new Spielfeld();
 			
+=======
+	int n = 16;//Spielfeldgröße
+//	Feld[][] Spielfeld = new Feld[n][n];
+   	StdDraw.setXscale(0.0, 17.0);
+	StdDraw.setYscale(0.0,17.0);
+//	
+		for(double i = 1.0; i <n;i++){
+    	   for(double j = 1.0; j <n;j++){
+    		   StdDraw.square(i,j,1.5);
+
+    	   }// nicht die draw funktion benutzen, 
+    	   //sondern für ein n x n array jeweils 
+    	   //viele labels erstellen mit images einfügen
+    	   
+>>>>>>> Stashed changes
 		}
 		
 		
