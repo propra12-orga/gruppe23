@@ -14,6 +14,7 @@ public class Spielfeld extends JFrame{
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 	
 	public void malen(int i){
 		
@@ -49,6 +50,8 @@ public class Spielfeld extends JFrame{
    	StdDraw.setXscale(0.0, 17.0);
 	StdDraw.setYscale(0.0,17.0);
 =======
+=======
+>>>>>>> Stashed changes
 	int n = 16;//Spielfeldgrï¿½ï¿½e
 	Feld[][] Spielfelder = new Feld[n][n];
 //    	StdDraw.setXscale(0.0, 17.0);
@@ -60,10 +63,14 @@ public class Spielfeld extends JFrame{
     		   StdDraw.square(i,j,1.5);
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     	   }// nicht die draw funktion benutzen, 
     	   //sondern für ein n x n array jeweils 
     	   //viele labels erstellen mit images einfügen
     	   
+>>>>>>> Stashed changes
+=======
+    	   }// nicht die draw funktion benutzen, sondern fï¿½r ein n x n array jeweils viele labels erstellen mit images einfï¿½gen
 >>>>>>> Stashed changes
 =======
     	   }// nicht die draw funktion benutzen, sondern fï¿½r ein n x n array jeweils viele labels erstellen mit images einfï¿½gen
