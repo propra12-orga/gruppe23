@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+
 public class Spielfeld extends JFrame{
 	 	
 
@@ -30,8 +31,20 @@ public class Spielfeld extends JFrame{
 			case	3: // male Mauer
 				
 			case	4: //male Block
-				
-		}
+
+	int n = 16;//Spielfeldgr��e
+	Feld[][] Spielfelder = new Feld[n][n];
+//    	StdDraw.setXscale(0.0, 17.0);
+//		StdDraw.setYscale(0.0,17.0);
+//	
+		/*for(double i = 1.0; i <n;i++){
+    	   for(double j = 1.0; j <n;j++){
+//    		   StdDraw.square(i,j,1.5);
+
+    	   }// nicht die draw funktion benutzen, sondern f�r ein n x n array jeweils viele labels erstellen mit images einf�gen
+
+		*/
+	}
 }
 	public Spielfeld(){ 
 		final Image imageHulk  = Toolkit.getDefaultToolkit().getImage("Hulk.jpg");
