@@ -5,6 +5,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Choice;
@@ -15,11 +17,13 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 
 
-public class Menue {
+public class Menue implements KeyListener{
 
 	private JFrame frame;
 	private final Action_Beenden Action_Beenden = new Action_Beenden();
 	private final Action_Neu Action_Neu = new Action_Neu();
+	private int[] a = new int[2];
+	private int[] b = new int[2];
 
 	/**
 	 * Launch the application.
@@ -36,12 +40,47 @@ public class Menue {
 			}
 		});
 	}
+	
+	
+	
+	//
+	//Methoden zur Initialisierung des Keylisteners
+	//Es muss noch ein Frame hinzugefügt werden, in dem das Spielfeld ist:
+	//Wichtig ist hier, dass .addKeyListener(Menue) zu diesem Frame hinzugefügt wird!
+	//
+	//
+	public void keyPressed(KeyEvent Key){ //Diese Funktion ist essentiel für die Umsetzung des Keylisteners (bzw. die einzig relevante)
+		if(Key.getKeyCode() == Key.VK_UP){
+			a[0] = 0;
+			a[1] = 1;
+		}
+		
+		if(Key.getKeyCode() == Key.VK_LEFT){
+			a[0] = -1;
+			a[1] = 0;
+		}
+		
+		if(Key.getKeyCode() == Key.VK_RIGHT){
+			a[0] = 1;
+			a[1] = 0;
+		}
+		
+		if(Key.getKeyCode() == Key.VK_DOWN){
+			a[0] = 0;
+			a[1] = -1;
+		}
+		b = KeyListenerTest.zeichnen(b, a);		//An dieser Stelle muss die Print-Funktion mit Übergabe des a[] gesetzt werden.
+	}											//Zudem muss der KeyListener für die Bombe-Taste noch eine Auswirkung bekommen.
+	
+	
+	@Override
+	public void keyTyped(KeyEvent Key){}
+	public void keyReleased(KeyEvent Key) {}
 
-	/**
-	 * Create the application.
-	 */
+	
 	public Menue() {
 		initialize();
+		b[0]=0; b[1]=0;
 	}
 
 	/**
@@ -84,8 +123,13 @@ public class Menue {
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
+		
 	}
 	private class Action_Beenden extends AbstractAction {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 2921437400818980224L;
 		public Action_Beenden() {
 			putValue(NAME, "Beenden");
 			putValue(SHORT_DESCRIPTION, "Beenden des Spiels");
