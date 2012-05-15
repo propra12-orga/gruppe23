@@ -1,15 +1,14 @@
-import java.awt.Container;
-import java.awt.Graphics;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 public class Spielfeld extends JFrame {
 
-	// private static final long serialVersionUID = -8277081151052108904L;
 	public void malen(int i) {
 
 		switch (i) {
@@ -25,6 +24,10 @@ public class Spielfeld extends JFrame {
 	}
 
 	public Spielfeld() {
+
+		super("test");
+		setVisible(true);
+
 		final Image imageHulk = Toolkit.getDefaultToolkit()
 				.getImage("Hulk.jpg");
 		final Image imageBlock = Toolkit.getDefaultToolkit().getImage(
@@ -33,27 +36,21 @@ public class Spielfeld extends JFrame {
 				"Mauer.jpg");
 		final Image imageWeg = Toolkit.getDefaultToolkit().getImage("Weg.jpg");
 
-		int n = 16;// Spielfeldgdgroesse
-		JLabel[][] Spiel = new JLabel[n][n];
-		Container cp = this.getContentPane();
-
-		final JPanel panel = new JPanel() {
-
-			private static final long serialVersionUID = 1L;
-
-			public void paintComponent(Graphics g) {
-
-				super.paintComponent(g);
-
-				// Bild zeichnen
-				g.drawImage(imageHulk, 200, 100, 150, 100, this);
-
-			}
-		};
-
 	}
 
 	public static void main(String args[]) {
+		JFrame jf = new JFrame();
+		jf.getContentPane().setLayout(new GridLayout(16, 16));
 
+		for (int i = 0; i < 16; i++) {
+			JLabel label = new JLabel();
+			ImageIcon icon = new ImageIcon("../Block.jpg");
+			label.setIcon(icon);
+			jf.getContentPane().add(label);
+		}
+
+		jf.setSize(new Dimension(300, 300));
+		jf.setVisible(true);
+		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 }
