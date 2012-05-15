@@ -17,6 +17,9 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 
 
+//Panel für KeyListener benötigt!
+
+
 public class Menue implements KeyListener{
 
 	private JFrame frame;
