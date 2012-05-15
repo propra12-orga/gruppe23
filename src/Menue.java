@@ -1,20 +1,17 @@
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
+import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.event.KeyEvent;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.Choice;
-import java.awt.BorderLayout;
-import javax.swing.JList;
-import javax.swing.JMenu;
+
 import javax.swing.AbstractAction;
-import java.awt.event.ActionEvent;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 
 
 //Panel für KeyListener benötigt!

@@ -1,7 +1,4 @@
-import java.awt.BorderLayout;
-import java.awt.Label;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 
 public class GameKeyListener {
