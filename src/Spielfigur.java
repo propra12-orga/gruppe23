@@ -17,12 +17,15 @@ import java.awt.event.KeyListener;
 public class Spielfigur implements KeyListener{
 	private Frame Fenster; //Zum Testen der Klasse benötigte Variablen
 	private TextField tf;	//(müssen sonst ignoriert werden)
+	private int[] b = new int[2];
+	
 	
 	private int[] a = new int[2];	//Schnittstelle für KeyListener (hier werden die Koordinaten gespeichert)
 	
 	public Spielfigur(){//von hier ...
 		Fenster = new  Frame("KeyListenerTest");
 		tf = new TextField("Label");
+		b[0]=0; b[1]=0;
 	}
 	
 	public void KeyStarter(){
@@ -63,7 +66,7 @@ public class Spielfigur implements KeyListener{
 			a[0] = 0;
 			a[1] = -1;
 		}
-		tf.setText(a[0] +" , " + a[1]);			//An dieser Stelle muss die Print-Funktion mit Übergabe des a[] gesetzt werden.
+		b = KeyListenerTest.zeichnen(b, a);			//An dieser Stelle muss die Print-Funktion mit Übergabe des a[] gesetzt werden.
 	}											//Zudem muss der KeyListener für die Bombe-Taste noch eine Auswirkung bekommen.
 	
 	
