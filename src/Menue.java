@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.EventQueue;
@@ -12,12 +13,31 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+=======
+import java.awt.Component;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+>>>>>>> Stashed changes
 
+import javax.swing.AbstractAction;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 
 //Panel für KeyListener benötigt!
 
+<<<<<<< Updated upstream
 
 public class Menue{
+=======
+public class Menue implements KeyListener {
+>>>>>>> Stashed changes
 
 	private JFrame frame;
 	private final Action_Beenden Action_Beenden = new Action_Beenden();
@@ -42,10 +62,9 @@ public class Menue{
 			}
 		});
 	}
-	
-	
-	
+
 	//
+<<<<<<< Updated upstream
 	//Methoden zur Initialisierung des Keylisteners
 	//Es muss noch ein Frame hinzugefügt werden, in dem das Spielfeld ist:
 	//Wichtig ist hier, dass .addKeyListener(GameKeyListener) zu diesem Frame hinzugefügt wird!
@@ -53,29 +72,79 @@ public class Menue{
 	//
 	public Menue() {
 		initialize();
+=======
+	// Methoden zur Initialisierung des Keylisteners
+	// Es muss noch ein Frame hinzugefügt werden, in dem das Spielfeld ist:
+	// Wichtig ist hier, dass .addKeyListener(Menue) zu diesem Frame
+	// hinzugefügt wird!
+	//
+	//
+	public void keyPressed(KeyEvent Key) { // Diese Funktion ist essentiel für
+											// die Umsetzung des Keylisteners
+											// (bzw. die einzig relevante)
+		if (Key.getKeyCode() == Key.VK_UP) {
+			a[0] = 0;
+			a[1] = 1;
+		}
+
+		if (Key.getKeyCode() == Key.VK_LEFT) {
+			a[0] = -1;
+			a[1] = 0;
+		}
+
+		if (Key.getKeyCode() == Key.VK_RIGHT) {
+			a[0] = 1;
+			a[1] = 0;
+		}
+
+		if (Key.getKeyCode() == Key.VK_DOWN) {
+			a[0] = 0;
+			a[1] = -1;
+		}
+		// b = KeyListenerTest.zeichnen(b, a); //An dieser Stelle muss die
+		// Print-Funktion mit Übergabe des a[] gesetzt werden.
+	} // Zudem muss der KeyListener für die Bombe-Taste noch eine Auswirkung
+		// bekommen.
+
+	@Override
+	public void keyTyped(KeyEvent Key) {
+	}
+
+	public void keyReleased(KeyEvent Key) {
+	}
+
+	public Menue() {
+		initialize();
+		b[0] = 0;
+		b[1] = 0;
+>>>>>>> Stashed changes
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	
+
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
-		
+
 		JMenu mnSpiel = new JMenu("Spiel");
 		menuBar.add(mnSpiel);
+<<<<<<< Updated upstream
 		menuBar.addKeyListener(MenueListener);		//KeyListener wird fuer's Menue implementiert
 		menuBar.isFocusable();
 		
+=======
+
+>>>>>>> Stashed changes
 		JMenuItem mntmNeu = new JMenuItem("Neu");
 		mntmNeu.setAction(Action_Neu);
 		mnSpiel.add(mntmNeu);
-		
+
 		JMenuItem mntmBeenden = new JMenuItem("Beenden");
 		mntmBeenden.setAction(Action_Beenden);
 		mnSpiel.add(mntmBeenden);
@@ -92,35 +161,42 @@ public class Menue{
 					showMenu(e);
 				}
 			}
+
 			public void mouseReleased(MouseEvent e) {
 				if (e.isPopupTrigger()) {
 					showMenu(e);
 				}
 			}
+
 			private void showMenu(MouseEvent e) {
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
-		
+
 	}
+
 	private class Action_Beenden extends AbstractAction {
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 2921437400818980224L;
+
 		public Action_Beenden() {
 			putValue(NAME, "Beenden");
 			putValue(SHORT_DESCRIPTION, "Beenden des Spiels");
 		}
+
 		public void actionPerformed(ActionEvent e) {
-			System.exit( 0 );
+			System.exit(0);
 		}
 	}
+
 	private class Action_Neu extends AbstractAction {
 		public Action_Neu() {
 			putValue(NAME, "Neu");
 			putValue(SHORT_DESCRIPTION, "Neustart des Spiels");
 		}
+
 		public void actionPerformed(ActionEvent e) {
 			initialize();
 		}
