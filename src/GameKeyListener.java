@@ -1,12 +1,20 @@
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-
-public class GameKeyListener {
+public class GameKeyListener implements KeyListener{
 	private int[] a = new int [2];
+	private int[] b = new int [2];
 
-	public GameKeyListener(){}
+	public GameKeyListener(){
+		for(int i = 0; i < 2; i++){
+			a[i] = 0;
+			b[i] = 0;
+		}
+	}
 	
-
+	public void zeichnen(int[] Position, int[] neuePosition){
+			//noch keine Funktion, da nicht mit Programm verknüpft	
+	}
 	
 	public void keyPressed(KeyEvent Key){ //Diese Funktion ist essentiel für die Umsetzung des Keylisteners (bzw. die einzig relevante)
 		if(Key.getKeyCode() == Key.VK_UP){			//Oben
@@ -31,8 +39,8 @@ public class GameKeyListener {
 		if(Key.getKeyCode() == Key.VK_SPACE){		//Bombe
 			
 		}
-		//b = KeyListenerTest.zeichnen(b, a);			//An dieser Stelle muss die Print-Funktion mit Übergabe des a[] gesetzt werden.
-	}											//Zudem muss der KeyListener für die Bombe-Taste noch eine Auswirkung bekommen.
+		zeichnen(b, a);			//An dieser Stelle muss die Print-Funktion mit Übergabe des a[] gesetzt werden.
+	}												//Zudem muss der KeyListener für die Bombe-Taste noch eine Auswirkung bekommen.
 	
 	
 	
