@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -39,9 +37,9 @@ public class GameKeyListener implements KeyListener{
 			a[1] = -1;
 		}
 		if(Key.getKeyCode() == Key.VK_SPACE){		//Bombe
-			new Bombe bomb (true);
+			Bombe bomb = new Bombe(true);
 		}
-		zeichnen(b, a);			//An dieser Stelle muss die Print-Funktion mit Übergabe des a[] gesetzt werden.
+		zeichnen(b, a);								//An dieser Stelle muss die Print-Funktion mit Übergabe des a[] gesetzt werden.
 	}												//Zudem muss der KeyListener für die Bombe-Taste noch eine Auswirkung bekommen.
 	
 	
@@ -50,4 +48,4 @@ public class GameKeyListener implements KeyListener{
 	public void keyReleased(KeyEvent Key) {}
 
 }
->>>>>>> Stashed changes
+
