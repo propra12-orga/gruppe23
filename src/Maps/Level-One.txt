@@ -12,6 +12,3 @@
 			}
 
 
-1 hulk
-2 weg
-4 mauer
