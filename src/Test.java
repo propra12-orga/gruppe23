@@ -55,12 +55,12 @@ public class Test extends JFrame {
 	public Test() {
 		int n = 3;
 
-		int[][] map = { { 1, 4, 2 }, { 3, 2, 2 }, { 2, 3, 4 } };
+		int[][] map = { { 1, 2, 4 }, { 2, 1, 4 }, { 4, 4, 4 } };
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 475, 309);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(3, 3, 3, 3));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[] { 1, 1, 1, 1, 0 };
@@ -80,10 +80,12 @@ public class Test extends JFrame {
 				label[i][j].setHorizontalAlignment(SwingConstants.CENTER);
 				malen(label[i][j], map[i][j]);
 
-				label[i][j].setSize(1, 1);
 				gbc_label[i][j] = new GridBagConstraints();
-				gbc_label[i][j].anchor = GridBagConstraints.WEST;
-				gbc_label[i][j].insets = new Insets(0, 0, 1, 1);
+				gbc_label[i][j].anchor = GridBagConstraints.CENTER;
+				gbc_label[i][j].fill = GridBagConstraints.NONE;
+				gbc_label[i][j].gridwidth = GridBagConstraints.NONE;
+				gbc_label[i][j].gridheight = GridBagConstraints.RELATIVE;
+				gbc_label[i][j].insets = new Insets(0, 0, 0, 0);
 				gbc_label[i][j].gridx = i;
 				gbc_label[i][j].gridy = j;
 				contentPane.add(label[i][j], gbc_label[i][j]);
