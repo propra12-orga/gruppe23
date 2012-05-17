@@ -27,8 +27,32 @@ public class Test extends JFrame {
 		});
 	}
 
+	public void malen(JLabel label, int i) {
+
+		switch (i) {
+		case 1:
+			label.setIcon(new ImageIcon(Test.class
+					.getResource("/Pics/Hulk.png")));
+
+		case 2:
+			label.setIcon(new ImageIcon(Test.class.getResource("/Pics/Weg.png")));
+
+		case 3:
+			label.setIcon(new ImageIcon(Test.class
+					.getResource("/Pics/Block.png")));
+
+		case 4:
+			label.setIcon(new ImageIcon(Test.class
+					.getResource("/Pics/Mauer.png")));
+
+		}
+	}
+
 	public Test() {
 		int n = 3;
+
+		int[][] map = { { 1, 2, 2 }, { 3, 2, 2 }, { 2, 3, 2 } };
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 475, 309);
 		contentPane = new JPanel();
@@ -48,9 +72,10 @@ public class Test extends JFrame {
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				label[i][j] = new JLabel("");
+
 				label[i][j].setHorizontalAlignment(SwingConstants.CENTER);
-				label[i][j].setIcon(new ImageIcon(Test.class
-						.getResource("/Pics/Hulk.jpg")));
+				malen(label[i][j], map[i][j]);
+
 				label[i][j].setSize(1, 1);
 				gbc_label[i][j] = new GridBagConstraints();
 				gbc_label[i][j].anchor = GridBagConstraints.WEST;
@@ -62,5 +87,4 @@ public class Test extends JFrame {
 		}
 		pack();
 	}
-
 }
