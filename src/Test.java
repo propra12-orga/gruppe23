@@ -33,17 +33,21 @@ public class Test extends JFrame {
 		case 1:
 			label.setIcon(new ImageIcon(Test.class
 					.getResource("/Pics/Hulk.png")));
+			break;
 
 		case 2:
 			label.setIcon(new ImageIcon(Test.class.getResource("/Pics/Weg.png")));
+			break;
 
 		case 3:
 			label.setIcon(new ImageIcon(Test.class
 					.getResource("/Pics/Block.png")));
+			break;
 
 		case 4:
 			label.setIcon(new ImageIcon(Test.class
 					.getResource("/Pics/Mauer.png")));
+			break;
 
 		}
 	}
@@ -51,7 +55,7 @@ public class Test extends JFrame {
 	public Test() {
 		int n = 3;
 
-		int[][] map = { { 1, 2, 2 }, { 3, 2, 2 }, { 2, 3, 2 } };
+		int[][] map = { { 1, 4, 2 }, { 3, 2, 2 }, { 2, 3, 4 } };
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 475, 309);
