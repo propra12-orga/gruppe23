@@ -55,7 +55,7 @@ public class Test extends JFrame {
 	public Test() {
 		int n = 3;
 
-		int[][] map = { { 1, 1, 1 }, { 4, 4, 4 }, { 4, 4, 4 } };
+		int[][] map = { { 1, 4, 4 }, { 4, 4, 4 }, { 4, 4, 4 } };
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 475, 309);// panel erstellen
