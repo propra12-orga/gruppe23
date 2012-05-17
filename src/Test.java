@@ -1,4 +1,3 @@
-import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -14,18 +13,19 @@ public class Test extends JFrame {
 
 	private JPanel contentPane;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Test frame = new Test();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	//
+	// public static void main(String[] args) {
+	// EventQueue.invokeLater(new Runnable() {
+	// public void run() {
+	// try {
+	// Test frame = new Test();
+	// frame.setVisible(true);
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
+	// });
+	// }
 
 	public void malen(JLabel label, int i) {
 
@@ -53,9 +53,15 @@ public class Test extends JFrame {
 	}
 
 	public Test() {
-		int n = 3;
+		int n = 10;// Spielfeldgröße
+		int[][] map = new int[n][n];
 
-		int[][] map = { { 1, 4, 4 }, { 4, 4, 4 }, { 4, 4, 4 } };
+		for (int a = 0; a < n; a++) {
+			for (int b = 0; b < n; b++) { // map initialisieren
+				map[a][b] = 4;
+			}
+		}
+		// int[][] map = { { 1, 2, 4 }, { 4, 4, 4 }, { 4, 4, 4 } };
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 475, 309);// panel erstellen
