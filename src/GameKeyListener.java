@@ -1,10 +1,12 @@
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-
-public class GameKeyListener {
+public class GameKeyListener  implements KeyListener{
 	private int[] a = new int [2];
 
-	public GameKeyListener(){}
+	public GameKeyListener(){
+		
+	}
 	
 
 	
@@ -31,8 +33,8 @@ public class GameKeyListener {
 		if(Key.getKeyCode() == Key.VK_SPACE){		//Bombe
 			
 		}
-		//b = KeyListenerTest.zeichnen(b, a);			//An dieser Stelle muss die Print-Funktion mit Übergabe des a[] gesetzt werden.
-	}											//Zudem muss der KeyListener für die Bombe-Taste noch eine Auswirkung bekommen.
+		b = GameKeyListener.zeichnen(b, a);			//An dieser Stelle muss die Print-Funktion mit Übergabe des a[] gesetzt werden.
+	}												//Zudem muss der KeyListener für die Bombe-Taste noch eine Auswirkung bekommen.
 	
 	
 	
