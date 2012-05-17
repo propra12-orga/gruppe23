@@ -55,10 +55,10 @@ public class Test extends JFrame {
 	public Test() {
 		int n = 3;
 
-		int[][] map = { { 1, 2, 4 }, { 2, 1, 4 }, { 4, 4, 4 } };
+		int[][] map = { { 1, 1, 1 }, { 4, 4, 4 }, { 4, 4, 4 } };
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 475, 309);
+		setBounds(100, 100, 475, 309);// panel erstellen
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(3, 3, 3, 3));
 		setContentPane(contentPane);
@@ -69,26 +69,28 @@ public class Test extends JFrame {
 				Double.MIN_VALUE };
 		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
-		setResizable(true);
+		setResizable(false);
 
-		JLabel[][] label = new JLabel[n][n];
+		JLabel[][] label = new JLabel[n][n];// ERstellt ein JLabel array,
 		GridBagConstraints[][] gbc_label = new GridBagConstraints[n][n];
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				label[i][j] = new JLabel("");
+				label[i][j] = new JLabel("");// für jedes einzele arrayelement
+												// wird ein neues label erstellt
 
 				label[i][j].setHorizontalAlignment(SwingConstants.CENTER);
-				malen(label[i][j], map[i][j]);
-
+				malen(label[i][j], map[i][j]);// lädt in das label das bild(map
+												// hat die werte ob hulk,etc..
 				gbc_label[i][j] = new GridBagConstraints();
 				gbc_label[i][j].anchor = GridBagConstraints.CENTER;
-				gbc_label[i][j].fill = GridBagConstraints.NONE;
-				gbc_label[i][j].gridwidth = GridBagConstraints.NONE;
-				gbc_label[i][j].gridheight = GridBagConstraints.RELATIVE;
+				// gbc_label[i][j].fill = GridBagConstraints.NONE;
+				gbc_label[i][j].gridwidth = 1;
+				gbc_label[i][j].gridheight = 1;
 				gbc_label[i][j].insets = new Insets(0, 0, 0, 0);
 				gbc_label[i][j].gridx = i;
 				gbc_label[i][j].gridy = j;
-				contentPane.add(label[i][j], gbc_label[i][j]);
+				contentPane.add(label[i][j], gbc_label[i][j]);// label auf panel
+																// laden
 			}
 		}
 		pack();
