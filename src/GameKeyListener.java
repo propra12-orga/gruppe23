@@ -13,10 +13,11 @@ public class GameKeyListener implements KeyListener{
 	}
 	
 	public void zeichnen(int[] Position, int[] neuePosition){
-			//noch keine Funktion, da nicht mit Programm verknüpft	
+		//Test.move(Position, neuePosition);
+			
 	}
 	
-	public void keyPressed(KeyEvent Key){ //Diese Funktion ist essentiel für die Umsetzung des Keylisteners (bzw. die einzig relevante)
+	public void keyPressed(KeyEvent Key){ 			//Diese Funktion ist essentiel für die Umsetzung des Keylisteners (bzw. die einzig relevante)
 		if(Key.getKeyCode() == Key.VK_UP){			//Oben
 			a[0] = 0;
 			a[1] = 1;
