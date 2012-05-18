@@ -37,6 +37,8 @@ public class Test extends JFrame {
 
 	public Test() {
 		int n = 11;// Spielfeldgr��e
+		int positionX, positionY;
+
 		// int[][] map = new int[n][n];
 
 		// for (int a = 0; a < n; a++) {
@@ -45,16 +47,33 @@ public class Test extends JFrame {
 		// }
 		// } f�r map normaler weise die maploderklasse verwenden.
 		int[][] map = { { 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, },
-						{ 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
-						{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
-						{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
-						{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
-						{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
-						{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
-						{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
-						{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
-						{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
-						{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, }, };
+
+				{ 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
+				{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
+				{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
+				{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
+				{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+				{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, }, };
+		boolean gefunden = false;
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+
+				if (map[i][j] == 1) {
+					gefunden = true;
+					positionX = i; // methode sucht hulk im map - array
+					positionY = j;// postion x und y sind dann die postionen vom
+									// hulk, f�r keylistener wichtig!
+				} else {
+					gefunden = false;
+				}
+
+			}
+		}
+
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -80,7 +99,8 @@ public class Test extends JFrame {
 												// wird ein neues label erstellt
 
 				label[i][j].setHorizontalAlignment(SwingConstants.CENTER);
-				malen(label[i][j], map[i][j]);// l�dt in das label das bild(map
+				malen(label[i][j], map[i][j]);// l�dt in das label das
+												// bild(map
 												// hat die werte ob hulk,etc..
 				gbc_label[i][j] = new GridBagConstraints();
 				gbc_label[i][j].anchor = GridBagConstraints.CENTER;
@@ -100,23 +120,30 @@ public class Test extends JFrame {
 	public void malen(JLabel label, int i) {
 
 		switch (i) {
-		case 1:
+		case 1:// Hulk
 			label.setIcon(new ImageIcon(Test.class
 					.getResource("/Pics/Hulk.png")));
 			break;
 
-		case 2:
+		case 2:// Weg
 			label.setIcon(new ImageIcon(Test.class.getResource("/Pics/Weg.png")));
 			break;
 
-		case 3:
+		case 3:// Block
 			label.setIcon(new ImageIcon(Test.class
 					.getResource("/Pics/Block.png")));
 			break;
 
-		case 4:
+		case 4:// Mauer nicht zerst�rbar(eventuell �ber hulkmodus)
 			label.setIcon(new ImageIcon(Test.class
 					.getResource("/Pics/Mauer.png")));
+			break;
+		case 5:// bombe
+			label.setIcon(new ImageIcon(Test.class
+					.getResource("/Pics/Bombe.png")));
+			break;
+		case 6:// explosion
+			label.setIcon(new ImageIcon(Test.class.getResource("/Pics/EXP.png")));
 			break;
 
 		}
