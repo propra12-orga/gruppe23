@@ -34,7 +34,6 @@ public class Map extends JFrame {
 		n = 11;						// Spielfeldgroesse
 		
 		gefunden = false;
-		kListener = new GameKeyListener();
 		
 		// int[][] map = new int[n][n];
 
@@ -62,8 +61,8 @@ public class Map extends JFrame {
 
 				if (map[i][j] == 1) {
 					gefunden = true;
-					positionX = i; // methode sucht hulk im map - array
-					positionY = j;// postion x und y sind dann die postionen vom
+					positionX = i; 	// methode sucht hulk im map - array
+					positionY = j;	// postion x und y sind dann die postionen vom
 									// hulk, f�r keylistener wichtig!
 					break;
 				} else {
@@ -79,8 +78,6 @@ public class Map extends JFrame {
 		
 		setBounds(100, 100, 550, 580);// panel erstellen
 		contentPane = new JPanel();
-		
-		contentPane.addKeyListener(kListener);							//KeyListener angefuegt
 		
 		contentPane.setBorder(new EmptyBorder(3, 3, 3, 3));
 		setContentPane(contentPane);
@@ -154,19 +151,7 @@ public class Map extends JFrame {
 		}
 	}
 	
-	//Bewegungsmethoden fuer Spieler
-	//mit Pruefmethode
-	
-	public void move(){}
-	
-	
-	public boolean testPosition(int posX, int posY){
-		boolean moveable = false;
-		map[posX][posY] = 0;
-		
-		
-		return moveable;
-	}
+
 		
 	
 //	public static void main(String[] args) {

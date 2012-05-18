@@ -38,8 +38,10 @@ public class Menue{
 			{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
 			{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, }, };
 	
-	private Map Player = new Hulk(2,2);
-	private Map Game = new Map(gameMap);
+	//private Map Player = new Hulk(2,2);
+	
+	
+	//private Map Game = new Map(gameMap);															//<<<<----- 
 	
 	//
 	//Es muss noch ein Frame hinzugefügt werden, in dem das Spielfeld ist:
@@ -64,7 +66,19 @@ public class Menue{
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 		
-		JMenu mnSpiel = new JMenu("Spiel");
+		JMenu mnSpiel = new JMenu("Spiel");//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//		public void run() {
+//			try {
+//				Map frame = new Map();
+//					frame.setVisible(true);
+//				}
+//			catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			});
+//		}
 		menuBar.add(mnSpiel);
 		menuBar.addKeyListener(MenueListener);		//KeyListener wird fuer's Menue implementiert
 		menuBar.isFocusable();
