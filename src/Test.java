@@ -28,6 +28,8 @@ public class Test extends JFrame {
 
 	public Test() {
 		int n = 11;// Spielfeldgrï¿½ï¿½e
+		int positionX, positionY;
+
 		// int[][] map = new int[n][n];
 
 		// for (int a = 0; a < n; a++) {
@@ -46,6 +48,21 @@ public class Test extends JFrame {
 				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
 				{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
 				{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, }, };
+		boolean gefunden = false;
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+
+				if (map[i][j] == 1) {
+					gefunden = true;
+					positionX = i; // methode sucht hulk im map - array
+					positionY = j;// postion x und y sind dann die postionen vom
+									// hulk, für keylistener wichtig!
+				} else {
+					gefunden = false;
+				}
+
+			}
+		}
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 475, 309);// panel erstellen
@@ -69,7 +86,8 @@ public class Test extends JFrame {
 												// wird ein neues label erstellt
 
 				label[i][j].setHorizontalAlignment(SwingConstants.CENTER);
-				malen(label[i][j], map[i][j]);// lï¿½dt in das label das bild(map
+				malen(label[i][j], map[i][j]);// lï¿½dt in das label das
+												// bild(map
 												// hat die werte ob hulk,etc..
 				gbc_label[i][j] = new GridBagConstraints();
 				gbc_label[i][j].anchor = GridBagConstraints.CENTER;

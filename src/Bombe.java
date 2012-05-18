@@ -14,10 +14,12 @@ public class Bombe extends JFrame {
 		pack();
 		setVisible(true);
 		setBounds(100, 100, 475, 309);
-		// Gelegte Bombe nur zum testen
+		// Clogged Bombe nur zum testen
 
 		if (gelegt == true) { // Bild zeichnen
-			add(new JLabel(new ImageIcon("src/Pics/Bombe.jpg")));
+			add(new JLabel(new ImageIcon("src/Pics/Bombe.png")));
+			Zeit timer = new Zeit(3000);
+
 			int Timer = -20000;
 			// Timer der Bombe
 			while (gelegt == true) {
@@ -25,13 +27,12 @@ public class Bombe extends JFrame {
 				Timer++; // Timer runterzahlen lassen zum explodiren
 
 				if (Timer == 0) { // explosion anzeigen
-					add(new JLabel(new ImageIcon("src/Pics/EXP.jpg")));
+					add(new JLabel(new ImageIcon("src/Pics/EXP.png")));
 					// gelegt = false;
 				}
-
 			}
-
 		}
+
 	}
 
 	// private void delete(Bombe) {}
