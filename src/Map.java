@@ -30,7 +30,7 @@ public class Map extends JFrame {
 	 * 
 	 */
 
-	public Map(boolean bewegt, int PosX, int PosY) {
+	public Map(int gameMap[][]) {
 		n = 11;						// Spielfeldgroesse
 		
 		gefunden = false;
@@ -43,22 +43,19 @@ public class Map extends JFrame {
 		// map[a][b] = 4;
 		// }
 		// } f�r map normaler weise die maploaderklasse verwenden.
-		int[][] map = { {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, },
-			{ 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
-			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
-			{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
-			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
-			{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
-			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
-			{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
-			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
-			{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
-			{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, }, };
+//		int[][] map = { {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, },
+//			{ 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+//			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
+//			{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+//			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
+//			{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+//			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
+//			{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+//			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
+//			{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+//			{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, }, };
 		
-		if(bewegt){
-			map[positionX][positionY] = 2;
-			map[positionX+neuePosition[0]][positionY+neuePosition[1]]=1;
-		}
+		
 		
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
@@ -156,20 +153,34 @@ public class Map extends JFrame {
 			break;
 		}
 	}
+	
+	//Bewegungsmethoden fuer Spieler
+	//mit Pruefmethode
+	
+	public void move(){}
+	
+	
+	public boolean testPosition(int posX, int posY){
+		boolean moveable = false;
+		map[posX][posY] = 0;
+		
+		
+		return moveable;
+	}
 		
 	
-	public static void main(String[] args) {
-	EventQueue.invokeLater(new Runnable() {
-	public void run() {
-		try {
-			Map frame = new Map(false, 0, 0);
-				frame.setVisible(true);
-			}
-		catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		});
-	}
+//	public static void main(String[] args) {
+//	EventQueue.invokeLater(new Runnable() {
+//	public void run() {
+//		try {
+//			Map frame = new Map();
+//				frame.setVisible(true);
+//			}
+//		catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		});
+//	}
 
 }

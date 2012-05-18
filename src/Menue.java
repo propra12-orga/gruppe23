@@ -26,6 +26,21 @@ public class Menue{
 	private MenueKeyListener MenueListener;
 	private GameKeyListener GameListener;
 	
+	public int gameMap[][] = { {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, },
+			{ 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
+			{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
+			{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
+			{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
+			{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+			{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, }, };
+	
+	private Map Player = new Hulk(2,2);
+	private Map Game = new Map(gameMap);
+	
 	//
 	//Es muss noch ein Frame hinzugefügt werden, in dem das Spielfeld ist:
 	//Wichtig ist hier, dass .addKeyListener(GameKeyListener) zu diesem Frame hinzugefügt wird!

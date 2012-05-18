@@ -13,7 +13,7 @@ public class GameKeyListener implements KeyListener{
 	}
 	
 	public void zeichnen(int[] a){
-		Hulk player = new Hulk(a[0],a[1]);
+		
 			
 	}
 	

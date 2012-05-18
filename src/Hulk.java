@@ -1,17 +1,15 @@
 
 public class Hulk extends Map{
-
+	public int X, Y;
+	
+	
 	public Hulk(int x, int y){
-		super(false, 0, 0);		
+		X = x; Y = y;
 	}
 	
-	public void testPos(int PosX, int PosY){
-		int TestWert = map[PosX][PosY];
-		
-		if(TestWert == 2){
-			super(true, PosX, PosY);			
-		}
-		else{}
+	public void move(int xPosition, int yPosition){
+		super(xPosition, yPosition);
 	}
+	
 	
 }
