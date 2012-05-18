@@ -89,23 +89,30 @@ public class Test extends JFrame {
 	public void malen(JLabel label, int i) {
 
 		switch (i) {
-		case 1:
+		case 1:// Hulk
 			label.setIcon(new ImageIcon(Test.class
 					.getResource("/Pics/Hulk.png")));
 			break;
 
-		case 2:
+		case 2:// Weg
 			label.setIcon(new ImageIcon(Test.class.getResource("/Pics/Weg.png")));
 			break;
 
-		case 3:
+		case 3:// Block
 			label.setIcon(new ImageIcon(Test.class
 					.getResource("/Pics/Block.png")));
 			break;
 
-		case 4:
+		case 4:// Mauer nicht zerstörbar(eventuell über hulkmodus)
 			label.setIcon(new ImageIcon(Test.class
 					.getResource("/Pics/Mauer.png")));
+			break;
+		case 5:// bombe
+			label.setIcon(new ImageIcon(Test.class
+					.getResource("/Pics/Bombe.png")));
+			break;
+		case 6:// explosion
+			label.setIcon(new ImageIcon(Test.class.getResource("/Pics/EXP.png")));
 			break;
 
 		}
