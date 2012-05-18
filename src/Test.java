@@ -27,14 +27,14 @@ public class Test extends JFrame {
 	// }
 
 	public Test() {
-		int n = 11;// Spielfeldgröße
+		int n = 11;// Spielfeldgrï¿½ï¿½e
 		// int[][] map = new int[n][n];
 
 		// for (int a = 0; a < n; a++) {
 		// for (int b = 0; b < n; b++) { // map initialisieren
 		// map[a][b] = 4;
 		// }
-		// } für map normaler weise die maploderklasse verwenden.
+		// } fï¿½r map normaler weise die maploderklasse verwenden.
 		int[][] map = { { 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, },
 				{ 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
 				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
@@ -65,11 +65,11 @@ public class Test extends JFrame {
 		GridBagConstraints[][] gbc_label = new GridBagConstraints[n][n];
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				label[i][j] = new JLabel("");// für jedes einzele arrayelement
+				label[i][j] = new JLabel("");// fï¿½r jedes einzele arrayelement
 												// wird ein neues label erstellt
 
 				label[i][j].setHorizontalAlignment(SwingConstants.CENTER);
-				malen(label[i][j], map[i][j]);// lädt in das label das bild(map
+				malen(label[i][j], map[i][j]);// lï¿½dt in das label das bild(map
 												// hat die werte ob hulk,etc..
 				gbc_label[i][j] = new GridBagConstraints();
 				gbc_label[i][j].anchor = GridBagConstraints.CENTER;

@@ -8,7 +8,7 @@ public class GameKeyListener implements KeyListener{
 	public GameKeyListener(){
 		for(int i = 0; i < 2; i++){
 			a[i] = 0;
-			b[i] = 0;
+			b[i] = 0; 			//muss in der Spielfigur-Klasse abgefragt werden
 		}
 	}
 	
