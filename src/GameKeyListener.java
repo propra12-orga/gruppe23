@@ -13,7 +13,7 @@ public class GameKeyListener implements KeyListener{
 	}
 	
 	public void zeichnen(int[] Position, int[] neuePosition){
-		//Test.move(Position, neuePosition);
+		Test.bewegen(Position, neuePosition);
 			
 	}
 	

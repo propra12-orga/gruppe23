@@ -63,8 +63,7 @@ public class Menue{
 		mnSpiel.add(mntmBeenden);
 		
 		
-		JPanel gameMap = new Test();
-		gameMap.setBorder(new EmptyBorder(3, 3, 3, 3));
+	
 		
 		/*JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);

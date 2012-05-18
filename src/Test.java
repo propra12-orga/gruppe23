@@ -13,10 +13,12 @@ import javax.swing.border.EmptyBorder;
 public class Test extends JFrame {
 
 	private JPanel contentPane;
-	boolean gefunden;
-	GameKeyListener kListener;
-	int n = 11;// Spielfeldgr��e
-	int positionX, positionY;
+	public boolean gefunden;
+	public GameKeyListener kListener;
+	public int n = 11;// Spielfeldgr��e
+	public int positionX, positionY;
+	
+	public int map [][];
 	
 	/*
 	 * Das Spielfeld muss vom Typ Panel sein!!!
@@ -27,20 +29,9 @@ public class Test extends JFrame {
 	 * 
 	 */
 
-	 public static void main(String[] args) {
-	 EventQueue.invokeLater(new Runnable() {
-	 public void run() {
-	 try {
-	 Test frame = new Test();
-	 frame.setVisible(true);
-	 } catch (Exception e) {
-	 e.printStackTrace();
-	 }
-	 }
-	 });
-	 }
 
-	public Test() {
+
+	public Test(boolean bewegt, int[] neuePosition) {
 		n = 11;						// Spielfeldgroesse
 		
 		gefunden = false;
@@ -52,20 +43,23 @@ public class Test extends JFrame {
 		// for (int b = 0; b < n; b++) { // map initialisieren
 		// map[a][b] = 4;
 		// }
-		// } f�r map normaler weise die maploderklasse verwenden.
+		// } f�r map normaler weise die maploaderklasse verwenden.
+		int[][] map = { {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, },
+			{ 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
+			{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
+			{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
+			{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
+			{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+			{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, }, };
 		
-		int[][] map = { { 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, },
-
-				{ 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
-				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
-				{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
-				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
-				{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
-				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
-				{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
-				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
-				{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
-				{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, }, };
+		if(bewegt){
+			map[positionX][positionY] = 2;
+			map[positionX+neuePosition[0]][positionY+neuePosition[1]]=1;
+		}
 		
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
@@ -89,7 +83,9 @@ public class Test extends JFrame {
 		
 		setBounds(100, 100, 550, 580);// panel erstellen
 		contentPane = new JPanel();
+		
 		contentPane.addKeyListener(kListener);							//KeyListener angefuegt
+		
 		contentPane.setBorder(new EmptyBorder(3, 3, 3, 3));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
@@ -127,6 +123,7 @@ public class Test extends JFrame {
 		//pack();
 	}
 
+	
 	public void malen(JLabel label, int i) {
 
 		switch (i) {
@@ -159,6 +156,39 @@ public class Test extends JFrame {
 			label.setIcon(new ImageIcon(Test.class.getResource("/Pics/Ausgang.png")));
 			break;
 		}
+	}
+	
+	
+	public void bewegen(int[] Position, int[] neuePosition){
+		
+		Position[0] = Position[0] + neuePosition[0];
+		Position[1] = Position[1] + neuePosition[1];
+		int Code = 	(Position[0]*10)-10+Position[1];
+		
+		testPos(Code);
+	}
+	
+	
+	public void testPos(int Pos){
+		int TestWert = map[Pos][];
+		
+		if(TestWert == 4){}
+		else malen(Pos);
+	}
+	
+	
+	public static void main(String[] args) {
+	EventQueue.invokeLater(new Runnable() {
+	public void run() {
+		try {
+			Test frame = new Test();
+				frame.setVisible(true);
+			}
+		catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		});
 	}
 
 }
