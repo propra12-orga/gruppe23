@@ -12,8 +12,8 @@ public class GameKeyListener implements KeyListener{
 		}
 	}
 	
-	public void zeichnen(int[] Position, int[] neuePosition){
-		Test.bewegen(Position, neuePosition);
+	public void zeichnen(int[] a){
+		Hulk player = new Hulk(a[0],a[1]);
 			
 	}
 	
@@ -40,7 +40,7 @@ public class GameKeyListener implements KeyListener{
 		if(Key.getKeyCode() == Key.VK_SPACE){		//Bombe
 			Bombe bomb = new Bombe(true);
 		}
-		zeichnen(b, a);								//An dieser Stelle muss die Print-Funktion mit Übergabe des a[] gesetzt werden.
+		zeichnen(a);								//An dieser Stelle muss die Print-Funktion mit Übergabe des a[] gesetzt werden.
 	}												//Zudem muss der KeyListener für die Bombe-Taste noch eine Auswirkung bekommen.
 	
 	
