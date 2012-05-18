@@ -12,6 +12,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.border.EmptyBorder;
 
 
 //Panel für KeyListener benötigt!
@@ -42,7 +43,7 @@ public class Menue{
 	
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 475, 309);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -62,11 +63,13 @@ public class Menue{
 		mnSpiel.add(mntmBeenden);
 		
 		
+		JPanel gameMap = new Test();
+		gameMap.setBorder(new EmptyBorder(3, 3, 3, 3));
 		
-		JPanel panel = new JPanel();
+		/*JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
-		
+		*/
 		
 	}
 

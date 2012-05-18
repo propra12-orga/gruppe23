@@ -1,3 +1,4 @@
+import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -12,6 +13,10 @@ import javax.swing.border.EmptyBorder;
 public class Test extends JFrame {
 
 	private JPanel contentPane;
+	boolean gefunden;
+	GameKeyListener kListener;
+	int n = 11;// Spielfeldgr��e
+	int positionX, positionY;
 	
 	/*
 	 * Das Spielfeld muss vom Typ Panel sein!!!
@@ -22,23 +27,25 @@ public class Test extends JFrame {
 	 * 
 	 */
 
-	// public static void main(String[] args) {
-	// EventQueue.invokeLater(new Runnable() {
-	// public void run() {
-	// try {
-	// Test frame = new Test();
-	// frame.setVisible(true);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// });
-	// }
+	 public static void main(String[] args) {
+	 EventQueue.invokeLater(new Runnable() {
+	 public void run() {
+	 try {
+	 Test frame = new Test();
+	 frame.setVisible(true);
+	 } catch (Exception e) {
+	 e.printStackTrace();
+	 }
+	 }
+	 });
+	 }
 
 	public Test() {
-		int n = 11;// Spielfeldgr��e
-		int positionX, positionY;
-
+		n = 11;						// Spielfeldgroesse
+		
+		gefunden = false;
+		kListener = new GameKeyListener();
+		
 		// int[][] map = new int[n][n];
 
 		// for (int a = 0; a < n; a++) {
@@ -46,6 +53,7 @@ public class Test extends JFrame {
 		// map[a][b] = 4;
 		// }
 		// } f�r map normaler weise die maploderklasse verwenden.
+		
 		int[][] map = { { 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, },
 
 				{ 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
@@ -58,7 +66,7 @@ public class Test extends JFrame {
 				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
 				{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
 				{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, }, };
-		boolean gefunden = false;
+		
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 
@@ -67,19 +75,21 @@ public class Test extends JFrame {
 					positionX = i; // methode sucht hulk im map - array
 					positionY = j;// postion x und y sind dann die postionen vom
 									// hulk, f�r keylistener wichtig!
+					break;
 				} else {
 					gefunden = false;
-				}
-
+					
+				
 			}
 		}
-
+		
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
-		setBounds(100, 100, 475, 309);// panel erstellen
+		setBounds(100, 100, 550, 580);// panel erstellen
 		contentPane = new JPanel();
+		contentPane.addKeyListener(kListener);							//KeyListener angefuegt
 		contentPane.setBorder(new EmptyBorder(3, 3, 3, 3));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
@@ -93,7 +103,7 @@ public class Test extends JFrame {
 
 		JLabel[][] label = new JLabel[n][n];// ERstellt ein JLabel array,
 		GridBagConstraints[][] gbc_label = new GridBagConstraints[n][n];
-		for (int i = 0; i < n; i++) {
+		for (i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				label[i][j] = new JLabel("");// f�r jedes einzele arrayelement
 												// wird ein neues label erstellt
@@ -104,7 +114,7 @@ public class Test extends JFrame {
 												// hat die werte ob hulk,etc..
 				gbc_label[i][j] = new GridBagConstraints();
 				gbc_label[i][j].anchor = GridBagConstraints.CENTER;
-				// gbc_label[i][j].fill = GridBagConstraints.NONE;
+				gbc_label[i][j].fill = GridBagConstraints.NONE;
 				gbc_label[i][j].gridwidth = 1;
 				gbc_label[i][j].gridheight = 1;
 				gbc_label[i][j].insets = new Insets(0, 0, 0, 0);
@@ -113,8 +123,8 @@ public class Test extends JFrame {
 				contentPane.add(label[i][j], gbc_label[i][j]);// label auf panel
 																// laden
 			}
-		}
-		pack();
+		}}
+		//pack();
 	}
 
 	public void malen(JLabel label, int i) {
@@ -145,7 +155,9 @@ public class Test extends JFrame {
 		case 6:// explosion
 			label.setIcon(new ImageIcon(Test.class.getResource("/Pics/EXP.png")));
 			break;
-
+		case 7:
+			label.setIcon(new ImageIcon(Test.class.getResource("/Pics/Ausgang.png")));
+			break;
 		}
 	}
 
