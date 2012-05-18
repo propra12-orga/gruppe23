@@ -15,7 +15,7 @@ public class Zeit {
 											// explosion
 	}
 
-	class explosion extends TimerTask {
+	public class explosion extends TimerTask {
 		public void run() {
 			System.out.print("Bombe explodiert"); // wenn die zeit ableuft
 													// explosion

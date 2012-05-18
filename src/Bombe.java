@@ -18,26 +18,16 @@ public class Bombe extends JFrame {
 
 		if (gelegt == true) { // Bild zeichnen
 			add(new JLabel(new ImageIcon("src/Pics/Bombe.png")));
-			Zeit timer = new Zeit(3000);
-
-			int Timer = -20000;
-			// Timer der Bombe
-			while (gelegt == true) {
-
-				Timer++; // Timer runterzahlen lassen zum explodiren
-
-				if (Timer == 0) { // explosion anzeigen
-					add(new JLabel(new ImageIcon("src/Pics/EXP.png")));
-					// gelegt = false;
-				}
+			Zeit timer = new Zeit(3000);// Timer der Bombe
+			if (getX() == 0) { // explosion beim ablauf der zeit
+				add(new JLabel(new ImageIcon("src/Pics/EXP.png")));
 			}
 		}
-
 	}
 
 	// private void delete(Bombe) {}
 
 	public static void main(String[] args) {
-		new Bombe(true);
+		new Bombe(false);
 	}
 }
