@@ -25,34 +25,15 @@ public class Menue{
 	private MenueKeyListener MenueListener;
 	private GameKeyListener GameListener;
 	
-	
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Menue window = new Menue();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-	
-	
 	//
-	//Methoden zur Initialisierung des Keylisteners
 	//Es muss noch ein Frame hinzugefügt werden, in dem das Spielfeld ist:
 	//Wichtig ist hier, dass .addKeyListener(GameKeyListener) zu diesem Frame hinzugefügt wird!
 	//
 	//
+	
 	public Menue() {
 		initialize();
+		
 	}
 
 	/**
@@ -80,9 +61,13 @@ public class Menue{
 		mntmBeenden.setAction(Action_Beenden);
 		mnSpiel.add(mntmBeenden);
 		
+		
+		
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
+		
+		
 	}
 
 	private static void addPopup(Component component, final JPopupMenu popup) {
@@ -103,11 +88,11 @@ public class Menue{
 		});
 		
 	}
+	
 	private class Action_Beenden extends AbstractAction {
-		/**
-		 * 
+		/*Beenden-Funktion wird implementiert 
 		 */
-		private static final long serialVersionUID = 2921437400818980224L;
+
 		public Action_Beenden() {
 			putValue(NAME, "Beenden");
 			putValue(SHORT_DESCRIPTION, "Beenden des Spiels");
@@ -116,6 +101,11 @@ public class Menue{
 			System.exit( 0 );
 		}
 	}
+	
+	/*
+	 * Neustarten-Funktion wird implementiert
+	 */
+	
 	private class Action_Neu extends AbstractAction {
 		public Action_Neu() {
 			putValue(NAME, "Neu");
@@ -124,5 +114,18 @@ public class Menue{
 		public void actionPerformed(ActionEvent e) {
 			initialize();
 		}
+	}
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Menue window = new Menue();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }

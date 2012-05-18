@@ -12,6 +12,15 @@ import javax.swing.border.EmptyBorder;
 public class Test extends JFrame {
 
 	private JPanel contentPane;
+	
+	/*
+	 * Das Spielfeld muss vom Typ Panel sein!!!
+	 * D.h.: neue Klasse und ummodeln.
+	 * 
+	 * 
+	 * 
+	 * 
+	 */
 
 	// public static void main(String[] args) {
 	// EventQueue.invokeLater(new Runnable() {
@@ -36,18 +45,20 @@ public class Test extends JFrame {
 		// }
 		// } f�r map normaler weise die maploderklasse verwenden.
 		int[][] map = { { 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, },
-				{ 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
-				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
-				{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
-				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
-				{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
-				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
-				{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
-				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
-				{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
-				{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, }, };
+						{ 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+						{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
+						{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+						{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
+						{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+						{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
+						{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+						{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, },
+						{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, },
+						{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, }, };
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
 		setBounds(100, 100, 475, 309);// panel erstellen
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(3, 3, 3, 3));
