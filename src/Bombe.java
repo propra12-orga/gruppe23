@@ -21,12 +21,17 @@ public class Bombe extends JFrame {
 			System.out.println("Bombe gelegt"); // testen
 			add(new JLabel(new ImageIcon("src/Pics/Bombe.png")));// Bild
 			// zeichnen
-			Zeit timer = new Zeit(1000);// Timer der Bombe
+			Zeit timer = new Zeit(8000);// Timer der Bombe
 
-			if (new Zeit(0) == null) { // explosion beim ablauf der zeit
-				add(new JLabel(new ImageIcon("src/Pics/EXP.png")));
-				System.out.println("Bombe explodiert"); // testen
-			}
+			//
+			// if (new Zeit(0) == null) { // wie zählt denn der bakackte timer
+			// // denn???????? bei != null funzt
+			// // ist auch logisch // explosion
+			// // beim ablauf der zeit
+			// add(new JLabel(new ImageIcon("src/Pics/EXP.png")));
+			// System.out.println("Bombe explodiert"); // testen
+			//
+			// }
 
 		}
 

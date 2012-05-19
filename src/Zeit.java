@@ -1,12 +1,23 @@
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Zeit {
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class Zeit extends JFrame {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	Timer leuft;
+	{
+
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		pack(); // wird zum zeichnen benotigt
+		setVisible(true);
+		setBounds(100, 100, 475, 309);
+	}
 
 	public static void main(String args[]) {
 		new Zeit(0); // zeit bis zur explosion
@@ -22,7 +33,7 @@ public class Zeit {
 	public class explosion extends TimerTask {
 		public void run() {
 			System.out.print("Bombe explodiert"); // wenn die zeit ableuft
-			// explosion
+			add(new JLabel(new ImageIcon("src/Pics/EXP.png")));// explosion
 			leuft.cancel(); // timer wird terminiert
 		}
 	}
