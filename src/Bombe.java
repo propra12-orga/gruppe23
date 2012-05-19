@@ -1,6 +1,3 @@
-import java.util.Timer;
-import java.util.TimerTask;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,41 +21,13 @@ public class Bombe extends JFrame {
 			System.out.println("Bombe gelegt"); // testen
 			add(new JLabel(new ImageIcon("src/Pics/Bombe.png")));// Bild
 			// zeichnen
-			Zeit timer = new Zeit(2000);// Timer der Bombe
+			Zeit timer = new Zeit(1000);// Timer der Bombe
 
-			// if (x == 0) { // explosion beim ablauf der zeit
-			// add(new JLabel(new ImageIcon("src/Pics/EXP.png")));
-			// }
-
-			class Zeit {
-				Timer leuft;
-
-				//
-				// {
-				// new Zeit(3000); // zeit bis zur explosion
-				// System.out.println("Bombe gelegt"); // testen
-				// add(new JLabel(new ImageIcon("src/Pics/Bombe.png")));
-				// }
-				//
-				public Zeit(int x) { // construktor erstellen
-					leuft = new Timer();
-					leuft.schedule(new explosion(), x); // verzogert diezeit bis
-														// zur explosion
-				}
-
-				class explosion extends TimerTask {
-					public void run() {
-						System.out.print("Bombe explodiert"); // wenn die zeit
-																// ableuft
-
-						add(new JLabel(new ImageIcon("src/Pics/EXP.png"))); // explosion
-						leuft.cancel(); // timer wird terminiert
-
-					}
-
-				}
-
+			if (new Zeit(0) == null) { // explosion beim ablauf der zeit
+				add(new JLabel(new ImageIcon("src/Pics/EXP.png")));
+				System.out.println("Bombe explodiert"); // testen
 			}
+
 		}
 
 	}
