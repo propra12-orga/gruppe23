@@ -10,48 +10,57 @@ import javax.swing.JMenuItem;
 
 public class Menue {
 
+	// Deklaration & Initialisierung:
 	private JFrame frame;
-	private final Action_Beenden Action_Beenden = new Action_Beenden();
-	private final Action_Neu Action_Neu = new Action_Neu();
+	private final Action_Beenden Action_Beenden = new Action_Beenden(); // Aktion zum Beenden des Spiels erstellen
+	private final Action_Neu Action_Neu = new Action_Neu(); // Aktion zum Neustart des Spiels erstellen
 	private MenueKeyListener MenueListener;
 	private GameKeyListener GameListener;
-	private Map Game = new Map();
+	private static Map game = new Map(); // Spielfeld erstellen
+	private Bombe bomb = new Bombe(); // Bombe erstellen
 
 	// private Map Player = new Hulk(2,2);														//<<<<----- 
 	
 	// Es muss noch ein Frame hinzugefügt werden, in dem das Spielfeld ist:
 	// Wichtig ist hier, dass .addKeyListener(GameKeyListener) zu diesem Frame hinzugefügt wird!
 	
+	// Konstruktor:
 	public Menue() {
 		initialize();		
 	}
 	
+	// Methode zum Initialisieren des Spielfelds:
 	private void initialize() {
-		frame = new JFrame();
-		frame.add(Game);
-		frame.setBounds(100, 100, 570, 616);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame = new JFrame(); // Fenster erstellen
+		frame.setBounds(100, 100, 550, 600); // Fenstergröße einstellen (x-Position, y-Position, Breite, Höhe)
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Programm beim Schließen des Fensters beenden
+		frame.setResizable(false); // Fenster soll nicht skalierbar sein
 		
-		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		JMenuBar menuBar = new JMenuBar(); // Menüleiste erstellen
+		frame.setJMenuBar(menuBar); // Menüleiste hinzufügen
 		
-		JMenu mnSpiel = new JMenu("Spiel");
-		
-		Game.zeichnen();
-		
-		menuBar.add(mnSpiel);
-		menuBar.addKeyListener(MenueListener);		//KeyListener wird fuer's Menue implementiert
+		menuBar.addKeyListener(MenueListener); // KeyListener wird für's Menue implementiert
 		menuBar.isFocusable();
 		
-		JMenuItem mntmNeu = new JMenuItem("Neu");
-		mntmNeu.setAction(Action_Neu);
-		mnSpiel.add(mntmNeu);
+		JMenu mnSpiel = new JMenu("Spiel"); // Menüpunkt "Spiel" erstellen
+		menuBar.add(mnSpiel); // Menüpunkt "Spiel" hinzufügen
 		
-		JMenuItem mntmBeenden = new JMenuItem("Beenden");
-		mntmBeenden.setAction(Action_Beenden);
-		mnSpiel.add(mntmBeenden);		
+		JMenuItem mntmNeu = new JMenuItem("Neu"); // Untermenüpunkt "Neu" erstellen
+		mnSpiel.add(mntmNeu); // Untermenüpunkt "Neu" hinzufügen
+		mntmNeu.setAction(Action_Neu); // Aktion "Action_Neu" hinzufügen
+		
+		JMenuItem mntmBeenden = new JMenuItem("Beenden"); // Untermenüpunkt "Beenden" erstellen
+		mnSpiel.add(mntmBeenden); // Untermenüpunkt "Beenden" hinzufügen
+		mntmBeenden.setAction(Action_Beenden); // Aktion "Action_Beenden" hinzufügen
+		
+		frame.add(getGame()); // Spielfeld hinzufügen
+		getGame().paint(); // Spielfeld zeichnen
+		
+		getGame().add(bomb); // Bombe hinzufügen
+		bomb.paint(); // Bombe zeichnen	
 	}
 
+	// Beenden des Spiels beim Klick auf "Beenden":
 	private class Action_Beenden extends AbstractAction {
 		private static final long serialVersionUID = 1L;
 		public Action_Beenden() {
@@ -65,6 +74,7 @@ public class Menue {
 		
 	}
 	
+	// Neustart des Spiels beim Klick auf "Neu"
 	private class Action_Neu extends AbstractAction {
 		private static final long serialVersionUID = 1L;
 		public Action_Neu() {
@@ -78,6 +88,7 @@ public class Menue {
 		
 	}
 	
+	// main-Methode:
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -91,5 +102,15 @@ public class Menue {
 				}
 			}
 		});
+	}
+
+	// getGame-Methode:
+	public static Map getGame() {
+		return game;
+	}
+
+	// setGame-Methode:
+	public void setGame(Map game) {
+		this.game = game;
 	}
 }
