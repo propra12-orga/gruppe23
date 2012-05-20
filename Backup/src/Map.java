@@ -11,11 +11,11 @@ import javax.swing.border.EmptyBorder;
 public class Map extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public boolean gefunden;
-	public int n = 11;// Spielfeldgrï¿½ï¿½e
+	public GameKeyListener kListener;
+	public int n = 11;// Spielfeldgröße
 	public int positionX, positionY;
 	public int[] neuePosition;
-	public int[] playerPosition;
-	int[][] map = {	{4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4},		//Zeile ist in der Map die Spalte
+	int[][] map = {	{4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4},
 					{4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 4},
 					{4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4},
 					{4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4},
@@ -25,23 +25,18 @@ public class Map extends JPanel {
 					{4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4},
 					{4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4},
 					{4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4},
-					{4, 4, 4, 4, 4, 4, 4, 4, 4, 7, 4} };
+					{4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4} };
 
 	public Map() {
 		gefunden = false;
-		playerPosition = new int[2];
-		playerPosition[0] = 1;
-		playerPosition[1] = 1;
+		
 		// int[][] map = new int[n][n];
 
 		// for (int a = 0; a < n; a++) {
 		// for (int b = 0; b < n; b++) { // Map initialisieren
 		// map[a][b] = 4;
 		// }
-		// } fï¿½r Map normaler Weise die Maploaderklasse verwenden.		
-	}
-	public void setNewPosition(int[] newPosition){
-		neuePosition=newPosition;
+		// } für Map normaler Weise die Maploaderklasse verwenden.		
 	}
 	
 	public void paint() {
@@ -51,7 +46,7 @@ public class Map extends JPanel {
 					gefunden = true;
 					positionX = i; 	// Methode sucht Hulk im Map-Array
 					positionY = j;	// Postion x und y sind dann die postionen vom
-									// Hulk, fï¿½r Keylistener wichtig!
+									// Hulk, für Keylistener wichtig!
 					break;
 				} 
 				
@@ -78,10 +73,10 @@ public class Map extends JPanel {
 		GridBagConstraints[][] gbc_label = new GridBagConstraints[n][n];
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				label[i][j] = new JLabel(""); // fï¿½r jedes einzele Arrayelement wird ein neues Label erstellt
+				label[i][j] = new JLabel(""); // für jedes einzele Arrayelement wird ein neues Label erstellt
 
 				label[i][j].setHorizontalAlignment(SwingConstants.CENTER);
-				label_laden(label[i][j], map[i][j]); // lï¿½dt in das Label das Bild (Map hat die Werte ob Hulk, etc..)
+				label_laden(label[i][j], map[i][j]); // lädt in das Label das Bild (Map hat die Werte ob Hulk, etc..)
 				gbc_label[i][j] = new GridBagConstraints();
 				gbc_label[i][j].anchor = GridBagConstraints.CENTER;
 				gbc_label[i][j].fill = GridBagConstraints.NONE;
@@ -112,7 +107,7 @@ public class Map extends JPanel {
 				label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Block.png")));
 				break;
 	
-			case 4: // Mauer nicht zerstï¿½rbar (eventuell ï¿½ber Hulkmodus)
+			case 4: // Mauer nicht zerstörbar (eventuell über Hulkmodus)
 				label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Mauer.png")));
 				break;
 				
@@ -125,7 +120,7 @@ public class Map extends JPanel {
 				break;
 				
 			case 7: // Ausgang
-				label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Exit.png")));
+				label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Ausgang.png")));
 				break;
 		}
 		

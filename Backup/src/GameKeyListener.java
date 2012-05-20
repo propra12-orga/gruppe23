@@ -12,12 +12,15 @@ public class GameKeyListener implements KeyListener{
 		}
 	}
 	
+	public void zeichnen(int[] a){
+		
+			
+	}
 	
 	public void keyPressed(KeyEvent Key){ 			//Diese Funktion ist essentiel für die Umsetzung des Keylisteners (bzw. die einzig relevante)
 		if(Key.getKeyCode() == Key.VK_UP){			//Oben
 			a[0] = 0;
 			a[1] = 1;
-			Map.setNewPosition(a);
 		}
 		
 		if(Key.getKeyCode() == Key.VK_LEFT){		//Links
@@ -35,9 +38,9 @@ public class GameKeyListener implements KeyListener{
 			a[1] = -1;
 		}
 		if(Key.getKeyCode() == Key.VK_SPACE){		//Bombe
-			Bombe bomb = new Bombe();
+			Bombe bomb = new Bombe(true);
 		}
-										//An dieser Stelle muss die Print-Funktion mit Übergabe des a[] gesetzt werden.
+		zeichnen(a);								//An dieser Stelle muss die Print-Funktion mit Übergabe des a[] gesetzt werden.
 	}												//Zudem muss der KeyListener für die Bombe-Taste noch eine Auswirkung bekommen.
 	
 	
