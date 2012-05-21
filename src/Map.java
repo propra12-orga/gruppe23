@@ -3,8 +3,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
@@ -13,92 +13,127 @@ public class Map extends JPanel {
 	private static final long serialVersionUID = 1L;
 	int n = 11; // Spielfeldgroesse
 	int[][] map; // Spielfeld
-	Bombe bomb = new Bombe(); // Bombe erstellen	
+	Bombe bomb = new Bombe(); // Bombe erstellen
 	JLabel[][] label = new JLabel[n][n]; // JLabel-Array erstellen
-	
+
 	// Konstruktor:
 	public Map(int[][] map) {
-		this.map = map;		
+		this.map = map;
 	}
-	
+
 	// move_Hulk-Methode:
 	public void move_Hulk(int x, int y) {
 		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {				
-				if (map[i][j] == 1 || map[i][j] == 5) { // falls das Feld das Hulk-Icon (1) oder Bombe-Icon (5) beinhaltet
-					if (map[i][j] == 1) { // falls das Feld das Hulk-Icon (1) beinhaltet
+			for (int j = 0; j < n; j++) {
+				if (map[i][j] == 1 || map[i][j] == 5) { // falls das Feld das
+														// Hulk-Icon (1) oder
+														// Bombe-Icon (5)
+														// beinhaltet
+					if (map[i][j] == 1) { // falls das Feld das Hulk-Icon (1)
+											// beinhaltet
 						map[i][j] = 2; // weise dem Feld das Weg-Icon (2) zu
-					}				
-						
-					map[i+x][j+y] = 1; // weise dem nächsten Feld das Hulk-Icon (1) zu
-					
-					Menue.get_hulk().set_x(i+x); // setze horizontale Hulk-Position weiter
-					Menue.get_hulk().set_y(j+y); // setze vertikale Hulk-Position weiter
-					
-					System.out.println("Hulks alte grafische Position: " + i + "te Spalte, " + j + "te Zeile"); // Test
+					}
+
+					map[i + x][j + y] = 1; // weise dem nächsten Feld das
+											// Hulk-Icon (1) zu
+
+					Menue.get_hulk().set_x(i + x); // setze horizontale
+													// Hulk-Position weiter
+					Menue.get_hulk().set_y(j + y); // setze vertikale
+													// Hulk-Position weiter
+
+					System.out.println("Hulks alte grafische Position: " + i
+							+ "te Spalte, " + j + "te Zeile"); // Test
 					System.out.println("");
-					System.out.println("Hulks neue grafische Position: " + (i+x) + "te Spalte, " + (j+y) + "te Zeile"); // Test
+					System.out.println("Hulks neue grafische Position: "
+							+ (i + x) + "te Spalte, " + (j + y) + "te Zeile"); // Test
 					System.out.println("");
-					
+
 					// for-Schleifen abbrechen:
 					i = n;
-					j = n;					
-				} 
+					j = n;
+				}
 
 			}
-			
-		}	
-		
+
+		}
+
 	}
-	
+
 	// bombe_legen-Methode:
-	public void bombe_legen() {		
+	public void bombe_legen() {
 		add(bomb); // Bombe hinzufuegen
 		bomb.aktivieren(); // Bombe aktivieren
-		map[Menue.get_hulk().get_x()][Menue.get_hulk().get_y()] = 5; // Bombe darstellen
-		bomb.set_x(Menue.get_hulk().get_x()); // setze horizontale Bomben-Position
+		map[Menue.get_hulk().get_x()][Menue.get_hulk().get_y()] = 5; // Bombe
+																		// darstellen
+		bomb.set_x(Menue.get_hulk().get_x()); // setze horizontale
+												// Bomben-Position
 		bomb.set_y(Menue.get_hulk().get_y()); // setze vertikale Bomben-Position
 	}
-	
+
 	// bombe_detonieren-Methode:
-	public void bombe_detonieren() {	
-		map[bomb.get_x()][bomb.get_y()] = 6; // Detonation darstellen
-		Zeit ende_explosion = new Zeit(); // Timer fuer Dauer der Explosion erstellen
-		Menue.get_game().add(ende_explosion); // Timer fuer Dauer der Explosion hinzufuegen
-		ende_explosion.timer_starten(1000, "Detonation"); // Timer fuer Dauer der Explosion starten	
+	public void bombe_detonieren() {
+		for (int x = -1, y = -1; x < 2; x++, y++) {// +x +y die
+			// Explosion
+			// wird
+			// Waagerecht/Senckrecht
+			// erweitert
+
+			if (map[bomb.get_x() + x][bomb.get_y()] == 2
+					|| map[bomb.get_x() + x][bomb.get_y()] == 5) // Explosion
+				map[bomb.get_x() + x][bomb.get_y()] = 6; // ueberschreibt
+															// den weg
+															// und Bombe
+
+			if (map[bomb.get_x()][bomb.get_y() + y] == 2
+					|| map[bomb.get_x()][bomb.get_y() + y] == 5)
+				map[bomb.get_x()][bomb.get_y() + y] = 6;
+
+		}
+
+		Zeit ende_explosion = new Zeit(); // Timer fuer Dauer der Explosion
+											// erstellen
+		Menue.get_game().add(ende_explosion); // Timer fuer Dauer der Explosion
+												// hinzufuegen
+		ende_explosion.timer_starten(1000, "Detonation"); // Timer fuer Dauer
+															// der Explosion
+															// starten
 		removeAll(); // entferne alle bisherigen Komponenten vom Panel
 		refresh(); // zeichne alle Komponenten des Panels neu
 	}
-	
+
 	// map_ausgeben-Methode:
 	public void map_ausgeben() {
 		System.out.print(map[10][9]);
 		for (int spalte = 0; spalte < n; spalte++) {
-			for (int zeile = 0; zeile < n; zeile++) {	
+			for (int zeile = 0; zeile < n; zeile++) {
 				System.out.print(map[spalte][zeile] + ", ");
-				if (zeile == n-1) {
+				if (zeile == n - 1) {
 					System.out.println();
 				}
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	// refresh-Methode:
 	public void refresh() {
 		GridBagConstraints[][] gbc_label = new GridBagConstraints[n][n];
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				label[i][j] = new JLabel(""); // fuer jedes einzele Arrayelement wird ein neues Label erstellt
+				label[i][j] = new JLabel(""); // fuer jedes einzele Arrayelement
+												// wird ein neues Label erstellt
 				label[i][j].setHorizontalAlignment(SwingConstants.CENTER);
 
 				System.out.print(map[i][j] + ", ");
-				if (j == n-1) {
+				if (j == n - 1) {
 					System.out.println();
 				}
-				
-				label_laden(label[i][j], map[i][j]); // laedt in das Label das Bild (Map hat die Werte ob Hulk, etc..)
+
+				label_laden(label[i][j], map[i][j]); // laedt in das Label das
+														// Bild (Map hat die
+														// Werte ob Hulk, etc..)
 				gbc_label[i][j] = new GridBagConstraints();
 				gbc_label[i][j].anchor = GridBagConstraints.CENTER;
 				gbc_label[i][j].fill = GridBagConstraints.NONE;
@@ -111,15 +146,15 @@ public class Map extends JPanel {
 				label[i][j].repaint(); // Zeichnen
 				label[i][j].setVisible(true); // Sichtbarkeit setzen
 			}
-			
+
 		}
 		updateUI();
 	}
-	
+
 	// init-Methode:
-	public void init() {		
+	public void init() {
 		setBounds(100, 100, 550, 580); // Panel erstellen
-		
+
 		setBorder(new EmptyBorder(3, 3, 3, 3));
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[] { 1, 1, 1, 1, 0 };
@@ -129,13 +164,15 @@ public class Map extends JPanel {
 		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gbl_contentPane);
 
-		
 		GridBagConstraints[][] gbc_label = new GridBagConstraints[n][n];
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				label[i][j] = new JLabel(""); // fuer jedes einzele Arrayelement wird ein neues Label erstellt
+				label[i][j] = new JLabel(""); // fuer jedes einzele Arrayelement
+												// wird ein neues Label erstellt
 				label[i][j].setHorizontalAlignment(SwingConstants.CENTER);
-				label_laden(label[i][j], map[i][j]); // laedt in das Label das Bild (Map hat die Werte ob Hulk, etc..)
+				label_laden(label[i][j], map[i][j]); // laedt in das Label das
+														// Bild (Map hat die
+														// Werte ob Hulk, etc..)
 				gbc_label[i][j] = new GridBagConstraints();
 				gbc_label[i][j].anchor = GridBagConstraints.CENTER;
 				gbc_label[i][j].fill = GridBagConstraints.NONE;
@@ -146,44 +183,47 @@ public class Map extends JPanel {
 				gbc_label[i][j].gridy = j;
 				add(label[i][j], gbc_label[i][j]); // Label auf Panel laden
 			}
-			
+
 		}
-		
+
 	}
-	
+
 	// label_laden-Methode:
 	public void label_laden(JLabel label, int i) {
 
 		switch (i) {
-			case 1: // Hulk
-				label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Hulk.png")));
-				break;
-	
-			case 2: // Weg
-				label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Weg.png")));
-				break;
-	
-			case 3: // Block
-				label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Block.png")));
-				break;
-	
-			case 4: // Mauer (nicht zerstoerbar, eventuell ueber Hulkmodus)
-				label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Mauer.png")));
-				break;
-				
-			case 5: // Bombe
-				label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Bombe.png")));
-				break;
-				
-			case 6: // Explosion
-				label.setIcon(new ImageIcon(Map.class.getResource("/Pics/EXP.png")));
-				break;
-				
-			case 7: // Ausgang
-				label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Exit.png")));
-				break;
+		case 1: // Hulk
+			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Hulk.png")));
+			break;
+
+		case 2: // Weg
+			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Weg.png")));
+			break;
+
+		case 3: // Block
+			label.setIcon(new ImageIcon(Map.class
+					.getResource("/Pics/Block.png")));
+			break;
+
+		case 4: // Mauer (nicht zerstoerbar, eventuell ueber Hulkmodus)
+			label.setIcon(new ImageIcon(Map.class
+					.getResource("/Pics/Mauer.png")));
+			break;
+
+		case 5: // Bombe
+			label.setIcon(new ImageIcon(Map.class
+					.getResource("/Pics/Bombe.png")));
+			break;
+
+		case 6: // Explosion
+			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/EXP.png")));
+			break;
+
+		case 7: // Ausgang
+			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Exit.png")));
+			break;
 		}
-		
-	}		
+
+	}
 
 }
