@@ -29,7 +29,7 @@ public class Menue implements KeyListener{
 	private static Map game = new Map(map); // Spielfeld erstellen
 	private static Hulk hulk = new Hulk(); // Hulk erstellen
 
-	private int[] a;
+	private int[] a;	//Array fuer neue Position
 	
 	// private Map Player = new Hulk(2,2);														//<<<<----- 
 	
