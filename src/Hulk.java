@@ -1,15 +1,23 @@
-
-public class Hulk extends Map{
-	public int X, Y;
+public class Hulk {
+	// Deklaration & Initialisierung:
+	public int x = 1; // x-Koordinate (horizontale Position)
+	public int y = 1; // y-Koordinate (vertikale Position)
 	
-	
-	public Hulk(int x, int y){
-		X = x; Y = y;
+	// setter & getter:
+	public int get_x() {
+		return x;
 	}
 	
-	public void move(int xPosition, int yPosition){
-		super(xPosition, yPosition);
+	public void set_x(int x) {
+		this.x = x;
 	}
 	
+	public int get_y() {
+		return y;
+	}
+	
+	public void set_y(int y) {
+		this.y = y;
+	}
 	
 }

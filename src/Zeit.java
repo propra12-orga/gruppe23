@@ -1,8 +1,6 @@
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class Zeit extends JLabel
@@ -11,18 +9,37 @@ public class Zeit extends JLabel
 	Timer timer;
 	
 	// timer_starten-Methode
-	public void timer_starten(int x) { // x = Timer-Verögerung
+	public void timer_starten(int x, String logo) { // x = Timer-Verögerung, logo = Bomben-/Detonations-Icon
 		timer = new Timer(); // Timer erstellen
-		timer.schedule(new explosion(), x); // Zeit bis zur Explosion um x Millisek. verzögern
+		
+		if (logo.equals("Bombe")) {
+			timer.schedule(new bombe(), x); // Zeit bis zur Detonation um x Millisek. verzögern
+		}
+		
+		else if (logo.equals("Detonation")) {
+			timer.schedule(new detonation(), x); // Zeit bis zum Ende der Detonation um x Millisek. verzögern
+		}
+
 	}
 
-	public class explosion extends TimerTask {
+	public class bombe extends TimerTask {
 		public void run() {
-			System.out.print("Bombe explodiert"); // Konsolenausgabe zum Test
-			setIcon(new ImageIcon("src/Pics/EXP.png")); // Bild laden
-			Menue.getGame().repaint(); // Zeichnen
-			Menue.getGame().setVisible(true); // Sichtbarkeit setzen
+			System.out.println("Bombe explodiert"); // Test
+			System.out.println("");
+			
+			Menue.get_game().bombe_detonieren(); // Detonation der Bombe
+			timer.cancel(); // Timer terminieren				
+		}
+		
+	}
+	
+	public class detonation extends TimerTask {
+		public void run() {
+			System.out.println("Detonation beendet"); // Test
+			System.out.println("");
+			
 			timer.cancel(); // Timer terminieren
+			Menue.map[Menue.get_game().bomb.get_x()][Menue.get_game().bomb.get_y()] = 2; // Nach Ablauf des Timers wieder das Weg-Icon darstellen
 		}
 		
 	}

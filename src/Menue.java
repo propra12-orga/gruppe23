@@ -9,25 +9,32 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import java.awt.event.KeyListener;
 
-// Panel f�r KeyListener ben�tigt!
-
 public class Menue implements KeyListener{
 
 	// Deklaration & Initialisierung:
 	private JFrame frame;
 	private final Action_Beenden Action_Beenden = new Action_Beenden(); // Aktion zum Beenden des Spiels erstellen
 	private final Action_Neu Action_Neu = new Action_Neu(); // Aktion zum Neustart des Spiels erstellen
-	private MenueKeyListener menueListener;
-	private GameKeyListener gameListener;
-	private static Map game = new Map(); // Spielfeld erstellen
-	private Bombe bomb = new Bombe(); // Bombe erstellen
+	static int[][] map = {	{4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4},		//Zeile ist in der Map die Spalte
+							{4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 4},
+							{4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4},
+							{4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4},
+							{4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4},
+							{4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4},
+							{4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4},
+							{4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4},
+							{4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4},
+							{4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4},
+							{4, 4, 4, 4, 4, 4, 4, 4, 4, 7, 4} };
+	private static Map game = new Map(map); // Spielfeld erstellen
+	private static Hulk hulk = new Hulk(); // Hulk erstellen
 
 	private int[] a;
 	
 	// private Map Player = new Hulk(2,2);														//<<<<----- 
 	
-	// Es muss noch ein Frame hinzugef�gt werden, in dem das Spielfeld ist:
-	// Wichtig ist hier, dass .addKeyListener(GameKeyListener) zu diesem Frame hinzugef�gt wird!
+	// Es muss noch ein Frame hinzugefuegt werden, in dem das Spielfeld ist:
+	// Wichtig ist hier, dass .addKeyListener(GameKeyListener) zu diesem Frame hinzugefuegt wird!
 	
 	// Konstruktor:
 	public Menue() {
@@ -38,66 +45,105 @@ public class Menue implements KeyListener{
 	// Methode zum Initialisieren des Spielfelds:
 	private void initialize() {
 		frame = new JFrame(); // Fenster erstellen
-		frame.setBounds(100, 100, 550, 600); // Fenstergr��e einstellen (x-Position, y-Position, Breite, H�he)
+		frame.setBounds(100, 100, 550, 600); // Fenstergroesse einstellen (x-Position, y-Position, Breite, H�he)
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Programm beim Schlie�en des Fensters beenden
 		frame.setResizable(false); // Fenster soll nicht skalierbar sein
 		
-		JMenuBar menuBar = new JMenuBar(); // Men�leiste erstellen
-		frame.setJMenuBar(menuBar); // Men�leiste hinzuf�gen
+		JMenuBar menuBar = new JMenuBar(); // Menueleiste erstellen
+		frame.setJMenuBar(menuBar); // Menueleiste hinzuf�gen
 		
-		menuBar.addKeyListener(menueListener); // KeyListener wird f�r's Menue implementiert
 		menuBar.isFocusable();
 		
-		JMenu mnSpiel = new JMenu("Spiel"); // Men�punkt "Spiel" erstellen
-		menuBar.add(mnSpiel); // Men�punkt "Spiel" hinzuf�gen
+		JMenu mnSpiel = new JMenu("Spiel"); // Menuepunkt "Spiel" erstellen
+		menuBar.add(mnSpiel); // Menuepunkt "Spiel" hinzufuegen
 		
-		JMenuItem mntmNeu = new JMenuItem("Neu"); // Untermen�punkt "Neu" erstellen
-		mnSpiel.add(mntmNeu); // Untermen�punkt "Neu" hinzuf�gen
-		mntmNeu.setAction(Action_Neu); // Aktion "Action_Neu" hinzuf�gen
+		JMenuItem mntmNeu = new JMenuItem("Neu"); // Untermenuepunkt "Neu" erstellen
+		mnSpiel.add(mntmNeu); // Untermenuepunkt "Neu" hinzufuegen
+		mntmNeu.setAction(Action_Neu); // Aktion "Action_Neu" hinzufuegen
 		
-		JMenuItem mntmBeenden = new JMenuItem("Beenden"); // Untermen�punkt "Beenden" erstellen
-		mnSpiel.add(mntmBeenden); // Untermen�punkt "Beenden" hinzuf�gen
-		mntmBeenden.setAction(Action_Beenden); // Aktion "Action_Beenden" hinzuf�gen
+		JMenuItem mntmBeenden = new JMenuItem("Beenden"); // Untermenuepunkt "Beenden" erstellen
+		mnSpiel.add(mntmBeenden); // Untermenuepunkt "Beenden" hinzufuegen
+		mntmBeenden.setAction(Action_Beenden); // Aktion "Action_Beenden" hinzufuegen
 		
-		frame.add(getGame()); // Spielfeld hinzuf�gen
-		getGame().paint(); // Spielfeld zeichnen
+		frame.add(game); // Spielfeld hinzufuegen
+		game.init(); // Spielfeld zeichnen		
 		
-		getGame().add(bomb); // Bombe hinzuf�gen
-		bomb.paint(); // Bombe zeichnen	
-		game.addKeyListener(gameListener);
+		game.addKeyListener(this);
 		game.setFocusable(true);
+		game.requestFocus();
 	}
 	
-	public void keyPressed(KeyEvent Key){ 			//Diese Funktion ist essentiel für die Umsetzung des Keylisteners (bzw. die einzig relevante)
-		if(Key.getKeyCode() == Key.VK_UP){			//Oben
+	// keyPressed-Methode:
+	public void keyPressed(KeyEvent Key){ 			
+		if (Key.getKeyCode() == KeyEvent.VK_UP){		// Oben
+			System.out.println("oben"); // Test
+			System.out.println("");
+			
 			a[0] = 0;
-			a[1] = 1;
-			Map.setNewPosition(a);
+			a[1] = -1;			
 		}
 		
-		if(Key.getKeyCode() == Key.VK_LEFT){		//Links
+		if (Key.getKeyCode() == KeyEvent.VK_LEFT){		// Links
+			System.out.println("links"); // Test
+			System.out.println("");
+			
 			a[0] = -1;
 			a[1] = 0;
 		}
 		
-		if(Key.getKeyCode() == Key.VK_RIGHT){		//Rechts
+		if (Key.getKeyCode() == KeyEvent.VK_RIGHT){		// Rechts
+			System.out.println("rechts"); // Test
+			System.out.println("");
+			
 			a[0] = 1;
 			a[1] = 0;
 		}
 		
-		if(Key.getKeyCode() == Key.VK_DOWN){		//Unten
+		if (Key.getKeyCode() == KeyEvent.VK_DOWN){		// Unten
+			System.out.println("unten"); // Test
+			System.out.println("");
+			
 			a[0] = 0;
-			a[1] = -1;
+			a[1] = 1;			
 		}
-		if(Key.getKeyCode() == Key.VK_SPACE){		//Bombe
-			Bombe bomb = new Bombe();
+		
+		if (Key.getKeyCode() == KeyEvent.VK_SPACE){		// Bombe
+			System.out.println("Space"); // Test
+			System.out.println("");
+			
+			game.bombe_legen();
+			game.removeAll(); // entferne alle bisherigen Komponenten vom Panel
+			game.refresh();	// zeichne alle Komponenten des Panels neu
 		}
-										//An dieser Stelle muss die Print-Funktion mit Übergabe des a[] gesetzt werden.
-	}												//Zudem muss der KeyListener für die Bombe-Taste noch eine Auswirkung bekommen.
+		
+		if (game.map[hulk.get_x()+a[0]][hulk.get_y()+a[1]] == 2) { // falls das naechste Feld ein Weg-Feld ist
+			int hulk_x = hulk.get_x(); // horizontale Position des Hulks
+			hulk.set_x(hulk_x+a[0]); // setze horizontale Position des Hulks weiter
+			
+			int hulk_y = hulk.get_y(); // vertikale Position des Hulks
+			hulk.set_y(hulk_y+a[1]); // setze vertikale Position des Hulks weiter
+			
+			System.out.println("Hulks neue Position: " + hulk.get_x() + "te Spalte, " + hulk.get_y() + "te Zeile"); // Test
+			System.out.println("");
+			
+			game.move_Hulk(a[0],a[1]); // bewege Hulk auf dem Spielfeld
+			game.removeAll(); // entferne alle bisherigen Komponenten vom Panel
+			game.refresh();	// zeichne alle Komponenten des Panels neu
+		}
+		
+		else if (game.map[hulk.get_x()+a[0]][hulk.get_y()+a[1]] == 7) { // falls das naechste Feld das Ziel-Feld ist
+			System.out.println("Gewonnen!"); // Test
+			System.out.println("");
+			
+			game.move_Hulk(-map.length+3,-map.length+3); // bewege Hulk zum Startpunkt zurueck
+			game.removeAll(); // entferne alle bisherigen Komponenten vom Panel
+			game.refresh(); // zeichne alle Komponenten des Panels neu
+		}
+										
+	}												
 	
 	public void keyTyped(KeyEvent Key){}
 	public void keyReleased(KeyEvent Key) {}
-
 
 	// Beenden des Spiels beim Klick auf "Beenden":
 	private class Action_Beenden extends AbstractAction {
@@ -122,19 +168,32 @@ public class Menue implements KeyListener{
 		}
 		
 		public void actionPerformed(ActionEvent e) {
-			initialize();
+			//hulk.get_x()-hulk.get_x
+			game.move_Hulk(-hulk.get_x()+1,-hulk.get_y()+1);
+			game.removeAll();
+			game.refresh();
 		}
 		
 	}
 	
 	// getGame-Methode:
-	public static Map getGame() {
+	public static Map get_game() {
 		return game;
 	}
 
 	// setGame-Methode:
-	public void setGame(Map game) {
-		this.game = game;
+	public void set_game(Map game) {
+		Menue.game = game;
+	}
+	
+	// getGame-Methode:
+	public static Hulk get_hulk() {
+		return hulk;
+	}
+
+	// setGame-Methode:
+	public void set_hulk(Hulk hulk) {
+		Menue.hulk = hulk;
 	}
 	
 	// main-Methode:
@@ -152,6 +211,5 @@ public class Menue implements KeyListener{
 			}
 		});
 	}
-
 
 }
