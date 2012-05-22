@@ -23,8 +23,7 @@ public class Menue implements KeyListener {
 															// Neustart des
 															// Spiels erstellen
 	static int[][] map = {
-			{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 }, // Zeile ist in der Map die
-													// Spalte
+			{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 }, // Zeile ist in der Map die Spalte
 			{ 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 4 },
 			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4 },
 			{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4 },
@@ -37,6 +36,11 @@ public class Menue implements KeyListener {
 			{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 7, 4 } };
 	private static Map game = new Map(map); // Spielfeld erstellen
 	private static Hulk hulk = new Hulk(); // Hulk erstellen
+	private Thread moveHulk;
+	private Thread bombHulk;
+	private static boolean move;
+	
+	private static boolean bomb;
 
 	private static int[] a;
 
@@ -50,6 +54,14 @@ public class Menue implements KeyListener {
 	public Menue() {
 		initialize();
 		a = new int[2];
+		
+		moveHulk = new Thread(new MoveHulk());			//Threads inizialisieren und starten
+		moveHulk.start();
+		
+		bombHulk = new Thread(new BombHulk());
+		bombHulk.start();
+		bomb = false;
+		move = false;
 	}
 
 	// Methode zum Initialisieren des Spielfelds:
@@ -101,6 +113,9 @@ public class Menue implements KeyListener {
 
 			a[0] = 0;
 			a[1] = -1;
+			
+			
+			move = true;
 		}
 
 		if (Key.getKeyCode() == KeyEvent.VK_LEFT) { // Links
@@ -109,6 +124,9 @@ public class Menue implements KeyListener {
 
 			a[0] = -1;
 			a[1] = 0;
+			
+			
+			move = true;
 		}
 
 		if (Key.getKeyCode() == KeyEvent.VK_RIGHT) { // Rechts
@@ -117,6 +135,9 @@ public class Menue implements KeyListener {
 
 			a[0] = 1;
 			a[1] = 0;
+			
+			
+			move = true;
 		}
 
 		if (Key.getKeyCode() == KeyEvent.VK_DOWN) { // Unten
@@ -125,12 +146,18 @@ public class Menue implements KeyListener {
 
 			a[0] = 0;
 			a[1] = 1;
+			
+
+			move = true;
 		}
 
 		if (Key.getKeyCode() == KeyEvent.VK_SPACE) { // Bombe
 			System.out.println("Space"); // Test
 			System.out.println("");
-
+			
+			
+			bomb = true;
+			
 			game.bombe_legen();
 			game.removeAll(); // entferne alle bisherigen Komponenten vom Panel
 			game.refresh(); // zeichne alle Komponenten des Panels neu
@@ -247,6 +274,22 @@ public class Menue implements KeyListener {
 			game.refresh(); // zeichne alle Komponenten des Panels neu
 		}
 
+	}
+	
+	public static boolean get_bomb(){
+		return bomb;
+	}
+	
+	public static void set_bomb(){
+		bomb = false;
+	}
+	
+	public static boolean get_move(){
+		return move;
+	}
+	
+	public static void set_move(){
+		move = false;
 	}
 
 	// getGame-Methode:
