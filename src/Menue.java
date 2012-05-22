@@ -45,6 +45,7 @@ public class Menue implements KeyListener{
 	// Methode zum Initialisieren des Spielfelds:
 	private void initialize() {
 		frame = new JFrame(); // Fenster erstellen
+		frame.setTitle("Bomberhulk");
 		frame.setBounds(100, 100, 550, 600); // Fenstergroesse einstellen (x-Position, y-Position, Breite, H�he)
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Programm beim Schlie�en des Fensters beenden
 		frame.setResizable(false); // Fenster soll nicht skalierbar sein
@@ -116,30 +117,40 @@ public class Menue implements KeyListener{
 			game.refresh();	// zeichne alle Komponenten des Panels neu
 		}
 		
-		if (game.map[hulk.get_x()+a[0]][hulk.get_y()+a[1]] == 2) { // falls das naechste Feld ein Weg-Feld ist
-			int hulk_x = hulk.get_x(); // horizontale Position des Hulks
-			hulk.set_x(hulk_x+a[0]); // setze horizontale Position des Hulks weiter
+		if (Key.getKeyCode() != KeyEvent.VK_SPACE) {
+			if (game.map[hulk.get_x()+a[0]][hulk.get_y()+a[1]] == 2) { // falls das naechste Feld ein Weg-Feld ist
+				int hulk_x = hulk.get_x(); // horizontale Position des Hulks
+				hulk.set_x(hulk_x+a[0]); // setze horizontale Position des Hulks weiter
+				
+				int hulk_y = hulk.get_y(); // vertikale Position des Hulks
+				hulk.set_y(hulk_y+a[1]); // setze vertikale Position des Hulks weiter
+				
+				System.out.println("Hulks neue Position: " + hulk.get_x() + "te Spalte, " + hulk.get_y() + "te Zeile"); // Test
+				System.out.println("");
+				
+				game.move_Hulk(a[0],a[1]); // bewege Hulk auf dem Spielfeld
+				game.removeAll(); // entferne alle bisherigen Komponenten vom Panel
+				game.refresh();	// zeichne alle Komponenten des Panels neu
+			}
 			
-			int hulk_y = hulk.get_y(); // vertikale Position des Hulks
-			hulk.set_y(hulk_y+a[1]); // setze vertikale Position des Hulks weiter
+			else if (game.map[hulk.get_x()+a[0]][hulk.get_y()+a[1]] == 7) { // falls das naechste Feld das Ziel-Feld ist
+				System.out.println("Gewonnen!"); // Test
+				System.out.println("");
+				
+				game.move_Hulk(-hulk.get_x()+1,-hulk.get_y()+1); // bewege Hulk zum Startpunkt zurueck
+				game.removeAll(); // entferne alle bisherigen Komponenten vom Panel
+				game.refresh(); // zeichne alle Komponenten des Panels neu
+			}
 			
-			System.out.println("Hulks neue Position: " + hulk.get_x() + "te Spalte, " + hulk.get_y() + "te Zeile"); // Test
-			System.out.println("");
-			
-			game.move_Hulk(a[0],a[1]); // bewege Hulk auf dem Spielfeld
-			game.removeAll(); // entferne alle bisherigen Komponenten vom Panel
-			game.refresh();	// zeichne alle Komponenten des Panels neu
-		}
-		
-		else if (game.map[hulk.get_x()+a[0]][hulk.get_y()+a[1]] == 7) { // falls das naechste Feld das Ziel-Feld ist
-			System.out.println("Gewonnen!"); // Test
-			System.out.println("");
-			
-			game.move_Hulk(-map.length+3,-map.length+3); // bewege Hulk zum Startpunkt zurueck
-			game.removeAll(); // entferne alle bisherigen Komponenten vom Panel
-			game.refresh(); // zeichne alle Komponenten des Panels neu
-		}
-										
+			else if (game.map[hulk.get_x()][hulk.get_y()+a[1]] == 6) { // falls das naechste Feld ein Explosions-Feld ist
+				System.out.println("Verloren!"); // Test
+				System.out.println("");
+				
+				game.move_Hulk(-hulk.get_x()+1,-hulk.get_y()+1); // bewege Hulk zum Startpunkt zurueck
+				game.removeAll(); // entferne alle bisherigen Komponenten vom Panel
+				game.refresh(); // zeichne alle Komponenten des Panels neu			
+			}
+		}							
 	}												
 	
 	public void keyTyped(KeyEvent Key){}
@@ -168,10 +179,9 @@ public class Menue implements KeyListener{
 		}
 		
 		public void actionPerformed(ActionEvent e) {
-			//hulk.get_x()-hulk.get_x
-			game.move_Hulk(-hulk.get_x()+1,-hulk.get_y()+1);
-			game.removeAll();
-			game.refresh();
+			game.move_Hulk(-hulk.get_x()+1,-hulk.get_y()+1); // bewege Hulk zum Startpunkt zurueck
+			game.removeAll(); // entferne alle bisherigen Komponenten vom Panel
+			game.refresh(); // zeichne alle Komponenten des Panels neu		
 		}
 		
 	}
