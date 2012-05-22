@@ -36,8 +36,8 @@ public class Menue implements KeyListener {
 			{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 7, 4 } };
 	private static Map game = new Map(map); // Spielfeld erstellen
 	private static Hulk hulk = new Hulk(); // Hulk erstellen
-	private Thread moveHulk;
-	private Thread bombHulk;
+	//private Thread moveHulk;
+	//private Thread bombHulk;
 	private static boolean move;
 	
 	private static boolean bomb;
@@ -55,11 +55,11 @@ public class Menue implements KeyListener {
 		initialize();
 		a = new int[2];
 		
-		moveHulk = new Thread(new MoveHulk());			//Threads inizialisieren und starten
-		moveHulk.start();
+	//	moveHulk = new Thread(new MoveHulk());			//Threads inizialisieren und starten
+	//	moveHulk.start();
 		
-		bombHulk = new Thread(new BombHulk());
-		bombHulk.start();
+	//	bombHulk = new Thread(new BombHulk());
+	//	bombHulk.start();
 		bomb = false;
 		move = false;
 	}
