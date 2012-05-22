@@ -1,3 +1,8 @@
+/* Hier ist noch ein Fehler in der Implementierung, daher habe ich die alte Move-Methode parallel wieder hergestellt.
+ * BombHulk.java ist auch inaktiv. Diese Threads reagiert nicht.
+ */
+
+
 
 public class MoveHulk implements Runnable{
 	int[] pos;

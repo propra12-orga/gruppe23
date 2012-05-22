@@ -1,3 +1,8 @@
+/*Siehe MoveHulk.java
+ * 
+ */
+
+
 
 public class BombHulk implements Runnable{
 	boolean bomb;
