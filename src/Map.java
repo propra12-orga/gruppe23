@@ -12,13 +12,13 @@ public class Map extends JPanel {
 	// Deklaration & Initialisierung:
 	private static final long serialVersionUID = 1L;
 	int n = 11; 							// Spielfeldgroesse
-	int[][] map; 							// Spielfeld
+	static int[][] map; 					// Spielfeld
 	Bombe bomb = new Bombe(); 				// Bombe erstellen
 	JLabel[][] label = new JLabel[n][n]; 	// JLabel-Array erstellen
 
 	// Konstruktor:
 	public Map(int[][] map) {
-		this.map = map;
+		Map.map = map;
 	}
 
 	// move_Hulk-Methode:
@@ -104,6 +104,7 @@ public class Map extends JPanel {
 	// refresh-Methode:
 	public void refresh() {
 		GridBagConstraints[][] gbc_label = new GridBagConstraints[n][n];
+		System.out.println("Spielfeld:"); 	// Test
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				label[i][j] = new JLabel(); // fuer jedes einzele Arrayelement wird ein neues Label erstellt
@@ -129,7 +130,18 @@ public class Map extends JPanel {
 			}
 
 		}
+
 		System.out.println();
+
+		/*
+		 * System.out.println("Original Spielfeld:"); // Test for (int i = 0; i
+		 * < n; i++) { for (int j = 0; j < n; j++) {
+		 * System.out.print(Menue.map[i][j] + ", "); // Test if (j == n - 1) {
+		 * System.out.println(); } } }
+		 * 
+		 * System.out.println();
+		 */
+
 		updateUI();
 	}
 
@@ -164,6 +176,8 @@ public class Map extends JPanel {
 			}
 
 		}
+
+		updateUI();
 
 	}
 
@@ -209,6 +223,16 @@ public class Map extends JPanel {
 			break;
 		}
 
+	}
+
+	// get_map-Methode:
+	public static int[][] get_map() {
+		return map;
+	}
+
+	// set_map-Methode:
+	public void set_map(int[][] map) {
+		Map.map = map;
 	}
 
 }

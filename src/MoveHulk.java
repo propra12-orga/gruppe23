@@ -18,7 +18,7 @@ public class MoveHulk implements Runnable {
 
 			if (move) {
 				pos = Menue.get_newPos();
-				if (Menue.map[Menue.get_hulk().get_x() + pos[0]][Menue
+				if (Menue.get_map()[Menue.get_hulk().get_x() + pos[0]][Menue
 						.get_hulk().get_y() + pos[1]] == 2) {
 					int hulk_x = Menue.get_hulk().get_x(); 		// horizontale Position des Hulks
 					Menue.get_hulk().set_x(hulk_x + pos[0]); 	// setze horizontale Position des Hulks weiter
@@ -36,13 +36,13 @@ public class MoveHulk implements Runnable {
 					Menue.get_game().refresh();					// zeichne alle Komponenten des Panels neu
 				}
 
-				else if (Menue.map[Menue.get_hulk().get_x() + pos[0]][Menue
+				else if (Menue.get_map()[Menue.get_hulk().get_x() + pos[0]][Menue
 						.get_hulk().get_y() + pos[1]] == 7) { 	// falls das naechste Feld das Ziel-Feld ist
 					System.out.println("Gewonnen!"); 			// Test
 					System.out.println("");
 
-					Menue.get_game().move_Hulk(-Menue.map.length + 3,
-							-Menue.map.length + 3); 			// bewege Hulk zum Startpunkt zurueck
+					Menue.get_game().move_Hulk(-Menue.get_map().length + 3,
+							-Menue.get_map().length + 3); 			// bewege Hulk zum Startpunkt zurueck
 					Menue.get_game().removeAll(); 				// entferne alle bisherigen Komponenten vom Panel
 					Menue.get_game().refresh(); 				// zeichne alle Komponenten des Panels neu
 				}

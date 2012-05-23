@@ -22,7 +22,7 @@ public class Menue implements KeyListener {
 	private final Action_Neu Action_Neu = new Action_Neu(); // Aktion zum
 															// Neustart des
 															// Spiels erstellen
-	static int[][] map = {
+	final static int[][] map = {
 			{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 }, // Zeile ist in der Map die Spalte
 			{ 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 4 },
 			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4 },
@@ -150,7 +150,7 @@ public class Menue implements KeyListener {
 		}
 
 		if (Key.getKeyCode() != KeyEvent.VK_SPACE) {
-			if (game.map[hulk.get_x() + a[0]][hulk.get_y() + a[1]] == 2) { 	// falls
+			if (Map.map[hulk.get_x() + a[0]][hulk.get_y() + a[1]] == 2) { 	// falls
 																			// das
 																			// naechste
 																			// Feld
@@ -163,7 +163,7 @@ public class Menue implements KeyListener {
 				game.refresh(); 			// zeichne alle Komponenten des Panels neu
 			}
 
-			else if (game.map[hulk.get_x() + a[0]][hulk.get_y() + a[1]] == 7) { // falls
+			else if (Map.map[hulk.get_x() + a[0]][hulk.get_y() + a[1]] == 7) { // falls
 																				// das
 																				// naechste
 																				// Feld
@@ -183,13 +183,13 @@ public class Menue implements KeyListener {
 				game.refresh(); 	// zeichne alle Komponenten des Panels neu
 			}
 
-			else if (game.map[hulk.get_x()][hulk.get_y() + a[1]] == 6) { 	// falls
-																			// das
-																			// naechste
-																			// Feld
-																			// ein
-																			// Explosions-Feld
-																			// ist
+			else if (Map.map[hulk.get_x()][hulk.get_y() + a[1]] == 6) { 	// falls
+				// das
+				// naechste
+				// Feld
+				// ein
+				// Explosions-Feld
+				// ist
 				System.out.println("Verloren!"); // Test
 				System.out.println();
 
@@ -240,23 +240,51 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			game.move_Hulk(-hulk.get_x() + 1, -hulk.get_y() + 1); // bewege Hulk zum Startpunkt zurueck
+			System.out.println("Spiel neugestartet"); // Test
+			System.out.println();
+
+			final int[][] new_map = {
+					{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 }, // Zeile ist in der Map die Spalte
+					{ 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 4 },
+					{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4 },
+					{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4 },
+					{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4 },
+					{ 4, 2, 2, 2, 3, 3, 2, 2, 2, 2, 4 },
+					{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4 },
+					{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4 },
+					{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 3, 4 },
+					{ 4, 2, 3, 2, 2, 2, 2, 2, 3, 2, 4 },
+					{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 7, 4 } };
+
+			game.set_map(new_map); // Map zuruecksetzen
+
+			// Hulk zurueckpositionieren:
+			hulk.set_x(1);
+			hulk.set_y(1);
+
+			// Spielfeld reinitialisieren:
+			game.removeAll();
+			game.refresh();
 		}
 
 	}
 
+	// get_bomb-Methode:
 	public static boolean get_bomb() {
 		return bomb;
 	}
 
+	// set_bomb-Methode:
 	public static void set_bomb() {
 		bomb = false;
 	}
 
+	// get_move-Methode:
 	public static boolean get_move() {
 		return move;
 	}
 
+	// set_move-Methode:
 	public static void set_move() {
 		move = false;
 	}
@@ -271,14 +299,24 @@ public class Menue implements KeyListener {
 		Menue.game = game;
 	}
 
-	// getGame-Methode:
+	// get_hulk-Methode:
 	public static Hulk get_hulk() {
 		return hulk;
 	}
 
-	// setGame-Methode:
+	// set_hulk-Methode:
 	public void set_hulk(Hulk hulk) {
 		Menue.hulk = hulk;
+	}
+
+	// get_map-Methode:
+	public static int[][] get_map() {
+		return map;
+	}
+
+	// set_map-Methode:
+	public static void set_map(int[][] map) {
+		Map.map = map;
 	}
 
 	// main-Methode:

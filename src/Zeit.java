@@ -14,19 +14,19 @@ public class Zeit extends JLabel {
 		timer = new Timer(); // Timer erstellen
 
 		if (logo.equals("Bombe")) {
-			timer.schedule(new bombe(), x); // Zeit bis zur Detonation um x
+			timer.schedule(new Bombe(), x); // Zeit bis zur Detonation um x
 											// Millisek. verzögern
 		}
 
 		else if (logo.equals("Detonation")) {
-			timer.schedule(new detonation(), x); // Zeit bis zum Ende der
+			timer.schedule(new Detonation(), x); // Zeit bis zum Ende der
 													// Detonation um x Millisek.
 													// verzögern
 		}
 
 	}
 
-	public class bombe extends TimerTask {
+	public class Bombe extends TimerTask {
 		public void run() {
 			System.out.println("Bombe explodiert"); // Test
 			System.out.println("");
@@ -37,24 +37,25 @@ public class Zeit extends JLabel {
 
 	}
 
-	public class detonation extends TimerTask {
+	public class Detonation extends TimerTask {
 		public void run() {
 			System.out.println("Detonation beendet"); // Test
 			System.out.println("");
 
 			timer.cancel(); // Timer terminieren
+
 			for (int x = -1, y = -1; x < 2; x++, y++) {
-				if (Menue.map[Menue.get_game().bomb.get_x() + x][Menue
+				if (Menue.get_map()[Menue.get_game().bomb.get_x() + x][Menue
 						.get_game().bomb.get_y()] == 6)
-					Menue.map[Menue.get_game().bomb.get_x() + x][Menue
+					Menue.get_map()[Menue.get_game().bomb.get_x() + x][Menue
 							.get_game().bomb.get_y()] = 2; // Nach Ablauf des
 															// Timers wieder das
 															// Weg-Icon
 															// darstellen
-				if (Menue.map[Menue.get_game().bomb.get_x()][Menue.get_game().bomb
-						.get_y() + y] == 6)
-					Menue.map[Menue.get_game().bomb.get_x()][Menue.get_game().bomb
-							.get_y() + y] = 2;
+				if (Menue.get_map()[Menue.get_game().bomb.get_x()][Menue
+						.get_game().bomb.get_y() + y] == 6)
+					Menue.get_map()[Menue.get_game().bomb.get_x()][Menue
+							.get_game().bomb.get_y() + y] = 2;
 			}
 
 			Menue.get_game().removeAll();
