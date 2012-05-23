@@ -49,13 +49,11 @@ public class Menue implements KeyListener {
 		initialize();
 		a = new int[2];
 
-
 		//	moveHulk = new Thread(new MoveHulk());			//Threads initialisieren und starten
 		//	moveHulk.start();
 
 		//	bombHulk = new Thread(new BombHulk());
 		//	bombHulk.start();
-
 
 		bomb = false;
 		move = false;
@@ -98,7 +96,7 @@ public class Menue implements KeyListener {
 		// oben:
 		if (Key.getKeyCode() == KeyEvent.VK_UP) {
 			System.out.println("oben"); 			// Test
-			System.out.println("");
+			System.out.println();
 
 			a[0] = 0;
 			a[1] = -1;
@@ -109,7 +107,7 @@ public class Menue implements KeyListener {
 		// Pfeiltaste links:
 		if (Key.getKeyCode() == KeyEvent.VK_LEFT) {
 			System.out.println("links"); 			// Test
-			System.out.println("");
+			System.out.println();
 
 			a[0] = -1;
 			a[1] = 0;
@@ -120,7 +118,7 @@ public class Menue implements KeyListener {
 		// Pfeiltaste rechts:
 		if (Key.getKeyCode() == KeyEvent.VK_RIGHT) {
 			System.out.println("rechts"); 			// Test
-			System.out.println("");
+			System.out.println();
 
 			a[0] = 1;
 			a[1] = 0;
@@ -131,7 +129,7 @@ public class Menue implements KeyListener {
 		// Pfeiltaste unten:
 		if (Key.getKeyCode() == KeyEvent.VK_DOWN) {
 			System.out.println("unten"); 			// Test
-			System.out.println("");
+			System.out.println();
 
 			a[0] = 0;
 			a[1] = 1;
@@ -142,7 +140,7 @@ public class Menue implements KeyListener {
 		// Leertaste:
 		if (Key.getKeyCode() == KeyEvent.VK_SPACE) {
 			System.out.println("Space"); 			// Test
-			System.out.println("");
+			System.out.println();
 
 			bomb = true;
 
@@ -152,28 +150,16 @@ public class Menue implements KeyListener {
 		}
 
 		if (Key.getKeyCode() != KeyEvent.VK_SPACE) {
-			if (game.map[hulk.get_x() + a[0]][hulk.get_y() + a[1]] == 2) { // falls
+			if (game.map[hulk.get_x() + a[0]][hulk.get_y() + a[1]] == 2) { 	// falls
 																			// das
 																			// naechste
 																			// Feld
 																			// ein
 																			// Weg-Feld
 																			// ist
-				int hulk_x = hulk.get_x(); 	// horizontale Position des Hulks
-				hulk.set_x(hulk_x + a[0]); 	// setze horizontale Position des
-											// Hulks weiter
-
-				int hulk_y = hulk.get_y(); 	// vertikale Position des Hulks
-				hulk.set_y(hulk_y + a[1]); 	// setze vertikale Position des Hulks
-											// weiter
-
-				System.out.println("Hulks neue Position: " + hulk.get_x()
-						+ "te Spalte, " + hulk.get_y() + "te Zeile"); // Test
-				System.out.println("");
 
 				game.move_Hulk(a[0], a[1]); // bewege Hulk auf dem Spielfeld
-				game.removeAll(); 			// entferne alle bisherigen Komponenten vom
-									// Panel
+				game.removeAll(); 			// entferne alle bisherigen Komponenten vom Panel
 				game.refresh(); 			// zeichne alle Komponenten des Panels neu
 			}
 
@@ -185,7 +171,7 @@ public class Menue implements KeyListener {
 																				// Ziel-Feld
 																				// ist
 				System.out.println("Gewonnen!"); // Test
-				System.out.println("");
+				System.out.println();
 
 				game.move_Hulk(-hulk.get_x() + 1, -hulk.get_y() + 1); 	// bewege
 																		// Hulk
@@ -205,13 +191,13 @@ public class Menue implements KeyListener {
 																			// Explosions-Feld
 																			// ist
 				System.out.println("Verloren!"); // Test
-				System.out.println("");
+				System.out.println();
 
 				game.move_Hulk(-hulk.get_x() + 1, -hulk.get_y() + 1); 	// bewege
 																		// Hulk
 																		// zum
 																		// Startpunkt
-																		// zurueck
+																		// zurueck				
 				game.removeAll(); 	// entferne alle bisherigen Komponenten vom
 									// Panel
 				game.refresh(); 	// zeichne alle Komponenten des Panels neu
@@ -254,12 +240,7 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			game.move_Hulk(-hulk.get_x() + 1, -hulk.get_y() + 1); 	// bewege Hulk
-																	// zum
-																	// Startpunkt
-																	// zurueck
-			game.removeAll(); 	// entferne alle bisherigen Komponenten vom Panel
-			game.refresh(); 	// zeichne alle Komponenten des Panels neu
+			game.move_Hulk(-hulk.get_x() + 1, -hulk.get_y() + 1); // bewege Hulk zum Startpunkt zurueck
 		}
 
 	}

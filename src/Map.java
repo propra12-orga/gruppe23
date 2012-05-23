@@ -23,34 +23,20 @@ public class Map extends JPanel {
 
 	// move_Hulk-Methode:
 	public void move_Hulk(int x, int y) {
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				if (map[i][j] == 1 || map[i][j] == 5) { // falls das Feld das Hulk-Icon (1) oder Bombe-Icon (5) beinhaltet
-					if (map[i][j] == 1) { 				// falls das Feld das Hulk-Icon (1) beinhaltet,...
-						map[i][j] = 2; 					// ...weise dem Feld das Weg-Icon (2) zu
-					}
-
-					map[i + x][j + y] = 1; 				// weise dem nächsten Feld das Hulk-Icon (1) zu
-
-					Menue.get_hulk().set_x(i + x); 		// setze horizontale Hulk-Position weiter
-					Menue.get_hulk().set_y(j + y); 		// setze vertikale Hulk-Position weiter
-
-					System.out.println("Hulks alte grafische Position: " + i
-							+ "te Spalte, " + j + "te Zeile"); 					// Test
-					System.out.println("");
-					System.out.println("Hulks neue grafische Position: "
-							+ (i + x) + "te Spalte, " + (j + y) + "te Zeile"); 	// Test
-					System.out.println("");
-
-					// for-Schleifen abbrechen:
-					i = n;
-					j = n;
-				}
-
-			}
-
+		/* Grafische Fortbewegung der Spielfigur: */
+		if (map[Menue.get_hulk().get_x()][Menue.get_hulk().get_y()] == 1) { 	// falls das Feld das Hulk-Icon (1) beinhaltet,... 
+			map[Menue.get_hulk().get_x()][Menue.get_hulk().get_y()] = 2; 		// ...weise dem Feld das Weg-Icon (2) zu
 		}
 
+		map[Menue.get_hulk().get_x() + x][Menue.get_hulk().get_y() + y] = 1; 	// weise dem nächsten Feld das Hulk-Icon (1) zu
+
+		/* Interne Fortbewegung der Spielfigur: */
+		Menue.get_hulk().set_x(Menue.get_hulk().get_x() + x); 					// setze horizontale Hulk-Position weiter
+		Menue.get_hulk().set_y(Menue.get_hulk().get_y() + y); 					// setze vertikale Hulk-Position weiter
+
+		System.out.println("Hulks neue Position: " + Menue.get_hulk().get_x()
+				+ "te Spalte, " + Menue.get_hulk().get_y() + "te Zeile"); 		// Test
+		System.out.println();
 	}
 
 	// bombe_legen-Methode:
@@ -83,12 +69,12 @@ public class Map extends JPanel {
 					|| map[bomb.get_x() + x][bomb.get_y()] == 1) { 	// ...oder das Explosions-Feld ein Hulk-Icon beinhaltet,...
 
 				System.out.println("Verloren!"); 					// Test
-				System.out.println("");
+				System.out.println();
 
 				move_Hulk(-Menue.get_hulk().get_x() + 1, -Menue.get_hulk()
 						.get_y() + 1); 	// ...dann bewege Hulk zum Startpunkt zurueck,...
-				removeAll(); 																// ...entferne alle bisherigen Komponenten vom Panel,...
-				refresh(); 																	// ...und zeichne alle Komponenten des Panels neu.
+				removeAll(); 			// ...entferne alle bisherigen Komponenten vom Panel,...
+				refresh(); 				// ...und zeichne alle Komponenten des Panels neu.
 			}
 
 			// Vertikales Treffen von Detonation & Hulk:
@@ -97,12 +83,12 @@ public class Map extends JPanel {
 					|| map[bomb.get_x()][bomb.get_y() + y] == 1) {			// ...oder das Explosions-Feld ein Hulk-Icon beinhaltet,...
 
 				System.out.println("Verloren!"); // Test
-				System.out.println("");
+				System.out.println();
 
 				move_Hulk(-Menue.get_hulk().get_x() + 1, -Menue.get_hulk()
 						.get_y() + 1);	// ...dann bewege Hulk zum Startpunkt zurueck,...
-				removeAll();																// ...entferne alle bisherigen Komponenten vom Panel,...
-				refresh();																	// ...und zeichne alle Komponenten des Panels neu.
+				removeAll();			// ...entferne alle bisherigen Komponenten vom Panel,...
+				refresh();				// ...und zeichne alle Komponenten des Panels neu.
 			}
 
 		}
@@ -120,7 +106,7 @@ public class Map extends JPanel {
 		GridBagConstraints[][] gbc_label = new GridBagConstraints[n][n];
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				label[i][j] = new JLabel(""); // fuer jedes einzele Arrayelement wird ein neues Label erstellt
+				label[i][j] = new JLabel(); // fuer jedes einzele Arrayelement wird ein neues Label erstellt
 				label[i][j].setHorizontalAlignment(SwingConstants.CENTER);
 
 				System.out.print(map[i][j] + ", "); // Test
@@ -163,7 +149,7 @@ public class Map extends JPanel {
 		GridBagConstraints[][] gbc_label = new GridBagConstraints[n][n];
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				label[i][j] = new JLabel(""); 			// fuer jedes einzele Arrayelement wird ein neues Label erstellt
+				label[i][j] = new JLabel(); 			// fuer jedes einzele Arrayelement wird ein neues Label erstellt
 				label[i][j].setHorizontalAlignment(SwingConstants.CENTER);
 				label_laden(label[i][j], map[i][j]); 	// laedt in das Label das Bild (Map hat die Werte ob Hulk, etc..)
 				gbc_label[i][j] = new GridBagConstraints();
@@ -186,7 +172,8 @@ public class Map extends JPanel {
 
 		switch (i) {
 		case 1: // Hulk
-			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Hulk.png")));
+			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Hulk.png"))); 	// Grafik-Quelle:
+																					// http://openclipart.org/detail/168616/hunk-by-bedpanner
 			break;
 
 		case 2: // Weg
@@ -195,25 +182,30 @@ public class Map extends JPanel {
 
 		case 3: // Block
 			label.setIcon(new ImageIcon(Map.class
-					.getResource("/Pics/Block.png")));
+					.getResource("/Pics/Block.png"))); 	// Grafik-Quelle:
+														// http://openclipart.org/detail/151531/char-somua-s35-by-spadassin-151531
 			break;
 
 		case 4: // Mauer (nicht zerstoerbar, eventuell ueber Hulkmodus)
 			label.setIcon(new ImageIcon(Map.class
-					.getResource("/Pics/Mauer.png")));
+					.getResource("/Pics/Mauer.png"))); 	// Grafik-Quelle:
+														// http://openclipart.org/detail/3318/house-by-barretr
 			break;
 
 		case 5: // Bombe
 			label.setIcon(new ImageIcon(Map.class
-					.getResource("/Pics/Bombe.png")));
+					.getResource("/Pics/Bombe.png")));	// Grafik-Quelle:
+														// http://openclipart.org/detail/165734/dynamite-by-magnesus
 			break;
 
 		case 6: // Explosion
-			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/EXP.png")));
+			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/EXP.png"))); 	// Grafik-Quelle:
+																					// http://openclipart.org/detail/122959/pow-by-viscious-speed
 			break;
 
 		case 7: // Ausgang
-			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Exit.png")));
+			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Exit.png")));	// Grafik-Quelle:
+																					// http://openclipart.org/detail/126307/panneau-sortie--traffic-sign-exit-by-lmproulx
 			break;
 		}
 
