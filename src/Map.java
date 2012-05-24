@@ -13,7 +13,7 @@ public class Map extends JPanel {
 	private static final long serialVersionUID = 1L;
 	int n = 11; 							// Spielfeldgroesse
 	static int[][] map; 					// Spielfeld
-	Bombe bomb = new Bombe(); 				// Bombe erstellen
+	static Bombe bomb = new Bombe(); 				// Bombe erstellen
 	JLabel[][] label = new JLabel[n][n]; 	// JLabel-Array erstellen
 
 	// Konstruktor:
@@ -64,31 +64,29 @@ public class Map extends JPanel {
 				map[bomb.get_x()][bomb.get_y() + y] = 6; 			// ...dann wandele das Feld in ein Explosions-Feld um
 
 			// horizontales Treffen von Detonation & Hulk:
-			if ((bomb.get_x() + x == Menue.get_hulk().get_x() + x 	// falls Explosion & Hulk die gleiche x-...
+			if (((bomb.get_x() + x == Menue.get_hulk().get_x() + x 			// falls Explosion & Hulk die gleiche x-...
 			&& bomb.get_y() == Menue.get_hulk().get_y()) 			// ...und y-Koordinate haben...
-					|| map[bomb.get_x() + x][bomb.get_y()] == 1) { 	// ...oder das Explosions-Feld ein Hulk-Icon beinhaltet,...
-
-				System.out.println("Verloren!"); 					// Test
-				System.out.println();
-
-				move_Hulk(-Menue.get_hulk().get_x() + 1, -Menue.get_hulk()
-						.get_y() + 1); 	// ...dann bewege Hulk zum Startpunkt zurueck,...
-				removeAll(); 			// ...entferne alle bisherigen Komponenten vom Panel,...
-				refresh(); 				// ...und zeichne alle Komponenten des Panels neu.
-			}
-
-			// Vertikales Treffen von Detonation & Hulk:
-			if ((bomb.get_x() == Menue.get_hulk().get_x() 					// falls Explosion & Hulk die gleiche x-...
+					|| map[bomb.get_x() + x][bomb.get_y()] == 1)  			// ...oder das Explosions-Feld ein Hulk-Icon beinhaltet,...
+					|| ((bomb.get_x() == Menue.get_hulk().get_x() 			// ...oder falls Explosion & Hulk die gleiche x-...
 					&& bomb.get_y() + y == Menue.get_hulk().get_y() + y) 	// ...und y-Koordinate haben...
-					|| map[bomb.get_x()][bomb.get_y() + y] == 1) {			// ...oder das Explosions-Feld ein Hulk-Icon beinhaltet,...
+					|| map[bomb.get_x()][bomb.get_y() + y] == 1)) {			// ...oder das Explosions-Feld ein Hulk-Icon beinhaltet,...
 
-				System.out.println("Verloren!"); // Test
+				System.out.println("Verloren!"); 			// Test
 				System.out.println();
 
-				move_Hulk(-Menue.get_hulk().get_x() + 1, -Menue.get_hulk()
-						.get_y() + 1);	// ...dann bewege Hulk zum Startpunkt zurueck,...
-				removeAll();			// ...entferne alle bisherigen Komponenten vom Panel,...
-				refresh();				// ...und zeichne alle Komponenten des Panels neu.
+				System.out.println("Spiel neugestartet"); 	// Test
+				System.out.println();
+
+				// Hulk zurueckpositionieren:
+				Menue.get_hulk().set_x(1);
+				Menue.get_hulk().set_y(1);
+
+				// Spielfeld intern reinitialisieren:
+				map = init_map();
+
+				// Spielfeld grafisch reinitialisieren:
+				removeAll();
+				refresh();
 			}
 
 		}
@@ -133,15 +131,6 @@ public class Map extends JPanel {
 
 		System.out.println();
 
-		/*
-		 * System.out.println("Original Spielfeld:"); // Test for (int i = 0; i
-		 * < n; i++) { for (int j = 0; j < n; j++) {
-		 * System.out.print(Menue.map[i][j] + ", "); // Test if (j == n - 1) {
-		 * System.out.println(); } } }
-		 * 
-		 * System.out.println();
-		 */
-
 		updateUI();
 	}
 
@@ -176,8 +165,6 @@ public class Map extends JPanel {
 			}
 
 		}
-
-		updateUI();
 
 	}
 
@@ -225,6 +212,23 @@ public class Map extends JPanel {
 
 	}
 
+	public static int[][] init_map() {
+		final int[][] new_map = {
+				{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 }, // Zeile ist in der Map die Spalte
+				{ 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 4 },
+				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4 },
+				{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4 },
+				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4 },
+				{ 4, 2, 2, 2, 3, 3, 2, 2, 2, 2, 4 },
+				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4 },
+				{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4 },
+				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 3, 4 },
+				{ 4, 2, 3, 2, 2, 2, 2, 2, 3, 2, 4 },
+				{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 7, 4 } };
+
+		return new_map;
+	}
+
 	// get_map-Methode:
 	public static int[][] get_map() {
 		return map;
@@ -235,4 +239,13 @@ public class Map extends JPanel {
 		Map.map = map;
 	}
 
+	// get_bomb-Methode:
+	public static Bombe get_bomb() {
+		return bomb;
+	}
+
+	// set_bomb-Methode:
+	public void set_bomb(Bombe bomb) {
+		Map.bomb = bomb;
+	}
 }

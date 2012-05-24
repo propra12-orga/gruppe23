@@ -22,18 +22,9 @@ public class Menue implements KeyListener {
 	private final Action_Neu Action_Neu = new Action_Neu(); // Aktion zum
 															// Neustart des
 															// Spiels erstellen
-	final static int[][] map = {
-			{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 }, // Zeile ist in der Map die Spalte
-			{ 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 4 },
-			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4 },
-			{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4 },
-			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4 },
-			{ 4, 2, 2, 2, 3, 3, 2, 2, 2, 2, 4 },
-			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4 },
-			{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4 },
-			{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 3, 4 },
-			{ 4, 2, 3, 2, 2, 2, 2, 2, 3, 2, 4 },
-			{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 7, 4 } };
+
+	final static int[][] map = Map.init_map(); // Spielfeld initialisieren
+
 	private static Map game = new Map(map); // Spielfeld erstellen
 	private static Hulk hulk = new Hulk(); // Hulk erstellen
 	//private Thread moveHulk;
@@ -142,11 +133,13 @@ public class Menue implements KeyListener {
 			System.out.println("Space"); 			// Test
 			System.out.println();
 
-			bomb = true;
+			if (Map.get_bomb().get_x() == 0 && Map.get_bomb().get_y() == 0) { // falls nicht schon eine andere Bombe liegt
+				bomb = true;
 
-			game.bombe_legen();
-			game.removeAll(); 	// entferne alle bisherigen Komponenten vom Panel
-			game.refresh(); 	// zeichne alle Komponenten des Panels neu
+				game.bombe_legen();
+				game.removeAll(); 	// entferne alle bisherigen Komponenten vom Panel
+				game.refresh(); 	// zeichne alle Komponenten des Panels neu
+			}
 		}
 
 		if (Key.getKeyCode() != KeyEvent.VK_SPACE) {
@@ -170,37 +163,48 @@ public class Menue implements KeyListener {
 																				// das
 																				// Ziel-Feld
 																				// ist
-				System.out.println("Gewonnen!"); // Test
+				System.out.println("Gewonnen!"); 			// Test
 				System.out.println();
 
-				game.move_Hulk(-hulk.get_x() + 1, -hulk.get_y() + 1); 	// bewege
-																		// Hulk
-																		// zum
-																		// Startpunkt
-																		// zurueck
-				game.removeAll(); 	// entferne alle bisherigen Komponenten vom
-									// Panel
-				game.refresh(); 	// zeichne alle Komponenten des Panels neu
+				System.out.println("Spiel neugestartet"); 	// Test
+				System.out.println();
+
+				// Hulk zurueckpositionieren:
+				hulk.set_x(1);
+				hulk.set_y(1);
+
+				// Spielfeld intern reinitialisieren:
+				game.set_map(Map.init_map());
+
+				// Spielfeld grafisch reinitialisieren:
+				game.removeAll();
+				game.refresh();
 			}
 
-			else if (Map.map[hulk.get_x()][hulk.get_y() + a[1]] == 6) { 	// falls
-				// das
-				// naechste
-				// Feld
-				// ein
-				// Explosions-Feld
-				// ist
-				System.out.println("Verloren!"); // Test
+			else if (Map.map[hulk.get_x() + a[0]][hulk.get_y() + a[1]] == 6) { 	// falls
+																				// das
+																				// naechste
+																				// Feld
+																				// ein
+																				// Explosions-Feld
+																				// ist
+				System.out.println("Verloren!"); 			// Test
 				System.out.println();
 
-				game.move_Hulk(-hulk.get_x() + 1, -hulk.get_y() + 1); 	// bewege
-																		// Hulk
-																		// zum
-																		// Startpunkt
-																		// zurueck				
-				game.removeAll(); 	// entferne alle bisherigen Komponenten vom
-									// Panel
-				game.refresh(); 	// zeichne alle Komponenten des Panels neu
+				System.out.println("Spiel neugestartet"); 	// Test
+				System.out.println();
+
+				// Hulk zurueckpositionieren:
+				hulk.set_x(1);
+				hulk.set_y(1);
+
+				// Spielfeld intern reinitialisieren:
+				game.set_map(Map.init_map());
+				game.set_map(Map.init_map());
+
+				// Spielfeld grafisch reinitialisieren:
+				game.removeAll();
+				game.refresh();
 			}
 		}
 	}
@@ -243,26 +247,14 @@ public class Menue implements KeyListener {
 			System.out.println("Spiel neugestartet"); // Test
 			System.out.println();
 
-			final int[][] new_map = {
-					{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 }, // Zeile ist in der Map die Spalte
-					{ 4, 1, 2, 2, 2, 2, 2, 2, 2, 2, 4 },
-					{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4 },
-					{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4 },
-					{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4 },
-					{ 4, 2, 2, 2, 3, 3, 2, 2, 2, 2, 4 },
-					{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4 },
-					{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4 },
-					{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 3, 4 },
-					{ 4, 2, 3, 2, 2, 2, 2, 2, 3, 2, 4 },
-					{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 7, 4 } };
-
-			game.set_map(new_map); // Map zuruecksetzen
-
 			// Hulk zurueckpositionieren:
 			hulk.set_x(1);
 			hulk.set_y(1);
 
-			// Spielfeld reinitialisieren:
+			// Spielfeld intern reinitialisieren:
+			game.set_map(Map.init_map());
+
+			// Spielfeld grafisch reinitialisieren:
 			game.removeAll();
 			game.refresh();
 		}
@@ -312,11 +304,6 @@ public class Menue implements KeyListener {
 	// get_map-Methode:
 	public static int[][] get_map() {
 		return map;
-	}
-
-	// set_map-Methode:
-	public static void set_map(int[][] map) {
-		Map.map = map;
 	}
 
 	// main-Methode:

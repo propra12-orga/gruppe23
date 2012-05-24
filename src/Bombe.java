@@ -4,8 +4,8 @@ public class Bombe extends JLabel {
 
 	// Deklaration & Initialisierung:
 	private static final long serialVersionUID = 1L;
-	public int x = 1; // x-Koordinate (horizontale Position)
-	public int y = 1; // y-Koordinate (vertikale Position)
+	public int x = 0; // x-Koordinate (horizontale Position)
+	public int y = 0; // y-Koordinate (vertikale Position)
 
 	// setter & getter:
 	public int get_x() {
@@ -28,8 +28,8 @@ public class Bombe extends JLabel {
 	public void aktivieren() {
 		System.out.println("Bombe gelegt"); // Test	
 		System.out.println();
-		Zeit timer = new Zeit(); // Timer erstellen
-		Menue.get_game().add(timer); // Timer hinzufügen
+		Zeit timer = new Zeit(); 			// Timer erstellen
+		Menue.get_game().add(timer); 		// Timer hinzufügen
 		timer.timer_starten(3000, "Bombe"); // Timer für Bombe starten	
 	}
 
