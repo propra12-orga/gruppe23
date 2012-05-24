@@ -191,6 +191,10 @@ public class Menue implements KeyListener {
 				hulk.set_x(1);
 				hulk.set_y(1);
 
+				// Bombe zurueckpositionieren:
+				Map.get_bomb().set_x(0);
+				Map.get_bomb().set_y(0);
+
 				// Spielfeld intern reinitialisieren:
 				game.set_map(Map.init_map());
 
@@ -215,6 +219,10 @@ public class Menue implements KeyListener {
 				// Hulk zurueckpositionieren:
 				hulk.set_x(1);
 				hulk.set_y(1);
+
+				// Bombe zurueckpositionieren:
+				Map.get_bomb().set_x(0);
+				Map.get_bomb().set_y(0);
 
 				// Spielfeld intern reinitialisieren:
 				game.set_map(Map.init_map());
@@ -268,6 +276,10 @@ public class Menue implements KeyListener {
 			// Hulk zurueckpositionieren:
 			hulk.set_x(1);
 			hulk.set_y(1);
+
+			// Bombe zurueckpositionieren:
+			Map.get_bomb().set_x(0);
+			Map.get_bomb().set_y(0);
 
 			// Spielfeld intern reinitialisieren:
 			game.set_map(Map.init_map());

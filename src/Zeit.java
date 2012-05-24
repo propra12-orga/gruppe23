@@ -28,7 +28,7 @@ public class Zeit extends JLabel {
 
 	public class Bombe extends TimerTask {
 		public void run() {
-			if (Map.get_map()[Map.get_bomb().get_x()][Map.get_bomb().get_y()] == 5) { // falls sich an der Bomben-Position auch das Bomben-Icon befindet
+			if (Map.get_bomb().get_x() != 0 && Map.get_bomb().get_y() != 0) { // falls sich an der Bomben-Position auch das Bomben-Icon befindet
 				System.out.println("Bombe explodiert"); // Test
 				System.out.println("");
 
@@ -47,18 +47,19 @@ public class Zeit extends JLabel {
 
 			timer.cancel(); // Timer terminieren
 
-			for (int x = -1, y = -1; x < 2; x++, y++) {
-				if (Map.get_map()[Map.bomb.get_x() + x][Map.bomb.get_y()] == 6) {
-					Map.get_map()[Map.bomb.get_x() + x][Map.bomb.get_y()] = 2; 	// Nach Ablauf des
-				}																// Timers wieder das
-				// Weg-Icon
-				// darstellen
-				if (Map.get_map()[Map.bomb.get_x()][Map.bomb.get_y() + y] == 6) {
-					Map.get_map()[Map.bomb.get_x()][Map.bomb.get_y() + y] = 2;
+			if (Map.get_bomb().get_x() != 0 && Map.get_bomb().get_y() != 0) { // falls sich an der Bomben-Position auch das Bomben-Icon befindet
+				for (int x = -1, y = -1; x < 2; x++, y++) {
+					if (Map.get_map()[Map.bomb.get_x() + x][Map.bomb.get_y()] == 6) {
+						Map.get_map()[Map.bomb.get_x() + x][Map.bomb.get_y()] = 2; 	// Nach Ablauf des
+					}																// Timers wieder das
+					// Weg-Icon
+					// darstellen
+					if (Map.get_map()[Map.bomb.get_x()][Map.bomb.get_y() + y] == 6) {
+						Map.get_map()[Map.bomb.get_x()][Map.bomb.get_y() + y] = 2;
+					}
+
 				}
-
 			}
-
 			Menue.get_game().removeAll();
 			Menue.get_game().refresh();
 

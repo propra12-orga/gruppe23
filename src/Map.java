@@ -81,6 +81,10 @@ public class Map extends JPanel {
 				Menue.get_hulk().set_x(1);
 				Menue.get_hulk().set_y(1);
 
+				// Bombe zurueckpositionieren:
+				Map.get_bomb().set_x(0);
+				Map.get_bomb().set_y(0);
+
 				// Spielfeld intern reinitialisieren:
 				map = init_map();
 
