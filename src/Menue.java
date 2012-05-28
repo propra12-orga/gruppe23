@@ -22,18 +22,16 @@ public class Menue implements KeyListener {
 	private final Action_Neu Action_Neu = new Action_Neu(); // Aktion zum
 															// Neustart des
 															// Spiels erstellen
-
 	final static int[][] map = Map.init_map(); // Spielfeld initialisieren
-
 	private static Map game = new Map(map); // Spielfeld erstellen
 	private static Hulk hulk = new Hulk(); // Hulk erstellen
 	// private Thread moveHulk;
 	// private Thread bombHulk;
 	private static boolean move;
-
 	private static boolean bomb;
-
 	private static int[] a;
+	public boolean spiel_neugestartet = false;
+	
 
 	// Konstruktor:
 	public Menue() {
@@ -143,24 +141,16 @@ public class Menue implements KeyListener {
 			System.out.println("Space"); // Test
 			System.out.println();
 
-			if (Map.get_bomb().get_x() == 0 && Map.get_bomb().get_y() == 0) { // falls
-																				// nicht
-																				// schon
-																				// eine
-																				// andere
-																				// Bombe
-																				// liegt
-				bomb = true;
+			bomb = true;
 
-				game.bombe_legen();
-				game.removeAll(); // entferne alle bisherigen Komponenten vom
-									// Panel
-				game.refresh(); // zeichne alle Komponenten des Panels neu
-			}
+			game.bombe_legen();
+			game.removeAll(); 	// entferne alle bisherigen Komponenten vom Panel
+			game.refresh();		// zeichne alle Komponenten des Panels neu
+
 		}
 
 		if (Key.getKeyCode() != KeyEvent.VK_SPACE) {
-			if (Map.map[hulk.get_x() + a[0]][hulk.get_y() + a[1]] == 2) { // falls
+			if (Map.map[hulk.get_x() + a[0]][hulk.get_y() + a[1]] == 2) { 	// falls
 																			// das
 																			// naechste
 																			// Feld
@@ -169,12 +159,12 @@ public class Menue implements KeyListener {
 																			// ist
 
 				game.move_Hulk(a[0], a[1]); // bewege Hulk auf dem Spielfeld
-				game.removeAll(); // entferne alle bisherigen Komponenten vom
-									// Panel
-				game.refresh(); // zeichne alle Komponenten des Panels neu
+				game.removeAll(); 			// entferne alle bisherigen Komponenten vom
+											// Panel
+				game.refresh(); 			// zeichne alle Komponenten des Panels neu
 			}
 
-			else if (Map.map[hulk.get_x() + a[0]][hulk.get_y() + a[1]] == 7) { // falls
+			else if (Map.map[hulk.get_x() + a[0]][hulk.get_y() + a[1]] == 7) { 	// falls
 																				// das
 																				// naechste
 																				// Feld
@@ -186,21 +176,26 @@ public class Menue implements KeyListener {
 
 				System.out.println("Spiel neugestartet"); // Test
 				System.out.println();
-
+		
 				// Hulk zurueckpositionieren:
 				hulk.set_x(1);
 				hulk.set_y(1);
 
-				// Bombe zurueckpositionieren:
-				Map.get_bomb().set_x(0);
-				Map.get_bomb().set_y(0);
-
+				
+				// Gelegte Bomben entfernen:
+				for (int x=0; x<11; x++) {
+					for (int y=0; y<11; y++) {
+						game.bomb[x][y].liegt = false;
+					}
+				}				
+				
 				// Spielfeld intern reinitialisieren:
-				game.set_map(Map.init_map());
+				Map.set_map(Map.init_map());
 
 				// Spielfeld grafisch reinitialisieren:
 				game.removeAll();
-				game.refresh();
+				game.refresh();;
+				
 			}
 
 			else if (Map.map[hulk.get_x() + a[0]][hulk.get_y() + a[1]] == 6) { // falls
@@ -215,18 +210,20 @@ public class Menue implements KeyListener {
 
 				System.out.println("Spiel neugestartet"); // Test
 				System.out.println();
-
+				
 				// Hulk zurueckpositionieren:
 				hulk.set_x(1);
 				hulk.set_y(1);
 
-				// Bombe zurueckpositionieren:
-				Map.get_bomb().set_x(0);
-				Map.get_bomb().set_y(0);
-
+				// Gelegte Bomben entfernen:
+				for (int x=0; x<11; x++) {
+					for (int y=0; y<11; y++) {
+						game.bomb[x][y].liegt = false;
+					}
+				}			
+				
 				// Spielfeld intern reinitialisieren:
-				game.set_map(Map.init_map());
-				game.set_map(Map.init_map());
+				Map.set_map(Map.init_map());
 
 				// Spielfeld grafisch reinitialisieren:
 				game.removeAll();
@@ -277,12 +274,15 @@ public class Menue implements KeyListener {
 			hulk.set_x(1);
 			hulk.set_y(1);
 
-			// Bombe zurueckpositionieren:
-			Map.get_bomb().set_x(0);
-			Map.get_bomb().set_y(0);
-
+			// Gelegte Bomben entfernen:
+			for (int x=0; x<11; x++) {
+				for (int y=0; y<11; y++) {
+					game.bomb[x][y].liegt = false;
+				}
+			}		
+			
 			// Spielfeld intern reinitialisieren:
-			game.set_map(Map.init_map());
+			Map.set_map(Map.init_map());
 
 			// Spielfeld grafisch reinitialisieren:
 			game.removeAll();
@@ -352,7 +352,7 @@ public class Menue implements KeyListener {
 			}
 
 		});
-
+		
 	}
 
 }

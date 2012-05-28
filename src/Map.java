@@ -11,14 +11,21 @@ import javax.swing.border.EmptyBorder;
 public class Map extends JPanel {
 	// Deklaration & Initialisierung:
 	private static final long serialVersionUID = 1L;
-	int n = 11; 							// Spielfeldgroesse
-	static int[][] map; 					// Spielfeld
-	static Bombe bomb = new Bombe(); 				// Bombe erstellen
-	JLabel[][] label = new JLabel[n][n]; 	// JLabel-Array erstellen
+	static int n = 11; 							// Spielfeldgroesse
+	static int[][] map; 						// Spielfeld
+	Bombe bomb[][] = new Bombe[n][n]; 			// Bomben erstellen
+	int bomb_x, bomb_y;
+	JLabel[][] label = new JLabel[n][n]; 		// JLabel-Array erstellen
+
 
 	// Konstruktor:
 	public Map(int[][] map) {
 		Map.map = map;
+		for (int x = 0; x < n; x++) {
+			for (int y = 0; y < n; y++) {
+				bomb[x][y] = new Bombe();
+			}
+		}
 	}
 
 	// move_Hulk-Methode:
@@ -41,66 +48,13 @@ public class Map extends JPanel {
 
 	// bombe_legen-Methode:
 	public void bombe_legen() {
-		add(bomb); 														// Bombe hinzufuegen
-		bomb.aktivieren(); 												// Bombe aktivieren
+		bomb_x = Menue.get_hulk().get_x();
+		bomb_y = Menue.get_hulk().get_y();
+		bomb[bomb_x][bomb_y] = new Bombe(bomb_x, bomb_y);
+		
+		add(bomb[bomb_x][bomb_y]); 										// Bombe hinzufuegen
+		bomb[bomb_x][Menue.get_hulk().get_y()].aktivieren(); 			// Bombe aktivieren
 		map[Menue.get_hulk().get_x()][Menue.get_hulk().get_y()] = 5; 	// Bombe darstellen
-		bomb.set_x(Menue.get_hulk().get_x()); 							// setze horizontale Bomben-Position
-		bomb.set_y(Menue.get_hulk().get_y()); 							// setze vertikale Bomben-Position
-	}
-
-	// bombe_detonieren-Methode:
-	public void bombe_detonieren() {
-		for (int x = -1, y = -1; x < 2; x++, y++) {					// Ausbreitung der Detonation um Radius 1
-			// horizontale Ausbreitung der Detonation:
-			if (map[bomb.get_x() + x][bomb.get_y()] == 2 			// falls das Zielfeld der Detonation ein Weg-Feld...
-					|| map[bomb.get_x() + x][bomb.get_y()] == 5 	// ...oder Bombe-Feld ist,...
-					|| map[bomb.get_x() + x][bomb.get_y()] == 3)	// ...oder Block-Feld ist...
-				map[bomb.get_x() + x][bomb.get_y()] = 6; 			// ...dann wandele das Feld in ein Explosions-Feld um
-
-			// vertikale Ausbreitung der Detonation:
-			if (map[bomb.get_x()][bomb.get_y() + y] == 2 			// falls das Zielfeld der Detonation ein Weg-Feld...
-					|| map[bomb.get_x()][bomb.get_y() + y] == 5 	// ...oder Bombe-Feld ist,...
-					|| map[bomb.get_x()][bomb.get_y() + y] == 3)	// ...oder Block-Feld ist...
-				map[bomb.get_x()][bomb.get_y() + y] = 6; 			// ...dann wandele das Feld in ein Explosions-Feld um
-
-			// horizontales Treffen von Detonation & Hulk:
-			if (((bomb.get_x() + x == Menue.get_hulk().get_x() + x 			// falls Explosion & Hulk die gleiche x-...
-			&& bomb.get_y() == Menue.get_hulk().get_y()) 			// ...und y-Koordinate haben...
-					|| map[bomb.get_x() + x][bomb.get_y()] == 1)  			// ...oder das Explosions-Feld ein Hulk-Icon beinhaltet,...
-					|| ((bomb.get_x() == Menue.get_hulk().get_x() 			// ...oder falls Explosion & Hulk die gleiche x-...
-					&& bomb.get_y() + y == Menue.get_hulk().get_y() + y) 	// ...und y-Koordinate haben...
-					|| map[bomb.get_x()][bomb.get_y() + y] == 1)) {			// ...oder das Explosions-Feld ein Hulk-Icon beinhaltet,...
-
-				System.out.println("Verloren!"); 			// Test
-				System.out.println();
-
-				System.out.println("Spiel neugestartet"); 	// Test
-				System.out.println();
-
-				// Hulk zurueckpositionieren:
-				Menue.get_hulk().set_x(1);
-				Menue.get_hulk().set_y(1);
-
-				// Bombe zurueckpositionieren:
-				Map.get_bomb().set_x(0);
-				Map.get_bomb().set_y(0);
-
-				// Spielfeld intern reinitialisieren:
-				map = init_map();
-
-				// Spielfeld grafisch reinitialisieren:
-				removeAll();
-				refresh();
-			}
-
-		}
-
-		Zeit ende_explosion = new Zeit(); 					// Timer fuer Dauer der Explosion erstellen
-		Menue.get_game().add(ende_explosion); 				// Timer fuer Dauer der Explosion hinzufuegen
-		ende_explosion.timer_starten(1000, "Detonation"); 	// Timer fuer Dauer der Explosion starten
-
-		removeAll(); 										// entferne alle bisherigen Komponenten vom Panel
-		refresh(); 											// zeichne alle Komponenten des Panels neu
 	}
 
 	// refresh-Methode:
@@ -239,17 +193,8 @@ public class Map extends JPanel {
 	}
 
 	// set_map-Methode:
-	public void set_map(int[][] map) {
+	public static void set_map(int[][] map) {
 		Map.map = map;
 	}
 
-	// get_bomb-Methode:
-	public static Bombe get_bomb() {
-		return bomb;
-	}
-
-	// set_bomb-Methode:
-	public void set_bomb(Bombe bomb) {
-		Map.bomb = bomb;
-	}
 }
