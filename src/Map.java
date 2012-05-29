@@ -166,12 +166,12 @@ public class Map extends JPanel {
 																					// http://openclipart.org/detail/126307/panneau-sortie--traffic-sign-exit-by-lmproulx
 			break;
 
-		case 8:// Mauer	
+		case 8:// Mauer/Ausgang	
 			label.setIcon(new ImageIcon(Map.class
-					.getResource("/Pics/Mauer.png")));
+					.getResource("/Pics/Block.png")));
 			break;
 
-		case 9:// explosion 	
+		case 9:// Explosion/Ausgang 	
 			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/EXP.png")));
 			break;
 		}
@@ -189,8 +189,8 @@ public class Map extends JPanel {
 				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4 },
 				{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4 },
 				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 3, 4 },
-				{ 4, 2, 3, 2, 2, 2, 2, 2, 3, 2, 4 },
-				{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 8, 4 } };
+				{ 4, 8, 3, 2, 2, 2, 2, 2, 3, 2, 4 },
+				{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 } };
 
 		return new_map;
 	}

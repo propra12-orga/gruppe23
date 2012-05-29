@@ -61,23 +61,22 @@ public class Zeit extends JLabel {
 					// darstellen
 					if (Map.get_map()[bomb_x][bomb_y + y] == 6) {
 						Map.get_map()[bomb_x][bomb_y + y] = 2;
-						if (Map.get_map()[bomb_x][bomb_y + y] == 6) {
-							Map.get_map()[bomb_x + x][bomb_y] = 7;
-						}
+					} else if (Map.get_map()[bomb_x][bomb_y + y] == 9) {
+						Map.get_map()[bomb_x][bomb_y + y] = 7;
 					}
-
 				}
 
-				Menue.get_game().removeAll();
-				Menue.get_game().refresh();
+			}
 
-				Menue.get_game().bomb[bomb_x][bomb_y].liegt = false;
-			} else {
+			Menue.get_game().removeAll();
+			Menue.get_game().refresh();
+
+			Menue.get_game().bomb[bomb_x][bomb_y].liegt = false;
+			{
 				timer.cancel(); // Timer terminieren
 			}
 
 		}
-
 	}
 
 	public void set_bomb_x(int bomb_x) {
