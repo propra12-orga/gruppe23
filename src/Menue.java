@@ -22,16 +22,15 @@ public class Menue implements KeyListener {
 	private final Action_Neu Action_Neu = new Action_Neu(); // Aktion zum
 															// Neustart des
 															// Spiels erstellen
-	final static int[][] map = Map.init_map(); // Spielfeld initialisieren
-	private static Map game = new Map(map); // Spielfeld erstellen
-	private static Hulk hulk = new Hulk(); // Hulk erstellen
+	final static int[][] map = MapLoader.laden(1); 	// Spielfeld initialisieren
+	private static Map game = new Map(map); 		// Spielfeld erstellen
+	private static Hulk hulk = new Hulk(); 			// Hulk erstellen
 	// private Thread moveHulk;
 	// private Thread bombHulk;
 	private static boolean move;
 	private static boolean bomb;
 	private static int[] a;
-	public boolean spiel_neugestartet = false;
-	
+	public boolean spiel_neugestartet = false;	
 
 	// Konstruktor:
 	public Menue() {
@@ -53,41 +52,41 @@ public class Menue implements KeyListener {
 	private void initialize() {
 		frame = new JFrame(); // Fenster erstellen
 		frame.setTitle("Bomberhulk"); // Fenstertitel setzen
-		frame.setBounds(100, 100, 550, 605); // Fenstergroesse einstellen
+		frame.setBounds(100, 100, 550, 605); 	// Fenstergroesse einstellen
 												// (x-Position, y-Position,
 												// Breite, Hoehe)
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Programm beim
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 	// Programm beim
 																// Schliessen
 																// des Fensters
 																// beenden
 		frame.setResizable(false); // Fenster soll nicht skalierbar sein
 
-		JMenuBar menuBar = new JMenuBar(); // Menueleiste erstellen
-		frame.setJMenuBar(menuBar); // Menueleiste hinzufuegen
+		JMenuBar menuBar = new JMenuBar(); 	// Menueleiste erstellen
+		frame.setJMenuBar(menuBar); 		// Menueleiste hinzufuegen
 
 		menuBar.isFocusable();
 
 		JMenu mnSpiel = new JMenu("Spiel"); // Menuepunkt "Spiel" erstellen
-		menuBar.add(mnSpiel); // Menuepunkt "Spiel" hinzufuegen
+		menuBar.add(mnSpiel); 				// Menuepunkt "Spiel" hinzufuegen
 
-		JMenuItem mntmNeu = new JMenuItem("Neu"); // Untermenuepunkt "Neu"
+		JMenuItem mntmNeu = new JMenuItem("Neu"); 	// Untermenuepunkt "Neu"
 													// erstellen
-		mnSpiel.add(mntmNeu); // Untermenuepunkt "Neu" hinzufuegen
-		mntmNeu.setAction(Action_Neu); // Aktion "Action_Neu" hinzufuegen
+		mnSpiel.add(mntmNeu); 						// Untermenuepunkt "Neu" hinzufuegen
+		mntmNeu.setAction(Action_Neu); 				// Aktion "Action_Neu" hinzufuegen
 
-		JMenuItem mntmBeenden = new JMenuItem("Beenden"); // Untermenuepunkt
+		JMenuItem mntmBeenden = new JMenuItem("Beenden"); 	// Untermenuepunkt
 															// "Beenden"
 															// erstellen
-		mnSpiel.add(mntmBeenden); // Untermenuepunkt "Beenden" hinzufuegen
-		mntmBeenden.setAction(Action_Beenden); // Aktion "Action_Beenden"
-												// hinzufuegen
+		mnSpiel.add(mntmBeenden); 							// Untermenuepunkt "Beenden" hinzufuegen
+		mntmBeenden.setAction(Action_Beenden); 				// Aktion "Action_Beenden"
+															// hinzufuegen
 
-		frame.add(game); // Spielfeld hinzufuegen
-		game.init(); // Spielfeld zeichnen
+		frame.add(game); 	// Spielfeld hinzufuegen
+		game.init(); 		// Spielfeld zeichnen
 
-		game.addKeyListener(this); // Keylistener zum Spielfeld hinzufuegen
-		game.setFocusable(true); // Spielfeld fokussierbar machen
-		game.requestFocus(); // Fokus auf Spielfeld setzen
+		game.addKeyListener(this); 	// Keylistener zum Spielfeld hinzufuegen
+		game.setFocusable(true); 	// Spielfeld fokussierbar machen
+		game.requestFocus(); 		// Fokus auf Spielfeld setzen
 	}
 
 	// keyPressed-Methode:
@@ -190,12 +189,11 @@ public class Menue implements KeyListener {
 				}				
 				
 				// Spielfeld intern reinitialisieren:
-				Map.set_map(Map.init_map());
+				Map.set_map(MapLoader.laden(1));
 
 				// Spielfeld grafisch reinitialisieren:
 				game.removeAll();
-				game.refresh();;
-				
+				game.refresh();
 			}
 
 			else if (Map.map[hulk.get_x() + a[0]][hulk.get_y() + a[1]] == 6) { // falls
@@ -223,7 +221,7 @@ public class Menue implements KeyListener {
 				}			
 				
 				// Spielfeld intern reinitialisieren:
-				Map.set_map(Map.init_map());
+				Map.set_map(MapLoader.laden(1));
 
 				// Spielfeld grafisch reinitialisieren:
 				game.removeAll();
@@ -282,7 +280,7 @@ public class Menue implements KeyListener {
 			}		
 			
 			// Spielfeld intern reinitialisieren:
-			Map.set_map(Map.init_map());
+			Map.set_map(MapLoader.laden(1));
 
 			// Spielfeld grafisch reinitialisieren:
 			game.removeAll();

@@ -1,21 +1,55 @@
-//
-//public class MapLoader {
-//
-//	public static void main(String[] args) {
-//
-//	}
-//
-//	public int[][] laden() {
-//
-//		int[][] a = new int[10][10];
-//
-//		for (int i = 0; i < 10; i++) {
-//			for (int j = 0; j < 10; j++) {
-//
-//		es muss noch geschrieben erwerden, das aus einer text datei ein nxn int array erstellt wird.
-//			}
-//
-//		}
-//	}
-// }
-// 
+import java.io.FileReader;
+import java.io.IOException;
+
+public class MapLoader {
+
+	public static int[][] laden(int i) {
+		int c = 0;
+
+		int n = 11;
+		int k = 0, l = 0;
+		int[][] map = new int[n][n];
+		String filename = "src/Maps/Level-" + i + ".txt";
+		
+		try {			
+			FileReader f = new FileReader(filename);
+			
+			System.out.println("Spielfeld eingelesen:");	// Test
+			
+			while ((c = f.read()) != -1) {
+				if (Character.getNumericValue(c) != -1) {
+					map[k][l] = Character.getNumericValue(c);
+					
+					System.out.print(map[k][l] + ", ");	// Test
+					
+					if (k < 10) {
+						k++;
+					}
+					
+					else if (l < 10) {
+						System.out.println();	// Test
+						k = 0;
+						l++;
+					}
+					
+				}
+				
+			}
+			
+			System.out.println();	// Test
+			System.out.println();	// Test
+			
+			f.close();
+
+		} 
+		
+		catch (IOException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			System.exit(1);
+		}
+		
+		return map;
+
+	}
+}

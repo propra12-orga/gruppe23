@@ -91,7 +91,7 @@ public class Bombe extends JLabel {
 				}
 
 				// Spielfeld intern reinitialisieren:
-				Map.set_map(Map.init_map());
+				Map.set_map(MapLoader.laden(1));
 			}
 
 		}
