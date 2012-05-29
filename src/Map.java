@@ -17,7 +17,6 @@ public class Map extends JPanel {
 	int bomb_x, bomb_y;
 	JLabel[][] label = new JLabel[n][n]; 		// JLabel-Array erstellen
 
-
 	// Konstruktor:
 	public Map(int[][] map) {
 		Map.map = map;
@@ -51,7 +50,7 @@ public class Map extends JPanel {
 		bomb_x = Menue.get_hulk().get_x();
 		bomb_y = Menue.get_hulk().get_y();
 		bomb[bomb_x][bomb_y] = new Bombe(bomb_x, bomb_y);
-		
+
 		add(bomb[bomb_x][bomb_y]); 										// Bombe hinzufuegen
 		bomb[bomb_x][Menue.get_hulk().get_y()].aktivieren(); 			// Bombe aktivieren
 		map[Menue.get_hulk().get_x()][Menue.get_hulk().get_y()] = 5; 	// Bombe darstellen
@@ -154,7 +153,7 @@ public class Map extends JPanel {
 		case 5: // Bombe
 			label.setIcon(new ImageIcon(Map.class
 					.getResource("/Pics/Bombe.png")));	// Grafik-Quelle:
-														// http://openclipart.org/detail/165734/dynamite-by-magnesus
+			// http://openclipart.org/detail/165734/dynamite-by-magnesus
 			break;
 
 		case 6: // Explosion
@@ -165,6 +164,15 @@ public class Map extends JPanel {
 		case 7: // Ausgang
 			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Exit.png")));	// Grafik-Quelle:
 																					// http://openclipart.org/detail/126307/panneau-sortie--traffic-sign-exit-by-lmproulx
+			break;
+
+		case 8:// Mauer	
+			label.setIcon(new ImageIcon(Map.class
+					.getResource("/Pics/Mauer.png")));
+			break;
+
+		case 9:// explosion 	
+			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/EXP.png")));
 			break;
 		}
 
@@ -182,7 +190,7 @@ public class Map extends JPanel {
 				{ 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4 },
 				{ 4, 2, 4, 2, 4, 2, 4, 2, 4, 3, 4 },
 				{ 4, 2, 3, 2, 2, 2, 2, 2, 3, 2, 4 },
-				{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 7, 4 } };
+				{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 8, 4 } };
 
 		return new_map;
 	}

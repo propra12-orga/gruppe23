@@ -8,14 +8,14 @@ public class Bombe extends JLabel {
 	public int y = 0; 			// y-Koordinate (vertikale Position)
 	Zeit timer = new Zeit(); 	// Timer erstellen
 	boolean liegt = false;
-	
+
 	public Bombe(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	public Bombe() {
-		
+
 	}
 
 	// setter & getter:
@@ -39,13 +39,13 @@ public class Bombe extends JLabel {
 	public void aktivieren() {
 		liegt = true;
 		System.out.println("Bombe gelegt"); // Test	
-		System.out.println();		
+		System.out.println();
 		timer.set_bomb_x(x);
 		timer.set_bomb_y(y);
 		Menue.get_game().add(timer); 		// Timer hinzufügen
 		timer.timer_starten(3000, "Bombe"); // Timer für Bombe starten	
 	}
-	
+
 	// bombe_detonieren-Methode:
 	public void bombe_detonieren() {
 		for (int x = -1, y = -1; x < 2; x++, y++) {	// Ausbreitung der Detonation um Radius 1
@@ -55,12 +55,15 @@ public class Bombe extends JLabel {
 					|| Map.get_map()[this.x + x][this.y] == 5 	// ...oder Bombe-Feld ist,...
 					|| Map.get_map()[this.x + x][this.y] == 3)	// ...oder Block-Feld ist...
 				Map.get_map()[this.x + x][this.y] = 6; 			// ...dann wandele das Feld in ein Explosions-Feld um
-
+			else if (Map.get_map()[this.x + x][this.y] == 8)
+				Map.get_map()[this.x + x][this.y] = 9;
 			// vertikale Ausbreitung der Detonation:
 			if (Map.get_map()[this.x][this.y + y] == 2 			// falls das Zielfeld der Detonation ein Weg-Feld...
 					|| Map.get_map()[this.x][this.y + y] == 5 	// ...oder Bombe-Feld ist,...
 					|| Map.get_map()[this.x][this.y + y] == 3)	// ...oder Block-Feld ist...
 				Map.get_map()[this.x][this.y + y] = 6; 			// ...dann wandele das Feld in ein Explosions-Feld um
+			else if (Map.get_map()[this.x][this.y + y] == 8)
+				Map.get_map()[this.x][this.y + y] = 9;
 
 			// Treffen von Detonation & Hulk:
 			if (((this.x + x == Menue.get_hulk().get_x() + x 		// falls Explosion & Hulk die gleiche x-...
@@ -81,18 +84,18 @@ public class Bombe extends JLabel {
 				Menue.get_hulk().set_y(1);
 
 				// Bombe zurueckpositionieren:
-				for (int x_neu=0; x_neu<11; x_neu++) {
-					for (int y_neu=0; y_neu<11; y_neu++) {
+				for (int x_neu = 0; x_neu < 11; x_neu++) {
+					for (int y_neu = 0; y_neu < 11; y_neu++) {
 						Menue.get_game().bomb[x_neu][y_neu].liegt = false;
 					}
-				}		
+				}
 
 				// Spielfeld intern reinitialisieren:
 				Map.set_map(Map.init_map());
 			}
 
 		}
-		
+
 		Zeit ende_explosion = new Zeit();
 		ende_explosion.set_bomb_x(x);
 		ende_explosion.set_bomb_y(y);						// Timer fuer Dauer der Explosion erstellen

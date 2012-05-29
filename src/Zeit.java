@@ -3,7 +3,7 @@ import java.util.TimerTask;
 
 import javax.swing.JLabel;
 
-public class Zeit extends JLabel{
+public class Zeit extends JLabel {
 	private static final long serialVersionUID = 1L;
 	Timer timer = new Timer(); // Timer erstellen
 	int bomb_x, bomb_y;
@@ -13,12 +13,14 @@ public class Zeit extends JLabel{
 													// logo =
 													// Bomben-/Detonations-Icon
 
-		if (logo.equals("Bombe") && Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) {
+		if (logo.equals("Bombe")
+				&& Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) {
 			timer.schedule(new Bombe(), x); // Zeit bis zur Detonation um x
 											// Millisek. verzögern
 		}
 
-		else if (logo.equals("Detonation") && Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) {
+		else if (logo.equals("Detonation")
+				&& Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) {
 			timer.schedule(new Detonation(), x); 	// Zeit bis zum Ende der
 													// Detonation um x Millisek.
 													// verzögern
@@ -45,38 +47,43 @@ public class Zeit extends JLabel{
 			if (Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) { // falls das Spiel nicht während des Timers neugestartet wurde
 				System.out.println("Detonation beendet"); // Test
 				System.out.println("");
-	
+
 				timer.cancel(); // Timer terminieren	
-				 
+
 				for (int x = -1, y = -1; x < 2; x++, y++) {
 					if (Map.get_map()[bomb_x + x][bomb_y] == 6) {
 						Map.get_map()[bomb_x + x][bomb_y] = 2; 	// Nach Ablauf des
 					}											// Timers wieder das
-																// Weg-Icon
-																// darstellen
+					else if (Map.get_map()[bomb_x + x][bomb_y] == 9) {
+						Map.get_map()[bomb_x + x][bomb_y] = 7;
+					}
+					// Weg-Icon
+					// darstellen
 					if (Map.get_map()[bomb_x][bomb_y + y] == 6) {
 						Map.get_map()[bomb_x][bomb_y + y] = 2;
+						if (Map.get_map()[bomb_x][bomb_y + y] == 6) {
+							Map.get_map()[bomb_x + x][bomb_y] = 7;
+						}
 					}
 
 				}
-				
+
 				Menue.get_game().removeAll();
 				Menue.get_game().refresh();
-				
+
 				Menue.get_game().bomb[bomb_x][bomb_y].liegt = false;
-			}
-			else {
+			} else {
 				timer.cancel(); // Timer terminieren
 			}
-			 
+
 		}
 
 	}
-	
+
 	public void set_bomb_x(int bomb_x) {
 		this.bomb_x = bomb_x;
 	}
-	
+
 	public void set_bomb_y(int bomb_y) {
 		this.bomb_y = bomb_y;
 	}
