@@ -15,16 +15,14 @@ public class Bombe extends JLabel {
 	Zeit timer = new Zeit(); 	// Timer erstellen
 	boolean liegt = false;
 
-	
+	/**
+	 * 
+	 * @param x uebernimmt x-Koord. der Bombe
+	 * @param y uebernimmt y-Koord. der Bombe
+	 */
 	public Bombe(int x, int y) {
 		this.x = x;
 		this.y = y;
-	}
-	
-	
-
-	public Bombe() {
-
 	}
 
 	// setter & getter:
