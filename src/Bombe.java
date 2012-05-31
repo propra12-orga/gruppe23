@@ -1,5 +1,11 @@
 import javax.swing.JLabel;
 
+/**
+ * 
+ * @author Andrej Morlang
+ *
+ */
+
 public class Bombe extends JLabel {
 
 	// Deklaration & Initialisierung:
@@ -9,10 +15,13 @@ public class Bombe extends JLabel {
 	Zeit timer = new Zeit(); 	// Timer erstellen
 	boolean liegt = false;
 
+	
 	public Bombe(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
+	
+	
 
 	public Bombe() {
 
@@ -42,8 +51,8 @@ public class Bombe extends JLabel {
 		System.out.println();
 		timer.set_bomb_x(x);
 		timer.set_bomb_y(y);
-		Menue.get_game().add(timer); 		// Timer hinzufügen
-		timer.timer_starten(3000, "Bombe"); // Timer für Bombe starten	
+		Menue.get_game().add(timer); 		// Timer hinzufuegen
+		timer.timer_starten(3000, "Bombe"); // Timer fuer Bombe starten	
 	}
 
 	// bombe_detonieren-Methode:

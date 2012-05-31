@@ -2,6 +2,12 @@
  * BombHulk.java ist auch inaktiv. Diese Threads reagieren nicht.
  */
 
+/**
+ * 
+ * @author Sebastian Dittmann
+ *
+ */
+
 public class MoveHulk implements Runnable {
 	int[] pos;
 	boolean move;

@@ -1,36 +1,53 @@
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javax.swing.JLabel;
 
+/**
+ * 
+ * @author Andrej Morlang
+ *
+ */
 public class Zeit extends JLabel {
 	private static final long serialVersionUID = 1L;
 	Timer timer = new Timer(); // Timer erstellen
 	int bomb_x, bomb_y;
 
 	// timer_starten-Methode
-	public void timer_starten(int x, String logo) { // x = Timer-Verögerung,
+	/**
+	 * Initialisiert den Bombentimer
+	 * @param x	 Zeit bis zur Detonation der Bombe
+	 * @param logo String der Bomben-Aktion ("Bombe" fuer Legen der Bombe, "Detonation")
+	 */
+	public void timer_starten(int x, String logo) { // x = Timer-Verï¿½gerung,
 													// logo =
 													// Bomben-/Detonations-Icon
 
 		if (logo.equals("Bombe")
 				&& Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) {
 			timer.schedule(new Bombe(), x); // Zeit bis zur Detonation um x
-											// Millisek. verzögern
+											// Millisek. verzï¿½gern
 		}
 
 		else if (logo.equals("Detonation")
 				&& Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) {
 			timer.schedule(new Detonation(), x); 	// Zeit bis zum Ende der
 													// Detonation um x Millisek.
-													// verzögern
+													// verzï¿½gern
 		}
 
 	}
 
+	/**
+	 * 
+	 * @author Andrej Morlang
+	 *
+	 */
 	public class Bombe extends TimerTask {
+		/**
+		 * startet den TimerTask-Thread Bombe (Ueberprueft gleichzeitig, ob das Spiel waehrend des Countdown neugestartet wurde
+		 */
 		public void run() {
-			if (Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) { // falls das Spiel nicht während des Timers neugestartet wurde
+			if (Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) { // falls das Spiel nicht wï¿½hrend des Timers neugestartet wurde
 				System.out.println("Bombe explodiert"); // Test
 				System.out.println("");
 
@@ -42,9 +59,17 @@ public class Zeit extends JLabel {
 
 	}
 
+	/**
+	 * 
+	 * @author Andrej Morlang
+	 *
+	 */
 	public class Detonation extends TimerTask {
+		/**
+		 * startet den TimerTask-Thread Detonation nach Ablauf der Zeit x (timer_starten-Methode), welcher die Detonationsschritte vollzieht
+		 */
 		public void run() {
-			if (Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) { // falls das Spiel nicht während des Timers neugestartet wurde
+			if (Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) { // falls das Spiel nicht wï¿½hrend des Timers neugestartet wurde
 				System.out.println("Detonation beendet"); // Test
 				System.out.println("");
 

@@ -8,6 +8,12 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * 
+ * @author Tobias Korfmacher
+ *
+ */
+
 public class Map extends JPanel {
 	// Deklaration & Initialisierung:
 	private static final long serialVersionUID = 1L;
@@ -28,13 +34,19 @@ public class Map extends JPanel {
 	}
 
 	// move_Hulk-Methode:
+	/**
+	 * Setzt die Icons "Hulk" und "Weg", die bei einer Bewegung ver√§ndert werden
+	 * 
+	 * @param x		X-Koordinate im Map-Array, um welche die Spielfigur bewegt werden soll
+	 * @param y		Y-Koordinate im Map-Array, um welche die Spielfigur bewegt werden soll
+	 */
 	public void move_Hulk(int x, int y) {
 		/* Grafische Fortbewegung der Spielfigur: */
 		if (map[Menue.get_hulk().get_x()][Menue.get_hulk().get_y()] == 1) { 	// falls das Feld das Hulk-Icon (1) beinhaltet,... 
 			map[Menue.get_hulk().get_x()][Menue.get_hulk().get_y()] = 2; 		// ...weise dem Feld das Weg-Icon (2) zu
 		}
 
-		map[Menue.get_hulk().get_x() + x][Menue.get_hulk().get_y() + y] = 1; 	// weise dem n‰chsten Feld das Hulk-Icon (1) zu
+		map[Menue.get_hulk().get_x() + x][Menue.get_hulk().get_y() + y] = 1; 	// weise dem naechsten Feld das Hulk-Icon (1) zu
 
 		/* Interne Fortbewegung der Spielfigur: */
 		Menue.get_hulk().set_x(Menue.get_hulk().get_x() + x); 					// setze horizontale Hulk-Position weiter

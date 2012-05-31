@@ -1,7 +1,11 @@
 /*Siehe MoveHulk.java
  * 
  */
-
+/**
+ * 
+ * @author Sebastian Dittmann
+ *
+ */
 
 
 public class BombHulk implements Runnable{

@@ -9,20 +9,39 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+/**
+ * 
+ * @author Kolja Salewski
+ *
+ */
 public class Menue implements KeyListener {
 
 	// Deklaration & Initialisierung:
+	/**
+	 * Frame des Programmes
+	 */
 	private JFrame frame;
+	
+	/**
+	 * Button im Leistenmenue
+	 * (Schliesst das Programm)
+	 */
 	private final Action_Beenden Action_Beenden = new Action_Beenden(); // Aktion
 																		// zum
 																		// Beenden
 																		// des
 																		// Spiels
 																		// erstellen
+	
+	/**
+	 * Button im Leistenmenue
+	 * (Neustart des Spieles)
+	 */
 	private final Action_Neu Action_Neu = new Action_Neu(); // Aktion zum
 															// Neustart des
 															// Spiels erstellen
 	final static int[][] map = MapLoader.laden(1); 	// Spielfeld initialisieren
+	
 	private static Map game = new Map(map); 		// Spielfeld erstellen
 	private static Hulk hulk = new Hulk(); 			// Hulk erstellen
 	// private Thread moveHulk;
@@ -34,6 +53,7 @@ public class Menue implements KeyListener {
 
 	// Konstruktor:
 	public Menue() {
+		
 		initialize();
 		a = new int[2];
 
@@ -49,6 +69,10 @@ public class Menue implements KeyListener {
 	}
 
 	// Methode zum Initialisieren des Spielfelds:
+	
+	/**
+	 * Initialisiert das Spielfeld (Panels, frames etc.), 
+	 */
 	private void initialize() {
 		frame = new JFrame(); // Fenster erstellen
 		frame.setTitle("Bomberhulk"); // Fenstertitel setzen
@@ -90,6 +114,11 @@ public class Menue implements KeyListener {
 	}
 
 	// keyPressed-Methode:
+	/**
+	 * Horcht, ob eine Taste gedrueckt wurde und wertet die Aktion gegebenfalls aus.
+	 * Gueltige Aktionen sind: Hoch-, Links-, Rechts-, Runtertaste (Bewegung) und Leertaste (Bombe)
+	 * 
+	 */
 	public void keyPressed(KeyEvent Key) {
 		// oben:
 		if (Key.getKeyCode() == KeyEvent.VK_UP) {
@@ -236,11 +265,19 @@ public class Menue implements KeyListener {
 	public void keyReleased(KeyEvent Key) {
 	}
 
+	/**
+	 * 
+	 * @return	Array mit neuer Spielfigurenposition
+	 */
 	public static int[] get_newPos() {
 		return a;
 	}
 
-	// Beenden des Spiels beim Klick auf "Beenden":
+	/**
+	 * Klasse fuer Menuebutton "Beenden", beendet das Programm
+	 * @author Kolja Salewski
+	 *
+	 */
 	private class Action_Beenden extends AbstractAction {
 		private static final long serialVersionUID = 1L;
 
@@ -255,7 +292,11 @@ public class Menue implements KeyListener {
 
 	}
 
-	// Neustart des Spiels beim Klick auf "Neu"
+	/**
+	 * Klasse fuer Menuebutton "Neu", setzt das Spielfeld auf Anfang
+	 * @author Kolja Salewski
+	 *
+	 */
 	private class Action_Neu extends AbstractAction {
 		private static final long serialVersionUID = 1L;
 
@@ -289,47 +330,70 @@ public class Menue implements KeyListener {
 
 	}
 
-	// get_bomb-Methode:
+	/**
+	 * Horchmethode fuer BombHulk-Thread
+	 */
 	public static boolean get_bomb() {
 		return bomb;
 	}
 
-	// set_bomb-Methode:
+	/**
+	 * Horchmethode fuer BombHulk-Thread
+	 */
 	public static void set_bomb() {
 		bomb = false;
 	}
 
-	// get_move-Methode:
+	/**
+	 * Horchmethode fuer MoveHulk-Thread
+	 */
 	public static boolean get_move() {
 		return move;
 	}
 
-	// set_move-Methode:
+	/**
+	 * Horchmethode fuer MoveHulk-Thread
+	 */
 	public static void set_move() {
 		move = false;
 	}
 
-	// getGame-Methode:
+	/**
+	 * Wird in der Map-Klasse verwendet
+	 * @return Spielfeldobjekt game
+	 */
 	public static Map get_game() {
 		return game;
 	}
 
-	// setGame-Methode:
+	/**
+	 * 
+	 * @param game Setzt das Spielfeldobjekt
+	 */
 	public void set_game(Map game) {
 		Menue.game = game;
 	}
 
-	// get_hulk-Methode:
+	/**
+	 * 
+	 * @return Position der Spielfigur im Array (hulk)
+	 */
 	public static Hulk get_hulk() {
 		return hulk;
 	}
 
-	// set_hulk-Methode:
+	/**
+	 * 
+	 * @param hulk Aktualisiert die Position der Spielfigur in der Menue-Klasse
+	 */
 	public void set_hulk(Hulk hulk) {
 		Menue.hulk = hulk;
 	}
 
-	// get_map-Methode:
+	/**
+	 * 
+	 * @return Map-Array (Positionen der Icons im Spielfeld)
+	 */
 	public static int[][] get_map() {
 		return map;
 	}

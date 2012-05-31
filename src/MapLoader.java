@@ -1,6 +1,11 @@
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * 
+ * @author Tobias Korfmacher
+ *
+ */
 public class MapLoader {
 
 	public static int[][] laden(int i) {
