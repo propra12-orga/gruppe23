@@ -24,25 +24,46 @@ public class Bombe extends JLabel {
 		this.x = x;
 		this.y = y;
 	}
+	public Bombe(){}
 
 	// setter & getter:
+	/**
+	 * 
+	 * @return Bombenposition x-Koord.
+	 */
 	public int get_x() {
 		return x;
 	}
 
+	/**
+	 * 
+	 * @param x Bombenposition x-Koord. setzen
+	 */
 	public void set_x(int x) {
 		this.x = x;
 	}
 
+	/**
+	 * 
+	 * @return Bombenposition y-Koord.
+	 */
 	public int get_y() {
 		return y;
 	}
 
+	/**
+	 * 
+	 * @param y Bombenposition y-Koord. setzen
+	 */
 	public void set_y(int y) {
 		this.y = y;
 	}
 
 	// aktivieren-Methode:
+	/**
+	 * Aktiviert den Timer unfuegt ihn an die
+	 * {@code Map Menue.game()}-Variable
+	 */
 	public void aktivieren() {
 		liegt = true;
 		System.out.println("Bombe gelegt"); // Test	

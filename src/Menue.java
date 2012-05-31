@@ -18,7 +18,7 @@ public class Menue implements KeyListener {
 
 	// Deklaration & Initialisierung:
 	/**
-	 * Frame des Programmes
+	 * Hauptframe des Programmes
 	 */
 	private JFrame frame;
 	
@@ -42,7 +42,14 @@ public class Menue implements KeyListener {
 															// Spiels erstellen
 	final static int[][] map = MapLoader.laden(1); 	// Spielfeld initialisieren
 	
+	/**
+	 * Objekt der Map()-Klasse; enthaelt die Daten des Spielfeldes;
+	 */
 	private static Map game = new Map(map); 		// Spielfeld erstellen
+	
+	/**
+	 * enthalet die Informationen ueber die Spielerposition ((x,y)-Koordinate)
+	 */
 	private static Hulk hulk = new Hulk(); 			// Hulk erstellen
 	// private Thread moveHulk;
 	// private Thread bombHulk;
@@ -52,6 +59,9 @@ public class Menue implements KeyListener {
 	public boolean spiel_neugestartet = false;	
 
 	// Konstruktor:
+	/**
+	 * {@code initialize()} legt die Panels in das JFrame {@code frame()} & erstellt die grafische Oberflaeche des Spieles
+	 */
 	public Menue() {
 		
 		initialize();
