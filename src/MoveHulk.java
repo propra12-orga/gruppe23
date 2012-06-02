@@ -3,21 +3,26 @@
  */
 
 /**
+ * greift auf Menue-Variablen zu: game, map, hulk
  * 
  * @author Sebastian Dittmann
- *
+ * 
  */
 
-public class MoveHulk implements Runnable {
+public class MoveHulk extends Thread {
 	int[] pos;
 	boolean move;
 
+	/**
+	 * initialisiert das Bewegungsarray (speichert Koordinaten, die auf die aktuelle Position des Spielers draufaddiert werden);
+	 */
 	public MoveHulk() {
-		super();
 		pos = new int[2];
 		move = false;
 	}
-
+	/**
+	 * Startet den Bewegungsthread; fuehrt Bewegungsmethode aus; zeichnet Spielfeld neu;
+	 */
 	public void run() {
 		while (true) {
 			move = Menue.get_move();

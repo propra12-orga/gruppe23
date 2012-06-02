@@ -104,10 +104,18 @@ public class Zeit extends JLabel {
 		}
 	}
 
+	/**
+	 * 
+	 * @param bomb_x setzt x-Koordinate der Bombe
+	 */
 	public void set_bomb_x(int bomb_x) {
 		this.bomb_x = bomb_x;
 	}
 
+	/**
+	 * 
+	 * @param bomb_y setzt y-Koordinate der Bombe
+	 */
 	public void set_bomb_y(int bomb_y) {
 		this.bomb_y = bomb_y;
 	}

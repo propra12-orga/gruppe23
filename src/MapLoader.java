@@ -7,7 +7,12 @@ import java.io.IOException;
  *
  */
 public class MapLoader {
-
+	
+	/**
+	 * 
+	 * @param i legt das zu ladene Level fest
+	 * @return map-Objekt
+	 */
 	public static int[][] laden(int i) {
 		int c = 0;
 

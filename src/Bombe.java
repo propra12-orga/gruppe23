@@ -1,7 +1,7 @@
 import javax.swing.JLabel;
 
 /**
- * 
+ * zustaendig fuer
  * @author Andrej Morlang
  *
  */
@@ -75,6 +75,9 @@ public class Bombe extends JLabel {
 	}
 
 	// bombe_detonieren-Methode:
+	/**
+	 * Ueberpruefung der Legalitaet der Detonationsausbreitung; Umwandlung der Felder im Map-Array; Ueberpruefung ob Spieler von Explosion betroffen ist
+	 */
 	public void bombe_detonieren() {
 		for (int x = -1, y = -1; x < 2; x++, y++) {	// Ausbreitung der Detonation um Radius 1
 			Menue.get_game();
