@@ -50,7 +50,13 @@ public class Menue implements KeyListener {
 	/**
 	 * enthalet die Informationen ueber die Spielerposition ((x,y)-Koordinate)
 	 */
-	private static Hulk hulk = new Hulk(); 			// Hulk erstellen
+	private static Hulk hulk1 = new Hulk(1,1); 			// Hulk erstellen
+	
+	/**
+	 * enthaelt Informationen ueber die 2. Spielerfigur (Position)
+	 */
+	//private static Hulk hulk2 = new Hulk(10,10);
+	
 	// private Thread moveHulk;
 	// private Thread bombHulk;
 	private static boolean move;
@@ -188,7 +194,7 @@ public class Menue implements KeyListener {
 		}
 
 		if (Key.getKeyCode() != KeyEvent.VK_SPACE) {
-			if (Map.map[hulk.get_x() + a[0]][hulk.get_y() + a[1]] == 2) { 	// falls
+			if (Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 2) { 	// falls
 																			// das
 																			// naechste
 																			// Feld
@@ -202,7 +208,7 @@ public class Menue implements KeyListener {
 				game.refresh(); 			// zeichne alle Komponenten des Panels neu
 			}
 
-			else if (Map.map[hulk.get_x() + a[0]][hulk.get_y() + a[1]] == 7) { 	// falls
+			else if (Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 7) { 	// falls
 																				// das
 																				// naechste
 																				// Feld
@@ -216,8 +222,8 @@ public class Menue implements KeyListener {
 				System.out.println();
 		
 				// Hulk zurueckpositionieren:
-				hulk.set_x(1);
-				hulk.set_y(1);
+				hulk1.set_x(1);
+				hulk1.set_y(1);
 
 				
 				// Gelegte Bomben entfernen:
@@ -235,7 +241,7 @@ public class Menue implements KeyListener {
 				game.refresh();
 			}
 
-			else if (Map.map[hulk.get_x() + a[0]][hulk.get_y() + a[1]] == 6) { // falls
+			else if (Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 6) { // falls
 																				// das
 																				// naechste
 																				// Feld
@@ -249,8 +255,8 @@ public class Menue implements KeyListener {
 				System.out.println();
 				
 				// Hulk zurueckpositionieren:
-				hulk.set_x(1);
-				hulk.set_y(1);
+				hulk1.set_x(1);
+				hulk1.set_y(1);
 
 				// Gelegte Bomben entfernen:
 				for (int x=0; x<11; x++) {
@@ -320,8 +326,8 @@ public class Menue implements KeyListener {
 			System.out.println();
 
 			// Hulk zurueckpositionieren:
-			hulk.set_x(1);
-			hulk.set_y(1);
+			hulk1.set_x(1);
+			hulk1.set_y(1);
 
 			// Gelegte Bomben entfernen:
 			for (int x=0; x<11; x++) {
@@ -389,7 +395,7 @@ public class Menue implements KeyListener {
 	 * @return Position der Spielfigur im Array (hulk)
 	 */
 	public static Hulk get_hulk() {
-		return hulk;
+		return hulk1;
 	}
 
 	/**
@@ -397,9 +403,25 @@ public class Menue implements KeyListener {
 	 * @param hulk Aktualisiert die Position der Spielfigur in der Menue-Klasse
 	 */
 	public void set_hulk(Hulk hulk) {
-		Menue.hulk = hulk;
+		Menue.hulk1 = hulk;
+	}
+	
+	/**
+	 * Für Mehrspieler.
+	 * @return Hulk-Objekt hulk2
+	 */
+	public static Hulk getHulk2() {
+		return hulk2;
 	}
 
+	/**
+	 * 
+	 * @param hulk2	 Hulk-Objekt 2. Spieler
+	 */
+	public static void setHulk2(Hulk hulk2) {
+		Menue.hulk2 = hulk2;
+	}
+	
 	/**
 	 * 
 	 * @return Map-Array (Positionen der Icons im Spielfeld)
@@ -426,5 +448,7 @@ public class Menue implements KeyListener {
 		});
 		
 	}
+
+
 
 }

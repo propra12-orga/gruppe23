@@ -9,6 +9,17 @@ public class Hulk {
 	public int x = 1; // x-Koordinate (horizontale Position)
 	public int y = 1; // y-Koordinate (vertikale Position)
 	
+	public Hulk(int x, int y){
+		this.x = x; this.y = y;
+	}
+	
+	/**
+	 * legt Spielerposition in der Map fest (beim Spielstart)
+	 */
+	public void setPlayerPosition(){
+		
+	}
+	
 	/**
 	 * 
 	 * @return aktuelle X-Koordinate im Map-Array
