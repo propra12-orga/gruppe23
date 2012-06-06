@@ -192,6 +192,7 @@ public class Map extends JPanel {
 			
 		case 10:// 2. Spieler
 			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Hulk2.png")));
+			break;
 		}
 
 	}

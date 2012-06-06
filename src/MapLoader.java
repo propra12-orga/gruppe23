@@ -49,6 +49,8 @@ public class MapLoader {
 			}
 			if(twoPlayerSet){
 				map[9][9] = 10;
+				System.out.println();
+				System.out.println();
 				System.out.println("Multiplayer on");
 			}
 			

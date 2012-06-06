@@ -55,13 +55,15 @@ public class Menue implements KeyListener {
 
 	
 	private static int[] a;
-	public boolean spiel_neugestartet = false;	
+	public boolean spiel_neugestartet;
 
 	// Konstruktor:
 	/**
 	 * {@code initialize()} legt die Panels in das JFrame {@code frame()} & erstellt die grafische Oberflaeche des Spieles
 	 */
 	public Menue() {
+		spiel_neugestartet = false;
+		twoPlayer = true;
 		map = MapLoader.laden(1);
 		game = new Map(map);
 		hulk1 = new Hulk(1,1);
@@ -77,7 +79,6 @@ public class Menue implements KeyListener {
 	 * Initialisiert das Spielfeld (Panels, frames etc.), 
 	 */
 	private void initialize() {
-		twoPlayer = true;
 		frame = new JFrame(); // Fenster erstellen
 		frame.setTitle("Bomberhulk"); // Fenstertitel setzen
 		frame.setBounds(100, 100, 550, 605); 	// Fenstergroesse einstellen
