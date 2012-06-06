@@ -11,6 +11,8 @@ public class Zeit extends JLabel {
 	private static final long serialVersionUID = 1L;
 	Timer timer = new Timer(); // Timer erstellen
 	int bomb_x, bomb_y;
+	
+	
 
 	// timer_starten-Methode
 	/**
@@ -18,13 +20,13 @@ public class Zeit extends JLabel {
 	 * @param x	 Zeit bis zur Detonation der Bombe
 	 * @param logo String der Bomben-Aktion ("Bombe" fuer Legen der Bombe, "Detonation")
 	 */
-	public void timer_starten(int x, String logo) { // x = Timer-Ver�gerung,
+	public void timer_starten(int x, String logo, int spieler) { // x = Timer-Ver�gerung,
 													// logo =
 													// Bomben-/Detonations-Icon
 
 		if (logo.equals("Bombe")
 				&& Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) {
-			timer.schedule(new Bombe(), x); // Zeit bis zur Detonation um x
+			timer.schedule(new Bombe(spieler), x); // Zeit bis zur Detonation um x
 											// Millisek. verz�gern
 		}
 
@@ -43,6 +45,11 @@ public class Zeit extends JLabel {
 	 *
 	 */
 	public class Bombe extends TimerTask {
+		
+		private int Spieler;
+		public Bombe (int spieler){
+			Spieler = spieler;
+		}
 		/**
 		 * startet den TimerTask-Thread Bombe (Ueberprueft gleichzeitig, ob das Spiel waehrend des Countdown neugestartet wurde
 		 */
@@ -51,7 +58,7 @@ public class Zeit extends JLabel {
 				System.out.println("Bombe explodiert"); // Test
 				System.out.println("");
 
-				Menue.get_game().bomb[bomb_x][bomb_y].bombe_detonieren(); // Detonation der Bombe
+				Menue.get_game().bomb[bomb_x][bomb_y].bombe_detonieren(Spieler); // Detonation der Bombe
 				timer.cancel(); // Timer terminieren
 			}
 

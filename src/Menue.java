@@ -26,20 +26,15 @@ public class Menue implements KeyListener {
 	 * Button im Leistenmenue
 	 * (Schliesst das Programm)
 	 */
-	private final Action_Beenden Action_Beenden = new Action_Beenden(); // Aktion
-																		// zum
-																		// Beenden
-																		// des
-																		// Spiels
-																		// erstellen
+	private final Action_Beenden Action_Beenden = new Action_Beenden(); 	// Aktion zum Beenden des
+																			// Spiels erstellen
 	
 	/**
 	 * Button im Leistenmenue
 	 * (Neustart des Spieles)
 	 */
-	private final Action_Neu Action_Neu = new Action_Neu(); // Aktion zum
-															// Neustart des
-															// Spiels erstellen
+	private final Action_Neu Action_Neu = new Action_Neu(); 	// Aktion zum Neustart des
+																// Spiels erstellen
 	final static int[][] map = MapLoader.laden(1); 	// Spielfeld initialisieren
 	
 	/**
@@ -50,12 +45,12 @@ public class Menue implements KeyListener {
 	/**
 	 * enthalet die Informationen ueber die Spielerposition ((x,y)-Koordinate)
 	 */
-	private static Hulk hulk1 = new Hulk(1,1); 			// Hulk erstellen
+	private static Hulk hulk1 = new Hulk(1,1); 			// Hulk erstellen, Übergabe Startposition
 	
 	/**
 	 * enthaelt Informationen ueber die 2. Spielerfigur (Position)
 	 */
-	private static Hulk hulk2 = new Hulk(10,10);
+	private static Hulk hulk2 = new Hulk(10,10);			//2. Spieler erstellen, Übergabe Startposition
 	public static boolean twoPlayer;
 	
 	// private Thread moveHulk;
@@ -72,7 +67,7 @@ public class Menue implements KeyListener {
 	public Menue() {
 		
 		initialize();
-		a = new int[2];
+		a = new int[3];
 
 		// moveHulk = new Thread(new MoveHulk()); //Threads initialisieren und
 		// starten
@@ -83,7 +78,7 @@ public class Menue implements KeyListener {
 
 		bomb = false;
 		move = false;
-		twoPlayer = false;
+		
 	}
 
 	// Methode zum Initialisieren des Spielfelds:
@@ -92,6 +87,7 @@ public class Menue implements KeyListener {
 	 * Initialisiert das Spielfeld (Panels, frames etc.), 
 	 */
 	private void initialize() {
+		twoPlayer = true;
 		frame = new JFrame(); // Fenster erstellen
 		frame.setTitle("Bomberhulk"); // Fenstertitel setzen
 		frame.setBounds(100, 100, 550, 605); 	// Fenstergroesse einstellen
@@ -145,6 +141,7 @@ public class Menue implements KeyListener {
 
 			a[0] = 0;
 			a[1] = -1;
+			a[2] = 1;
 
 			move = true;
 		}
@@ -156,6 +153,7 @@ public class Menue implements KeyListener {
 
 			a[0] = -1;
 			a[1] = 0;
+			a[2] = 1;
 
 			move = true;
 		}
@@ -167,6 +165,7 @@ public class Menue implements KeyListener {
 
 			a[0] = 1;
 			a[1] = 0;
+			a[2] = 1;
 
 			move = true;
 		}
@@ -178,6 +177,7 @@ public class Menue implements KeyListener {
 
 			a[0] = 0;
 			a[1] = 1;
+			a[2] = 1;
 
 			move = true;
 		}
@@ -189,7 +189,7 @@ public class Menue implements KeyListener {
 
 			bomb = true;
 
-			game.bombe_legen();
+			game.bombe_legen(1);
 			game.removeAll(); 	// entferne alle bisherigen Komponenten vom Panel
 			game.refresh();		// zeichne alle Komponenten des Panels neu
 
@@ -204,7 +204,7 @@ public class Menue implements KeyListener {
 																			// Weg-Feld
 																			// ist
 
-				game.move_Hulk(a[0], a[1]); // bewege Hulk auf dem Spielfeld
+				game.move_Hulk(a[0], a[1], a[2]); // bewege Hulk auf dem Spielfeld
 				game.removeAll(); 			// entferne alle bisherigen Komponenten vom
 											// Panel
 				game.refresh(); 			// zeichne alle Komponenten des Panels neu
@@ -274,6 +274,24 @@ public class Menue implements KeyListener {
 				game.removeAll();
 				game.refresh();
 			}
+		}
+		
+		
+		//Key-Methoden für 2. Spieler
+		if (Key.getKeyCode() == KeyEvent.VK_W && twoPlayer){	
+			
+		}
+		else if (Key.getKeyCode() == KeyEvent.VK_A && twoPlayer){
+			
+		}
+		else if (Key.getKeyCode() == KeyEvent.VK_S){
+			
+		}
+		else if (Key.getKeyCode() == KeyEvent.VK_D){
+			
+		}
+		else if (Key.getKeyCode() == KeyEvent.VK_E){
+			
 		}
 	}
 
@@ -393,11 +411,13 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * 
+	 * @param a Spielernummer (1,2, etc.)
 	 * @return Position der Spielfigur im Array (hulk)
 	 */
-	public static Hulk get_hulk() {
-		return hulk1;
+	public static Hulk get_hulk(int a) {
+		
+		if(a == 1)	return hulk1;
+		else return hulk2;
 	}
 
 	/**

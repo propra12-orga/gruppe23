@@ -22,10 +22,12 @@ public class Map extends JPanel {
 	Bombe bomb[][] = new Bombe[n][n]; 			// Bomben erstellen
 	int bomb_x, bomb_y;
 	JLabel[][] label = new JLabel[n][n]; 		// JLabel-Array erstellen
+	public static boolean twoPlayerset;
 
 	// Konstruktor:
 	public Map(int[][] map) {
 		Map.map = map;
+		twoPlayerset = Menue.getMultiplayer();
 		for (int x = 0; x < n; x++) {
 			for (int y = 0; y < n; y++) {
 				bomb[x][y] = new Bombe();
@@ -39,33 +41,34 @@ public class Map extends JPanel {
 	 * 
 	 * @param x		X-Koordinate im Map-Array, um welche die Spielfigur bewegt werden soll
 	 * @param y		Y-Koordinate im Map-Array, um welche die Spielfigur bewegt werden soll
+	 * @param z		zu bewegende Spielfigur (1 := Spieler 1, 2:= Spieler 2 ...)
 	 */
-	public void move_Hulk(int x, int y) {
+	public void move_Hulk(int x, int y, int z) {
 		/* Grafische Fortbewegung der Spielfigur: */
-		if (map[Menue.get_hulk().get_x()][Menue.get_hulk().get_y()] == 1) { 	// falls das Feld das Hulk-Icon (1) beinhaltet,... 
-			map[Menue.get_hulk().get_x()][Menue.get_hulk().get_y()] = 2; 		// ...weise dem Feld das Weg-Icon (2) zu
+		if (map[Menue.get_hulk(z).get_x()][Menue.get_hulk(z).get_y()] == 1) { 	// falls das Feld das Hulk-Icon (1) beinhaltet,... 
+			map[Menue.get_hulk(z).get_x()][Menue.get_hulk(z).get_y()] = 2; 		// ...weise dem Feld das Weg-Icon (2) zu
 		}
 
-		map[Menue.get_hulk().get_x() + x][Menue.get_hulk().get_y() + y] = 1; 	// weise dem naechsten Feld das Hulk-Icon (1) zu
+		map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] = 1; 	// weise dem naechsten Feld das Hulk-Icon (1) zu
 
 		/* Interne Fortbewegung der Spielfigur: */
-		Menue.get_hulk().set_x(Menue.get_hulk().get_x() + x); 					// setze horizontale Hulk-Position weiter
-		Menue.get_hulk().set_y(Menue.get_hulk().get_y() + y); 					// setze vertikale Hulk-Position weiter
+		Menue.get_hulk(z).set_x(Menue.get_hulk(z).get_x() + x); 					// setze horizontale Hulk-Position weiter
+		Menue.get_hulk(z).set_y(Menue.get_hulk(z).get_y() + y); 					// setze vertikale Hulk-Position weiter
 
-		System.out.println("Hulks neue Position: " + Menue.get_hulk().get_x()
-				+ "te Spalte, " + Menue.get_hulk().get_y() + "te Zeile"); 		// Test
+		System.out.println("Hulks neue Position: " + Menue.get_hulk(z).get_x()
+				+ "te Spalte, " + Menue.get_hulk(z).get_y() + "te Zeile"); 		// Test
 		System.out.println();
 	}
 
 	// bombe_legen-Methode:
-	public void bombe_legen() {
-		bomb_x = Menue.get_hulk().get_x();
-		bomb_y = Menue.get_hulk().get_y();
+	public void bombe_legen(int Spieler) {
+		bomb_x = Menue.get_hulk(Spieler).get_x();
+		bomb_y = Menue.get_hulk(Spieler).get_y();
 		bomb[bomb_x][bomb_y] = new Bombe(bomb_x, bomb_y);
 
 		add(bomb[bomb_x][bomb_y]); 										// Bombe hinzufuegen
-		bomb[bomb_x][Menue.get_hulk().get_y()].aktivieren(); 			// Bombe aktivieren
-		map[Menue.get_hulk().get_x()][Menue.get_hulk().get_y()] = 5; 	// Bombe darstellen
+		bomb[bomb_x][Menue.get_hulk(Spieler).get_y()].aktivieren(Spieler); 			// Bombe aktivieren
+		map[Menue.get_hulk(Spieler).get_x()][Menue.get_hulk(Spieler).get_y()] = 5; 	// Bombe darstellen
 	}
 
 	// refresh-Methode:

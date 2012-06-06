@@ -64,21 +64,21 @@ public class Bombe extends JLabel {
 	 * Aktiviert den Timer unfuegt ihn an die
 	 * {@code Map Menue.game()}-Variable
 	 */
-	public void aktivieren() {
+	public void aktivieren(int Spieler) {
 		liegt = true;
 		System.out.println("Bombe gelegt"); // Test	
 		System.out.println();
 		timer.set_bomb_x(x);
 		timer.set_bomb_y(y);
 		Menue.get_game().add(timer); 		// Timer hinzufuegen
-		timer.timer_starten(3000, "Bombe"); // Timer fuer Bombe starten	
+		timer.timer_starten(3000, "Bombe", Spieler); // Timer fuer Bombe starten	
 	}
 
 	// bombe_detonieren-Methode:
 	/**
 	 * Ueberpruefung der Legalitaet der Detonationsausbreitung; Umwandlung der Felder im Map-Array; Ueberpruefung ob Spieler von Explosion betroffen ist
 	 */
-	public void bombe_detonieren() {
+	public void bombe_detonieren(int Spieler) {
 		for (int x = -1, y = -1; x < 2; x++, y++) {	// Ausbreitung der Detonation um Radius 1
 			Menue.get_game();
 			// horizontale Ausbreitung der Detonation:
@@ -97,11 +97,11 @@ public class Bombe extends JLabel {
 				Map.get_map()[this.x][this.y + y] = 9;
 
 			// Treffen von Detonation & Hulk:
-			if (((this.x + x == Menue.get_hulk().get_x() + x 		// falls Explosion & Hulk die gleiche x-...
-			&& this.y == Menue.get_hulk().get_y()) 					// ...und y-Koordinate haben...
+			if (((this.x + x == Menue.get_hulk(Spieler).get_x() + x 		// falls Explosion & Hulk die gleiche x-...
+			&& this.y == Menue.get_hulk(Spieler).get_y()) 					// ...und y-Koordinate haben...
 					|| Map.get_map()[this.x + x][this.y] == 1)  	// ...oder das Explosions-Feld ein Hulk-Icon beinhaltet,...
-					|| ((this.x == Menue.get_hulk().get_x() 		// ...oder falls Explosion & Hulk die gleiche x-...
-					&& this.y + y == Menue.get_hulk().get_y() + y) 	// ...und y-Koordinate haben...
+					|| ((this.x == Menue.get_hulk(Spieler).get_x() 		// ...oder falls Explosion & Hulk die gleiche x-...
+					&& this.y + y == Menue.get_hulk(Spieler).get_y() + y) 	// ...und y-Koordinate haben...
 					|| Map.get_map()[this.x][this.y + y] == 1)) {	// ...oder das Explosions-Feld ein Hulk-Icon beinhaltet,...
 
 				System.out.println("Verloren!"); 			// Test
@@ -111,8 +111,8 @@ public class Bombe extends JLabel {
 				System.out.println();
 
 				// Hulk zurueckpositionieren:
-				Menue.get_hulk().set_x(1);
-				Menue.get_hulk().set_y(1);
+				Menue.get_hulk(Spieler).set_x(Menue.get_hulk(Spieler).get_startX());
+				Menue.get_hulk(Spieler).set_y(Menue.get_hulk(Spieler).get_startY());
 
 				// Bombe zurueckpositionieren:
 				for (int x_neu = 0; x_neu < 11; x_neu++) {
@@ -131,7 +131,7 @@ public class Bombe extends JLabel {
 		ende_explosion.set_bomb_x(x);
 		ende_explosion.set_bomb_y(y);						// Timer fuer Dauer der Explosion erstellen
 		Menue.get_game().add(ende_explosion); 				// Timer fuer Dauer der Explosion hinzufuegen
-		ende_explosion.timer_starten(1000, "Detonation"); 	// Timer fuer Dauer der Explosion starten
+		ende_explosion.timer_starten(1000, "Detonation", Spieler); 	// Timer fuer Dauer der Explosion starten
 
 		Menue.get_game().removeAll(); 						// entferne alle bisherigen Komponenten vom Panel
 		Menue.get_game().refresh(); 						// zeichne alle Komponenten des Panels neu
