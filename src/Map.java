@@ -186,6 +186,9 @@ public class Map extends JPanel {
 		case 9:// Explosion/Ausgang 	
 			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/EXP.png")));
 			break;
+			
+		case 10:// 2. Spieler
+			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Hulk2.png")));
 		}
 
 	}

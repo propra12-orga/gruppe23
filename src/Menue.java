@@ -55,7 +55,8 @@ public class Menue implements KeyListener {
 	/**
 	 * enthaelt Informationen ueber die 2. Spielerfigur (Position)
 	 */
-	//private static Hulk hulk2 = new Hulk(10,10);
+	private static Hulk hulk2 = new Hulk(10,10);
+	public static boolean twoPlayer;
 	
 	// private Thread moveHulk;
 	// private Thread bombHulk;
@@ -82,6 +83,7 @@ public class Menue implements KeyListener {
 
 		bomb = false;
 		move = false;
+		twoPlayer = false;
 	}
 
 	// Methode zum Initialisieren des Spielfelds:
@@ -290,7 +292,7 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebutton "Beenden", beendet das Programm
+	 * Klasse fuer Menuebuttonorganisation "Beenden", beendet das Programm
 	 * @author Kolja Salewski
 	 *
 	 */
@@ -309,7 +311,7 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebutton "Neu", setzt das Spielfeld auf Anfang
+	 * Klasse fuer Menuebuttonorganisation "Neu", setzt das Spielfeld auf Anfang
 	 * @author Kolja Salewski
 	 *
 	 */
@@ -428,6 +430,10 @@ public class Menue implements KeyListener {
 	 */
 	public static int[][] get_map() {
 		return map;
+	}
+	
+	public static boolean getMultiplayer(){
+		return twoPlayer;
 	}
 
 	// main-Methode:

@@ -7,15 +7,17 @@ import java.io.IOException;
  *
  */
 public class MapLoader {
-	
+	public static boolean twoPlayerSet;
 	/**
 	 * 
 	 * @param i legt das zu ladene Level fest
 	 * @return map-Objekt
 	 */
 	public static int[][] laden(int i) {
+		twoPlayerSet = Menue.getMultiplayer();
+		
 		int c = 0;
-
+		
 		int n = 11;
 		int k = 0, l = 0;
 		int[][] map = new int[n][n];
@@ -44,6 +46,10 @@ public class MapLoader {
 					
 				}
 				
+			}
+			if(twoPlayerSet){
+				map[9][9] = 10;
+				System.out.println("Multiplayer on");
 			}
 			
 			System.out.println();	// Test
