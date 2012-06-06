@@ -35,28 +35,25 @@ public class Menue implements KeyListener {
 	 */
 	private final Action_Neu Action_Neu = new Action_Neu(); 	// Aktion zum Neustart des
 																// Spiels erstellen
-	final static int[][] map = MapLoader.laden(1); 	// Spielfeld initialisieren
+	public static boolean twoPlayer;															
+	private static int[][] map; 	// Spielfeld initialisieren
 	
 	/**
 	 * Objekt der Map()-Klasse; enthaelt die Daten des Spielfeldes;
 	 */
-	private static Map game = new Map(map); 		// Spielfeld erstellen
+	private static Map game; 		// Spielfeld erstellen
 	
 	/**
 	 * enthalet die Informationen ueber die Spielerposition ((x,y)-Koordinate)
 	 */
-	private static Hulk hulk1 = new Hulk(1,1); 			// Hulk erstellen, Übergabe Startposition
+	private static Hulk hulk1;			// Hulk erstellen, Übergabe Startposition
 	
 	/**
 	 * enthaelt Informationen ueber die 2. Spielerfigur (Position)
 	 */
-	private static Hulk hulk2 = new Hulk(10,10);			//2. Spieler erstellen, Übergabe Startposition
-	public static boolean twoPlayer;
+	private static Hulk hulk2;			//2. Spieler erstellen, Übergabe Startposition
+
 	
-	// private Thread moveHulk;
-	// private Thread bombHulk;
-	private static boolean move;
-	private static boolean bomb;
 	private static int[] a;
 	public boolean spiel_neugestartet = false;	
 
@@ -65,19 +62,12 @@ public class Menue implements KeyListener {
 	 * {@code initialize()} legt die Panels in das JFrame {@code frame()} & erstellt die grafische Oberflaeche des Spieles
 	 */
 	public Menue() {
-		
+		map = MapLoader.laden(1);
+		game = new Map(map);
+		hulk1 = new Hulk(1,1);
+		hulk2 = new Hulk(10,10);
 		initialize();
 		a = new int[3];
-
-		// moveHulk = new Thread(new MoveHulk()); //Threads initialisieren und
-		// starten
-		// moveHulk.start();
-
-		// bombHulk = new Thread(new BombHulk());
-		// bombHulk.start();
-
-		bomb = false;
-		move = false;
 		
 	}
 
@@ -143,7 +133,6 @@ public class Menue implements KeyListener {
 			a[1] = -1;
 			a[2] = 1;
 
-			move = true;
 		}
 
 		// Pfeiltaste links:
@@ -155,7 +144,6 @@ public class Menue implements KeyListener {
 			a[1] = 0;
 			a[2] = 1;
 
-			move = true;
 		}
 
 		// Pfeiltaste rechts:
@@ -167,7 +155,6 @@ public class Menue implements KeyListener {
 			a[1] = 0;
 			a[2] = 1;
 
-			move = true;
 		}
 
 		// Pfeiltaste unten:
@@ -179,7 +166,6 @@ public class Menue implements KeyListener {
 			a[1] = 1;
 			a[2] = 1;
 
-			move = true;
 		}
 
 		// Leertaste:
@@ -187,7 +173,6 @@ public class Menue implements KeyListener {
 			System.out.println("Space"); // Test
 			System.out.println();
 
-			bomb = true;
 
 			game.bombe_legen(1);
 			game.removeAll(); 	// entferne alle bisherigen Komponenten vom Panel
@@ -364,34 +349,6 @@ public class Menue implements KeyListener {
 			game.refresh();
 		}
 
-	}
-
-	/**
-	 * Horchmethode fuer BombHulk-Thread
-	 */
-	public static boolean get_bomb() {
-		return bomb;
-	}
-
-	/**
-	 * Horchmethode fuer BombHulk-Thread
-	 */
-	public static void set_bomb() {
-		bomb = false;
-	}
-
-	/**
-	 * Horchmethode fuer MoveHulk-Thread
-	 */
-	public static boolean get_move() {
-		return move;
-	}
-
-	/**
-	 * Horchmethode fuer MoveHulk-Thread
-	 */
-	public static void set_move() {
-		move = false;
 	}
 
 	/**

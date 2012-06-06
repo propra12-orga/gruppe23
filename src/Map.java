@@ -22,7 +22,7 @@ public class Map extends JPanel {
 	Bombe bomb[][] = new Bombe[n][n]; 			// Bomben erstellen
 	int bomb_x, bomb_y;
 	JLabel[][] label = new JLabel[n][n]; 		// JLabel-Array erstellen
-	public static boolean twoPlayerset;
+	public static boolean twoPlayerset;		//Multiplayerabfrage
 
 	// Konstruktor:
 	public Map(int[][] map) {
