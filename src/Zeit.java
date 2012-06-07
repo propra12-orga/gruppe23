@@ -20,21 +20,21 @@ public class Zeit extends JLabel {
 	 * @param x	 Zeit bis zur Detonation der Bombe
 	 * @param logo String der Bomben-Aktion ("Bombe" fuer Legen der Bombe, "Detonation")
 	 */
-	public void timer_starten(int x, String logo, int spieler) { // x = Timer-Ver�gerung,
+	public void timer_starten(int x, String logo, int spieler) { // x = Timer-Verzoegerung,
 													// logo =
 													// Bomben-/Detonations-Icon
 
 		if (logo.equals("Bombe")
 				&& Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) {
 			timer.schedule(new Bombe(spieler), x); // Zeit bis zur Detonation um x
-											// Millisek. verz�gern
+											// Millisek. verzoegern
 		}
 
 		else if (logo.equals("Detonation")
 				&& Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) {
 			timer.schedule(new Detonation(), x); 	// Zeit bis zum Ende der
 													// Detonation um x Millisek.
-													// verz�gern
+													// verzoegern
 		}
 
 	}
@@ -51,10 +51,10 @@ public class Zeit extends JLabel {
 			Spieler = spieler;
 		}
 		/**
-		 * startet den TimerTask-Thread Bombe (Ueberprueft gleichzeitig, ob das Spiel waehrend des Countdown neugestartet wurde
+		 * startet den TimerTask-Thread Bombe (Ueberprueft gleichzeitig, ob das Spiel waehrend des Countdowns neugestartet wurde)
 		 */
 		public void run() {
-			if (Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) { // falls das Spiel nicht w�hrend des Timers neugestartet wurde
+			if (Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) { // falls das Spiel nicht waehrend des Timers neugestartet wurde
 				System.out.println("Bombe explodiert"); // Test
 				System.out.println("");
 
@@ -76,7 +76,7 @@ public class Zeit extends JLabel {
 		 * startet den TimerTask-Thread Detonation nach Ablauf der Zeit x (timer_starten-Methode), welcher die Detonationsschritte vollzieht
 		 */
 		public void run() {
-			if (Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) { // falls das Spiel nicht w�hrend des Timers neugestartet wurde
+			if (Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) { // falls das Spiel nicht waehrend des Timers neugestartet wurde
 				System.out.println("Detonation beendet"); // Test
 				System.out.println("");
 

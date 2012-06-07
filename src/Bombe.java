@@ -83,18 +83,32 @@ public class Bombe extends JLabel {
 			Menue.get_game();
 			// horizontale Ausbreitung der Detonation:
 			if (Map.get_map()[this.x + x][this.y] == 2 			// falls das Zielfeld der Detonation ein Weg-Feld...
-					|| Map.get_map()[this.x + x][this.y] == 5 	// ...oder Bombe-Feld ist,...
 					|| Map.get_map()[this.x + x][this.y] == 3)	// ...oder Block-Feld ist...
 				Map.get_map()[this.x + x][this.y] = 6; 			// ...dann wandele das Feld in ein Explosions-Feld um
 			else if (Map.get_map()[this.x + x][this.y] == 8)
 				Map.get_map()[this.x + x][this.y] = 9;
 			// vertikale Ausbreitung der Detonation:
 			if (Map.get_map()[this.x][this.y + y] == 2 			// falls das Zielfeld der Detonation ein Weg-Feld...
-					|| Map.get_map()[this.x][this.y + y] == 5 	// ...oder Bombe-Feld ist,...
 					|| Map.get_map()[this.x][this.y + y] == 3)	// ...oder Block-Feld ist...
 				Map.get_map()[this.x][this.y + y] = 6; 			// ...dann wandele das Feld in ein Explosions-Feld um
 			else if (Map.get_map()[this.x][this.y + y] == 8)
 				Map.get_map()[this.x][this.y + y] = 9;
+			
+			if (x == 0 && y == 0) {								// falls das Zielfeld der Detonation die Bombe selbst ist...
+				Map.get_map()[this.x][this.y] = 6;				// ...dann wandele das Feld in ein Explosions-Feld um
+			}
+			
+			else {												// sonst (falls das Zielfeld der Detonation eine andere Bombe ist)...
+				// horizontales Treffen von Explosion & Bombe:
+				if (Map.get_map()[this.x + x][this.y] == 5) {		// falls das Zielfeld der Detonation ein Bombe-Feld ist...
+					Menue.get_game().bomb[this.x + x][this.y].bombe_detonieren(Spieler);	// ...lass auch die andere Bombe detonieren
+				}
+				
+				// vertikales Treffen von Explosion & Bombe:
+				if (Map.get_map()[this.x][this.y + y] == 5) {		// falls das Zielfeld der Detonation ein Bombe-Feld ist
+					Menue.get_game().bomb[this.x][this.y + y].bombe_detonieren(Spieler);	// ...lass auch die andere Bombe detonieren
+				}
+			}
 
 			// Treffen von Detonation & Hulk:
 			if (((this.x + x == Menue.get_hulk(Spieler).get_x() + x 		// falls Explosion & Hulk die gleiche x-...
