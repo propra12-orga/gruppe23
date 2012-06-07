@@ -67,7 +67,7 @@ public class Menue implements KeyListener {
 		map = MapLoader.laden(1);
 		game = new Map(map);
 		hulk1 = new Hulk(1,1);
-		hulk2 = new Hulk(10,10);
+		hulk2 = new Hulk(9,9);
 		initialize();
 		a = new int[3];
 		
