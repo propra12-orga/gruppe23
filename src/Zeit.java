@@ -24,14 +24,12 @@ public class Zeit extends JLabel {
 													// logo =
 													// Bomben-/Detonations-Icon
 
-		if (logo.equals("Bombe")
-				&& Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) {
+		if (logo.equals("Bombe")) {
 			timer.schedule(new Bombe(spieler), x); // Zeit bis zur Detonation um x
 											// Millisek. verzoegern
 		}
 
-		else if (logo.equals("Detonation")
-				&& Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) {
+		else if (logo.equals("Detonation")) {
 			timer.schedule(new Detonation(), x); 	// Zeit bis zum Ende der
 													// Detonation um x Millisek.
 													// verzoegern
@@ -51,7 +49,7 @@ public class Zeit extends JLabel {
 			Spieler = spieler;
 		}
 		/**
-		 * startet den TimerTask-Thread Bombe (Ueberprueft gleichzeitig, ob das Spiel waehrend des Countdowns neugestartet wurde)
+		 * startet den TimerTask-Thread Bombe (Ueberprueft gleichzeitig, ob das Spiel waehrend des Countdown neugestartet wurde
 		 */
 		public void run() {
 			if (Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) { // falls das Spiel nicht waehrend des Timers neugestartet wurde
@@ -76,7 +74,6 @@ public class Zeit extends JLabel {
 		 * startet den TimerTask-Thread Detonation nach Ablauf der Zeit x (timer_starten-Methode), welcher die Detonationsschritte vollzieht
 		 */
 		public void run() {
-			if (Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) { // falls das Spiel nicht waehrend des Timers neugestartet wurde
 				System.out.println("Detonation beendet"); // Test
 				System.out.println("");
 
@@ -98,16 +95,12 @@ public class Zeit extends JLabel {
 					}
 				}
 
-			}
-
 			Menue.get_game().removeAll();
 			Menue.get_game().refresh();
 
 			Menue.get_game().bomb[bomb_x][bomb_y].liegt = false;
-			{
-				timer.cancel(); // Timer terminieren
-			}
-
+			
+			timer.cancel(); // Timer terminieren
 		}
 	}
 

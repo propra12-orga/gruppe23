@@ -45,17 +45,23 @@ public class Map extends JPanel {
 	 */
 	public void move_Hulk(int x, int y, int z) {
 		/* Grafische Fortbewegung der Spielfigur: */
-		if (map[Menue.get_hulk(z).get_x()][Menue.get_hulk(z).get_y()] == 1) { 	// falls das Feld das Hulk-Icon (1) beinhaltet,... 
+		if (map[Menue.get_hulk(z).get_x()][Menue.get_hulk(z).get_y()] == 1
+			|| map[Menue.get_hulk(z).get_x()][Menue.get_hulk(z).get_y()] == 10) { 	// falls das Feld das Hulk-Icon (1 oder 10) beinhaltet,... 
 			map[Menue.get_hulk(z).get_x()][Menue.get_hulk(z).get_y()] = 2; 		// ...weise dem Feld das Weg-Icon (2) zu
 		}
-
-		map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] = 1; 	// weise dem naechsten Feld das Hulk-Icon (1) zu
-
-		/* Interne Fortbewegung der Spielfigur: */
+		
+		if (z == 1) {
+			map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] = 1; 	// weise dem naechsten Feld das Hulk-Icon zu
+		}
+		
+		else if (z == 2) {
+			map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] = 10; 	// weise dem naechsten Feld das Hulk-Icon zu
+		}
+		/* Logische Fortbewegung der Spielfigur: */
 		Menue.get_hulk(z).set_x(Menue.get_hulk(z).get_x() + x); 					// setze horizontale Hulk-Position weiter
 		Menue.get_hulk(z).set_y(Menue.get_hulk(z).get_y() + y); 					// setze vertikale Hulk-Position weiter
 
-		System.out.println("Hulks neue Position: " + Menue.get_hulk(z).get_x()
+		System.out.println("Neue Position des " + z + "ten Spielers: " + Menue.get_hulk(z).get_x()
 				+ "te Spalte, " + Menue.get_hulk(z).get_y() + "te Zeile"); 		// Test
 		System.out.println();
 	}
@@ -66,9 +72,9 @@ public class Map extends JPanel {
 		bomb_y = Menue.get_hulk(Spieler).get_y();
 		bomb[bomb_x][bomb_y] = new Bombe(bomb_x, bomb_y);
 
-		add(bomb[bomb_x][bomb_y]); 										// Bombe hinzufuegen
-		bomb[bomb_x][Menue.get_hulk(Spieler).get_y()].aktivieren(Spieler); 			// Bombe aktivieren
-		map[Menue.get_hulk(Spieler).get_x()][Menue.get_hulk(Spieler).get_y()] = 5; 	// Bombe darstellen
+		add(bomb[bomb_x][bomb_y]); 					// Bombe hinzufuegen
+		bomb[bomb_x][bomb_y].aktivieren(Spieler); 	// Bombe aktivieren
+		map[bomb_x][bomb_y] = 5; 					// Bombe darstellen
 	}
 
 	// refresh-Methode:
@@ -181,17 +187,17 @@ public class Map extends JPanel {
 																					// http://openclipart.org/detail/126307/panneau-sortie--traffic-sign-exit-by-lmproulx
 			break;
 
-		case 8:// Mauer/Ausgang	
+		case 8: // Mauer/Ausgang	
 			label.setIcon(new ImageIcon(Map.class
 					.getResource("/Pics/Block.png")));
 			break;
 
-		case 9:// Explosion/Ausgang 	
+		case 9: // Explosion/Ausgang 	
 			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/EXP.png")));
 			break;
 			
-		case 10:// 2. Spieler
-			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Hulk2.png")));
+		case 10: // 2. Spieler
+			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Hulk2.png"))); // selbst gemalt :D
 			break;
 		}
 

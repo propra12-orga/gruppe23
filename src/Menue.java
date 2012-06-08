@@ -35,24 +35,31 @@ public class Menue implements KeyListener {
 	 */
 	private final Action_Neu Action_Neu = new Action_Neu(); 	// Aktion zum Neustart des
 																// Spiels erstellen
-	public static boolean twoPlayer;															
-	private static int[][] map; 	// Spielfeld initialisieren
+	
+	/**
+	 * Button im Leistenmenue
+	 * (Wechsel zum Singleplayer-Modus)
+	 */
+	private final Action_Singleplayer Action_Singleplayer = new Action_Singleplayer(); 	// Aktion zum Wechsel in den Singleplayer-Modus erstellen
+	
+	/**
+	 * Button im Leistenmenue
+	 * (Wechsel zum Multiplayer-Modus)
+	 */
+	private final Action_Multiplayer Action_Multiplayer = new Action_Multiplayer(); 	// Aktion zum Wechsel in den Multiplayer-Modus erstellen
+	
+	public static boolean twoPlayer = false;															
+	private static int[][] map; 		// Internes Spielfeld
 	
 	/**
 	 * Objekt der Map()-Klasse; enthaelt die Daten des Spielfeldes;
 	 */
-	private static Map game; 		// Spielfeld erstellen
+	private static Map game; 			// Grafisches Spielfeld
 	
 	/**
 	 * enthalet die Informationen ueber die Spielerposition ((x,y)-Koordinate)
 	 */
-	private static Hulk hulk1;			// Hulk erstellen, Übergabe Startposition
-	
-	/**
-	 * enthaelt Informationen ueber die 2. Spielerfigur (Position)
-	 */
-	private static Hulk hulk2;			//2. Spieler erstellen, Übergabe Startposition
-
+	private static Hulk hulk1 , hulk2;	// Spielfiguren
 	
 	private static int[] a;
 	public boolean spiel_neugestartet;
@@ -63,11 +70,12 @@ public class Menue implements KeyListener {
 	 */
 	public Menue() {
 		spiel_neugestartet = false;
-		twoPlayer = true;
-		map = MapLoader.laden(1);
+		hulk1 = new Hulk(1,1,1);
+		hulk2 = new Hulk(9,9,10);
+		
+		map = MapLoader.laden(1); 
 		game = new Map(map);
-		hulk1 = new Hulk(1,1);
-		hulk2 = new Hulk(9,9);
+		
 		initialize();
 		a = new int[3];
 		
@@ -109,6 +117,19 @@ public class Menue implements KeyListener {
 		mnSpiel.add(mntmBeenden); 							// Untermenuepunkt "Beenden" hinzufuegen
 		mntmBeenden.setAction(Action_Beenden); 				// Aktion "Action_Beenden"
 															// hinzufuegen
+		
+		JMenu mnModus = new JMenu("Modus"); // Menuepunkt "Modus" erstellen
+		menuBar.add(mnModus); 				// Menuepunkt "Modus" hinzufuegen
+		
+		JMenuItem mntmSingleplayer = new JMenuItem("Singleplayer"); 	// Untermenuepunkt "Singleplayer"
+																		// erstellen
+		mnModus.add(mntmSingleplayer); 									// Untermenuepunkt "Singleplayer" hinzufuegen
+		mntmSingleplayer.setAction(Action_Singleplayer); 						// Aktion "Action_Singleplayer" hinzufuegen
+		
+		JMenuItem mntmMultiplayer = new JMenuItem("Multiplayer"); 		// Untermenuepunkt "Multiplayer"
+																		// erstellen
+		mnModus.add(mntmMultiplayer); 									// Untermenuepunkt "Multiplayer" hinzufuegen
+		mntmMultiplayer.setAction(Action_Multiplayer); 							// Aktion "Action_Multiplayer" hinzufuegen		
 
 		frame.add(game); 	// Spielfeld hinzufuegen
 		game.init(); 		// Spielfeld zeichnen
@@ -125,9 +146,10 @@ public class Menue implements KeyListener {
 	 * 
 	 */
 	public void keyPressed(KeyEvent Key) {
+		
 		// oben:
 		if (Key.getKeyCode() == KeyEvent.VK_UP) {
-			System.out.println("oben"); // Test
+			System.out.println("oben S1"); // Test
 			System.out.println();
 
 			a[0] = 0;
@@ -138,7 +160,7 @@ public class Menue implements KeyListener {
 
 		// Pfeiltaste links:
 		if (Key.getKeyCode() == KeyEvent.VK_LEFT) {
-			System.out.println("links"); // Test
+			System.out.println("links S1"); // Test
 			System.out.println();
 
 			a[0] = -1;
@@ -149,7 +171,7 @@ public class Menue implements KeyListener {
 
 		// Pfeiltaste rechts:
 		if (Key.getKeyCode() == KeyEvent.VK_RIGHT) {
-			System.out.println("rechts"); // Test
+			System.out.println("rechts S1"); // Test
 			System.out.println();
 
 			a[0] = 1;
@@ -160,7 +182,7 @@ public class Menue implements KeyListener {
 
 		// Pfeiltaste unten:
 		if (Key.getKeyCode() == KeyEvent.VK_DOWN) {
-			System.out.println("unten"); // Test
+			System.out.println("unten S1"); // Test
 			System.out.println();
 
 			a[0] = 0;
@@ -171,7 +193,7 @@ public class Menue implements KeyListener {
 
 		// Leertaste:
 		if (Key.getKeyCode() == KeyEvent.VK_SPACE) {
-			System.out.println("Space"); // Test
+			System.out.println("Bombe S1"); // Test
 			System.out.println();
 
 
@@ -180,106 +202,231 @@ public class Menue implements KeyListener {
 			game.refresh();		// zeichne alle Komponenten des Panels neu
 
 		}
-
-		if (Key.getKeyCode() != KeyEvent.VK_SPACE) {
-			if (Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 2) { 	// falls
-																			// das
-																			// naechste
-																			// Feld
-																			// ein
-																			// Weg-Feld
-																			// ist
-
-				game.move_Hulk(a[0], a[1], a[2]); // bewege Hulk auf dem Spielfeld
-				game.removeAll(); 			// entferne alle bisherigen Komponenten vom
-											// Panel
-				game.refresh(); 			// zeichne alle Komponenten des Panels neu
-			}
-
-			else if (Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 7) { 	// falls
-																				// das
-																				// naechste
-																				// Feld
-																				// das
-																				// Ziel-Feld
-																				// ist
-				System.out.println("Gewonnen!"); // Test
-				System.out.println();
-
-				System.out.println("Spiel neugestartet"); // Test
-				System.out.println();
 		
-				// Hulk zurueckpositionieren:
-				hulk1.set_x(1);
-				hulk1.set_y(1);
-
-				
-				// Gelegte Bomben entfernen:
-				for (int x=0; x<11; x++) {
-					for (int y=0; y<11; y++) {
-						game.bomb[x][y].liegt = false;
-					}
-				}				
-				
-				// Spielfeld intern reinitialisieren:
-				Map.set_map(MapLoader.laden(1));
-
-				// Spielfeld grafisch reinitialisieren:
-				game.removeAll();
-				game.refresh();
-			}
-
-			else if (Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 6) { // falls
-																				// das
-																				// naechste
-																				// Feld
-																				// ein
-																				// Explosions-Feld
-																				// ist
-				System.out.println("Verloren!"); // Test
-				System.out.println();
-
-				System.out.println("Spiel neugestartet"); // Test
-				System.out.println();
-				
-				// Hulk zurueckpositionieren:
-				hulk1.set_x(1);
-				hulk1.set_y(1);
-
-				// Gelegte Bomben entfernen:
-				for (int x=0; x<11; x++) {
-					for (int y=0; y<11; y++) {
-						game.bomb[x][y].liegt = false;
-					}
-				}			
-				
-				// Spielfeld intern reinitialisieren:
-				Map.set_map(MapLoader.laden(1));
-
-				// Spielfeld grafisch reinitialisieren:
-				game.removeAll();
-				game.refresh();
-			}
+		//Key-Methoden fuer 2. Spieler
+		if (Key.getKeyCode() == KeyEvent.VK_W && twoPlayer){	//Taste oben
+			System.out.println("Oben S2");
+			System.out.println();
+			
+			a[0]=0;
+			a[1]=-1;
+			a[2]=2;
+			
 		}
 		
+		if (Key.getKeyCode() == KeyEvent.VK_A && twoPlayer){	//Taste links
+			System.out.println("Links S2");
+			System.out.println();
+			
+			a[0]=-1;
+			a[1]=0;
+			a[2]=2;
+			
+		}
 		
-		//Key-Methoden für 2. Spieler
-		if (Key.getKeyCode() == KeyEvent.VK_W && twoPlayer){	
+		if (Key.getKeyCode() == KeyEvent.VK_S && twoPlayer){	//Taste unten
+			System.out.println("Unten S2");
+			System.out.println();
+			
+			a[0]=0;
+			a[1]=1;
+			a[2]=2;
 			
 		}
-		else if (Key.getKeyCode() == KeyEvent.VK_A && twoPlayer){
+		
+		if (Key.getKeyCode() == KeyEvent.VK_D && twoPlayer ){	//Taste rechts
+			System.out.println("Rechts S2");
+			System.out.println();
+			
+			a[0]=1;
+			a[1]=0;
+			a[2]=2;
 			
 		}
-		else if (Key.getKeyCode() == KeyEvent.VK_S){
+		
+		if (Key.getKeyCode() == KeyEvent.VK_E && twoPlayer){
+			System.out.println("Bombe S2"); // Test
+			System.out.println();
+
+
+			game.bombe_legen(2);
+			game.removeAll(); 	// entferne alle bisherigen Komponenten vom Panel
+			game.refresh();		// zeichne alle Komponenten des Panels neu
+		}
+		
+		if (Key.getKeyCode() != KeyEvent.VK_SPACE && Key.getKeyCode() != KeyEvent.VK_E) {
+			// wenn Spieler 1 Bewegungen durchfuehrt
+			if (a[2] == 1){
+				// Bewegung Spieler 1
+				if (Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 2) { 	// falls
+																					// das
+																					// naechste
+																					// Feld
+																					// ein
+																					// Weg-Feld
+																					// ist
+
+					game.move_Hulk(a[0], a[1], a[2]); // bewege Hulk auf dem Spielfeld
+					game.removeAll(); 			// entferne alle bisherigen Komponenten vom
+												// Panel
+					game.refresh(); 			// zeichne alle Komponenten des Panels neu
+				}
+				
+				// Sieg Spieler 1
+				else if (Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 7) { 	// falls
+																						// das
+																						// naechste
+																						// Feld
+																						// das
+																						// Ziel-Feld
+																						// ist
+					System.out.println("Spieler 1 hat gewonnen"); // Test
+					System.out.println();
+
+					System.out.println("Spiel neugestartet"); // Test
+					System.out.println();
+		
+					// Hulk zurueckpositionieren:
+					reset_Hulk();
+				
+					// Gelegte Bomben entfernen:
+					for (int x=0; x<11; x++) {
+						for (int y=0; y<11; y++) {
+							game.bomb[x][y].liegt = false;
+						}
+						
+					}				
+				
+					// Spielfeld intern reinitialisieren:
+					Map.set_map(MapLoader.laden(1));					
+
+					// Spielfeld grafisch reinitialisieren:
+					game.removeAll();
+					game.refresh();
+				}
+				
+				// Niederlage Spieler 1				
+				else if (Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 6) { 	// falls
+																						// das
+																						// naechste
+																						// Feld
+																						// ein
+																						// Explosions-Feld
+																						// ist
+					System.out.println("Spieler 1 hat verloren"); // Test
+					System.out.println();
+					
+					System.out.println("Spiel neugestartet"); // Test
+					System.out.println();
+					
+					// Hulk zurueckpositionieren:
+					reset_Hulk();
+					
+					// Gelegte Bomben entfernen:
+					for (int x=0; x<11; x++) {
+						for (int y=0; y<11; y++) {
+							game.bomb[x][y].liegt = false;
+						}
+					}			
+					
+					// Spielfeld intern reinitialisieren:
+					Map.set_map(MapLoader.laden(1));
+					
+					// Spielfeld grafisch reinitialisieren:
+					game.removeAll();
+					game.refresh();
+				}
+			}
+				
+			// wenn Spieler 2 Bewegung durchfuehrt	
+			if (a[2] == 2) {
+				// Bewegung Spieler 2
+				if (Map.map[hulk2.get_x() + a[0]][hulk2.get_y() + a[1]] == 2) { 	// falls
+																					// das
+																					// naechste
+																					// Feld
+																					// ein
+																					// Weg-Feld
+																					// ist
+					
+					game.move_Hulk(a[0], a[1], a[2]); 	// bewege Hulk auf dem Spielfeld
+					game.removeAll(); 					// entferne alle bisherigen Komponenten vom
+														// Panel
+					game.refresh(); 					// zeichne alle Komponenten des Panels neu
+				}
+				
+				// Sieg Spieler 2
+				else if (Map.map[hulk2.get_x() + a[0]][hulk2.get_y() + a[1]] == 7) { 	// falls
+																						// das
+																						// naechste
+																						// Feld
+																						// das
+																						// Ziel-Feld
+																						// ist
+					System.out.println("Spieler 2 hat gewonnen"); // Test
+					System.out.println();
+					
+					System.out.println("Spiel neugestartet"); // Test
+					System.out.println();
+					
+					// Hulk zurueckpositionieren:
+					reset_Hulk();
+					
+					
+					// Gelegte Bomben entfernen:
+					for (int x=0; x<11; x++) {
+						for (int y=0; y<11; y++) {
+							game.bomb[x][y].liegt = false;
+						}
+					}				
+					
+					// Spielfeld intern reinitialisieren:
+					Map.set_map(MapLoader.laden(1));
+					
+					// Spielfeld grafisch reinitialisieren:
+					game.removeAll();
+					game.refresh();										
+				}
+			
+			
+				// Niederlage Spieler 2
+				else if (Map.map[hulk2.get_x() + a[0]][hulk2.get_y() + a[1]] == 6) { // falls
+																					// das
+																					// naechste
+																					// Feld
+																					// ein
+																					// Explosions-Feld
+																					// ist
+					System.out.println("Spieler 2 hat verloren"); // Test
+					System.out.println();
+	
+					System.out.println("Spiel neugestartet"); // Test
+					System.out.println();
+					
+					// Hulk zurueckpositionieren:
+					reset_Hulk();
+	
+					// Gelegte Bomben entfernen:
+					for (int x=0; x<11; x++) {
+						for (int y=0; y<11; y++) {
+							game.bomb[x][y].liegt = false;
+						}
+						
+					}			
+					
+					// Spielfeld intern reinitialisieren:
+					Map.set_map(MapLoader.laden(1));
+	
+					// Spielfeld grafisch reinitialisieren:
+					game.removeAll();
+					game.refresh();
+				}
+				
+			}
 			
 		}
-		else if (Key.getKeyCode() == KeyEvent.VK_D){
-			
-		}
-		else if (Key.getKeyCode() == KeyEvent.VK_E){
-			
-		}
-	}
+		
+	}	
 
 	public void keyTyped(KeyEvent Key) {
 	}
@@ -294,7 +441,15 @@ public class Menue implements KeyListener {
 	public static int[] get_newPos() {
 		return a;
 	}
-
+	
+	static void reset_Hulk(){
+		hulk1.set_x(1);
+		hulk1.set_y(1);
+		
+		hulk2.set_x(9);
+		hulk2.set_y(9);
+	}
+	
 	/**
 	 * Klasse fuer Menuebuttonorganisation "Beenden", beendet das Programm
 	 * @author Kolja Salewski
@@ -332,8 +487,7 @@ public class Menue implements KeyListener {
 			System.out.println();
 
 			// Hulk zurueckpositionieren:
-			hulk1.set_x(1);
-			hulk1.set_y(1);
+			reset_Hulk();
 
 			// Gelegte Bomben entfernen:
 			for (int x=0; x<11; x++) {
@@ -348,6 +502,86 @@ public class Menue implements KeyListener {
 			// Spielfeld grafisch reinitialisieren:
 			game.removeAll();
 			game.refresh();
+		}
+
+	}
+	
+	/**
+	 * Klasse fuer Menuebuttonorganisation "Singleplayer", wechselt zum Singleplayer-Modus
+	 * @author Kolja Salewski
+	 *
+	 */
+	private class Action_Singleplayer extends AbstractAction {
+		private static final long serialVersionUID = 1L;
+
+		public Action_Singleplayer() {
+			putValue(NAME, "Singleplayer");
+			putValue(SHORT_DESCRIPTION, "Wechsel in Singleplayer-Modus");
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			if (twoPlayer == true) {
+				twoPlayer = false;
+				
+				System.out.println("Singleplayer-Modus aktiviert");	// Test
+				System.out.println();								// Test
+				
+				// Hulk zurueckpositionieren:
+				reset_Hulk();
+				
+				// Gelegte Bomben entfernen:
+				for (int x=0; x<11; x++) {
+					for (int y=0; y<11; y++) {
+						game.bomb[x][y].liegt = false;
+					}
+				}	
+				
+				map = MapLoader.laden(1); 
+				Map.set_map(map);
+				game.removeAll();
+				game.refresh(); 		// Spielfeld zeichnen
+			}
+			
+		}
+
+	}
+	
+	/**
+	 * Klasse fuer Menuebuttonorganisation "Multiplayer", wechselt zum Multiplayer-Modus
+	 * @author Kolja Salewski
+	 *
+	 */
+	private class Action_Multiplayer extends AbstractAction {
+		private static final long serialVersionUID = 1L;
+
+		public Action_Multiplayer() {
+			putValue(NAME, "Multiplayer");
+			putValue(SHORT_DESCRIPTION, "Wechsel in Multiplayer-Modus");
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			if (twoPlayer == false) {
+				twoPlayer = true;
+				
+				System.out.println("Multiplayer-Modus aktiviert");	// Test
+				System.out.println();								// Test
+				
+				// Hulk zurueckpositionieren:
+				reset_Hulk();
+				
+				// Gelegte Bomben entfernen:
+				for (int x=0; x<11; x++) {
+					for (int y=0; y<11; y++) {
+						game.bomb[x][y].liegt = false;
+					}
+				}	
+				
+				map = MapLoader.laden(1); 
+				Map.set_map(map);
+				game.removeAll();
+				game.refresh(); 		// Spielfeld zeichnen
+			}
+			
 		}
 
 	}
@@ -370,30 +604,22 @@ public class Menue implements KeyListener {
 
 	/**
 	 * @param a Spielernummer (1,2, etc.)
-	 * @return Position der Spielfigur im Array (hulk)
+	 * @return gewuenschtes Spielerobjekt
 	 */
-	public static Hulk get_hulk(int a) {
-		
-		if(a == 1)	return hulk1;
-		else return hulk2;
+	public static Hulk get_hulk(int a) {	
+		if (a == 1)	return hulk1;
+		if (a == 2) return hulk2;
+		else return null;
 	}
 
 	/**
 	 * 
 	 * @param hulk Aktualisiert die Position der Spielfigur in der Menue-Klasse
 	 */
-	public void set_hulk(Hulk hulk) {
+	public void set_hulk1(Hulk hulk) {
 		Menue.hulk1 = hulk;
 	}
 	
-	/**
-	 * Für Mehrspieler.
-	 * @return Hulk-Objekt hulk2
-	 */
-	public static Hulk getHulk2() {
-		return hulk2;
-	}
-
 	/**
 	 * 
 	 * @param hulk2	 Hulk-Objekt 2. Spieler
@@ -432,7 +658,5 @@ public class Menue implements KeyListener {
 		});
 		
 	}
-
-
 
 }

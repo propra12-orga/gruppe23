@@ -26,7 +26,8 @@ public class MapLoader {
 		try {			
 			FileReader f = new FileReader(filename);
 			
-			System.out.println("Spielfeld eingelesen:");	// Test
+			System.out.println("Spielfeld eingelesen:"); // Test
+			
 			
 			while ((c = f.read()) != -1) {
 				if (Character.getNumericValue(c) != -1) {
@@ -47,14 +48,13 @@ public class MapLoader {
 				}
 				
 			}
-			if(twoPlayerSet){
+			
+			System.out.println(); // Test
+			
+			if (twoPlayerSet){
 				map[9][9] = 10;
-				System.out.println();
-				System.out.println();
-				System.out.println("Multiplayer on");
 			}
 			
-			System.out.println();	// Test
 			System.out.println();	// Test
 			
 			f.close();
