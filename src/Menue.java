@@ -147,7 +147,7 @@ public class Menue implements KeyListener {
 	 */
 	public void keyPressed(KeyEvent Key) {
 		
-		// oben:
+		// Pfeiltaste oben:
 		if (Key.getKeyCode() == KeyEvent.VK_UP) {
 			System.out.println("oben S1"); // Test
 			System.out.println();
@@ -159,7 +159,7 @@ public class Menue implements KeyListener {
 		}
 
 		// Pfeiltaste links:
-		if (Key.getKeyCode() == KeyEvent.VK_LEFT) {
+		else if (Key.getKeyCode() == KeyEvent.VK_LEFT) {
 			System.out.println("links S1"); // Test
 			System.out.println();
 
@@ -170,7 +170,7 @@ public class Menue implements KeyListener {
 		}
 
 		// Pfeiltaste rechts:
-		if (Key.getKeyCode() == KeyEvent.VK_RIGHT) {
+		else if (Key.getKeyCode() == KeyEvent.VK_RIGHT) {
 			System.out.println("rechts S1"); // Test
 			System.out.println();
 
@@ -181,7 +181,7 @@ public class Menue implements KeyListener {
 		}
 
 		// Pfeiltaste unten:
-		if (Key.getKeyCode() == KeyEvent.VK_DOWN) {
+		else if (Key.getKeyCode() == KeyEvent.VK_DOWN) {
 			System.out.println("unten S1"); // Test
 			System.out.println();
 
@@ -192,7 +192,7 @@ public class Menue implements KeyListener {
 		}
 
 		// Leertaste:
-		if (Key.getKeyCode() == KeyEvent.VK_SPACE) {
+		else if (Key.getKeyCode() == KeyEvent.VK_SPACE) {
 			System.out.println("Bombe S1"); // Test
 			System.out.println();
 
@@ -204,7 +204,7 @@ public class Menue implements KeyListener {
 		}
 		
 		//Key-Methoden fuer 2. Spieler
-		if (Key.getKeyCode() == KeyEvent.VK_W && twoPlayer){	//Taste oben
+		else if (Key.getKeyCode() == KeyEvent.VK_W && twoPlayer){	//Taste oben
 			System.out.println("Oben S2");
 			System.out.println();
 			
@@ -214,7 +214,7 @@ public class Menue implements KeyListener {
 			
 		}
 		
-		if (Key.getKeyCode() == KeyEvent.VK_A && twoPlayer){	//Taste links
+		else if (Key.getKeyCode() == KeyEvent.VK_A && twoPlayer){	//Taste links
 			System.out.println("Links S2");
 			System.out.println();
 			
@@ -224,7 +224,7 @@ public class Menue implements KeyListener {
 			
 		}
 		
-		if (Key.getKeyCode() == KeyEvent.VK_S && twoPlayer){	//Taste unten
+		else if (Key.getKeyCode() == KeyEvent.VK_S && twoPlayer){	//Taste unten
 			System.out.println("Unten S2");
 			System.out.println();
 			
@@ -234,7 +234,7 @@ public class Menue implements KeyListener {
 			
 		}
 		
-		if (Key.getKeyCode() == KeyEvent.VK_D && twoPlayer ){	//Taste rechts
+		else if (Key.getKeyCode() == KeyEvent.VK_D && twoPlayer ){	//Taste rechts
 			System.out.println("Rechts S2");
 			System.out.println();
 			
@@ -244,7 +244,7 @@ public class Menue implements KeyListener {
 			
 		}
 		
-		if (Key.getKeyCode() == KeyEvent.VK_E && twoPlayer){
+		else if (Key.getKeyCode() == KeyEvent.VK_E && twoPlayer){
 			System.out.println("Bombe S2"); // Test
 			System.out.println();
 
@@ -252,6 +252,11 @@ public class Menue implements KeyListener {
 			game.bombe_legen(2);
 			game.removeAll(); 	// entferne alle bisherigen Komponenten vom Panel
 			game.refresh();		// zeichne alle Komponenten des Panels neu
+		}
+		
+		else {
+			a[0]=0;
+			a[1]=0;
 		}
 		
 		if (Key.getKeyCode() != KeyEvent.VK_SPACE && Key.getKeyCode() != KeyEvent.VK_E) {
