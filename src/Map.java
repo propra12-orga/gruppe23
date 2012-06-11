@@ -57,6 +57,10 @@ public class Map extends JPanel {
 			Menue.get_hulk(z).set_max_bomben(Menue.get_hulk(z).get_max_bomben() + 1);	// ...dann erhoehe die maximale Anzahl an Bomben um 1
 		}
 		
+		if (map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] == 15) {		// falls das nächste Feld das Bomben-Item-Icon enthält...							// ...und der Spieler noch nicht bei max. 8 Bomben angelangt ist...
+				Bombe.set_radius(Bombe.get_radius()+1);	// ...dann erhoehe die maximale Anzahl an Bomben um 1
+		}
+		
 		if (z == 1) {
 			map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] = 1; 	// weise dem naechsten Feld das Hulk-Icon zu
 		}
@@ -187,7 +191,7 @@ public class Map extends JPanel {
 		case 5: // Bombe
 			label.setIcon(new ImageIcon(Map.class
 					.getResource("/Pics/Bombe.png")));	// Grafik-Quelle:
-			// http://openclipart.org/detail/165734/dynamite-by-magnesus
+														// http://openclipart.org/detail/165734/dynamite-by-magnesus
 			break;
 
 		case 6: // Explosion
@@ -201,12 +205,11 @@ public class Map extends JPanel {
 			break;
 
 		case 8: // Block/Ausgang	
-			label.setIcon(new ImageIcon(Map.class
-					.getResource("/Pics/Block.png")));
+			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Block.png")));
 			break;
 
-		case 9: // Explosion/Ausgang 	
-			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/EXP.png")));
+		case 9: // Block/Flammen-Item 	
+			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Block.png")));
 			break;
 			
 		case 10: // 2. Spieler
@@ -219,6 +222,18 @@ public class Map extends JPanel {
 			
 		case 12: // Bomben-Item
 			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Bomben-Item.png")));
+			break;
+			
+		case 13: // Explosion/Ausgang 	
+			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/EXP.png")));
+			break;
+		
+		case 14: // Explosion/Flammen-Item 	
+			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/EXP.png")));
+			break;
+			
+		case 15: // Flammen-Item 	
+			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Flammen-Item.png")));
 			break;
 		}
 		

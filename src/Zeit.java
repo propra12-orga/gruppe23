@@ -96,12 +96,16 @@ public class Zeit extends JLabel {
 							Map.get_map()[bomb_x + x][bomb_y] = 2; 			// ...dann wandele das Feld in ein Weg-Feld um
 						}
 						
-						else if (Map.get_map()[bomb_x + x][bomb_y] == 9) { 	// oder falls das Zielfeld der Detonation ein Explosions-/Ausgangs-Feld ist...
+						else if (Map.get_map()[bomb_x + x][bomb_y] == 13) { 	// oder falls das Zielfeld der Detonation ein Explosions-/Ausgangs-Feld ist...
 							Map.get_map()[bomb_x + x][bomb_y] = 7;			// ...dann wandele das Feld in ein Ausgangs-Feld um
 						}
 						
 						else if (Map.get_map()[bomb_x + x][bomb_y] == 11) {	// oder falls das Zielfeld der Detonation ein Explosions-/Bomben-Item-Feld ist...
 							Map.get_map()[bomb_x + x][bomb_y] = 12;			// ...dann wandele das Feld in ein Bomben-Item-Feld um
+						}
+						
+						else if (Map.get_map()[bomb_x + x][bomb_y] == 14) {	// oder falls das Zielfeld der Detonation ein Explosions-/Bomben-Item-Feld ist...
+							Map.get_map()[bomb_x + x][bomb_y] = 15;			// ...dann wandele das Feld in ein Bomben-Item-Feld um
 						}
 						
 					}
@@ -112,12 +116,16 @@ public class Zeit extends JLabel {
 							Map.get_map()[bomb_x][bomb_y + y] = 2;			// ...dann wandele das Feld in ein Weg-Feld um
 						}
 						
-						else if (Map.get_map()[bomb_x][bomb_y + y] == 9) {	// oder falls das Zielfeld der Detonation ein Explosions-/Ausgangs-Feld ist...
+						else if (Map.get_map()[bomb_x][bomb_y + y] == 13) {	// oder falls das Zielfeld der Detonation ein Explosions-/Ausgangs-Feld ist...
 							Map.get_map()[bomb_x][bomb_y + y] = 7;			// ...dann wandele das Feld in ein Ausgangs-Feld um
 						}
 						
 						else if (Map.get_map()[bomb_x][bomb_y + y] == 11) {	// oder falls das Zielfeld der Detonation ein Explosions-/Bomben-Item-Feld ist...
 							Map.get_map()[bomb_x][bomb_y + y] = 12;			// ...dann wandele das Feld in ein Bomben-Item-Feld um
+						}
+						
+						else if (Map.get_map()[bomb_x][bomb_y + y] == 14) {	// oder falls das Zielfeld der Detonation ein Explosions-/Bomben-Item-Feld ist...
+							Map.get_map()[bomb_x][bomb_y + y] = 15;			// ...dann wandele das Feld in ein Bomben-Item-Feld um
 						}
 						
 					}

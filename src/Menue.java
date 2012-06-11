@@ -63,6 +63,7 @@ public class Menue implements KeyListener {
 	
 	private static int[] a;
 	public boolean spiel_neugestartet;
+	static int n = MapLoader.get_n();
 
 	// Konstruktor:
 	/**
@@ -71,7 +72,7 @@ public class Menue implements KeyListener {
 	public Menue() {
 		spiel_neugestartet = false;
 		hulk1 = new Hulk(1,1,1);	// 1. Spielerfigur erzeugen
-		hulk2 = new Hulk(9,9,10);	// 2. Spielerfigur erzeugen
+		hulk2 = new Hulk(n-2,n-2,10);	// 2. Spielerfigur erzeugen
 		
 		map = MapLoader.laden(1); 
 		game = new Map(map);
@@ -285,7 +286,8 @@ public class Menue implements KeyListener {
 			if (a[2] == 1){
 				// Bewegung Spieler 1
 				if (Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 2
-					|| Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 12) { // falls
+					|| Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 12
+					|| Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 15) { // falls
 																					// das
 																					// naechste
 																					// Feld
@@ -333,7 +335,8 @@ public class Menue implements KeyListener {
 			if (a[2] == 2) {
 				// Bewegung Spieler 2
 				if (Map.map[hulk2.get_x() + a[0]][hulk2.get_y() + a[1]] == 2
-					|| Map.map[hulk2.get_x() + a[0]][hulk2.get_y() + a[1]] == 12) { // falls
+					|| Map.map[hulk2.get_x() + a[0]][hulk2.get_y() + a[1]] == 12
+					|| Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 15) { // falls
 																					// das
 																					// naechste
 																					// Feld
@@ -400,8 +403,8 @@ public class Menue implements KeyListener {
 		hulk1.set_x(1);
 		hulk1.set_y(1);
 		
-		hulk2.set_x(9);
-		hulk2.set_y(9);
+		hulk2.set_x(n-2);
+		hulk2.set_y(n-2);
 	}
 	
 	static void spiel_neustarten() {
@@ -414,6 +417,9 @@ public class Menue implements KeyListener {
 		// Maximale Anzahl an Bomben zuruecksetzen:
 		Menue.get_hulk(1).set_max_bomben(1);
 		Menue.get_hulk(2).set_max_bomben(1);
+		
+		// Bomben-Radius zuruecksetzen:
+		Bombe.set_radius(2);
 
 		// Gelegte Bomben entfernen:
 		for (int x=0; x<11; x++) {

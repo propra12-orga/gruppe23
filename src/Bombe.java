@@ -14,7 +14,7 @@ public class Bombe extends JLabel {
 	public int y = 0; 			// y-Koordinate (vertikale Position)
 	Zeit timer = new Zeit(); 	// Timer erstellen
 	boolean liegt = false;
-	int radius = 2;
+	static int radius = 2;
 	
 	// Pro Richtung kann die Bombe maximal einen Treffer verursachen:
 	boolean treffer_oben 	= false,
@@ -69,6 +69,14 @@ public class Bombe extends JLabel {
 	public void set_y(int y) {
 		this.y = y;
 	}
+	
+	public static int get_radius() {
+		return radius;
+	}
+	
+	public static void set_radius(int radius) {
+		Bombe.radius = radius;
+	}
 
 	// aktivieren-Methode:
 	/**
@@ -114,7 +122,7 @@ public class Bombe extends JLabel {
 				else if (Map.get_map()[this.x + x][this.y] == 8) {	// oder falls das Zielfeld der Detonation ein Block-/Ausgangs-Feld ist...
 					if (treffer_rechts == false) {
 						treffer_rechts = true;
-						Map.get_map()[this.x + x][this.y] = 9;			// ...dann wandele das Feld in ein Explosions-/Ausgangs-Feld um
+						Map.get_map()[this.x + x][this.y] = 13;			// ...dann wandele das Feld in ein Explosions-/Ausgangs-Feld um
 					}
 					
 				}
@@ -123,6 +131,14 @@ public class Bombe extends JLabel {
 					if (treffer_rechts == false) {
 						treffer_rechts = true;
 						Map.get_map()[this.x + x][this.y] = 11;			// ...dann wandele das Feld in ein Explosions-/Bomben-Item-Feld um
+					}
+					
+				}
+				
+				else if (Map.get_map()[this.x + x][this.y] == 9) {	// oder falls das Zielfeld der Detonation ein Block-/Bomben-Item-Feld ist...
+					if (treffer_rechts == false) {
+						treffer_rechts = true;
+						Map.get_map()[this.x + x][this.y] = 14;			// ...dann wandele das Feld in ein Explosions-/Bomben-Item-Feld um
 					}
 					
 				}
@@ -155,7 +171,7 @@ public class Bombe extends JLabel {
 				else if (Map.get_map()[this.x][this.y + y] == 8) {	// oder falls das Zielfeld der Detonation ein Block-/Ausgangs-Feld ist...
 					if (treffer_unten == false) {
 						treffer_unten = true;
-						Map.get_map()[this.x][this.y + y] = 9;			// ...dann wandele das Feld in ein Explosions-/Ausgangs-Feld um
+						Map.get_map()[this.x][this.y + y] = 13;			// ...dann wandele das Feld in ein Explosions-/Ausgangs-Feld um
 					}
 					
 				}
@@ -164,6 +180,14 @@ public class Bombe extends JLabel {
 					if (treffer_unten == false) {
 						treffer_unten = true;
 						Map.get_map()[this.x][this.y + y] = 11;			// ...dann wandele das Feld in ein Explosions-/Bomben-Item-Feld um
+					}
+					
+				}
+				
+				else if (Map.get_map()[this.x][this.y + y] == 9) {	// oder falls das Zielfeld der Detonation ein Block-/Bomben-Item-Feld ist...
+					if (treffer_unten == false) {
+						treffer_unten = true;
+						Map.get_map()[this.x][this.y + y] = 14;			// ...dann wandele das Feld in ein Explosions-/Bomben-Item-Feld um
 					}
 					
 				}
@@ -261,7 +285,7 @@ public class Bombe extends JLabel {
 				else if (Map.get_map()[this.x + x][this.y] == 8) {	// oder falls das Zielfeld der Detonation ein Block-/Ausgangs-Feld ist...
 					if (treffer_links == false) {
 						treffer_links = true;
-						Map.get_map()[this.x + x][this.y] = 9;			// ...dann wandele das Feld in ein Explosions-/Ausgangs-Feld um
+						Map.get_map()[this.x + x][this.y] = 13;			// ...dann wandele das Feld in ein Explosions-/Ausgangs-Feld um
 					}
 
 				}
@@ -272,6 +296,14 @@ public class Bombe extends JLabel {
 						Map.get_map()[this.x + x][this.y] = 11;			// ...dann wandele das Feld in ein Explosions-/Bomben-Item-Feld um
 					}
 
+				}
+				
+				else if (Map.get_map()[this.x + x][this.y] == 9) {	// oder falls das Zielfeld der Detonation ein Block-/Bomben-Item-Feld ist...
+					if (treffer_links == false) {
+						treffer_links = true;
+						Map.get_map()[this.x + x][this.y] = 14;			// ...dann wandele das Feld in ein Explosions-/Bomben-Item-Feld um
+					}
+					
 				}
 				
 				if (Map.get_map()[this.x + x][this.y] == 2) { 		// falls das Zielfeld der Detonation ein Weg-Feld...
@@ -303,7 +335,7 @@ public class Bombe extends JLabel {
 				else if (Map.get_map()[this.x][this.y + y] == 8) {	// oder falls das Zielfeld der Detonation ein Block-/Ausgangs-Feld ist...
 					if (treffer_oben == false) {
 						treffer_oben = true;
-						Map.get_map()[this.x][this.y + y] = 9;			// ...dann wandele das Feld in ein Explosions-/Ausgangs-Feld um
+						Map.get_map()[this.x][this.y + y] = 13;			// ...dann wandele das Feld in ein Explosions-/Ausgangs-Feld um
 					}
 
 				}
@@ -314,6 +346,14 @@ public class Bombe extends JLabel {
 						Map.get_map()[this.x][this.y + y] = 11;			// ...dann wandele das Feld in ein Explosions-/Bomben-Item-Feld um
 					}
 
+				}
+				
+				else if (Map.get_map()[this.x][this.y + y] == 9) {	// oder falls das Zielfeld der Detonation ein Block-/Bomben-Item-Feld ist...
+					if (treffer_oben == false) {
+						treffer_oben = true;
+						Map.get_map()[this.x][this.y + y] = 14;			// ...dann wandele das Feld in ein Explosions-/Bomben-Item-Feld um
+					}
+					
 				}
 				
 				if (Map.get_map()[this.x][this.y + y] == 2) { 		// falls das Zielfeld der Detonation ein Weg-Feld...

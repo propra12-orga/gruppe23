@@ -35,11 +35,11 @@ public class MapLoader {
 					
 					System.out.print(map[k][l] + ", ");	// Test
 					
-					if (k < 10) {
+					if (k < n-1) {
 						k++;
 					}
 					
-					else if (l < 10) {
+					else if (l < n-1) {
 						System.out.println();	// Test
 						k = 0;
 						l++;
@@ -52,7 +52,7 @@ public class MapLoader {
 			System.out.println(); // Test
 			
 			if (twoPlayerSet){
-				map[9][9] = 10;
+				map[n-2][n-2] = 10;
 			}
 			
 			System.out.println();	// Test
