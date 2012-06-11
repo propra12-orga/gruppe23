@@ -98,13 +98,13 @@ public class Bombe extends JLabel {
 			// horizontal:
 			if (this.x + x > 0 && this.x + x < n) {		// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
 				if (Map.get_map()[this.x + x][this.y] == 4) {		// falls das Zielfeld der Detonation ein Mauer-Feld ist...
-					if (x > 0 && treffer_rechts == false) {
+					if (treffer_rechts == false) {
 						treffer_rechts = true;
 					}
 				}
 				
 				if (Map.get_map()[this.x + x][this.y] == 3) {		// falls das Zielfeld der Detonation ein Block-Feld ist...
-					if (x > 0 && treffer_rechts == false) {
+					if (treffer_rechts == false) {
 						treffer_rechts = true;
 						Map.get_map()[this.x + x][this.y] = 6; 			// ...dann wandele das Feld in ein Explosions-Feld um
 					}
@@ -112,7 +112,7 @@ public class Bombe extends JLabel {
 				}
 				
 				else if (Map.get_map()[this.x + x][this.y] == 8) {	// oder falls das Zielfeld der Detonation ein Block-/Ausgangs-Feld ist...
-					if (x > 0 && treffer_rechts == false) {
+					if (treffer_rechts == false) {
 						treffer_rechts = true;
 						Map.get_map()[this.x + x][this.y] = 9;			// ...dann wandele das Feld in ein Explosions-/Ausgangs-Feld um
 					}
@@ -120,7 +120,7 @@ public class Bombe extends JLabel {
 				}
 				
 				else if (Map.get_map()[this.x + x][this.y] == 0) {	// oder falls das Zielfeld der Detonation ein Block-/Bomben-Item-Feld ist...
-					if (x > 0 && treffer_rechts == false) {
+					if (treffer_rechts == false) {
 						treffer_rechts = true;
 						Map.get_map()[this.x + x][this.y] = 11;			// ...dann wandele das Feld in ein Explosions-/Bomben-Item-Feld um
 					}
@@ -128,7 +128,7 @@ public class Bombe extends JLabel {
 				}
 				
 				if (Map.get_map()[this.x + x][this.y] == 2) { 		// falls das Zielfeld der Detonation ein Weg-Feld...
-					if (x > 0 && treffer_rechts == false) {
+					if (treffer_rechts == false) {
 						Map.get_map()[this.x + x][this.y] = 6;			// ...dann wandele das Feld in ein Explosions-Feld um
 					}
 					
@@ -139,13 +139,13 @@ public class Bombe extends JLabel {
 			// vertikal:
 			if (this.y + y > 0 && this.y + y < n) {		// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
 				if (Map.get_map()[this.x][this.y + y] == 4) {	// falls das Zielfeld der Detonation ein Mauer-Feld ist...
-					if (y > 0 && treffer_unten == false) {
+					if (treffer_unten == false) {
 						treffer_unten = true;
 					}
 				}
 				
 				if (Map.get_map()[this.x][this.y + y] == 3) {	// falls das Zielfeld der Detonation ein Block-Feld ist...
-					if (y > 0 && treffer_unten == false) {
+					if (treffer_unten == false) {
 						treffer_unten = true;
 						Map.get_map()[this.x][this.y + y] = 6; 		// ...dann wandele das Feld in ein Explosions-Feld um
 					}
@@ -153,7 +153,7 @@ public class Bombe extends JLabel {
 				}
 				
 				else if (Map.get_map()[this.x][this.y + y] == 8) {	// oder falls das Zielfeld der Detonation ein Block-/Ausgangs-Feld ist...
-					if (y > 0 && treffer_unten == false) {
+					if (treffer_unten == false) {
 						treffer_unten = true;
 						Map.get_map()[this.x][this.y + y] = 9;			// ...dann wandele das Feld in ein Explosions-/Ausgangs-Feld um
 					}
@@ -161,7 +161,7 @@ public class Bombe extends JLabel {
 				}
 				
 				else if (Map.get_map()[this.x][this.y + y] == 0) {	// oder falls das Zielfeld der Detonation ein Block-/Bomben-Item-Feld ist...
-					if (y > 0 && treffer_unten == false) {
+					if (treffer_unten == false) {
 						treffer_unten = true;
 						Map.get_map()[this.x][this.y + y] = 11;			// ...dann wandele das Feld in ein Explosions-/Bomben-Item-Feld um
 					}
@@ -169,7 +169,7 @@ public class Bombe extends JLabel {
 				}
 				
 				if (Map.get_map()[this.x][this.y + y] == 2) { 		// falls das Zielfeld der Detonation ein Weg-Feld...
-					if (y > 0 && treffer_unten == false) {
+					if (treffer_unten == false) {
 						Map.get_map()[this.x][this.y + y] = 6;			// ...dann wandele das Feld in ein Explosions-Feld um
 					}
 				
@@ -208,7 +208,7 @@ public class Bombe extends JLabel {
 			if (this.x + x > 0 && this.x + x < n) {	// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
 				if (Map.get_map()[this.x + x][this.y] == 1		// falls die Detonation eine Spielfigur trifft...
 					|| Map.get_map()[this.x + x][this.y] == 10) {					
-					if (x > 0 && treffer_rechts == false) {
+					if (treffer_rechts == false) {
 						System.out.println("Game over"); 			// Test
 						System.out.println();						// Test
 						
@@ -223,7 +223,7 @@ public class Bombe extends JLabel {
 			if (this.y + y > 0 && this.y + y < n) {	// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
 				if (Map.get_map()[this.x][this.y + y] == 1	// falls die Detonation die erste...
 						|| Map.get_map()[this.x][this.y + y] == 10) {	// ...oder zweite Spielfigur trifft					
-					if (y > 0 && treffer_unten == false) {
+					if (treffer_unten == false) {
 						System.out.println("Game over"); 			// Test
 						System.out.println();						// Test
 						
@@ -244,14 +244,14 @@ public class Bombe extends JLabel {
 			// horizontal:
 			if (this.x + x > 0 && this.x + x < n) {	// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
 				if (Map.get_map()[this.x + x][this.y] == 4) {	// falls das Zielfeld der Detonation ein Mauer-Feld ist...
-					if (x < 0 && treffer_links == false) {
+					if (treffer_links == false) {
 						treffer_links = true;
 					}
 
 				}
 				
 				if (Map.get_map()[this.x + x][this.y] == 3) {	// falls das Zielfeld der Detonation ein Block-Feld ist...
-					if (x < 0 && treffer_links == false) {
+					if (treffer_links == false) {
 						treffer_links = true;
 						Map.get_map()[this.x + x][this.y] = 6; 		// ...dann wandele das Feld in ein Explosions-Feld um
 					}
@@ -259,7 +259,7 @@ public class Bombe extends JLabel {
 				}
 				
 				else if (Map.get_map()[this.x + x][this.y] == 8) {	// oder falls das Zielfeld der Detonation ein Block-/Ausgangs-Feld ist...
-					if (x < 0 && treffer_links == false) {
+					if (treffer_links == false) {
 						treffer_links = true;
 						Map.get_map()[this.x + x][this.y] = 9;			// ...dann wandele das Feld in ein Explosions-/Ausgangs-Feld um
 					}
@@ -267,7 +267,7 @@ public class Bombe extends JLabel {
 				}
 				
 				else if (Map.get_map()[this.x + x][this.y] == 0) {	// oder falls das Zielfeld der Detonation ein Block-/Bomben-Item-Feld ist...
-					if (x < 0 && treffer_links == false) {
+					if (treffer_links == false) {
 						treffer_links = true;
 						Map.get_map()[this.x + x][this.y] = 11;			// ...dann wandele das Feld in ein Explosions-/Bomben-Item-Feld um
 					}
@@ -275,7 +275,7 @@ public class Bombe extends JLabel {
 				}
 				
 				if (Map.get_map()[this.x + x][this.y] == 2) { 		// falls das Zielfeld der Detonation ein Weg-Feld...
-					if (x < 0 && treffer_links == false) {
+					if (treffer_links == false) {
 						Map.get_map()[this.x + x][this.y] = 6;			// ...dann wandele das Feld in ein Explosions-Feld um
 					}
 
@@ -286,14 +286,14 @@ public class Bombe extends JLabel {
 			// vertikal:
 			if (this.y + y > 0 && this.y + y < n) {	// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
 				if (Map.get_map()[this.x][this.y + y] == 4) {	// falls das Zielfeld der Detonation ein Mauer-Feld ist...
-					if (y < 0 && treffer_oben == false) {
+					if (treffer_oben == false) {
 						treffer_oben = true;
 					}
 
 				}
 				
 				if (Map.get_map()[this.x][this.y + y] == 3) {	// falls das Zielfeld der Detonation ein Block-Feld ist...
-					if (y < 0 && treffer_oben == false) {
+					if (treffer_oben == false) {
 						treffer_oben = true;
 						Map.get_map()[this.x][this.y + y] = 6; 		// ...dann wandele das Feld in ein Explosions-Feld um
 					}
@@ -301,7 +301,7 @@ public class Bombe extends JLabel {
 				}
 				
 				else if (Map.get_map()[this.x][this.y + y] == 8) {	// oder falls das Zielfeld der Detonation ein Block-/Ausgangs-Feld ist...
-					if (y < 0 && treffer_oben == false) {
+					if (treffer_oben == false) {
 						treffer_oben = true;
 						Map.get_map()[this.x][this.y + y] = 9;			// ...dann wandele das Feld in ein Explosions-/Ausgangs-Feld um
 					}
@@ -309,7 +309,7 @@ public class Bombe extends JLabel {
 				}
 				
 				else if (Map.get_map()[this.x][this.y + y] == 0) {	// oder falls das Zielfeld der Detonation ein Block-/Bomben-Item-Feld ist...					
-					if (y < 0 && treffer_oben == false) {
+					if (treffer_oben == false) {
 						treffer_oben = true;
 						Map.get_map()[this.x][this.y + y] = 11;			// ...dann wandele das Feld in ein Explosions-/Bomben-Item-Feld um
 					}
@@ -317,7 +317,7 @@ public class Bombe extends JLabel {
 				}
 				
 				if (Map.get_map()[this.x][this.y + y] == 2) { 		// falls das Zielfeld der Detonation ein Weg-Feld...
-					if (y < 0 && treffer_oben == false) {
+					if (treffer_oben == false) {
 						Map.get_map()[this.x][this.y + y] = 6;			// ...dann wandele das Feld in ein Explosions-Feld um
 					}
 
@@ -354,7 +354,7 @@ public class Bombe extends JLabel {
 				if (Map.get_map()[this.x + x][this.y] == 1		// falls die Detonation die erste...
 					|| Map.get_map()[this.x + x][this.y] == 10) {	// ...oder zweite Spielfigur trifft
 					
-					if (x < 0 && treffer_links == false) {
+					if (treffer_links == false) {
 						System.out.println("Game over"); 			// Test
 						System.out.println();						// Test
 						
@@ -370,7 +370,7 @@ public class Bombe extends JLabel {
 				if (Map.get_map()[this.x][this.y + y] == 1	// falls die Detonation die erste...
 					|| Map.get_map()[this.x][this.y + y] == 10) {	// ...oder zweite Spielfigur trifft
 					
-					if (y < 0 && treffer_oben == false) {
+					if (treffer_oben == false) {
 						System.out.println("Game over"); 			// Test
 						System.out.println();						// Test
 						
