@@ -14,7 +14,6 @@ public class Bombe extends JLabel {
 	public int y = 0; 			// y-Koordinate (vertikale Position)
 	Zeit timer = new Zeit(); 	// Timer erstellen
 	boolean liegt = false;
-	static int radius = 2;
 	
 	// Pro Richtung kann die Bombe maximal einen Treffer verursachen:
 	boolean treffer_oben 	= false,
@@ -69,21 +68,13 @@ public class Bombe extends JLabel {
 	public void set_y(int y) {
 		this.y = y;
 	}
-	
-	public static int get_radius() {
-		return radius;
-	}
-	
-	public static void set_radius(int radius) {
-		Bombe.radius = radius;
-	}
 
 	// aktivieren-Methode:
 	/**
 	 * Aktiviert den Timer unfuegt ihn an die
 	 * {@code Map Menue.game()}-Variable
 	 */
-	public void aktivieren(int Spieler) {
+	public void aktivieren(int Spieler, int bomben_radius) {
 		liegt = true;
 		System.out.println("Bombe gelegt");	// Test	
 		System.out.println();				// Test
@@ -91,18 +82,18 @@ public class Bombe extends JLabel {
 		timer.set_bomb_x(x);
 		timer.set_bomb_y(y);
 		Menue.get_game().add(timer); 							// Timer hinzufuegen
-		timer.timer_starten(3000, "Bombe", Spieler, radius);	// Timer fuer Bombe starten	
+		timer.timer_starten(3000, "Bombe", Spieler, bomben_radius);	// Timer fuer Bombe starten	
 	}
 
 	// bombe_detonieren-Methode:
 	/**
 	 * Ueberpruefung der Legalitaet der Detonationsausbreitung; Umwandlung der Felder im Map-Array; Ueberpruefung ob Spieler von Explosion betroffen ist
 	 */
-	public void bombe_detonieren(int Spieler) {
+	public void bombe_detonieren(int Spieler, int bomben_radius) {
 		Menue.get_hulk(Spieler).set_max_bomben(Menue.get_hulk(Spieler).get_max_bomben() + 1);	// Spieler darf wieder eine Bombe mehr legen
 		
 		/* Ausbreitung der Detonation nach rechts und unten: */
-		for (int x = 0, y = 0; x <= radius; x++, y++) {
+		for (int x = 0, y = 0; x <= bomben_radius; x++, y++) {
 			// horizontal:
 			if (this.x + x > 0 && this.x + x < n) {		// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
 				if (Map.get_map()[this.x + x][this.y] == 4) {		// falls das Zielfeld der Detonation ein Mauer-Feld ist...
@@ -212,7 +203,7 @@ public class Bombe extends JLabel {
 				// horizontales Treffen von Explosion & Bombe:
 				if (this.x + x > 0 && this.x + x < n) {		// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
 					if (Map.get_map()[this.x + x][this.y] == 5) {		// falls das Zielfeld der Detonation ein Bombe-Feld ist...
-						Menue.get_game().bomb[this.x + x][this.y].bombe_detonieren(Spieler);	// ...lass auch die andere Bombe detonieren
+						Menue.get_game().bomb[this.x + x][this.y].bombe_detonieren(Spieler, bomben_radius);	// ...lass auch die andere Bombe detonieren
 					}
 					
 				}
@@ -220,7 +211,7 @@ public class Bombe extends JLabel {
 				if (this.y + y > 0 && this.y + y < n) {		// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
 					// vertikales Treffen von Explosion & Bombe:
 					if (Map.get_map()[this.x][this.y + y] == 5) {		// falls das Zielfeld der Detonation ein Bombe-Feld ist
-						Menue.get_game().bomb[this.x][this.y + y].bombe_detonieren(Spieler);	// ...lass auch die andere Bombe detonieren
+						Menue.get_game().bomb[this.x][this.y + y].bombe_detonieren(Spieler, bomben_radius);	// ...lass auch die andere Bombe detonieren
 					}
 					
 				}
@@ -264,7 +255,7 @@ public class Bombe extends JLabel {
 		}
 		
 		/* Ausbreitung der Detonation nach links und oben: */
-		for (int x = 0, y = 0; x >= -radius; x--, y--) {
+		for (int x = 0, y = 0; x >= -bomben_radius; x--, y--) {
 			// horizontal:
 			if (this.x + x > 0 && this.x + x < n) {	// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
 				if (Map.get_map()[this.x + x][this.y] == 4) {	// falls das Zielfeld der Detonation ein Mauer-Feld ist...
@@ -376,14 +367,14 @@ public class Bombe extends JLabel {
 				// horizontales Treffen von Explosion & Bombe:
 				if (this.x + x > 0 && this.x + x < n) {	// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
 					if (Map.get_map()[this.x + x][this.y] == 5) {		// falls das Zielfeld der Detonation ein Bombe-Feld ist...
-						Menue.get_game().bomb[this.x + x][this.y].bombe_detonieren(Spieler);	// ...lass auch die andere Bombe detonieren
+						Menue.get_game().bomb[this.x + x][this.y].bombe_detonieren(Spieler, bomben_radius);	// ...lass auch die andere Bombe detonieren
 					}
 				}
 				
 				// vertikales Treffen von Explosion & Bombe:
 				if (this.y + y > 0 && this.y + y < n) {	// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
 					if (Map.get_map()[this.x][this.y + y] == 5) {		// falls das Zielfeld der Detonation ein Bombe-Feld ist
-						Menue.get_game().bomb[this.x][this.y + y].bombe_detonieren(Spieler);	// ...lass auch die andere Bombe detonieren
+						Menue.get_game().bomb[this.x][this.y + y].bombe_detonieren(Spieler, bomben_radius);	// ...lass auch die andere Bombe detonieren
 					}
 				}
 			}
@@ -438,7 +429,7 @@ public class Bombe extends JLabel {
 		Menue.get_game().add(ende_explosion); 				// Timer fuer Dauer der Explosion hinzufuegen
 		
 		if (liegt == true) { 	// falls das Spiel nicht waehrend des Timers neugestartet wurde
-			ende_explosion.timer_starten(1000, "Detonation", Spieler, radius); 	// Timer fuer Dauer der Explosion starten
+			ende_explosion.timer_starten(1000, "Detonation", Spieler, bomben_radius); 	// Timer fuer Dauer der Explosion starten
 		}
 		
 		else {					// sonst

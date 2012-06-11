@@ -11,6 +11,7 @@ public class Hulk {
 	public int[] startPos = new int[2];
 	public int icon;
 	public int max_bomben = 1;
+	private int bomben_radius = 2;
 	
 	/**
 	 * 
@@ -81,6 +82,14 @@ public class Hulk {
 	
 	public void set_max_bomben(int max_bomben) {
 		this.max_bomben = max_bomben;	
+	}
+	
+	public int get_bomben_radius() {
+		return bomben_radius;
+	}
+	
+	public void set_bomben_radius(int bomben_radius) {
+		this.bomben_radius = bomben_radius;	
 	}
 	
 }

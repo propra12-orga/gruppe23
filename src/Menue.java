@@ -197,9 +197,7 @@ public class Menue implements KeyListener {
 			System.out.println("Bombe S1"); // Test
 			System.out.println();			// Test
 			
-			if ((Menue.get_hulk(1).get_max_bomben()) > 0) {									// falls der 1. Spieler (noch) eine Bombe legen darf...			
-				
-				
+			if ((Menue.get_hulk(1).get_max_bomben()) > 0) {									// falls der 1. Spieler (noch) eine Bombe legen darf...				
 				System.out.println("max_bomben S1 vor Legen: " + Menue.get_hulk(1).get_max_bomben());	// Test
 				System.out.println();																	// Test
 				
@@ -257,9 +255,7 @@ public class Menue implements KeyListener {
 			System.out.println("Bombe S2"); // Test
 			System.out.println();			// Test
 			
-			if ((Menue.get_hulk(2).get_max_bomben()) > 0) {									// falls der 2. Spieler (noch) eine Bombe legen darf...			
-				
-				
+			if ((Menue.get_hulk(2).get_max_bomben()) > 0) {									// falls der 2. Spieler (noch) eine Bombe legen darf...				
 				System.out.println("max_bomben S2 vor Legen: " + Menue.get_hulk(2).get_max_bomben());	// Test
 				System.out.println();																	// Test
 				
@@ -285,20 +281,13 @@ public class Menue implements KeyListener {
 			// wenn Spieler 1 Bewegungen durchfuehrt
 			if (a[2] == 1){
 				// Bewegung Spieler 1
-				if (Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 2
-					|| Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 12
-					|| Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 15) { // falls
-																					// das
-																					// naechste
-																					// Feld
-																					// ein
-																					// Weg-Feld
-																					// ist
+				if (Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 2		// falls das naechste Feld ein Weg-Feld,...
+					|| Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 12	// ...oder Bomben-Item-Feld...
+					|| Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 15) { // ...oder Flammen-Item Feld ist...
 
-					game.move_Hulk(a[0], a[1], a[2]); 	// bewege Hulk auf dem Spielfeld
-					game.removeAll(); 					// entferne alle bisherigen Komponenten vom
-														// Panel
-					game.refresh(); 					// zeichne alle Komponenten des Panels neu
+					game.move_Hulk(a[0], a[1], a[2]); 	// ...dann bewege Spielerfigur 1 auf dem Spielfeld,...
+					game.removeAll(); 					// ...entferne alle bisherigen Komponenten vom Panel...
+					game.refresh(); 					// ...und zeichne alle Komponenten des Panels neu
 				}
 				
 				// Sieg Spieler 1
@@ -334,20 +323,13 @@ public class Menue implements KeyListener {
 			// wenn Spieler 2 Bewegung durchfuehrt	
 			if (a[2] == 2) {
 				// Bewegung Spieler 2
-				if (Map.map[hulk2.get_x() + a[0]][hulk2.get_y() + a[1]] == 2
-					|| Map.map[hulk2.get_x() + a[0]][hulk2.get_y() + a[1]] == 12
-					|| Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 15) { // falls
-																					// das
-																					// naechste
-																					// Feld
-																					// ein
-																					// Weg-Feld
-																					// ist
+				if (Map.map[hulk2.get_x() + a[0]][hulk2.get_y() + a[1]] == 2		// falls das naechste Feld ein Weg-Feld,...
+					|| Map.map[hulk2.get_x() + a[0]][hulk2.get_y() + a[1]] == 12	// ...oder Bomben-Item-Feld...
+					|| Map.map[hulk2.get_x() + a[0]][hulk2.get_y() + a[1]] == 15) { // ...oder Flammen-Item Feld ist...
 					
-					game.move_Hulk(a[0], a[1], a[2]); 	// bewege Hulk auf dem Spielfeld
-					game.removeAll(); 					// entferne alle bisherigen Komponenten vom
-														// Panel
-					game.refresh(); 					// zeichne alle Komponenten des Panels neu
+					game.move_Hulk(a[0], a[1], a[2]); 	// ...dann bewege Spielfigur 2 auf dem Spielfeld,...
+					game.removeAll(); 					// ...entferne alle bisherigen Komponenten vom Panel...
+					game.refresh(); 					// ...und zeichne alle Komponenten des Panels neu
 				}
 				
 				// Sieg Spieler 2
@@ -419,7 +401,8 @@ public class Menue implements KeyListener {
 		Menue.get_hulk(2).set_max_bomben(1);
 		
 		// Bomben-Radius zuruecksetzen:
-		Bombe.set_radius(2);
+		Menue.get_hulk(1).set_bomben_radius(2);
+		Menue.get_hulk(2).set_bomben_radius(2);
 
 		// Gelegte Bomben entfernen:
 		for (int x=0; x<11; x++) {

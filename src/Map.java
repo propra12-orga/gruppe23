@@ -57,8 +57,8 @@ public class Map extends JPanel {
 			Menue.get_hulk(z).set_max_bomben(Menue.get_hulk(z).get_max_bomben() + 1);	// ...dann erhoehe die maximale Anzahl an Bomben um 1
 		}
 		
-		if (map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] == 15) {		// falls das nächste Feld das Bomben-Item-Icon enthält...							// ...und der Spieler noch nicht bei max. 8 Bomben angelangt ist...
-				Bombe.set_radius(Bombe.get_radius()+1);	// ...dann erhoehe die maximale Anzahl an Bomben um 1
+		if (map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] == 15) {		// falls das nächste Feld das Bomben-Item-Icon enthält...
+			Menue.get_hulk(z).set_bomben_radius(Menue.get_hulk(z).get_bomben_radius()+1);	// ...dann erhoehe die maximale Anzahl an Bomben um 1
 		}
 		
 		if (z == 1) {
@@ -85,7 +85,7 @@ public class Map extends JPanel {
 		bomb[bomb_x][bomb_y] = new Bombe(bomb_x, bomb_y);
 
 		add(bomb[bomb_x][bomb_y]); 					// Bombe hinzufuegen
-		bomb[bomb_x][bomb_y].aktivieren(Spieler); 	// Bombe aktivieren
+		bomb[bomb_x][bomb_y].aktivieren(Spieler, Menue.get_hulk(Spieler).get_bomben_radius()); 	// Bombe aktivieren
 		map[bomb_x][bomb_y] = 5; 					// Bombe darstellen
 	}
 

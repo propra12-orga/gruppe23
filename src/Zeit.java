@@ -20,15 +20,15 @@ public class Zeit extends JLabel {
 	 * @param x	 Zeit bis zur Detonation der Bombe
 	 * @param logo String der Bomben-Aktion ("Bombe" fuer Legen der Bombe, "Detonation")
 	 */
-	public void timer_starten(int x, String logo, int spieler, int radius) { 	// x = Timer-Verzoegerung, logo = Bomben-/Detonations-Icon
+	public void timer_starten(int x, String logo, int spieler, int bomben_radius) { 	// x = Timer-Verzoegerung, logo = Bomben-/Detonations-Icon
 		if (Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) {
 			if (logo.equals("Bombe")) {
-				timer.schedule(new Bombe(spieler), x); 	// Zeit bis zur Detonation um x
+				timer.schedule(new Bombe(spieler, bomben_radius), x); 	// Zeit bis zur Detonation um x
 														// Millisek. verzoegern
 			}
 	
 			else if (logo.equals("Detonation")) {
-				timer.schedule(new Detonation(radius), x); 	// Zeit bis zum Ende der
+				timer.schedule(new Detonation(bomben_radius), x); 	// Zeit bis zum Ende der
 															// Detonation um x Millisek.
 															// verzoegern
 			}
@@ -43,10 +43,12 @@ public class Zeit extends JLabel {
 	public class Bombe extends TimerTask {
 		
 		private int Spieler;
+		private int bomben_radius;
 		
 		// Konstruktor:
-		public Bombe (int spieler){
+		public Bombe (int spieler, int bomben_radius){
 			Spieler = spieler;
+			this.bomben_radius = bomben_radius;
 		}
 		
 		/**
@@ -57,7 +59,7 @@ public class Zeit extends JLabel {
 				System.out.println("Bombe explodiert"); // Test
 				System.out.println("");					// Test
 
-				Menue.get_game().bomb[bomb_x][bomb_y].bombe_detonieren(Spieler); // Detonation der Bombe				
+				Menue.get_game().bomb[bomb_x][bomb_y].bombe_detonieren(Spieler, bomben_radius); // Detonation der Bombe				
 				
 				timer.cancel(); // Timer terminieren
 			}
