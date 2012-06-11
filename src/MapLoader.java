@@ -8,6 +8,7 @@ import java.io.IOException;
  */
 public class MapLoader {
 	public static boolean twoPlayerSet;
+	static int n = 11;
 	/**
 	 * 
 	 * @param i legt das zu ladene Level fest
@@ -16,9 +17,8 @@ public class MapLoader {
 	public static int[][] laden(int i) {
 		twoPlayerSet = Menue.getMultiplayer();
 		
-		int c = 0;
+		int c = 0;		
 		
-		int n = 11;
 		int k = 0, l = 0;
 		int[][] map = new int[n][n];
 		String filename = "src/Maps/Level-" + i + ".txt";
@@ -69,5 +69,10 @@ public class MapLoader {
 		
 		return map;
 
+	}
+	
+	// get_n-Methode:
+	public static int get_n() {
+		return n;
 	}
 }

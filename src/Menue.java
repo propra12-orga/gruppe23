@@ -70,8 +70,8 @@ public class Menue implements KeyListener {
 	 */
 	public Menue() {
 		spiel_neugestartet = false;
-		hulk1 = new Hulk(1,1,1);
-		hulk2 = new Hulk(9,9,10);
+		hulk1 = new Hulk(1,1,1);	// 1. Spielerfigur erzeugen
+		hulk2 = new Hulk(9,9,10);	// 2. Spielerfigur erzeugen
 		
 		map = MapLoader.laden(1); 
 		game = new Map(map);
@@ -124,12 +124,12 @@ public class Menue implements KeyListener {
 		JMenuItem mntmSingleplayer = new JMenuItem("Singleplayer"); 	// Untermenuepunkt "Singleplayer"
 																		// erstellen
 		mnModus.add(mntmSingleplayer); 									// Untermenuepunkt "Singleplayer" hinzufuegen
-		mntmSingleplayer.setAction(Action_Singleplayer); 						// Aktion "Action_Singleplayer" hinzufuegen
+		mntmSingleplayer.setAction(Action_Singleplayer);				// Aktion "Action_Singleplayer" hinzufuegen
 		
 		JMenuItem mntmMultiplayer = new JMenuItem("Multiplayer"); 		// Untermenuepunkt "Multiplayer"
 																		// erstellen
 		mnModus.add(mntmMultiplayer); 									// Untermenuepunkt "Multiplayer" hinzufuegen
-		mntmMultiplayer.setAction(Action_Multiplayer); 							// Aktion "Action_Multiplayer" hinzufuegen		
+		mntmMultiplayer.setAction(Action_Multiplayer);					// Aktion "Action_Multiplayer" hinzufuegen		
 
 		frame.add(game); 	// Spielfeld hinzufuegen
 		game.init(); 		// Spielfeld zeichnen
@@ -149,8 +149,8 @@ public class Menue implements KeyListener {
 		
 		// Pfeiltaste oben:
 		if (Key.getKeyCode() == KeyEvent.VK_UP) {
-			System.out.println("oben S1"); // Test
-			System.out.println();
+			System.out.println("oben S1"); 	// Test
+			System.out.println();			// Test
 
 			a[0] = 0;
 			a[1] = -1;
@@ -161,7 +161,7 @@ public class Menue implements KeyListener {
 		// Pfeiltaste links:
 		else if (Key.getKeyCode() == KeyEvent.VK_LEFT) {
 			System.out.println("links S1"); // Test
-			System.out.println();
+			System.out.println();			// Test
 
 			a[0] = -1;
 			a[1] = 0;
@@ -171,8 +171,8 @@ public class Menue implements KeyListener {
 
 		// Pfeiltaste rechts:
 		else if (Key.getKeyCode() == KeyEvent.VK_RIGHT) {
-			System.out.println("rechts S1"); // Test
-			System.out.println();
+			System.out.println("rechts S1"); 	// Test
+			System.out.println();				// Test
 
 			a[0] = 1;
 			a[1] = 0;
@@ -183,7 +183,7 @@ public class Menue implements KeyListener {
 		// Pfeiltaste unten:
 		else if (Key.getKeyCode() == KeyEvent.VK_DOWN) {
 			System.out.println("unten S1"); // Test
-			System.out.println();
+			System.out.println();			// Test
 
 			a[0] = 0;
 			a[1] = 1;
@@ -194,64 +194,85 @@ public class Menue implements KeyListener {
 		// Leertaste:
 		else if (Key.getKeyCode() == KeyEvent.VK_SPACE) {
 			System.out.println("Bombe S1"); // Test
-			System.out.println();
-
-
-			game.bombe_legen(1);
-			game.removeAll(); 	// entferne alle bisherigen Komponenten vom Panel
-			game.refresh();		// zeichne alle Komponenten des Panels neu
-
+			System.out.println();			// Test
+			
+			if ((Menue.get_hulk(1).get_max_bomben()) > 0) {									// falls der 1. Spieler (noch) eine Bombe legen darf...			
+				
+				
+				System.out.println("max_bomben S1 vor Legen: " + Menue.get_hulk(1).get_max_bomben());	// Test
+				System.out.println();																	// Test
+				
+				Menue.get_hulk(1).set_max_bomben((Menue.get_hulk(1).get_max_bomben()) -1);	// ...dekrementiere die Anzahl der maximalen Bomben von Spieler 1 um 1,
+				
+				System.out.println("max_bomben S1 nach Legen: " + Menue.get_hulk(1).get_max_bomben());	// Test
+				System.out.println();																	// Test				
+				
+				game.bombe_legen(1);														// ...lass den 1. Spieler eine Bombe legen, ...
+				
+				game.removeAll(); 															// ...entferne alle bisherigen Komponenten vom Panel und...
+				game.refresh();																// ...zeichne alle Komponenten des Panels neu
+			}
+			
 		}
 		
 		//Key-Methoden fuer 2. Spieler
 		else if (Key.getKeyCode() == KeyEvent.VK_W && twoPlayer){	//Taste oben
-			System.out.println("Oben S2");
-			System.out.println();
+			System.out.println("Oben S2");		// Test
+			System.out.println();				// Test
 			
 			a[0]=0;
 			a[1]=-1;
 			a[2]=2;
-			
 		}
 		
 		else if (Key.getKeyCode() == KeyEvent.VK_A && twoPlayer){	//Taste links
-			System.out.println("Links S2");
-			System.out.println();
+			System.out.println("Links S2");		// Test
+			System.out.println();				// Test
 			
 			a[0]=-1;
 			a[1]=0;
 			a[2]=2;
-			
 		}
 		
 		else if (Key.getKeyCode() == KeyEvent.VK_S && twoPlayer){	//Taste unten
-			System.out.println("Unten S2");
-			System.out.println();
+			System.out.println("Unten S2");		// Test
+			System.out.println();				// Test
 			
 			a[0]=0;
 			a[1]=1;
 			a[2]=2;
-			
 		}
 		
 		else if (Key.getKeyCode() == KeyEvent.VK_D && twoPlayer ){	//Taste rechts
-			System.out.println("Rechts S2");
-			System.out.println();
+			System.out.println("Rechts S2");	// Test
+			System.out.println();				// Test
 			
 			a[0]=1;
 			a[1]=0;
 			a[2]=2;
-			
 		}
 		
 		else if (Key.getKeyCode() == KeyEvent.VK_E && twoPlayer){
 			System.out.println("Bombe S2"); // Test
-			System.out.println();
-
-
-			game.bombe_legen(2);
-			game.removeAll(); 	// entferne alle bisherigen Komponenten vom Panel
-			game.refresh();		// zeichne alle Komponenten des Panels neu
+			System.out.println();			// Test
+			
+			if ((Menue.get_hulk(2).get_max_bomben()) > 0) {									// falls der 2. Spieler (noch) eine Bombe legen darf...			
+				
+				
+				System.out.println("max_bomben S2 vor Legen: " + Menue.get_hulk(2).get_max_bomben());	// Test
+				System.out.println();																	// Test
+				
+				Menue.get_hulk(2).set_max_bomben((Menue.get_hulk(2).get_max_bomben()) -1);	// ...dekrementiere die Anzahl der maximalen Bomben von Spieler 2 um 1,
+				
+				System.out.println("max_bomben S2 nach Legen: " + Menue.get_hulk(2).get_max_bomben());	// Test
+				System.out.println();																	// Test				
+				
+				game.bombe_legen(2);														// ...lass den 2. Spieler eine Bombe legen, ...
+				
+				game.removeAll(); 															// ...entferne alle bisherigen Komponenten vom Panel und...
+				game.refresh();																// ...zeichne alle Komponenten des Panels neu
+			}
+			
 		}
 		
 		else {
@@ -263,7 +284,8 @@ public class Menue implements KeyListener {
 			// wenn Spieler 1 Bewegungen durchfuehrt
 			if (a[2] == 1){
 				// Bewegung Spieler 1
-				if (Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 2) { 	// falls
+				if (Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 2
+					|| Map.map[hulk1.get_x() + a[0]][hulk1.get_y() + a[1]] == 12) { // falls
 																					// das
 																					// naechste
 																					// Feld
@@ -271,10 +293,10 @@ public class Menue implements KeyListener {
 																					// Weg-Feld
 																					// ist
 
-					game.move_Hulk(a[0], a[1], a[2]); // bewege Hulk auf dem Spielfeld
-					game.removeAll(); 			// entferne alle bisherigen Komponenten vom
-												// Panel
-					game.refresh(); 			// zeichne alle Komponenten des Panels neu
+					game.move_Hulk(a[0], a[1], a[2]); 	// bewege Hulk auf dem Spielfeld
+					game.removeAll(); 					// entferne alle bisherigen Komponenten vom
+														// Panel
+					game.refresh(); 					// zeichne alle Komponenten des Panels neu
 				}
 				
 				// Sieg Spieler 1
@@ -285,29 +307,10 @@ public class Menue implements KeyListener {
 																						// das
 																						// Ziel-Feld
 																						// ist
-					System.out.println("Spieler 1 hat gewonnen"); // Test
-					System.out.println();
+					System.out.println("Spieler 1 hat gewonnen"); 	// Test
+					System.out.println();							// Test
 
-					System.out.println("Spiel neugestartet"); // Test
-					System.out.println();
-		
-					// Hulk zurueckpositionieren:
-					reset_Hulk();
-				
-					// Gelegte Bomben entfernen:
-					for (int x=0; x<11; x++) {
-						for (int y=0; y<11; y++) {
-							game.bomb[x][y].liegt = false;
-						}
-						
-					}				
-				
-					// Spielfeld intern reinitialisieren:
-					Map.set_map(MapLoader.laden(1));					
-
-					// Spielfeld grafisch reinitialisieren:
-					game.removeAll();
-					game.refresh();
+					spiel_neustarten();
 				}
 				
 				// Niederlage Spieler 1				
@@ -318,35 +321,19 @@ public class Menue implements KeyListener {
 																						// ein
 																						// Explosions-Feld
 																						// ist
-					System.out.println("Spieler 1 hat verloren"); // Test
-					System.out.println();
+					System.out.println("Spieler 1 hat verloren"); 	// Test
+					System.out.println();							// Test
 					
-					System.out.println("Spiel neugestartet"); // Test
-					System.out.println();
-					
-					// Hulk zurueckpositionieren:
-					reset_Hulk();
-					
-					// Gelegte Bomben entfernen:
-					for (int x=0; x<11; x++) {
-						for (int y=0; y<11; y++) {
-							game.bomb[x][y].liegt = false;
-						}
-					}			
-					
-					// Spielfeld intern reinitialisieren:
-					Map.set_map(MapLoader.laden(1));
-					
-					// Spielfeld grafisch reinitialisieren:
-					game.removeAll();
-					game.refresh();
+					spiel_neustarten();
 				}
+				
 			}
 				
 			// wenn Spieler 2 Bewegung durchfuehrt	
 			if (a[2] == 2) {
 				// Bewegung Spieler 2
-				if (Map.map[hulk2.get_x() + a[0]][hulk2.get_y() + a[1]] == 2) { 	// falls
+				if (Map.map[hulk2.get_x() + a[0]][hulk2.get_y() + a[1]] == 2
+					|| Map.map[hulk2.get_x() + a[0]][hulk2.get_y() + a[1]] == 12) { // falls
 																					// das
 																					// naechste
 																					// Feld
@@ -368,63 +355,25 @@ public class Menue implements KeyListener {
 																						// das
 																						// Ziel-Feld
 																						// ist
-					System.out.println("Spieler 2 hat gewonnen"); // Test
-					System.out.println();
+					System.out.println("Spieler 2 hat gewonnen"); 	// Test
+					System.out.println();							// Test
 					
-					System.out.println("Spiel neugestartet"); // Test
-					System.out.println();
-					
-					// Hulk zurueckpositionieren:
-					reset_Hulk();
-					
-					
-					// Gelegte Bomben entfernen:
-					for (int x=0; x<11; x++) {
-						for (int y=0; y<11; y++) {
-							game.bomb[x][y].liegt = false;
-						}
-					}				
-					
-					// Spielfeld intern reinitialisieren:
-					Map.set_map(MapLoader.laden(1));
-					
-					// Spielfeld grafisch reinitialisieren:
-					game.removeAll();
-					game.refresh();										
+					spiel_neustarten();
 				}
 			
 			
 				// Niederlage Spieler 2
-				else if (Map.map[hulk2.get_x() + a[0]][hulk2.get_y() + a[1]] == 6) { // falls
-																					// das
-																					// naechste
-																					// Feld
-																					// ein
-																					// Explosions-Feld
-																					// ist
-					System.out.println("Spieler 2 hat verloren"); // Test
-					System.out.println();
+				else if (Map.map[hulk2.get_x() + a[0]][hulk2.get_y() + a[1]] == 6) { 	// falls
+																						// das
+																						// naechste
+																						// Feld
+																						// ein
+																						// Explosions-Feld
+																						// ist
+					System.out.println("Spieler 2 hat verloren"); 	// Test
+					System.out.println();							// Test
 	
-					System.out.println("Spiel neugestartet"); // Test
-					System.out.println();
-					
-					// Hulk zurueckpositionieren:
-					reset_Hulk();
-	
-					// Gelegte Bomben entfernen:
-					for (int x=0; x<11; x++) {
-						for (int y=0; y<11; y++) {
-							game.bomb[x][y].liegt = false;
-						}
-						
-					}			
-					
-					// Spielfeld intern reinitialisieren:
-					Map.set_map(MapLoader.laden(1));
-	
-					// Spielfeld grafisch reinitialisieren:
-					game.removeAll();
-					game.refresh();
+					spiel_neustarten();
 				}
 				
 			}
@@ -453,6 +402,33 @@ public class Menue implements KeyListener {
 		
 		hulk2.set_x(9);
 		hulk2.set_y(9);
+	}
+	
+	static void spiel_neustarten() {
+		System.out.println("Spiel neugestartet"); 	// Test
+		System.out.println();						// Test
+		
+		// Hulk zurueckpositionieren:
+		reset_Hulk();
+		
+		// Maximale Anzahl an Bomben zuruecksetzen:
+		Menue.get_hulk(1).set_max_bomben(1);
+		Menue.get_hulk(2).set_max_bomben(1);
+
+		// Gelegte Bomben entfernen:
+		for (int x=0; x<11; x++) {
+			for (int y=0; y<11; y++) {
+				game.bomb[x][y].liegt = false;
+			}
+			
+		}			
+		
+		// Spielfeld intern reinitialisieren:
+		Map.set_map(MapLoader.laden(1));
+
+		// Spielfeld grafisch reinitialisieren:
+		game.removeAll();
+		game.refresh();
 	}
 	
 	/**
@@ -488,25 +464,7 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("Spiel neugestartet"); // Test
-			System.out.println();
-
-			// Hulk zurueckpositionieren:
-			reset_Hulk();
-
-			// Gelegte Bomben entfernen:
-			for (int x=0; x<11; x++) {
-				for (int y=0; y<11; y++) {
-					game.bomb[x][y].liegt = false;
-				}
-			}		
-			
-			// Spielfeld intern reinitialisieren:
-			Map.set_map(MapLoader.laden(1));
-
-			// Spielfeld grafisch reinitialisieren:
-			game.removeAll();
-			game.refresh();
+			spiel_neustarten();
 		}
 
 	}
@@ -531,20 +489,7 @@ public class Menue implements KeyListener {
 				System.out.println("Singleplayer-Modus aktiviert");	// Test
 				System.out.println();								// Test
 				
-				// Hulk zurueckpositionieren:
-				reset_Hulk();
-				
-				// Gelegte Bomben entfernen:
-				for (int x=0; x<11; x++) {
-					for (int y=0; y<11; y++) {
-						game.bomb[x][y].liegt = false;
-					}
-				}	
-				
-				map = MapLoader.laden(1); 
-				Map.set_map(map);
-				game.removeAll();
-				game.refresh(); 		// Spielfeld zeichnen
+				spiel_neustarten();
 			}
 			
 		}
@@ -571,20 +516,7 @@ public class Menue implements KeyListener {
 				System.out.println("Multiplayer-Modus aktiviert");	// Test
 				System.out.println();								// Test
 				
-				// Hulk zurueckpositionieren:
-				reset_Hulk();
-				
-				// Gelegte Bomben entfernen:
-				for (int x=0; x<11; x++) {
-					for (int y=0; y<11; y++) {
-						game.bomb[x][y].liegt = false;
-					}
-				}	
-				
-				map = MapLoader.laden(1); 
-				Map.set_map(map);
-				game.removeAll();
-				game.refresh(); 		// Spielfeld zeichnen
+				spiel_neustarten();
 			}
 			
 		}

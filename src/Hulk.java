@@ -10,6 +10,7 @@ public class Hulk {
 	public int y; // y-Koordinate (vertikale Position)
 	public int[] startPos = new int[2];
 	public int icon;
+	public int max_bomben = 1;
 	
 	/**
 	 * 
@@ -18,7 +19,7 @@ public class Hulk {
 	 * @param Icon Grafik der Spielfigur
 	 */
 	
-	public Hulk(int x, int y, int Icon){
+	public Hulk(int x, int y, int Icon) {
 		this.x = x;
 		this.y = y;
 		startPos[0] = x;
@@ -62,7 +63,7 @@ public class Hulk {
 		return startPos[0];
 	}
 	
-	public int get_startY(){
+	public int get_startY() {
 		return startPos[1];
 	}
 	
@@ -70,8 +71,16 @@ public class Hulk {
 	 * 
 	 * @return Icon-ID fuer Grafikarray
 	 */
-	public int get_Icon(){
+	public int get_Icon() {
 		return icon;
+	}
+	
+	public int get_max_bomben() {
+		return max_bomben;
+	}
+	
+	public void set_max_bomben(int max_bomben) {
+		this.max_bomben = max_bomben;	
 	}
 	
 }

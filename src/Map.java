@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
 public class Map extends JPanel {
 	// Deklaration & Initialisierung:
 	private static final long serialVersionUID = 1L;
-	static int n = 11; 							// Spielfeldgroesse
+	int n = MapLoader.get_n(); 					// Spielfeldgroesse
 	static int[][] map; 						// Spielfeld
 	Bombe bomb[][] = new Bombe[n][n]; 			// Bomben erstellen
 	int bomb_x, bomb_y;
@@ -32,7 +32,9 @@ public class Map extends JPanel {
 			for (int y = 0; y < n; y++) {
 				bomb[x][y] = new Bombe();
 			}
+			
 		}
+		
 	}
 
 	// move_Hulk-Methode:
@@ -47,7 +49,12 @@ public class Map extends JPanel {
 		/* Grafische Fortbewegung der Spielfigur: */
 		if (map[Menue.get_hulk(z).get_x()][Menue.get_hulk(z).get_y()] == 1
 			|| map[Menue.get_hulk(z).get_x()][Menue.get_hulk(z).get_y()] == 10) { 	// falls das Feld das Hulk-Icon (1 oder 10) beinhaltet,... 
-			map[Menue.get_hulk(z).get_x()][Menue.get_hulk(z).get_y()] = 2; 		// ...weise dem Feld das Weg-Icon (2) zu
+			map[Menue.get_hulk(z).get_x()][Menue.get_hulk(z).get_y()] = 2; 			// ...weise dem Feld das Weg-Icon (2) zu
+		}
+		
+		if (map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] == 12		// falls das nächste Feld das Bomben-Item-Icon enthält...
+			&& Menue.get_hulk(z).get_max_bomben() < 8) {								// ...und der Spieler noch nicht bei max. 8 Bomben angelangt ist...
+			Menue.get_hulk(z).set_max_bomben(Menue.get_hulk(z).get_max_bomben() + 1);	// ...dann erhoehe die maximale Anzahl an Bomben um 1
 		}
 		
 		if (z == 1) {
@@ -55,15 +62,16 @@ public class Map extends JPanel {
 		}
 		
 		else if (z == 2) {
-			map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] = 10; 	// weise dem naechsten Feld das Hulk-Icon zu
+			map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] = 10; // weise dem naechsten Feld das Hulk-Icon zu
 		}
+		
 		/* Logische Fortbewegung der Spielfigur: */
 		Menue.get_hulk(z).set_x(Menue.get_hulk(z).get_x() + x); 					// setze horizontale Hulk-Position weiter
 		Menue.get_hulk(z).set_y(Menue.get_hulk(z).get_y() + y); 					// setze vertikale Hulk-Position weiter
 
-		System.out.println("Neue Position des " + z + "ten Spielers: " + Menue.get_hulk(z).get_x()
-				+ "te Spalte, " + Menue.get_hulk(z).get_y() + "te Zeile"); 		// Test
-		System.out.println();
+		System.out.println("Neue Position des " + z + "ten Spielers: " + Menue.get_hulk(z).get_x()	// Test
+							+ "te Spalte, " + Menue.get_hulk(z).get_y() + "te Zeile"); 				// Test
+		System.out.println();																		// Test		
 	}
 
 	// bombe_legen-Methode:
@@ -150,6 +158,11 @@ public class Map extends JPanel {
 	public void label_laden(JLabel label, int i) {
 
 		switch (i) {
+		case 0: // Block/Bomben-Item
+			label.setIcon(new ImageIcon(Map.class
+					.getResource("/Pics/Block.png")));
+			break;
+		
 		case 1: // Hulk
 			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Hulk.png"))); 	// Grafik-Quelle:
 																					// http://openclipart.org/detail/168616/hunk-by-bedpanner
@@ -187,7 +200,7 @@ public class Map extends JPanel {
 																					// http://openclipart.org/detail/126307/panneau-sortie--traffic-sign-exit-by-lmproulx
 			break;
 
-		case 8: // Mauer/Ausgang	
+		case 8: // Block/Ausgang	
 			label.setIcon(new ImageIcon(Map.class
 					.getResource("/Pics/Block.png")));
 			break;
@@ -199,8 +212,16 @@ public class Map extends JPanel {
 		case 10: // 2. Spieler
 			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Hulk2.png"))); // selbst gemalt :D
 			break;
+			
+		case 11: // Explosion/Bomben-Item 	
+			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/EXP.png")));
+			break;
+			
+		case 12: // Bomben-Item
+			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Bomben-Item.png")));
+			break;
 		}
-
+		
 	}
 
 	// get_map-Methode:

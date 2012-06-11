@@ -20,21 +20,19 @@ public class Zeit extends JLabel {
 	 * @param x	 Zeit bis zur Detonation der Bombe
 	 * @param logo String der Bomben-Aktion ("Bombe" fuer Legen der Bombe, "Detonation")
 	 */
-	public void timer_starten(int x, String logo, int spieler) { // x = Timer-Verzoegerung,
-													// logo =
-													// Bomben-/Detonations-Icon
-
-		if (logo.equals("Bombe")) {
-			timer.schedule(new Bombe(spieler), x); // Zeit bis zur Detonation um x
-											// Millisek. verzoegern
+	public void timer_starten(int x, String logo, int spieler, int radius) { 	// x = Timer-Verzoegerung, logo = Bomben-/Detonations-Icon
+		if (Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) {
+			if (logo.equals("Bombe")) {
+				timer.schedule(new Bombe(spieler), x); 	// Zeit bis zur Detonation um x
+														// Millisek. verzoegern
+			}
+	
+			else if (logo.equals("Detonation")) {
+				timer.schedule(new Detonation(radius), x); 	// Zeit bis zum Ende der
+															// Detonation um x Millisek.
+															// verzoegern
+			}
 		}
-
-		else if (logo.equals("Detonation")) {
-			timer.schedule(new Detonation(), x); 	// Zeit bis zum Ende der
-													// Detonation um x Millisek.
-													// verzoegern
-		}
-
 	}
 
 	/**
@@ -45,18 +43,22 @@ public class Zeit extends JLabel {
 	public class Bombe extends TimerTask {
 		
 		private int Spieler;
+		
+		// Konstruktor:
 		public Bombe (int spieler){
 			Spieler = spieler;
 		}
+		
 		/**
 		 * startet den TimerTask-Thread Bombe (Ueberprueft gleichzeitig, ob das Spiel waehrend des Countdown neugestartet wurde
 		 */
 		public void run() {
 			if (Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) { // falls das Spiel nicht waehrend des Timers neugestartet wurde
 				System.out.println("Bombe explodiert"); // Test
-				System.out.println("");
+				System.out.println("");					// Test
 
-				Menue.get_game().bomb[bomb_x][bomb_y].bombe_detonieren(Spieler); // Detonation der Bombe
+				Menue.get_game().bomb[bomb_x][bomb_y].bombe_detonieren(Spieler); // Detonation der Bombe				
+				
 				timer.cancel(); // Timer terminieren
 			}
 
@@ -70,6 +72,13 @@ public class Zeit extends JLabel {
 	 *
 	 */
 	public class Detonation extends TimerTask {
+		private int radius;
+		
+		// Konstruktor:
+		public Detonation (int radius){
+			this.radius = radius;
+		}
+		
 		/**
 		 * startet den TimerTask-Thread Detonation nach Ablauf der Zeit x (timer_starten-Methode), welcher die Detonationsschritte vollzieht
 		 */
@@ -79,20 +88,40 @@ public class Zeit extends JLabel {
 
 				timer.cancel(); // Timer terminieren	
 
-				for (int x = -1, y = -1; x < 2; x++, y++) {
-					if (Map.get_map()[bomb_x + x][bomb_y] == 6) {
-						Map.get_map()[bomb_x + x][bomb_y] = 2; 	// Nach Ablauf des
-					}											// Timers wieder das
-					else if (Map.get_map()[bomb_x + x][bomb_y] == 9) {
-						Map.get_map()[bomb_x + x][bomb_y] = 7;
+				// Verschwinden der Explosion:
+				for (int x = -radius, y = -radius; x <= radius; x++, y++) {	
+					// horizontal:
+					if (bomb_x + x > 0 && bomb_x + x < 11) {	// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
+						if (Map.get_map()[bomb_x + x][bomb_y] == 6) {		// falls das Zielfeld der Detonation ein Explosions-Feld ist...
+							Map.get_map()[bomb_x + x][bomb_y] = 2; 			// ...dann wandele das Feld in ein Weg-Feld um
+						}
+						
+						else if (Map.get_map()[bomb_x + x][bomb_y] == 9) { 	// oder falls das Zielfeld der Detonation ein Explosions-/Ausgangs-Feld ist...
+							Map.get_map()[bomb_x + x][bomb_y] = 7;			// ...dann wandele das Feld in ein Ausgangs-Feld um
+						}
+						
+						else if (Map.get_map()[bomb_x + x][bomb_y] == 11) {	// oder falls das Zielfeld der Detonation ein Explosions-/Bomben-Item-Feld ist...
+							Map.get_map()[bomb_x + x][bomb_y] = 12;			// ...dann wandele das Feld in ein Bomben-Item-Feld um
+						}
+						
 					}
-					// Weg-Icon
-					// darstellen
-					if (Map.get_map()[bomb_x][bomb_y + y] == 6) {
-						Map.get_map()[bomb_x][bomb_y + y] = 2;
-					} else if (Map.get_map()[bomb_x][bomb_y + y] == 9) {
-						Map.get_map()[bomb_x][bomb_y + y] = 7;
+					
+					// vertikal:
+					if (bomb_y + y > 0 && bomb_y + y < 11) {	// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
+						if (Map.get_map()[bomb_x][bomb_y + y] == 6) {		// falls das Zielfeld der Detonation ein Explosions-Feld ist...
+							Map.get_map()[bomb_x][bomb_y + y] = 2;			// ...dann wandele das Feld in ein Weg-Feld um
+						}
+						
+						else if (Map.get_map()[bomb_x][bomb_y + y] == 9) {	// oder falls das Zielfeld der Detonation ein Explosions-/Ausgangs-Feld ist...
+							Map.get_map()[bomb_x][bomb_y + y] = 7;			// ...dann wandele das Feld in ein Ausgangs-Feld um
+						}
+						
+						else if (Map.get_map()[bomb_x][bomb_y + y] == 11) {	// oder falls das Zielfeld der Detonation ein Explosions-/Bomben-Item-Feld ist...
+							Map.get_map()[bomb_x][bomb_y + y] = 12;			// ...dann wandele das Feld in ein Bomben-Item-Feld um
+						}
+						
 					}
+					
 				}
 
 			Menue.get_game().removeAll();
@@ -102,6 +131,7 @@ public class Zeit extends JLabel {
 			
 			timer.cancel(); // Timer terminieren
 		}
+		
 	}
 
 	/**
