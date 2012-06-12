@@ -48,6 +48,18 @@ public class Menue implements KeyListener {
 	 */
 	private final Action_Multiplayer Action_Multiplayer = new Action_Multiplayer(); 	// Aktion zum Wechsel in den Multiplayer-Modus erstellen
 	
+	/**
+	 * Button im Leistenmenue
+	 * (Wechsel zu Level 1)
+	 */
+	private final Action_Level_1 Action_Level_1 = new Action_Level_1(); 	// Aktion zum Wechsel zu Level 1 erstellen
+	
+	/**
+	 * Button im Leistenmenue
+	 * (Wechsel zu Level 2)
+	 */
+	private final Action_Level_2 Action_Level_2 = new Action_Level_2(); 	// Aktion zum Wechsel zu Level 2 erstellen
+	
 	public static boolean twoPlayer = false;															
 	private static int[][] map; 		// Internes Spielfeld
 	
@@ -74,7 +86,7 @@ public class Menue implements KeyListener {
 		hulk1 = new Hulk(1,1,1);	// 1. Spielerfigur erzeugen
 		hulk2 = new Hulk(n-2,n-2,10);	// 2. Spielerfigur erzeugen
 		
-		map = MapLoader.laden(1); 
+		map = MapLoader.laden(MapLoader.get_level()); 
 		game = new Map(map);
 		
 		initialize();
@@ -130,7 +142,20 @@ public class Menue implements KeyListener {
 		JMenuItem mntmMultiplayer = new JMenuItem("Multiplayer"); 		// Untermenuepunkt "Multiplayer"
 																		// erstellen
 		mnModus.add(mntmMultiplayer); 									// Untermenuepunkt "Multiplayer" hinzufuegen
-		mntmMultiplayer.setAction(Action_Multiplayer);					// Aktion "Action_Multiplayer" hinzufuegen		
+		mntmMultiplayer.setAction(Action_Multiplayer);					// Aktion "Action_Multiplayer" hinzufuegen
+		
+		JMenu mnLevel = new JMenu("Level"); // Menuepunkt "Level" erstellen
+		menuBar.add(mnLevel); 				// Menuepunkt "Level" hinzufuegen
+		
+		JMenuItem mntmLevel_1 = new JMenuItem("1"); 	// Untermenuepunkt "Singleplayer"
+																		// erstellen
+		mnLevel.add(mntmLevel_1); 									// Untermenuepunkt "Singleplayer" hinzufuegen
+		mntmLevel_1.setAction(Action_Level_1);				// Aktion "Action_Singleplayer" hinzufuegen
+		
+		JMenuItem mntmLevel_2 = new JMenuItem("2"); 		// Untermenuepunkt "Multiplayer"
+																		// erstellen
+		mnLevel.add(mntmLevel_2); 									// Untermenuepunkt "Multiplayer" hinzufuegen
+		mntmLevel_2.setAction(Action_Level_2);					// Aktion "Action_Multiplayer" hinzufuegen	
 
 		frame.add(game); 	// Spielfeld hinzufuegen
 		game.init(); 		// Spielfeld zeichnen
@@ -413,7 +438,7 @@ public class Menue implements KeyListener {
 		}			
 		
 		// Spielfeld intern reinitialisieren:
-		Map.set_map(MapLoader.laden(1));
+		Map.set_map(MapLoader.laden(MapLoader.get_level()));
 
 		// Spielfeld grafisch reinitialisieren:
 		game.removeAll();
@@ -508,6 +533,48 @@ public class Menue implements KeyListener {
 				spiel_neustarten();
 			}
 			
+		}
+
+	}
+	
+	/**
+	 * Klasse fuer Menuebuttonorganisation "Level 1", wechselt zu Level 1
+	 * @author Kolja Salewski
+	 *
+	 */
+	private class Action_Level_1 extends AbstractAction {
+		private static final long serialVersionUID = 1L;
+
+		public Action_Level_1() {
+			putValue(NAME, "1");
+			putValue(SHORT_DESCRIPTION, "Wechsel zu Level 1");
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			MapLoader.set_level(1);
+			
+			spiel_neustarten();
+		}
+
+	}
+	
+	/**
+	 * Klasse fuer Menuebuttonorganisation "Level 2", wechselt zu Level 2
+	 * @author Kolja Salewski
+	 *
+	 */
+	private class Action_Level_2 extends AbstractAction {
+		private static final long serialVersionUID = 1L;
+
+		public Action_Level_2() {
+			putValue(NAME, "2");
+			putValue(SHORT_DESCRIPTION, "Wechsel zu Level 2");
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			MapLoader.set_level(2);
+			
+			spiel_neustarten();
 		}
 
 	}

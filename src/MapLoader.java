@@ -9,6 +9,7 @@ import java.io.IOException;
 public class MapLoader {
 	public static boolean twoPlayerSet;
 	static int n = 13;
+	static int level = 1;
 	/**
 	 * 
 	 * @param i legt das zu ladene Level fest
@@ -52,7 +53,8 @@ public class MapLoader {
 			System.out.println(); // Test
 			
 			if (twoPlayerSet){
-				map[n-2][n-2] = 10;
+				map[n-2][n-2] 	= 10;
+				map[1][n-2] 	= 2;
 			}
 			
 			System.out.println();	// Test
@@ -74,5 +76,15 @@ public class MapLoader {
 	// get_n-Methode:
 	public static int get_n() {
 		return n;
+	}
+	
+	// get_level-Methode:
+	public static int get_level() {
+		return level;
+	}
+	
+	// set_level-Methode:
+	public static void set_level(int level) {
+		MapLoader.level = level;
 	}
 }

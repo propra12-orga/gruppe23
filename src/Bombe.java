@@ -433,7 +433,7 @@ public class Bombe extends JLabel {
 		}
 		
 		else {					// sonst
-			Map.set_map(MapLoader.laden(1));									// Spielfeld neu einlesen
+			Map.set_map(MapLoader.laden(MapLoader.get_level()));									// Spielfeld neu einlesen
 		}
 		
 		Menue.get_game().removeAll();

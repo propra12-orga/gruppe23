@@ -160,64 +160,73 @@ public class Map extends JPanel {
 
 	// label_laden-Methode:
 	public void label_laden(JLabel label, int i) {
-
+		int level = MapLoader.get_level();
+		String 	exit_pic 	= "/Pics/"+level+"/Exit.png",
+				block_pic 	= "/Pics/"+level+"/Block.png",
+				weg_pic 	= "/Pics/"+level+"/Weg.png",
+				mauer_pic 	= "/Pics/"+level+"/Mauer.png",
+				hulk_pic	= "/Pics/"+level+"/Hulk.png",
+				hulk2_pic	= "/Pics/"+level+"/Hulk2.png",
+				bomb_pic	= "/Pics/"+level+"/Bombe.png",
+				exp_pic		= "/Pics/"+level+"/EXP.png";
+		
 		switch (i) {
 		case 0: // Block/Bomben-Item
 			label.setIcon(new ImageIcon(Map.class
-					.getResource("/Pics/Block.png")));
+					.getResource(block_pic)));
 			break;
 		
 		case 1: // Hulk
-			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Hulk.png"))); 	// Grafik-Quelle:
-																					// http://openclipart.org/detail/168616/hunk-by-bedpanner
+			label.setIcon(new ImageIcon(Map.class.getResource(hulk_pic))); 	// Grafik-Quelle:
+																			// http://openclipart.org/detail/168616/hunk-by-bedpanner
 			break;
 
 		case 2: // Weg
-			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Weg.png")));
+			label.setIcon(new ImageIcon(Map.class.getResource(weg_pic)));
 			break;
 
 		case 3: // Block
 			label.setIcon(new ImageIcon(Map.class
-					.getResource("/Pics/Block.png"))); 	// Grafik-Quelle:
-														// http://openclipart.org/detail/151531/char-somua-s35-by-spadassin-151531
+					.getResource(block_pic))); 	// Grafik-Quelle:
+												// http://openclipart.org/detail/151531/char-somua-s35-by-spadassin-151531
 			break;
 
 		case 4: // Mauer (nicht zerstoerbar, eventuell ueber Hulkmodus)
 			label.setIcon(new ImageIcon(Map.class
-					.getResource("/Pics/Mauer.png"))); 	// Grafik-Quelle:
-														// http://openclipart.org/detail/3318/house-by-barretr
+					.getResource(mauer_pic))); 	// Grafik-Quelle:
+												// http://openclipart.org/detail/3318/house-by-barretr
 			break;
 
 		case 5: // Bombe
 			label.setIcon(new ImageIcon(Map.class
-					.getResource("/Pics/Bombe.png")));	// Grafik-Quelle:
-														// http://openclipart.org/detail/165734/dynamite-by-magnesus
+					.getResource(bomb_pic)));	// Grafik-Quelle:
+												// http://openclipart.org/detail/165734/dynamite-by-magnesus
 			break;
 
 		case 6: // Explosion
-			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/EXP.png"))); 	// Grafik-Quelle:
-																					// http://openclipart.org/detail/122959/pow-by-viscious-speed
+			label.setIcon(new ImageIcon(Map.class.getResource(exp_pic))); 	// Grafik-Quelle:
+																			// http://openclipart.org/detail/122959/pow-by-viscious-speed
 			break;
 
 		case 7: // Ausgang
-			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Exit.png")));	// Grafik-Quelle:
-																					// http://openclipart.org/detail/126307/panneau-sortie--traffic-sign-exit-by-lmproulx
+			label.setIcon(new ImageIcon(Map.class.getResource(exit_pic)));	// Grafik-Quelle:
+																			// http://openclipart.org/detail/126307/panneau-sortie--traffic-sign-exit-by-lmproulx
 			break;
 
 		case 8: // Block/Ausgang	
-			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Block.png")));
+			label.setIcon(new ImageIcon(Map.class.getResource(block_pic)));
 			break;
 
 		case 9: // Block/Flammen-Item 	
-			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Block.png")));
+			label.setIcon(new ImageIcon(Map.class.getResource(block_pic)));
 			break;
 			
 		case 10: // 2. Spieler
-			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Hulk2.png"))); // selbst gemalt :D
+			label.setIcon(new ImageIcon(Map.class.getResource(hulk2_pic))); // selbst gemalt :D
 			break;
 			
 		case 11: // Explosion/Bomben-Item 	
-			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/EXP.png")));
+			label.setIcon(new ImageIcon(Map.class.getResource(exp_pic)));
 			break;
 			
 		case 12: // Bomben-Item
@@ -225,11 +234,11 @@ public class Map extends JPanel {
 			break;
 			
 		case 13: // Explosion/Ausgang 	
-			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/EXP.png")));
+			label.setIcon(new ImageIcon(Map.class.getResource(exp_pic)));
 			break;
 		
 		case 14: // Explosion/Flammen-Item 	
-			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/EXP.png")));
+			label.setIcon(new ImageIcon(Map.class.getResource(exp_pic)));
 			break;
 			
 		case 15: // Flammen-Item 	
