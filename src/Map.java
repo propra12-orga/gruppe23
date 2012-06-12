@@ -126,7 +126,7 @@ public class Map extends JPanel {
 
 	// init-Methode:
 	public void init() {
-		setBounds(100, 100, 550, 580); // Panel erstellen
+		setBounds(100, 100, 650, 680); // Panel erstellen
 
 		setBorder(new EmptyBorder(3, 3, 3, 3));
 		GridBagLayout gbl_contentPane = new GridBagLayout();

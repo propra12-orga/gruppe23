@@ -8,7 +8,7 @@ import java.io.IOException;
  */
 public class MapLoader {
 	public static boolean twoPlayerSet;
-	static int n = 11;
+	static int n = 13;
 	/**
 	 * 
 	 * @param i legt das zu ladene Level fest

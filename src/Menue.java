@@ -90,7 +90,7 @@ public class Menue implements KeyListener {
 	private void initialize() {
 		frame = new JFrame(); // Fenster erstellen
 		frame.setTitle("Bomberhulk"); // Fenstertitel setzen
-		frame.setBounds(100, 100, 550, 605); 	// Fenstergroesse einstellen
+		frame.setBounds(100, 100, 650, 700); 	// Fenstergroesse einstellen
 												// (x-Position, y-Position,
 												// Breite, Hoehe)
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 	// Programm beim
@@ -405,8 +405,8 @@ public class Menue implements KeyListener {
 		Menue.get_hulk(2).set_bomben_radius(2);
 
 		// Gelegte Bomben entfernen:
-		for (int x=0; x<11; x++) {
-			for (int y=0; y<11; y++) {
+		for (int x=0; x<n; x++) {
+			for (int y=0; y<n; y++) {
 				game.bomb[x][y].liegt = false;
 			}
 			

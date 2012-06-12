@@ -11,8 +11,7 @@ public class Zeit extends JLabel {
 	private static final long serialVersionUID = 1L;
 	Timer timer = new Timer(); // Timer erstellen
 	int bomb_x, bomb_y;
-	
-	
+	int n = MapLoader.get_n();	
 
 	// timer_starten-Methode
 	/**
@@ -93,7 +92,7 @@ public class Zeit extends JLabel {
 				// Verschwinden der Explosion:
 				for (int x = -radius, y = -radius; x <= radius; x++, y++) {	
 					// horizontal:
-					if (bomb_x + x > 0 && bomb_x + x < 11) {	// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
+					if (bomb_x + x > 0 && bomb_x + x < n) {	// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
 						if (Map.get_map()[bomb_x + x][bomb_y] == 6) {		// falls das Zielfeld der Detonation ein Explosions-Feld ist...
 							Map.get_map()[bomb_x + x][bomb_y] = 2; 			// ...dann wandele das Feld in ein Weg-Feld um
 						}
@@ -113,7 +112,7 @@ public class Zeit extends JLabel {
 					}
 					
 					// vertikal:
-					if (bomb_y + y > 0 && bomb_y + y < 11) {	// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
+					if (bomb_y + y > 0 && bomb_y + y < n) {	// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
 						if (Map.get_map()[bomb_x][bomb_y + y] == 6) {		// falls das Zielfeld der Detonation ein Explosions-Feld ist...
 							Map.get_map()[bomb_x][bomb_y + y] = 2;			// ...dann wandele das Feld in ein Weg-Feld um
 						}
