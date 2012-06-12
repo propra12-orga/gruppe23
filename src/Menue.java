@@ -83,7 +83,7 @@ public class Menue implements KeyListener {
 	 */
 	public Menue() {
 		spiel_neugestartet = false;
-		hulk1 = new Hulk(1,1,1);	// 1. Spielerfigur erzeugen
+		hulk1 = new Hulk(1,1,1);		// 1. Spielerfigur erzeugen
 		hulk2 = new Hulk(n-2,n-2,10);	// 2. Spielerfigur erzeugen
 		
 		map = MapLoader.laden(MapLoader.get_level()); 
@@ -119,43 +119,35 @@ public class Menue implements KeyListener {
 		JMenu mnSpiel = new JMenu("Spiel"); // Menuepunkt "Spiel" erstellen
 		menuBar.add(mnSpiel); 				// Menuepunkt "Spiel" hinzufuegen
 
-		JMenuItem mntmNeu = new JMenuItem("Neu"); 	// Untermenuepunkt "Neu"
-													// erstellen
+		JMenuItem mntmNeu = new JMenuItem("Neu"); 	// Untermenuepunkt "Neu" erstellen
 		mnSpiel.add(mntmNeu); 						// Untermenuepunkt "Neu" hinzufuegen
 		mntmNeu.setAction(Action_Neu); 				// Aktion "Action_Neu" hinzufuegen
 
-		JMenuItem mntmBeenden = new JMenuItem("Beenden"); 	// Untermenuepunkt
-															// "Beenden"
-															// erstellen
+		JMenuItem mntmBeenden = new JMenuItem("Beenden"); 	// Untermenuepunkt "Beenden" erstellen
 		mnSpiel.add(mntmBeenden); 							// Untermenuepunkt "Beenden" hinzufuegen
-		mntmBeenden.setAction(Action_Beenden); 				// Aktion "Action_Beenden"
-															// hinzufuegen
+		mntmBeenden.setAction(Action_Beenden); 				// Aktion "Action_Beenden" hinzufuegen
 		
 		JMenu mnModus = new JMenu("Modus"); // Menuepunkt "Modus" erstellen
 		menuBar.add(mnModus); 				// Menuepunkt "Modus" hinzufuegen
 		
-		JMenuItem mntmSingleplayer = new JMenuItem("Singleplayer"); 	// Untermenuepunkt "Singleplayer"
-																		// erstellen
+		JMenuItem mntmSingleplayer = new JMenuItem("Singleplayer"); 	// Untermenuepunkt "Singleplayer" erstellen
 		mnModus.add(mntmSingleplayer); 									// Untermenuepunkt "Singleplayer" hinzufuegen
 		mntmSingleplayer.setAction(Action_Singleplayer);				// Aktion "Action_Singleplayer" hinzufuegen
 		
-		JMenuItem mntmMultiplayer = new JMenuItem("Multiplayer"); 		// Untermenuepunkt "Multiplayer"
-																		// erstellen
+		JMenuItem mntmMultiplayer = new JMenuItem("Multiplayer"); 		// Untermenuepunkt "Multiplayer" erstellen
 		mnModus.add(mntmMultiplayer); 									// Untermenuepunkt "Multiplayer" hinzufuegen
 		mntmMultiplayer.setAction(Action_Multiplayer);					// Aktion "Action_Multiplayer" hinzufuegen
 		
 		JMenu mnLevel = new JMenu("Level"); // Menuepunkt "Level" erstellen
 		menuBar.add(mnLevel); 				// Menuepunkt "Level" hinzufuegen
 		
-		JMenuItem mntmLevel_1 = new JMenuItem("1"); 	// Untermenuepunkt "Singleplayer"
-																		// erstellen
-		mnLevel.add(mntmLevel_1); 									// Untermenuepunkt "Singleplayer" hinzufuegen
-		mntmLevel_1.setAction(Action_Level_1);				// Aktion "Action_Singleplayer" hinzufuegen
+		JMenuItem mntmLevel_1 = new JMenuItem("1"); 	// Untermenuepunkt "Singleplayer" erstellen
+		mnLevel.add(mntmLevel_1); 						// Untermenuepunkt "Singleplayer" hinzufuegen
+		mntmLevel_1.setAction(Action_Level_1);			// Aktion "Action_Singleplayer" hinzufuegen
 		
-		JMenuItem mntmLevel_2 = new JMenuItem("2"); 		// Untermenuepunkt "Multiplayer"
-																		// erstellen
-		mnLevel.add(mntmLevel_2); 									// Untermenuepunkt "Multiplayer" hinzufuegen
-		mntmLevel_2.setAction(Action_Level_2);					// Aktion "Action_Multiplayer" hinzufuegen	
+		JMenuItem mntmLevel_2 = new JMenuItem("2"); 	// Untermenuepunkt "Multiplayer" erstellen
+		mnLevel.add(mntmLevel_2); 						// Untermenuepunkt "Multiplayer" hinzufuegen
+		mntmLevel_2.setAction(Action_Level_2);			// Aktion "Action_Multiplayer" hinzufuegen	
 
 		frame.add(game); 	// Spielfeld hinzufuegen
 		game.init(); 		// Spielfeld zeichnen

@@ -221,8 +221,8 @@ public class Bombe extends JLabel {
 			/* Treffen von Detonation & Hulk: */
 			// horizontal:
 			if (this.x + x > 0 && this.x + x < n) {	// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
-				if (Map.get_map()[this.x + x][this.y] == 1		// falls die Detonation eine Spielfigur trifft...
-					|| Map.get_map()[this.x + x][this.y] == 10) {					
+				if (Menue.get_hulk(1).get_x() == this.x + x && Menue.get_hulk(1).get_y() == this.y	// falls die Detonation die erste...
+					|| Menue.get_hulk(2).get_x() == this.x + x && Menue.get_hulk(2).get_y() == this.y) {	// ...oder zweite Spielfigur trifft
 					if (treffer_rechts == false) {
 						System.out.println("Game over"); 			// Test
 						System.out.println();						// Test
@@ -236,8 +236,8 @@ public class Bombe extends JLabel {
 			
 			// vertikal:
 			if (this.y + y > 0 && this.y + y < n) {	// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
-				if (Map.get_map()[this.x][this.y + y] == 1	// falls die Detonation die erste...
-						|| Map.get_map()[this.x][this.y + y] == 10) {	// ...oder zweite Spielfigur trifft					
+				if (Menue.get_hulk(1).get_x() == this.x && Menue.get_hulk(1).get_y() == this.y + y	// falls die Detonation die erste...
+					|| Menue.get_hulk(2).get_x() == this.x && Menue.get_hulk(2).get_y() == this.y + y) {	// ...oder zweite Spielfigur trifft
 					if (treffer_unten == false) {
 						System.out.println("Game over"); 			// Test
 						System.out.println();						// Test
@@ -382,9 +382,8 @@ public class Bombe extends JLabel {
 			/* Treffen von Detonation & Hulk: */
 			// horizontal:
 			if (this.x + x > 0 && this.x + x < n) {	// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
-				if (Map.get_map()[this.x + x][this.y] == 1		// falls die Detonation die erste...
-					|| Map.get_map()[this.x + x][this.y] == 10) {	// ...oder zweite Spielfigur trifft
-					
+				if (Menue.get_hulk(1).get_x() == this.x + x && Menue.get_hulk(1).get_y() == this.y	// falls die Detonation die erste...
+					|| Menue.get_hulk(2).get_x() == this.x + x && Menue.get_hulk(2).get_y() == this.y) {	// ...oder zweite Spielfigur trifft					
 					if (treffer_links == false) {
 						System.out.println("Game over"); 			// Test
 						System.out.println();						// Test
@@ -398,9 +397,8 @@ public class Bombe extends JLabel {
 			
 			// vertikal:
 			if (this.y + y > 0 && this.y + y < n) {	// falls die Detonation nicht ueber den Spielfeldrand hinaus geht
-				if (Map.get_map()[this.x][this.y + y] == 1	// falls die Detonation die erste...
-					|| Map.get_map()[this.x][this.y + y] == 10) {	// ...oder zweite Spielfigur trifft
-					
+				if (Menue.get_hulk(1).get_x() == this.x && Menue.get_hulk(1).get_y() == this.y + y	// falls die Detonation die erste...
+					|| Menue.get_hulk(2).get_x() == this.x && Menue.get_hulk(2).get_y() == this.y + y) {	// ...oder zweite Spielfigur trifft
 					if (treffer_oben == false) {
 						System.out.println("Game over"); 			// Test
 						System.out.println();						// Test
