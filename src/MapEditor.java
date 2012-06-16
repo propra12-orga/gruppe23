@@ -44,12 +44,12 @@ public class MapEditor extends JFrame {
 		edit();
 	}
 
-	public static int[][] edit() {
+	public static void edit() {
 		String spielfeld = JOptionPane.showInputDialog(null,
 				"Geben Sie die Spielfeldgröße in int ein!", "Spielfeld",
 				JOptionPane.PLAIN_MESSAGE);
 		final int n = Integer.parseInt(spielfeld);
-		int anzahlIcons = 5;
+		int anzahlIcons = 8;
 
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
@@ -114,6 +114,9 @@ public class MapEditor extends JFrame {
 		icon[2] = new JRadioButton("Block");
 		icon[3] = new JRadioButton("Mauer");
 		icon[4] = new JRadioButton("Ausgang");
+		icon[5] = new JRadioButton("Block-Ausgang");
+		icon[6] = new JRadioButton("Block-Item");
+		icon[7] = new JRadioButton("2.Spieler");
 
 		// eventuell noch mehrere
 		JPanel radioPanel = new JPanel(new GridLayout(anzahlIcons, 1));
@@ -147,7 +150,14 @@ public class MapEditor extends JFrame {
 								power = 3;
 							} else if (name == "Ausgang") {
 								power = 7;
+							} else if (name == "Block-Ausgang") {
+								power = 8;
+							} else if (name == "Block-Item") {
+								power = 9;
+							} else if (name == "2.Spieler") {
+								power = 10;
 							}
+
 							map[a][b] = power;
 
 						}
@@ -155,6 +165,7 @@ public class MapEditor extends JFrame {
 				};
 
 				feld[i][j] = new JButton();
+
 				feld[i][j].setPreferredSize(new Dimension(25, 25));// Button-Größe
 				feld[i][j].addActionListener(list);
 				buttonPanel.add(feld[i][j]);
@@ -164,7 +175,6 @@ public class MapEditor extends JFrame {
 		}
 
 		frame.pack();
-		return map;
 
 	}
 
