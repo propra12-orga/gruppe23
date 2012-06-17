@@ -4,9 +4,6 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
@@ -67,7 +64,7 @@ public class MapEditor extends JFrame {
 		JButton save_button = new JButton("Level speichern");
 		ActionListener save = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				level_speichern(map, levelnummer);
+				MapLoader.level_speichern(map, levelnummer);
 				saved = true;
 			}
 		};
@@ -88,7 +85,7 @@ public class MapEditor extends JFrame {
 
 					switch (eingabe) {
 					case 0:
-						level_speichern(map, levelnummer);
+						MapLoader.level_speichern(map, levelnummer);
 						System.exit(0);
 						break;
 					case 1:
@@ -186,38 +183,6 @@ public class MapEditor extends JFrame {
 				return (JRadioButton) b;
 		}
 		return null;
-	}
-
-	public static void level_speichern(int[][] map, String levelnummer) {
-
-		String[] line = new String[n];
-		String path = "src/Maps/" + levelnummer + ".txt";
-		for (int i = 0; i < n; i++) {
-			line[i] = "";
-		}
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-
-				line[i] += map[i][j];
-			}
-		}
-		BufferedWriter out = null;
-		try {
-			out = new BufferedWriter(new FileWriter(path));
-			for (int i = 0; i < n; i++) {
-				out.write(line[i]);
-				out.newLine();
-			}
-
-		} catch (IOException e) {
-			System.out.println(e);
-		} finally {
-			try {
-				if (out != null)
-					out.close();
-			} catch (Exception ex) {
-			}
-		}
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 /**
  * 
@@ -421,7 +422,7 @@ public class Menue implements KeyListener {
 					System.out.println("Spieler 1 hat gewonnen"); // Test
 					System.out.println(); // Test
 
-					spiel_neustarten();
+					abfrage_neustarten();
 				}
 
 				// Niederlage Spieler 1
@@ -435,7 +436,7 @@ public class Menue implements KeyListener {
 					System.out.println("Spieler 1 hat verloren"); // Test
 					System.out.println(); // Test
 
-					spiel_neustarten();
+					abfrage_neustarten();
 				}
 
 			}
@@ -476,7 +477,7 @@ public class Menue implements KeyListener {
 					System.out.println("Spieler 2 hat gewonnen"); // Test
 					System.out.println(); // Test
 
-					spiel_neustarten();
+					abfrage_neustarten();
 				}
 
 				// Niederlage Spieler 2
@@ -490,7 +491,7 @@ public class Menue implements KeyListener {
 					System.out.println("Spieler 2 hat verloren"); // Test
 					System.out.println(); // Test
 
-					spiel_neustarten();
+					abfrage_neustarten();
 				}
 
 			}
@@ -522,6 +523,7 @@ public class Menue implements KeyListener {
 	}
 
 	static void spiel_neustarten() {
+
 		System.out.println("Spiel neugestartet"); // Test
 		System.out.println(); // Test
 
@@ -550,6 +552,18 @@ public class Menue implements KeyListener {
 		// Spielfeld grafisch reinitialisieren:
 		game.removeAll();
 		game.refresh();
+
+	}
+
+	static void abfrage_neustarten() {
+		int eingabe = JOptionPane.showConfirmDialog(null,
+				"Möchten Sie noch eine Runde spielen?", "Spiel zuende",
+				JOptionPane.YES_NO_CANCEL_OPTION);
+		if (eingabe == 0) {
+			spiel_neustarten();
+		} else if (eingabe == 1) {
+			System.exit(0);
+		}
 	}
 
 	/**
