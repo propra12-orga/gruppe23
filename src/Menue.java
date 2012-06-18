@@ -670,7 +670,7 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			// level speichern
+			MapLoader.level_speichern(map);
 		}
 
 	}
@@ -792,13 +792,8 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			MapEditor.edit(); // kolaj du bist dran. in einem neuem fenster
-			// während eine neue map editiert wird soll das spielfeld sich
-			// neustarten.
 			MapEditor window = new MapEditor();
-			window.edit();// wird komischer weise 3 mal aufgerufen, aber nicht
-							// ausgeführt!
-			// MapLoader.set_level(5);
+			window.frame.setVisible(true);
 
 		}
 

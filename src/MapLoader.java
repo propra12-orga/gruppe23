@@ -142,10 +142,55 @@ public class MapLoader {
 		}
 	}
 
+	public static void level_speichern(int[][] map) {// über filechooser
+
+		String[] line = new String[n];
+		// JFileChooser-Objekt erstellen
+		JFileChooser chooser = new JFileChooser();
+		// Dialog zum Speichern von Dateien anzeigen
+		chooser.showSaveDialog(null);
+		chooser.setCurrentDirectory(new File("./src/Maps"));
+		String path = chooser.getSelectedFile().getAbsolutePath();
+		path += ".txt";
+		for (int i = 0; i < n; i++) {
+			line[i] = "";
+		}
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+
+				line[i] += map[i][j];
+				if (j < n - 1) {
+					line[i] += ":";
+				}
+				System.out.println(line[i]);
+			}
+
+		}
+		BufferedWriter out = null;
+		try {
+			out = new BufferedWriter(new FileWriter(path));
+			for (int i = 0; i < n; i++) {
+				out.write(line[i]);
+				out.newLine();
+			}
+
+		} catch (IOException e) {
+			System.out.println(e);
+		} finally {
+			try {
+				if (out != null)
+					out.close();
+			} catch (Exception ex) {
+			}
+		}
+
+	}
+
 	public static int[][] level_laden() {
 		twoPlayerSet = Menue.getMultiplayer();
 
 		JFileChooser fc = new JFileChooser();
+		fc.setMultiSelectionEnabled(false);
 		fc.setCurrentDirectory(new File("./src/Maps"));
 		fc.setFileFilter(new FileFilter() {
 
@@ -155,7 +200,7 @@ public class MapLoader {
 			}
 
 			public String getDescription() {
-				return "BomberHulk - Maps";
+				return "BomberHulk - Maps(*.txt)";
 			}
 		});
 		int state = fc.showOpenDialog(null);

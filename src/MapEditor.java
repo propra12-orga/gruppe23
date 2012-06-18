@@ -1,6 +1,5 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,34 +17,25 @@ import javax.swing.JRadioButton;
 //  Autor T. K 
 // überschreibt noch eine datei, falls sie schon vorhanden ist. muss noch ins menü eingebunden werden. ist wieder im jframe!
 public class MapEditor extends JFrame {
-	final static int n = 13;
+	final static int n = MapLoader.get_n();
 	private static int[][] map = new int[n][n];
-	private static JFrame frame;
+	static JFrame frame;
 	protected static boolean saved = false;
 	private static int power;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MapEditor window = new MapEditor();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	/*
+	 * public static void main(String[] args) { EventQueue.invokeLater(new
+	 * Runnable() { public void run() { try { MapEditor window = new
+	 * MapEditor(); window.frame.setVisible(true); } catch (Exception e) {
+	 * e.printStackTrace(); } } }); }
+	 */
 
 	public MapEditor() {
 		edit();
 	}
 
 	public static void edit() {
-		// String spielfeld = JOptionPane.showInputDialog(null,
-		// "Geben Sie die Spielfeldgröße in int ein!", "Spielfeld",
-		// JOptionPane.PLAIN_MESSAGE);
-		// final int n = Integer.parseInt(spielfeld);
+
 		int anzahlIcons = 8;
 
 		frame = new JFrame();
@@ -56,6 +46,7 @@ public class MapEditor extends JFrame {
 		String eingabe = JOptionPane.showInputDialog(null,
 				"Geben Sie die Level-Nummer ein!", "Levelnummer",
 				JOptionPane.PLAIN_MESSAGE);
+		MapLoader.set_level(Integer.parseInt(eingabe));
 
 		final String levelnummer = "Level-" + eingabe;
 		JLabel levelname = new JLabel(levelnummer, JLabel.CENTER);
@@ -159,6 +150,7 @@ public class MapEditor extends JFrame {
 							String place = "";
 							place += power;
 							feld[a][b].setText(place);
+							Menue.spiel_neustarten();
 
 						}
 					}
