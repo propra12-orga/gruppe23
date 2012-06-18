@@ -1,7 +1,11 @@
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
 
 /**
  * 
@@ -19,7 +23,7 @@ public class MapLoader {
 	 *            legt das zu ladene Level fest
 	 * @return map-Objekt
 	 */
-	public static int[][] laden(int i) {
+	public static int[][] laden(int i) { // mit parameter i als level nummer
 		twoPlayerSet = Menue.getMultiplayer();
 
 		int c = 0;
@@ -89,6 +93,13 @@ public class MapLoader {
 		return level;
 	}
 
+	public static int get_level_nummer(String levelname) {
+		levelname = levelname.replace("Level-", "");
+		levelname = levelname.replace(".txt", "");
+		return Integer.parseInt(levelname);
+
+	}
+
 	// set_level-Methode:
 	public static void set_level(int level) {
 		MapLoader.level = level;
@@ -129,5 +140,87 @@ public class MapLoader {
 			} catch (Exception ex) {
 			}
 		}
+	}
+
+	public static int[][] level_laden() {
+		twoPlayerSet = Menue.getMultiplayer();
+
+		JFileChooser fc = new JFileChooser();
+		fc.setCurrentDirectory(new File("./src/Maps"));
+		fc.setFileFilter(new FileFilter() {
+
+			public boolean accept(File f) {
+				return f.isDirectory()
+						|| f.getName().toLowerCase().endsWith(".txt");
+			}
+
+			public String getDescription() {
+				return "BomberHulk - Maps";
+			}
+		});
+		int state = fc.showOpenDialog(null);
+		if (state == JFileChooser.APPROVE_OPTION) {
+
+			File file = fc.getSelectedFile();
+			String levelname = file.getName();
+			MapLoader.set_level(get_level_nummer(levelname));
+			int c = 0;
+
+			int k = 0, l = 0;
+			int[][] map = new int[n][n];
+
+			try {
+				FileReader f = new FileReader(file);
+
+				System.out.println("Spielfeld eingelesen:"); // Test
+
+				while ((c = f.read()) != -1) {
+					if (Character.getNumericValue(c) != -1) {
+						if (Character.getNumericValue(c) != 58) {
+							map[k][l] = Character.getNumericValue(c);
+						} else {
+							f.read();
+						}
+						System.out.print(map[k][l] + ", "); // Test
+
+						if (k < n - 1) {
+							k++;
+						}
+
+						else if (l < n - 1) {
+							System.out.println(); // Test
+							k = 0;
+							l++;
+						}
+
+					}
+
+				}
+
+				System.out.println(); // Test
+
+				if (twoPlayerSet) {
+					map[n - 2][n - 2] = 10;
+					map[1][n - 2] = 2;
+				}
+
+				System.out.println(); // Test
+
+				f.close();
+
+			}
+
+			catch (IOException e) {
+				System.err.println(e.getMessage());
+				e.printStackTrace();
+				System.exit(1);
+			}
+
+			return map;
+
+		} else
+			System.out.println("Auswahl abgebrochen");
+		System.exit(0);
+		return null;
 	}
 }

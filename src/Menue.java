@@ -648,7 +648,8 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			// Spiel laden
+			map = MapLoader.level_laden();
+			spiel_neustarten();
 		}
 
 	}
@@ -790,7 +791,6 @@ public class Menue implements KeyListener {
 			putValue(SHORT_DESCRIPTION, "Öffnet den Map-Editor");
 		}
 
-		@SuppressWarnings("static-access")
 		public void actionPerformed(ActionEvent e) {
 			MapEditor.edit(); // kolaj du bist dran. in einem neuem fenster
 			// während eine neue map editiert wird soll das spielfeld sich
