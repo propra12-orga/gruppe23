@@ -35,8 +35,11 @@ public class MapLoader {
 
 			while ((c = f.read()) != -1) {
 				if (Character.getNumericValue(c) != -1) {
-					map[k][l] = Character.getNumericValue(c);
-
+					if (Character.getNumericValue(c) != 58) {
+						map[k][l] = Character.getNumericValue(c);
+					} else {
+						f.read();
+					}
 					System.out.print(map[k][l] + ", "); // Test
 
 					if (k < n - 1) {
@@ -99,9 +102,10 @@ public class MapLoader {
 			line[i] = "";
 		}
 		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
+			for (int j = 0; j < n - 1; j++) {
 
 				line[i] += map[i][j];
+				line[i] += ":";
 			}
 		}
 		BufferedWriter out = null;

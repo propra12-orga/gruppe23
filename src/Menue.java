@@ -41,6 +41,21 @@ public class Menue implements KeyListener {
 															// Spiels erstellen
 
 	/**
+	 * Button im Leistenmenue (Laden des Spieles)
+	 */
+	private final Action_Load Action_Load = new Action_Load(); // Aktion zum
+																// Neustart des
+																// Spiels
+																// erstellen
+	/**
+	 * Button im Leistenmenue (Speichern des Spieles)
+	 */
+	private final Action_Save Action_Save = new Action_Save(); // Aktion zum
+																// Neustart des
+																// Spiels
+																// erstellen
+
+	/**
 	 * Button im Leistenmenue (Wechsel zum Singleplayer-Modus)
 	 */
 	private final Action_Singleplayer Action_Singleplayer = new Action_Singleplayer(); // Aktion
@@ -150,6 +165,18 @@ public class Menue implements KeyListener {
 													// erstellen
 		mnSpiel.add(mntmNeu); // Untermenuepunkt "Neu" hinzufuegen
 		mntmNeu.setAction(Action_Neu); // Aktion "Action_Neu" hinzufuegen
+
+		JMenuItem mntmSave = new JMenuItem("Speichern"); // Untermenuepunkt
+															// "Speicher"
+															// erstellen
+		mnSpiel.add(mntmSave); // Untermenuepunkt "Save" hinzufuegen
+		mntmSave.setAction(Action_Save); // Aktion "Action_Save" hinzufuegen
+
+		JMenuItem mntmLoad = new JMenuItem("Laden"); // Untermenuepunkt
+														// "Laden"
+														// erstellen
+		mnSpiel.add(mntmLoad); // Untermenuepunkt "Load" hinzufuegen
+		mntmLoad.setAction(Action_Load); // Aktion "Action_Load" hinzufuegen
 
 		JMenuItem mntmBeenden = new JMenuItem("Beenden"); // Untermenuepunkt
 															// "Beenden"
@@ -602,6 +629,47 @@ public class Menue implements KeyListener {
 
 		public void actionPerformed(ActionEvent e) {
 			spiel_neustarten();
+		}
+
+	}
+
+	/**
+	 * Klasse fuer Menuebuttonorganisation "Load" Lädt ein spiel
+	 * 
+	 * @author Tobias Korfmacher
+	 * 
+	 */
+	private class Action_Load extends AbstractAction {
+		private static final long serialVersionUID = 1L;
+
+		public Action_Load() {
+			putValue(NAME, "Laden");
+			putValue(SHORT_DESCRIPTION, "Laden eines Spiels");
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			// Spiel laden
+		}
+
+	}
+
+	/**
+	 * Klasse fuer Menuebuttonorganisation "Level Speichern", speichert das
+	 * aktuelle Spiel
+	 * 
+	 * @author Tobias Korfmacher
+	 * 
+	 */
+	private class Action_Save extends AbstractAction {
+		private static final long serialVersionUID = 1L;
+
+		public Action_Save() {
+			putValue(NAME, "Speichern");
+			putValue(SHORT_DESCRIPTION, "Speichern des Spiels");
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			// level speichern
 		}
 
 	}
