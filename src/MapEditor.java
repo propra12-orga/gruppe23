@@ -7,6 +7,7 @@ import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,39 +15,40 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-//  Autor T. K 
+// Autor T. K 
 // überschreibt noch eine datei, falls sie schon vorhanden ist. muss noch ins menü eingebunden werden. ist wieder im jframe!
-public class MapEditor extends JFrame {
+public class MapEditor {
 	final static int n = MapLoader.get_n();
 	private static int[][] map = new int[n][n];
-	static JFrame frame;
+	JFrame frame;
 	protected static boolean saved = false;
 	private static int power;
-
-	/*
-	 * public static void main(String[] args) { EventQueue.invokeLater(new
-	 * Runnable() { public void run() { try { MapEditor window = new
-	 * MapEditor(); window.frame.setVisible(true); } catch (Exception e) {
-	 * e.printStackTrace(); } } }); }
-	 */
+	int level;
+	ImageIcon pic;
 
 	public MapEditor() {
 		edit();
 	}
 
-	public static void edit() {
+	public int edit() {
 
 		int anzahlIcons = 8;
-
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
 		String eingabe = JOptionPane.showInputDialog(null,
 				"Geben Sie die Level-Nummer ein!", "Levelnummer",
 				JOptionPane.PLAIN_MESSAGE);
-		MapLoader.set_level(Integer.parseInt(eingabe));
+		if (eingabe == null) {
+			return 0;
+		}
+		else {
+			MapLoader.set_level(Integer.parseInt(eingabe));
+		}
+		
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 300);
+		frame.setTitle("Map-Editor"); // Fenstertitel setzen
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
 		final String levelnummer = "Level-" + eingabe;
 		JLabel levelname = new JLabel(levelnummer, JLabel.CENTER);
@@ -61,12 +63,14 @@ public class MapEditor extends JFrame {
 		};
 
 		JPanel place = new JPanel();
+		frame.setResizable(false); // Fenster soll nicht skalierbar sein
+		frame.setVisible(true);
 		JButton exit_button = new JButton("Editor Beenden");
 		ActionListener exit = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				if (saved) {
-					System.exit(0);
+					frame.setVisible(false);
 				}
 
 				else {
@@ -77,10 +81,10 @@ public class MapEditor extends JFrame {
 					switch (eingabe) {
 					case 0:
 						MapLoader.level_speichern(map, levelnummer);
-						System.exit(0);
+						frame.setVisible(false);
 						break;
 					case 1:
-						System.exit(0);
+						frame.setVisible(false);
 						break;
 					case 2: // abbrechen nichts machen
 						break;
@@ -127,29 +131,38 @@ public class MapEditor extends JFrame {
 
 						String name = getSelectedButton(buttonGroup).getText();
 						if (name != null) {
-
+							level = MapLoader.get_level();
 							if (name == "Hulk") {
 								power = 1;
+								pic = new ImageIcon(Map.class.getResource("/Pics/"+level+"/30x30/Hulk.png"));
 							} else if (name == "Weg") {
 								power = 2;
+								pic = new ImageIcon(Map.class.getResource("/Pics/"+level+"/30x30/Weg.png"));
 							} else if (name == "Block") {
 								power = 4;
+								pic = new ImageIcon(Map.class.getResource("/Pics/"+level+"/30x30/Block.png"));
 							} else if (name == "Mauer") {
 								power = 3;
+								pic = new ImageIcon(Map.class.getResource("/Pics/"+level+"/30x30/Mauer.png"));
 							} else if (name == "Ausgang") {
 								power = 7;
+								pic = new ImageIcon(Map.class.getResource("/Pics/"+level+"/30x30/Exit.png"));
 							} else if (name == "Block-Ausgang") {
 								power = 8;
+								pic = new ImageIcon(Map.class.getResource("/Pics/"+level+"/30x30/Block.png"));
 							} else if (name == "Block-Item") {
 								power = 9;
+								pic = new ImageIcon(Map.class.getResource("/Pics/"+level+"/30x30/Block.png"));
 							} else if (name == "2.Spieler") {
 								power = 10;
+								pic = new ImageIcon(Map.class.getResource("/Pics/"+level+"/30x30/Hulk2.png"));
 							}
 
 							map[a][b] = power;
 							String place = "";
 							place += power;
-							feld[a][b].setText(place);
+							feld[a][b].setText(place);	// entweder Icon-Nr. als Text auf Button ODER...
+							//feld[a][b].setIcon(pic);	// ...Grafik auf Button
 							Menue.spiel_neustarten();
 
 						}
@@ -168,6 +181,7 @@ public class MapEditor extends JFrame {
 
 		frame.pack();
 
+		return 1;
 	}
 
 	public static JRadioButton getSelectedButton(ButtonGroup group) {

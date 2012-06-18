@@ -22,6 +22,9 @@ public class Menue implements KeyListener {
 	 * Hauptframe des Programmes
 	 */
 	private JFrame frame;
+	
+	static MapEditor editor;
+	
 
 	/**
 	 * Button im Leistenmenue (Schliesst das Programm)
@@ -249,8 +252,8 @@ public class Menue implements KeyListener {
 
 		// Pfeiltaste oben:
 		if (Key.getKeyCode() == KeyEvent.VK_UP) {
-			System.out.println("oben S1"); // Test
-			System.out.println(); // Test
+			System.out.println("oben S1"); 	// Test
+			System.out.println(); 			// Test
 
 			a[0] = 0;
 			a[1] = -1;
@@ -261,7 +264,7 @@ public class Menue implements KeyListener {
 		// Pfeiltaste links:
 		else if (Key.getKeyCode() == KeyEvent.VK_LEFT) {
 			System.out.println("links S1"); // Test
-			System.out.println(); // Test
+			System.out.println(); 			// Test
 
 			a[0] = -1;
 			a[1] = 0;
@@ -271,8 +274,8 @@ public class Menue implements KeyListener {
 
 		// Pfeiltaste rechts:
 		else if (Key.getKeyCode() == KeyEvent.VK_RIGHT) {
-			System.out.println("rechts S1"); // Test
-			System.out.println(); // Test
+			System.out.println("rechts S1"); 	// Test
+			System.out.println(); 				// Test
 
 			a[0] = 1;
 			a[1] = 0;
@@ -283,7 +286,7 @@ public class Menue implements KeyListener {
 		// Pfeiltaste unten:
 		else if (Key.getKeyCode() == KeyEvent.VK_DOWN) {
 			System.out.println("unten S1"); // Test
-			System.out.println(); // Test
+			System.out.println(); 			// Test
 
 			a[0] = 0;
 			a[1] = 1;
@@ -294,7 +297,7 @@ public class Menue implements KeyListener {
 		// Leertaste:
 		else if (Key.getKeyCode() == KeyEvent.VK_SPACE) {
 			System.out.println("Bombe S1"); // Test
-			System.out.println(); // Test
+			System.out.println(); 			// Test
 
 			if ((Menue.get_hulk(1).get_max_bomben()) > 0) { // falls der 1.
 															// Spieler (noch)
@@ -792,9 +795,7 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			MapEditor window = new MapEditor();
-			window.frame.setVisible(true);
-
+			editor = new MapEditor();
 		}
 
 	}
