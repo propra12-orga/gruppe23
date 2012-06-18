@@ -94,19 +94,23 @@ public class MapLoader {
 		MapLoader.level = level;
 	} // level speichern
 
-	public static void level_speichern(int[][] map, String levelnummer) {
+	public static void level_speichern(int[][] map, String levelname) {
 
 		String[] line = new String[n];
-		String path = "src/Maps/" + levelnummer + ".txt";
+		String path = "src/Maps/" + levelname + ".txt";
 		for (int i = 0; i < n; i++) {
 			line[i] = "";
 		}
 		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n - 1; j++) {
+			for (int j = 0; j < n; j++) {
 
 				line[i] += map[i][j];
-				line[i] += ":";
+				if (j < n - 1) {
+					line[i] += ":";
+				}
+				System.out.println(line[i]);
 			}
+
 		}
 		BufferedWriter out = null;
 		try {

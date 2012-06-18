@@ -18,7 +18,7 @@ import javax.swing.JRadioButton;
 //  Autor T. K 
 // überschreibt noch eine datei, falls sie schon vorhanden ist. muss noch ins menü eingebunden werden. ist wieder im jframe!
 public class MapEditor extends JFrame {
-	final static int n = 11;
+	final static int n = 13;
 	private static int[][] map = new int[n][n];
 	private static JFrame frame;
 	protected static boolean saved = false;
@@ -42,10 +42,10 @@ public class MapEditor extends JFrame {
 	}
 
 	public static void edit() {
-		String spielfeld = JOptionPane.showInputDialog(null,
-				"Geben Sie die Spielfeldgröße in int ein!", "Spielfeld",
-				JOptionPane.PLAIN_MESSAGE);
-		final int n = Integer.parseInt(spielfeld);
+		// String spielfeld = JOptionPane.showInputDialog(null,
+		// "Geben Sie die Spielfeldgröße in int ein!", "Spielfeld",
+		// JOptionPane.PLAIN_MESSAGE);
+		// final int n = Integer.parseInt(spielfeld);
 		int anzahlIcons = 8;
 
 		frame = new JFrame();
@@ -125,7 +125,7 @@ public class MapEditor extends JFrame {
 		frame.getContentPane().add(radioPanel, BorderLayout.LINE_START);
 		frame.pack();
 		JPanel buttonPanel = new JPanel(new GridLayout(n, n));
-		JButton feld[][] = new JButton[n][n];
+		final JButton feld[][] = new JButton[n][n];
 
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
@@ -156,6 +156,9 @@ public class MapEditor extends JFrame {
 							}
 
 							map[a][b] = power;
+							String place = "";
+							place += power;
+							feld[a][b].setText(place);
 
 						}
 					}
@@ -163,7 +166,7 @@ public class MapEditor extends JFrame {
 
 				feld[i][j] = new JButton();
 
-				feld[i][j].setPreferredSize(new Dimension(25, 25));// Button-Größe
+				feld[i][j].setPreferredSize(new Dimension(45, 30));// Button-Größe
 				feld[i][j].addActionListener(list);
 				buttonPanel.add(feld[i][j]);
 
