@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
@@ -25,21 +26,20 @@ public class MapEditor {
 	private static int power;
 	ImageIcon pic;
 	int iconSatz;
+	private static boolean abfrageHulk1;
+	private static boolean abfrageHulk2;
+	private static boolean abfrageAusgang;
+	private static File f;
 
 	public MapEditor() {
 		edit();
 	}
 
 	public int edit() {
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				map[i][j] = 2;
-			}
-		}
-		
+
 		int anzahlIcons = 9;
 
-		String eingabe = JOptionPane.showInputDialog(null,
+		final String eingabe = JOptionPane.showInputDialog(null,
 				"Geben Sie die Level-Nummer ein!", "Levelnummer",
 				JOptionPane.PLAIN_MESSAGE);
 		if (eingabe == null) {
@@ -47,11 +47,21 @@ public class MapEditor {
 		} else {
 			MapLoader.set_level(Integer.parseInt(eingabe));
 		}
-		
-		int iconAbfrage = JOptionPane.showConfirmDialog(null,
-				"Möchten Sie den ersten Icon-Satz nutzen?",
-				"Gespeichert?", JOptionPane.YES_NO_OPTION);
-		switch (iconAbfrage) {
+
+		// datei existiert?
+		String dateiName = "/Maps/Level-" + eingabe + ".txt";
+
+		f = new File(dateiName);
+		System.out.println(f.exists());
+		System.out.print(f.getPath());
+
+		if (f.getAbsoluteFile().exists() == true) {
+
+		} else {
+			int iconAbfrage = JOptionPane.showConfirmDialog(null,
+					"Möchten Sie den ersten Icon-Satz nutzen?", "Gespeichert?",
+					JOptionPane.YES_NO_OPTION);
+			switch (iconAbfrage) {
 			case 0:
 				MapLoader.set_iconSatz(1);
 				iconSatz = 1;
@@ -60,8 +70,15 @@ public class MapEditor {
 				MapLoader.set_iconSatz(2);
 				iconSatz = 2;
 				break;
+			}
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < n; j++) {
+					map[i][j] = 2;
+				}
+			}
+
+			MapLoader.level_speichern(map, "Level-" + eingabe);
 		}
-		MapLoader.level_speichern(map, "Level-" + eingabe);
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setTitle("Map-Editor"); // Fenstertitel setzen
@@ -75,21 +92,42 @@ public class MapEditor {
 		JButton save_button = new JButton("Level speichern");
 		ActionListener save = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MapLoader.level_speichern(map, levelnummer);
-				saved = true;
+				if (new File("/Maps/Level-" + eingabe).exists()) {
+
+					int dateiAbfrage = JOptionPane.showConfirmDialog(null,
+							"Die Datei existiert bereits.\n"
+									+ "Möchten Sie die Datei überschreiben?",
+							"Überschreiben?", JOptionPane.YES_NO_OPTION);
+
+					if (dateiAbfrage == 0) {
+
+					} else {
+						String ersatzNummer = JOptionPane.showInputDialog(null,
+								"Geben Sie die einen ersatznamen ein!",
+								"ersatz", JOptionPane.PLAIN_MESSAGE);
+
+						MapLoader.level_speichern(map, "Level-" + ersatzNummer);
+						saved = true;
+					}
+
+				} else {
+					MapLoader.level_speichern(map, levelnummer);
+					saved = true;
+				}
 				Menue.spiel_neustarten();
 			}
 		};
 		frame.setVisible(true);
 		JPanel place = new JPanel();
 		frame.setResizable(false); // Fenster soll nicht skalierbar sein
-		
+
 		JButton exit_button = new JButton("Editor Beenden");
 		ActionListener exit = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				if (saved) {
 					frame.setVisible(false);
+
 				}
 
 				else {
@@ -104,6 +142,7 @@ public class MapEditor {
 						break;
 					case 1:
 						frame.setVisible(false);
+						f.delete();
 						break;
 					case 2: // abbrechen nichts machen
 						break;
@@ -111,10 +150,31 @@ public class MapEditor {
 				}
 			}
 		};
+		JButton test_button = new JButton("Testen");
+		ActionListener test = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				// map editor soll das aktuelle spiel in hauptfenster öffnen und
+				// spielen
+
+			}
+		};
+		JButton freigabe_button = new JButton("Level freigeben");
+		ActionListener freigabe = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				// level implentieren wenn es läuft!
+
+			}
+		};
 		exit_button.addActionListener(exit);
 		save_button.addActionListener(save);
+		test_button.addActionListener(test);
+		test_button.addActionListener(freigabe);
 		place.add(exit_button);
 		place.add(save_button);
+		place.add(test_button);
+		place.add(freigabe_button);
 
 		frame.getContentPane().add(place, BorderLayout.SOUTH);
 		// Icons
@@ -154,46 +214,48 @@ public class MapEditor {
 							if (name == "Hulk") {
 								power = 1;
 								pic = new ImageIcon(
-										Map.class.getResource("/Pics/" + iconSatz
-												+ "/Hulk.png"));
+										Map.class.getResource("/Pics/"
+												+ iconSatz + "/Hulk.png"));
 							} else if (name == "Weg") {
 								power = 2;
 								pic = new ImageIcon(
-										Map.class.getResource("/Pics/" + iconSatz
-												+ "/Weg.png"));
+										Map.class.getResource("/Pics/"
+												+ iconSatz + "/Weg.png"));
 							} else if (name == "Block") {
 								power = 4;
 								pic = new ImageIcon(
-										Map.class.getResource("/Pics/" + iconSatz
-												+ "/Block.png"));
+										Map.class.getResource("/Pics/"
+												+ iconSatz + "/Block.png"));
 							} else if (name == "Mauer") {
 								power = 3;
 								pic = new ImageIcon(
-										Map.class.getResource("/Pics/" + iconSatz
-												+ "/Mauer.png"));
+										Map.class.getResource("/Pics/"
+												+ iconSatz + "/Mauer.png"));
 							} else if (name == "Ausgang") {
 								power = 7;
 								pic = new ImageIcon(
-										Map.class.getResource("/Pics/" + iconSatz
-												+ "/Exit.png"));
+										Map.class.getResource("/Pics/"
+												+ iconSatz + "/Exit.png"));
 							} else if (name == "Block-Ausgang") {
 								power = 8;
 								pic = new ImageIcon(
-										Map.class.getResource("/Pics/" + iconSatz
-												+ "/Exit.png"));
+										Map.class.getResource("/Pics/"
+												+ iconSatz + "/Exit.png"));
 							} else if (name == "Block/Flammen-Item") {
 								power = 9;
 								pic = new ImageIcon(
-										Map.class.getResource("/Pics/Flammen-Item.png"));
+										Map.class
+												.getResource("/Pics/Flammen-Item.png"));
 							} else if (name == "Block/Bomben-Item") {
 								power = 9;
 								pic = new ImageIcon(
-										Map.class.getResource("/Pics/Bomben-Item.png"));
+										Map.class
+												.getResource("/Pics/Bomben-Item.png"));
 							} else if (name == "2.Spieler") {
 								power = 10;
 								pic = new ImageIcon(
-										Map.class.getResource("/Pics/" + iconSatz
-												+ "/Hulk2.png"));
+										Map.class.getResource("/Pics/"
+												+ iconSatz + "/Hulk2.png"));
 							}
 
 							map[a][b] = power;
