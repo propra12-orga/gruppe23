@@ -1,7 +1,7 @@
 import javax.swing.JLabel;
 
 /**
- * zustaendig fuer
+ * zustaendig fuer die Koordinierung der Bombenplatzierung und stellen des Timers
  * 
  * @author Andrej Morlang
  * 

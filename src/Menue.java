@@ -22,6 +22,7 @@ public class Menue implements KeyListener {
 	 * Hauptframe des Programmes
 	 */
 	private JFrame frame;	
+	public static Sound exp = new Sound("explosion.wav");
 
 	/**
 	 * Button im Leistenmenue (Schliesst das Programm)
@@ -857,6 +858,10 @@ public class Menue implements KeyListener {
 
 	public static boolean getMultiplayer() {
 		return twoPlayer;
+	}
+	
+	public static Sound get_EXP(){
+		return exp;
 	}
 
 	// main-Methode:

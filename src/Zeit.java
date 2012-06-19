@@ -84,6 +84,7 @@ public class Zeit extends JLabel {
 		 * startet den TimerTask-Thread Detonation nach Ablauf der Zeit x (timer_starten-Methode), welcher die Detonationsschritte vollzieht
 		 */
 		public void run() {
+				//StdAudio.play("/media/explosion.wav");
 				System.out.println("Detonation beendet"); // Test
 				System.out.println("");
 
@@ -132,7 +133,7 @@ public class Zeit extends JLabel {
 					}
 					
 				}
-
+			
 			Menue.get_game().removeAll();
 			Menue.get_game().refresh();
 
