@@ -792,7 +792,7 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			MapEditor editor = new MapEditor();
+			new MapEditor();
 		}
 
 	}
