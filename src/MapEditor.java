@@ -39,11 +39,10 @@ public class MapEditor {
 				JOptionPane.PLAIN_MESSAGE);
 		if (eingabe == null) {
 			return 0;
-		}
-		else {
+		} else {
 			MapLoader.set_level(Integer.parseInt(eingabe));
 		}
-		
+
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setTitle("Map-Editor"); // Fenstertitel setzen
@@ -59,6 +58,7 @@ public class MapEditor {
 			public void actionPerformed(ActionEvent e) {
 				MapLoader.level_speichern(map, levelnummer);
 				saved = true;
+				Menue.spiel_neustarten();
 			}
 		};
 
@@ -134,35 +134,53 @@ public class MapEditor {
 							level = MapLoader.get_level();
 							if (name == "Hulk") {
 								power = 1;
-								pic = new ImageIcon(Map.class.getResource("/Pics/"+level+"/30x30/Hulk.png"));
+								pic = new ImageIcon(
+										Map.class.getResource("/Pics/" + level
+												+ "/30x30/Hulk.png"));
 							} else if (name == "Weg") {
 								power = 2;
-								pic = new ImageIcon(Map.class.getResource("/Pics/"+level+"/30x30/Weg.png"));
+								pic = new ImageIcon(
+										Map.class.getResource("/Pics/" + level
+												+ "/30x30/Weg.png"));
 							} else if (name == "Block") {
 								power = 4;
-								pic = new ImageIcon(Map.class.getResource("/Pics/"+level+"/30x30/Block.png"));
+								pic = new ImageIcon(
+										Map.class.getResource("/Pics/" + level
+												+ "/30x30/Block.png"));
 							} else if (name == "Mauer") {
 								power = 3;
-								pic = new ImageIcon(Map.class.getResource("/Pics/"+level+"/30x30/Mauer.png"));
+								pic = new ImageIcon(
+										Map.class.getResource("/Pics/" + level
+												+ "/30x30/Mauer.png"));
 							} else if (name == "Ausgang") {
 								power = 7;
-								pic = new ImageIcon(Map.class.getResource("/Pics/"+level+"/30x30/Exit.png"));
+								pic = new ImageIcon(
+										Map.class.getResource("/Pics/" + level
+												+ "/30x30/Exit.png"));
 							} else if (name == "Block-Ausgang") {
 								power = 8;
-								pic = new ImageIcon(Map.class.getResource("/Pics/"+level+"/30x30/Block.png"));
+								pic = new ImageIcon(
+										Map.class.getResource("/Pics/" + level
+												+ "/30x30/Block.png"));
 							} else if (name == "Block-Item") {
 								power = 9;
-								pic = new ImageIcon(Map.class.getResource("/Pics/"+level+"/30x30/Block.png"));
+								pic = new ImageIcon(
+										Map.class.getResource("/Pics/" + level
+												+ "/30x30/Block.png"));
 							} else if (name == "2.Spieler") {
 								power = 10;
-								pic = new ImageIcon(Map.class.getResource("/Pics/"+level+"/30x30/Hulk2.png"));
+								pic = new ImageIcon(
+										Map.class.getResource("/Pics/" + level
+												+ "/30x30/Hulk2.png"));
 							}
 
 							map[a][b] = power;
 							String place = "";
 							place += power;
-							feld[a][b].setText(place);	// entweder Icon-Nr. als Text auf Button ODER...
-							//feld[a][b].setIcon(pic);	// ...Grafik auf Button
+							feld[a][b].setText(place); // entweder Icon-Nr. als
+														// Text auf Button
+														// ODER...
+							// feld[a][b].setIcon(pic); // ...Grafik auf Button
 							Menue.spiel_neustarten();
 
 						}
