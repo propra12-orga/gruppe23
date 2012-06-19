@@ -80,7 +80,7 @@ public class MapEditor {
 				Menue.spiel_neustarten();
 			}
 		};
-
+		frame.setVisible(true);
 		JPanel place = new JPanel();
 		frame.setResizable(false); // Fenster soll nicht skalierbar sein
 		

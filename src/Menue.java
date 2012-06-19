@@ -793,7 +793,6 @@ public class Menue implements KeyListener {
 
 		public void actionPerformed(ActionEvent e) {
 			MapEditor editor = new MapEditor();
-			editor.frame.setVisible(true);
 		}
 
 	}
