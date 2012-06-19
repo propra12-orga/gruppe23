@@ -160,15 +160,15 @@ public class Map extends JPanel {
 
 	// label_laden-Methode:
 	public void label_laden(JLabel label, int i) {
-		int level = MapLoader.get_level();
-		String 	exit_pic 	= "/Pics/"+level+"/Exit.png",
-				block_pic 	= "/Pics/"+level+"/Block.png",
-				weg_pic 	= "/Pics/"+level+"/Weg.png",
-				mauer_pic 	= "/Pics/"+level+"/Mauer.png",
-				hulk_pic	= "/Pics/"+level+"/Hulk.png",
-				hulk2_pic	= "/Pics/"+level+"/Hulk2.png",
-				bomb_pic	= "/Pics/"+level+"/Bombe.png",
-				exp_pic		= "/Pics/"+level+"/EXP.png";
+		int iconSatz = MapLoader.get_iconSatz();
+		String 	exit_pic 	= "/Pics/"+iconSatz+"/Exit.png",
+				block_pic 	= "/Pics/"+iconSatz+"/Block.png",
+				weg_pic 	= "/Pics/"+iconSatz+"/Weg.png",
+				mauer_pic 	= "/Pics/"+iconSatz+"/Mauer.png",
+				hulk_pic	= "/Pics/"+iconSatz+"/Hulk.png",
+				hulk2_pic	= "/Pics/"+iconSatz+"/Hulk2.png",
+				bomb_pic	= "/Pics/"+iconSatz+"/Bombe.png",
+				exp_pic		= "/Pics/"+iconSatz+"/EXP.png";
 		
 		switch (i) {
 		case 0: // Block/Bomben-Item

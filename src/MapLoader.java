@@ -16,6 +16,7 @@ public class MapLoader {
 	public static boolean twoPlayerSet;
 	static int n = 13;
 	static int level = 1;
+	static int iconSatz = 1;
 
 	/**
 	 * 
@@ -31,11 +32,14 @@ public class MapLoader {
 		int k = 0, l = 0;
 		int[][] map = new int[n][n];
 		String filename = "src/Maps/Level-" + i + ".txt";
+		
 
 		try {
 			FileReader f = new FileReader(filename);
 
 			System.out.println("Spielfeld eingelesen:"); // Test
+			
+			iconSatz = Character.getNumericValue(f.read());
 
 			while ((c = f.read()) != -1) {
 				if (Character.getNumericValue(c) != -1) {
@@ -92,7 +96,17 @@ public class MapLoader {
 	public static int get_level() {
 		return level;
 	}
+	
+	// get_iconSatz-Methode:
+	public static int get_iconSatz() {
+		return iconSatz;
+	}
 
+	// set_iconSatz-Methode:
+	public static void set_iconSatz(int iconSatz) {
+		MapLoader.iconSatz = iconSatz;
+	} // Icon-Satz speichern
+	
 	public static int get_level_nummer(String levelname) {
 		levelname = levelname.replace("Level-", "");
 		levelname = levelname.replace(".txt", "");
@@ -107,7 +121,7 @@ public class MapLoader {
 
 	public static void level_speichern(int[][] map, String levelname) {
 
-		String[] line = new String[n];
+		String[] line = new String[n]; 
 		String path = "src/Maps/" + levelname + ".txt";
 		for (int i = 0; i < n; i++) {
 			line[i] = "";
@@ -126,6 +140,8 @@ public class MapLoader {
 		BufferedWriter out = null;
 		try {
 			out = new BufferedWriter(new FileWriter(path));
+			out.write(""+iconSatz);
+			out.newLine();
 			for (int i = 0; i < n; i++) {
 				out.write(line[i]);
 				out.newLine();
@@ -169,6 +185,8 @@ public class MapLoader {
 		BufferedWriter out = null;
 		try {
 			out = new BufferedWriter(new FileWriter(path));
+			out.write(""+iconSatz);
+			out.newLine();
 			for (int i = 0; i < n; i++) {
 				out.write(line[i]);
 				out.newLine();

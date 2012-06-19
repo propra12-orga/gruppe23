@@ -21,10 +21,7 @@ public class Menue implements KeyListener {
 	/**
 	 * Hauptframe des Programmes
 	 */
-	private JFrame frame;
-	
-	static MapEditor editor;
-	
+	private JFrame frame;	
 
 	/**
 	 * Button im Leistenmenue (Schliesst das Programm)
@@ -795,7 +792,8 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			editor = new MapEditor();
+			MapEditor editor = new MapEditor();
+			editor.frame.setVisible(true);
 		}
 
 	}
