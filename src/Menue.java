@@ -23,7 +23,16 @@ public class Menue implements KeyListener {
 	 */
 	private JFrame frame;	
 	public static Sound exp = new Sound("explosion.wav");
-
+	/**
+	 * true, wenn Bot aktiviert ist
+	 */
+	public boolean bot = false;
+	/**
+	 * Bot1-Objekt (Bestimmung der Bewegung und Bombenaktion fuer Bot1)
+	 */
+	public Bot bot1;
+	
+	
 	/**
 	 * Button im Leistenmenue (Schliesst das Programm)
 	 */
@@ -131,6 +140,8 @@ public class Menue implements KeyListener {
 
 		map = MapLoader.laden(MapLoader.get_level());
 		game = new Map(map);
+		
+		if (bot) bot1 = new Bot(n - 2, n - 2);
 
 		initialize();
 		a = new int[3];
@@ -195,6 +206,9 @@ public class Menue implements KeyListener {
 		mnModus.add(mntmSingleplayer); // Untermenuepunkt "Singleplayer"
 										// hinzufuegen
 		mntmSingleplayer.setAction(Action_Singleplayer); // Aktion
+		
+		JMenuItem mntmMultiplayerBot = new JMenuItem("Multiplayer - Bot");
+		mnModus.add(mntmMultiplayerBot);
 															// "Action_Singleplayer"
 															// hinzufuegen
 
@@ -231,7 +245,7 @@ public class Menue implements KeyListener {
 		mntmOpen.setAction(Action_Map_Editor); // Aktion "Action_Map_Editor"
 												// hinzufuegen
 
-		frame.add(game); // Spielfeld hinzufuegen
+		frame.getContentPane().add(game); // Spielfeld hinzufuegen
 		game.init(); // Spielfeld zeichnen
 
 		game.addKeyListener(this); // Keylistener zum Spielfeld hinzufuegen
@@ -593,7 +607,77 @@ public class Menue implements KeyListener {
 			System.exit(0);
 		}
 	}
+	
+	//---------------------------GETTER UND SETTER--------------------------
 
+	/**
+	 * Wird in der Map-Klasse verwendet
+	 * 
+	 * @return Spielfeldobjekt game
+	 */
+	public static Map get_game() {
+		return game;
+	}
+
+	/**
+	 * 
+	 * @param game
+	 *            Setzt das Spielfeldobjekt
+	 */
+	public void set_game(Map game) {
+		Menue.game = game;
+	}
+
+	/**
+	 * @param a
+	 *            Spielernummer (1,2, etc.)
+	 * @return gewuenschtes Spielerobjekt
+	 */
+	public static Hulk get_hulk(int a) {
+		if (a == 1)
+			return hulk1;
+		if (a == 2)
+			return hulk2;
+		else
+			return null;
+	}
+
+	/**
+	 * 
+	 * @param hulk
+	 *            Aktualisiert die Position der Spielfigur in der Menue-Klasse
+	 */
+	public void set_hulk1(Hulk hulk) {
+		Menue.hulk1 = hulk;
+	}
+
+	/**
+	 * 
+	 * @param hulk2
+	 *            Hulk-Objekt 2. Spieler
+	 */
+	public static void setHulk2(Hulk hulk2) {
+		Menue.hulk2 = hulk2;
+	}
+
+	/**
+	 * 
+	 * @return Map-Array (Positionen der Icons im Spielfeld)
+	 */
+	public static int[][] get_map() {
+		return map;
+	}
+
+	public static boolean getMultiplayer() {
+		return twoPlayer;
+	}
+	
+	public static Sound get_EXP(){
+		return exp;
+	}
+	
+	//-------------------MENUEBUTTONORGANISATION--------------------------------------
+	
 	/**
 	 * Klasse fuer Menuebuttonorganisation "Beenden", beendet das Programm
 	 * 
@@ -704,6 +788,32 @@ public class Menue implements KeyListener {
 		}
 
 	}
+	
+	/**
+	 * Klasse fuer Menuebuttonorganisation "Multiplayer - Bot", aktiviert
+	 * den Bot als 2. Spieler
+	 * 
+	 * @author Sebastian Dittmann
+	 *
+	 */
+	public class Action_MultiplayerBot extends AbstractAction {
+		private static final long serialVersionUID = 1L;
+		
+		public Action_MultiplayerBot(){
+			putValue(NAME, "MultiplayerBot");
+			putValue(SHORT_DESCRIPTION, "Wechsel in Bot-Modus");
+		}
+		
+		public void actionPerformed (ActionEvent e){
+			if (bot == false){
+				bot = true;
+				System.out.println("Bot aktiviert"); //Test
+				System.out.println();
+				
+				spiel_neustarten();
+			}
+		}
+	}
 
 	/**
 	 * Klasse fuer Menuebuttonorganisation "Multiplayer", wechselt zum
@@ -798,71 +908,6 @@ public class Menue implements KeyListener {
 
 	}
 
-	/**
-	 * Wird in der Map-Klasse verwendet
-	 * 
-	 * @return Spielfeldobjekt game
-	 */
-	public static Map get_game() {
-		return game;
-	}
-
-	/**
-	 * 
-	 * @param game
-	 *            Setzt das Spielfeldobjekt
-	 */
-	public void set_game(Map game) {
-		Menue.game = game;
-	}
-
-	/**
-	 * @param a
-	 *            Spielernummer (1,2, etc.)
-	 * @return gewuenschtes Spielerobjekt
-	 */
-	public static Hulk get_hulk(int a) {
-		if (a == 1)
-			return hulk1;
-		if (a == 2)
-			return hulk2;
-		else
-			return null;
-	}
-
-	/**
-	 * 
-	 * @param hulk
-	 *            Aktualisiert die Position der Spielfigur in der Menue-Klasse
-	 */
-	public void set_hulk1(Hulk hulk) {
-		Menue.hulk1 = hulk;
-	}
-
-	/**
-	 * 
-	 * @param hulk2
-	 *            Hulk-Objekt 2. Spieler
-	 */
-	public static void setHulk2(Hulk hulk2) {
-		Menue.hulk2 = hulk2;
-	}
-
-	/**
-	 * 
-	 * @return Map-Array (Positionen der Icons im Spielfeld)
-	 */
-	public static int[][] get_map() {
-		return map;
-	}
-
-	public static boolean getMultiplayer() {
-		return twoPlayer;
-	}
-	
-	public static Sound get_EXP(){
-		return exp;
-	}
 
 	// main-Methode:
 	public static void main(String[] args) {

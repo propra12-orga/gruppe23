@@ -139,7 +139,7 @@ public final class StdAudio {
         URL url = null;
         try {
             File file = new File(filename);
-            if (file.canRead()) {url = file.toURI().toURL(); System.out.println("Datei wird gefunden.");}
+            if (file.canRead()) {url = file.toURI().toURL();}
         }
         catch (MalformedURLException e) { e.printStackTrace(); }
         // URL url = StdAudio.class.getResource(filename);
