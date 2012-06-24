@@ -8,12 +8,12 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
 /**
- * 
+ * Liest die Level aus der Datei aus und verpackt sie in ein int-Array
  * @author Tobias Korfmacher
  * 
  */
 public class MapLoader {
-	public static boolean twoPlayerSet;
+	public static boolean twoPlayerSet, botSet;
 	static int n = 13;
 	static int level = 1;
 	static int iconSatz = 1;
@@ -26,6 +26,7 @@ public class MapLoader {
 	 */
 	public static int[][] laden(int i) { // mit parameter i als level nummer
 		twoPlayerSet = Menue.getMultiplayer();
+		botSet = Menue.getBot();
 
 		int c = 0;
 
@@ -157,8 +158,12 @@ public class MapLoader {
 		}
 	}
 
+<<<<<<< HEAD
 	public static void level_speichern(int[][] map) {
 		// über filechooser
+=======
+	public static void level_speichern(int[][] map) {// ï¿½ber filechooser
+>>>>>>> ad43dfa70cc3e4e9c4502187a460b2e7a8596cfb
 
 		String[] line = new String[n];
 		// JFileChooser-Objekt erstellen
