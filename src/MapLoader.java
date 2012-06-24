@@ -9,6 +9,7 @@ import javax.swing.filechooser.FileFilter;
 
 /**
  * Liest die Level aus der Datei aus und verpackt sie in ein int-Array
+ * 
  * @author Tobias Korfmacher
  * 
  */
@@ -158,19 +159,15 @@ public class MapLoader {
 		}
 	}
 
-<<<<<<< HEAD
 	public static void level_speichern(int[][] map) {
 		// über filechooser
-=======
-	public static void level_speichern(int[][] map) {// ï¿½ber filechooser
->>>>>>> ad43dfa70cc3e4e9c4502187a460b2e7a8596cfb
 
 		String[] line = new String[n];
 		// JFileChooser-Objekt erstellen
-		JFileChooser chooser = new JFileChooser();
+		JFileChooser chooser = new JFileChooser(new File("./src/Maps"));
 		// Dialog zum Speichern von Dateien anzeigen
 		chooser.showSaveDialog(null);
-		chooser.setCurrentDirectory(new File("./src/Maps"));
+
 		String path = chooser.getSelectedFile().getAbsolutePath();
 		path += ".txt";
 		for (int i = 0; i < n; i++) {
