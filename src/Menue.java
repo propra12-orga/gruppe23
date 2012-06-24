@@ -22,15 +22,21 @@ public class Menue implements KeyListener {
 	 * Hauptframe des Programmes
 	 */
 	private JFrame frame;	
+	
+	/**
+	 * enthaelt .wav-Datei fuer Explosionsgeraeusch der Bombe
+	 */
 	public static Sound exp = new Sound("explosion.wav");
+	
 	/**
 	 * true, wenn Bot aktiviert ist
 	 */
-	public boolean bot = false;
+	public static boolean bot = false;
+	
 	/**
 	 * Bot1-Objekt (Bestimmung der Bewegung und Bombenaktion fuer Bot1)
 	 */
-	public Bot bot1;
+	public static Bot bot1;
 	
 	
 	/**
@@ -76,6 +82,12 @@ public class Menue implements KeyListener {
 																						// Singleplayer-Modus
 																						// erstellen
 
+	private final Action_MultiplayerBot Action_MultiplayerBot = new Action_MultiplayerBot(); //Aktion
+																								// zum Wechsel
+																								//in den
+																								//botgesteuerten
+																								//Multiplayer-Modus
+																								//erstellen
 	/**
 	 * Button im Leistenmenue (Wechsel zum Multiplayer-Modus)
 	 */
@@ -137,15 +149,20 @@ public class Menue implements KeyListener {
 		spiel_neugestartet = false;
 		hulk1 = new Hulk(1, 1, 1); // 1. Spielerfigur erzeugen
 		hulk2 = new Hulk(n - 2, n - 2, 10); // 2. Spielerfigur erzeugen
+		bot1 = new Bot(n - 2, n - 2);		
 
 		map = MapLoader.laden(MapLoader.get_level());
 		game = new Map(map);
-		
-		if (bot) bot1 = new Bot(n - 2, n - 2);
+			
+			
 
 		initialize();
 		a = new int[3];
 
+	}
+
+	private static void botStart() {
+		if(bot1.getStart() == 0)bot1.start();
 	}
 
 	// Methode zum Initialisieren des Spielfelds:
@@ -206,11 +223,16 @@ public class Menue implements KeyListener {
 		mnModus.add(mntmSingleplayer); // Untermenuepunkt "Singleplayer"
 										// hinzufuegen
 		mntmSingleplayer.setAction(Action_Singleplayer); // Aktion
+														// "Action_Singleplayer"
+														// hinzufuegen
 		
-		JMenuItem mntmMultiplayerBot = new JMenuItem("Multiplayer - Bot");
-		mnModus.add(mntmMultiplayerBot);
-															// "Action_Singleplayer"
-															// hinzufuegen
+		JMenuItem mntmMultiplayerBot = new JMenuItem("Multiplayer - Bot"); //Menueunterpunkt
+																			//"Multiplayer - Bot"
+																			//erstellt
+		mnModus.add(mntmMultiplayerBot);//Menueunterpunkt "Multiplayer - Bot hinzugefuegt
+		
+		mntmMultiplayerBot.setAction(Action_MultiplayerBot);
+															
 
 		JMenuItem mntmMultiplayer = new JMenuItem("Multiplayer"); // Untermenuepunkt
 																	// "Multiplayer"
@@ -562,6 +584,12 @@ public class Menue implements KeyListener {
 
 		hulk2.set_x(n - 2);
 		hulk2.set_y(n - 2);
+		
+		if (bot){
+			bot1.set_x(n - 2);
+			bot1.set_y(n - 2);
+			botStart();
+		}
 	}
 
 	static void spiel_neustarten() {
@@ -667,13 +695,29 @@ public class Menue implements KeyListener {
 	public static int[][] get_map() {
 		return map;
 	}
-
+	
+	/**
+	 * 
+	 * @return Boolean-Wert, ob Multiplayer aktiviert ist
+	 */
 	public static boolean getMultiplayer() {
 		return twoPlayer;
 	}
 	
+	/**
+	 * 
+	 * @return .wav-Datei fuer Soundausgabe
+	 */
 	public static Sound get_EXP(){
 		return exp;
+	}
+	
+	/**
+	 * 
+	 * @return Boolean-Wert, ob Bot aktiviert ist 
+	 */
+	public static boolean getBot() {
+		return bot;
 	}
 	
 	//-------------------MENUEBUTTONORGANISATION--------------------------------------
@@ -800,7 +844,7 @@ public class Menue implements KeyListener {
 		private static final long serialVersionUID = 1L;
 		
 		public Action_MultiplayerBot(){
-			putValue(NAME, "MultiplayerBot");
+			putValue(NAME, "Multiplayer - Bot");
 			putValue(SHORT_DESCRIPTION, "Wechsel in Bot-Modus");
 		}
 		
