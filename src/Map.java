@@ -24,7 +24,7 @@ public class Map extends JPanel {
 	JLabel[][] label = new JLabel[n][n]; 		// JLabel-Array erstellen
 	public static boolean twoPlayerset;		//Multiplayerabfrage
 
-	// Konstruktor:
+	/* Konstruktor: */
 	public Map(int[][] map) {
 		Map.map = map;
 		twoPlayerset = Menue.getMultiplayer();
@@ -37,6 +37,8 @@ public class Map extends JPanel {
 		
 	}
 
+	/* METHODEN: */
+	
 	// move_Hulk-Methode:
 	/**
 	 * Setzt die Icons "Hulk" und "Weg", die bei einer Bewegung verändert werden
@@ -247,6 +249,8 @@ public class Map extends JPanel {
 		}
 		
 	}
+	
+	/* setter & getter: */
 
 	// get_map-Methode:
 	public static int[][] get_map() {

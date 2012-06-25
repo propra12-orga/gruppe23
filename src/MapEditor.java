@@ -31,23 +31,30 @@ public class MapEditor {
 	private static boolean abfrageAusgang;
 	private static File f;
 
+	/* Konstruktor: */
 	public MapEditor() {
 		edit();
 	}
-
+	
+	/* METHODEN: */
+	
+	// edit-Methode:
 	public int edit() {
 
+		
 		int anzahlIcons = 9;
 
 		final String eingabe = JOptionPane.showInputDialog(null,
-				"Geben Sie die Level-Nummer ein!", "Levelnummer",
+				"Bitte geben Sie die Level-Nummer ein: ", "Levelnummer",
 				JOptionPane.PLAIN_MESSAGE);
 		if (eingabe == null) {
 			return 0;
-		} else {
+		}
+		
+		else {
 			MapLoader.set_level(Integer.parseInt(eingabe));
 		}
-
+		
 		// datei existiert?
 		String dateiName = "/Maps/Level-" + eingabe + ".txt";
 
@@ -57,26 +64,29 @@ public class MapEditor {
 
 		if (f.getAbsoluteFile().exists() == true) {
 
-		} else {
+		}
+		
+		else {		
 			int iconAbfrage = JOptionPane.showConfirmDialog(null,
-					"Möchten Sie den ersten Icon-Satz nutzen?", "Gespeichert?",
-					JOptionPane.YES_NO_OPTION);
+					"Möchten Sie den ersten Icon-Satz nutzen?",
+					"Gespeichert?", JOptionPane.YES_NO_OPTION);
 			switch (iconAbfrage) {
-			case 0:
-				MapLoader.set_iconSatz(1);
-				iconSatz = 1;
-				break;
-			case 1:
-				MapLoader.set_iconSatz(2);
-				iconSatz = 2;
-				break;
-			}
+				case 0:
+					MapLoader.set_iconSatz(1);
+					iconSatz = 1;
+					break;
+				case 1:
+					MapLoader.set_iconSatz(2);
+					iconSatz = 2;
+					break;
+			}		
+					
 			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < n; j++) {
 					map[i][j] = 2;
 				}
 			}
-
+		
 			MapLoader.level_speichern(map, "Level-" + eingabe);
 		}
 		frame = new JFrame();
@@ -93,7 +103,6 @@ public class MapEditor {
 		ActionListener save = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (new File("/Maps/Level-" + eingabe).exists()) {
-
 					int dateiAbfrage = JOptionPane.showConfirmDialog(null,
 							"Die Datei existiert bereits.\n"
 									+ "Möchten Sie die Datei überschreiben?",
@@ -101,7 +110,9 @@ public class MapEditor {
 
 					if (dateiAbfrage == 0) {
 
-					} else {
+					}
+					
+					else {
 						String ersatzNummer = JOptionPane.showInputDialog(null,
 								"Geben Sie die einen ersatznamen ein!",
 								"ersatz", JOptionPane.PLAIN_MESSAGE);
@@ -110,24 +121,27 @@ public class MapEditor {
 						saved = true;
 					}
 
-				} else {
+				}
+				
+				else {
 					MapLoader.level_speichern(map, levelnummer);
 					saved = true;
 				}
+				
 				Menue.spiel_neustarten();
 			}
+			
 		};
 		frame.setVisible(true);
 		JPanel place = new JPanel();
 		frame.setResizable(false); // Fenster soll nicht skalierbar sein
-
+		
 		JButton exit_button = new JButton("Editor Beenden");
 		ActionListener exit = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				if (saved) {
 					frame.setVisible(false);
-
 				}
 
 				else {
@@ -150,6 +164,7 @@ public class MapEditor {
 				}
 			}
 		};
+		
 		JButton test_button = new JButton("Testen");
 		ActionListener test = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -158,7 +173,9 @@ public class MapEditor {
 				// spielen
 
 			}
+			
 		};
+		
 		JButton freigabe_button = new JButton("Level freigeben");
 		ActionListener freigabe = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -166,7 +183,9 @@ public class MapEditor {
 				// level implentieren wenn es läuft!
 
 			}
+			
 		};
+		
 		exit_button.addActionListener(exit);
 		save_button.addActionListener(save);
 		test_button.addActionListener(test);
@@ -214,48 +233,46 @@ public class MapEditor {
 							if (name == "Hulk") {
 								power = 1;
 								pic = new ImageIcon(
-										Map.class.getResource("/Pics/"
-												+ iconSatz + "/Hulk.png"));
+										Map.class.getResource("/Pics/" + iconSatz
+												+ "/Hulk.png"));
 							} else if (name == "Weg") {
 								power = 2;
 								pic = new ImageIcon(
-										Map.class.getResource("/Pics/"
-												+ iconSatz + "/Weg.png"));
+										Map.class.getResource("/Pics/" + iconSatz
+												+ "/Weg.png"));
 							} else if (name == "Block") {
 								power = 4;
 								pic = new ImageIcon(
-										Map.class.getResource("/Pics/"
-												+ iconSatz + "/Block.png"));
+										Map.class.getResource("/Pics/" + iconSatz
+												+ "/Block.png"));
 							} else if (name == "Mauer") {
 								power = 3;
 								pic = new ImageIcon(
-										Map.class.getResource("/Pics/"
-												+ iconSatz + "/Mauer.png"));
+										Map.class.getResource("/Pics/" + iconSatz
+												+ "/Mauer.png"));
 							} else if (name == "Ausgang") {
 								power = 7;
 								pic = new ImageIcon(
-										Map.class.getResource("/Pics/"
-												+ iconSatz + "/Exit.png"));
+										Map.class.getResource("/Pics/" + iconSatz
+												+ "/Exit.png"));
 							} else if (name == "Block-Ausgang") {
 								power = 8;
 								pic = new ImageIcon(
-										Map.class.getResource("/Pics/"
-												+ iconSatz + "/Exit.png"));
+										Map.class.getResource("/Pics/" + iconSatz
+												+ "/Exit.png"));
 							} else if (name == "Block/Flammen-Item") {
 								power = 9;
 								pic = new ImageIcon(
-										Map.class
-												.getResource("/Pics/Flammen-Item.png"));
+										Map.class.getResource("/Pics/Flammen-Item.png"));
 							} else if (name == "Block/Bomben-Item") {
 								power = 9;
 								pic = new ImageIcon(
-										Map.class
-												.getResource("/Pics/Bomben-Item.png"));
+										Map.class.getResource("/Pics/Bomben-Item.png"));
 							} else if (name == "2.Spieler") {
 								power = 10;
 								pic = new ImageIcon(
-										Map.class.getResource("/Pics/"
-												+ iconSatz + "/Hulk2.png"));
+										Map.class.getResource("/Pics/" + iconSatz
+												+ "/Hulk2.png"));
 							}
 
 							map[a][b] = power;
@@ -281,7 +298,10 @@ public class MapEditor {
 
 		return 1;
 	}
+	
+	/* setter & getter: */
 
+	// getSelectedButton-Methode:
 	public static JRadioButton getSelectedButton(ButtonGroup group) {
 		Enumeration<AbstractButton> e = group.getElements();
 		while (e.hasMoreElements()) {

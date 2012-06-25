@@ -1,7 +1,7 @@
 import javax.swing.JLabel;
 
 /**
- * zustaendig fuer die Koordinierung der Bombenplatzierung und stellen des Timers
+ * zustaendig fuer die Koordinierung der Bombenplatzierung und Stellen des Timers
  * 
  * @author Andrej Morlang
  * 
@@ -22,9 +22,9 @@ public class Bombe extends JLabel {
 
 	int n = MapLoader.get_n();
 
-	/* Konstruktor: */
+	/* Konstruktoren: */
+	// Konstruktor 1:
 	/**
-	 * 
 	 * @param x
 	 *            uebernimmt x-Koord. der Bombe
 	 * @param y
@@ -35,21 +35,24 @@ public class Bombe extends JLabel {
 		this.y = y;
 	}
 
+	// Konstruktor 2:
 	public Bombe() {
 	}
 
 	/* METHODEN: */
+	
 	/* setter & getter: */
+	
+	// get_x-Methode:
 	/**
-	 * 
 	 * @return Bombenposition x-Koord.
 	 */
 	public int get_x() {
 		return x;
 	}
 
+	// set_x-Methode:
 	/**
-	 * 
 	 * @param x
 	 *            Bombenposition x-Koord. setzen
 	 */
@@ -57,16 +60,16 @@ public class Bombe extends JLabel {
 		this.x = x;
 	}
 
+	// get_y-Methode:
 	/**
-	 * 
 	 * @return Bombenposition y-Koord.
 	 */
 	public int get_y() {
 		return y;
 	}
 
+	// set_y-Methode:
 	/**
-	 * 
 	 * @param y
 	 *            Bombenposition y-Koord. setzen
 	 */
@@ -760,33 +763,32 @@ public class Bombe extends JLabel {
 		}
 
 		// Treffer zurücksetzen:
-		treffer_oben = false;
-		treffer_rechts = false;
-		treffer_unten = false;
-		treffer_links = false;
+		treffer_oben 	= false;
+		treffer_rechts 	= false;
+		treffer_unten 	= false;
+		treffer_links	= false;
 
 		Zeit ende_explosion = new Zeit();
 		ende_explosion.set_bomb_x(x);
-		ende_explosion.set_bomb_y(y); // Timer fuer Dauer der Explosion
+		ende_explosion.set_bomb_y(y); 	// Timer fuer Dauer der Explosion
 										// erstellen
-		Menue.get_game().add(ende_explosion); // Timer fuer Dauer der Explosion
+		Menue.get_game().add(ende_explosion); 	// Timer fuer Dauer der Explosion
 												// hinzufuegen
 
-		if (liegt == true) { // falls das Spiel nicht waehrend des Timers
+		if (liegt == true) {	// falls das Spiel nicht waehrend des Timers
 								// neugestartet wurde
 			ende_explosion.timer_starten(1000, "Detonation", Spieler,
 					bomben_radius); // Timer fuer Dauer der Explosion starten
 		}
 
 		else { // sonst
-			Map.set_map(MapLoader.laden(MapLoader.get_level())); // Spielfeld
+			Map.set_map(MapLoader.laden(MapLoader.get_level())); 	// Spielfeld
 																	// neu
 																	// einlesen
 		}
 
 		Menue.get_game().removeAll();
 		Menue.get_game().refresh();
-
 	}
 
 }

@@ -58,7 +58,11 @@ public class Bot extends Thread{
 		
 		Menue.get_game().move_Hulk(x, y, 2);
 		
-		Bot.sleep(500);
+		try {
+			Bot.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
