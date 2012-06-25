@@ -27,7 +27,7 @@ public class MapLoader {
 	 */
 	public static int[][] laden(int i) { // mit parameter i als level nummer
 		twoPlayerSet = Menue.getMultiplayer();
-		botSet = Menue.getBot();
+		//	botSet = Menue.getBot();
 
 		int c = 0;
 

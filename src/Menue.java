@@ -21,30 +21,30 @@ public class Menue implements KeyListener {
 	/**
 	 * Hauptframe des Programmes
 	 */
-<<<<<<< HEAD
-	private JFrame frame;
-	private int anzahlLevel = 2; // nacher levelanzahl get methode;
 
-=======
-	private JFrame frame;	
-	
-	/**
-	 * enthaelt .wav-Datei fuer Explosionsgeraeusch der Bombe
-	 */
-	public static Sound exp = new Sound("explosion.wav");
-	
-	/**
-	 * true, wenn Bot aktiviert ist
-	 */
-	public static boolean bot = false;
-	
-	/**
-	 * Bot1-Objekt (Bestimmung der Bewegung und Bombenaktion fuer Bot1)
-	 */
-	public static Bot bot1;
-	
-	
->>>>>>> ad43dfa70cc3e4e9c4502187a460b2e7a8596cfb
+	private JFrame frame;
+	//	private int anzahlLevel = 2; // nacher levelanzahl get methode;
+	//
+	//
+	//	private JFrame frame;	
+	//	
+	//	/**
+	//	 * enthaelt .wav-Datei fuer Explosionsgeraeusch der Bombe
+	//	 */
+	//	public static Sound exp = new Sound("explosion.wav");
+	//	
+	//	/**
+	//	 * true, wenn Bot aktiviert ist
+	//	 */
+	//	public static boolean bot = false;
+	//	
+	//	/**
+	//	 * Bot1-Objekt (Bestimmung der Bewegung und Bombenaktion fuer Bot1)
+	//	 */
+	//	public static Bot bot1;
+	//	
+	//	
+
 	/**
 	 * Button im Leistenmenue (Schliesst das Programm)
 	 */
@@ -80,20 +80,18 @@ public class Menue implements KeyListener {
 	/**
 	 * Button im Leistenmenue (Wechsel zum Singleplayer-Modus)
 	 */
-	private final Action_Singleplayer Action_Singleplayer = new Action_Singleplayer(); // Aktion
-																						// zum
-																						// Wechsel
+	private final Action_Singleplayer Action_Singleplayer = new Action_Singleplayer(); // Aktion  zum  Wechsel
 																						// in
 																						// den
 																						// Singleplayer-Modus
 																						// erstellen
 
-	private final Action_MultiplayerBot Action_MultiplayerBot = new Action_MultiplayerBot(); //Aktion
-																								// zum Wechsel
-																								//in den
-																								//botgesteuerten
-																								//Multiplayer-Modus
-																								//erstellen
+	// private final Action_MultiplayerBot Action_MultiplayerBot = new Action_MultiplayerBot(); //Aktion
+	// zum Wechsel
+	//in den
+	//botgesteuerten
+	//Multiplayer-Modus
+	//erstellen
 	/**
 	 * Button im Leistenmenue (Wechsel zum Multiplayer-Modus)
 	 */
@@ -104,6 +102,15 @@ public class Menue implements KeyListener {
 																					// den
 																					// Multiplayer-Modus
 																					// erstellen
+	/**
+	 * Buttons für den Schwierigkeitsgrad (schweirigkeit ist Zeitabhängig)
+	 * 
+	 * @author Andrej Morlang
+	 */
+	private final Action_noob Action_noob = new Action_noob();			//  Aktion zum setzen der Schwierigkeit (Anfänger)..
+	private final Action_Leicht Action_Leicht = new Action_Leicht();	// .. (Leicht) .. 
+	private final Action_Mittel Action_Mittel = new Action_Mittel();	// .. (Mittel) ..
+	private final Action_Schwer Action_Schwer = new Action_Schwer();	// .. (Schwer).
 
 	/**
 	 * Button im Leistenmenue (Wechsel zu Level 1)
@@ -143,28 +150,25 @@ public class Menue implements KeyListener {
 
 	// Konstruktor:
 	/**
-	 * {@code initialize()} legt die Panels in das JFrame {@code frame()} &
-	 * erstellt die grafische Oberflaeche des Spieles
+	 * {@code initialize()} legt die Panels in das JFrame {@code frame()} & erstellt die grafische Oberflaeche des Spieles
 	 */
 	public Menue() {
 		spiel_neugestartet = false;
 		hulk1 = new Hulk(1, 1, 1); // 1. Spielerfigur erzeugen
 		hulk2 = new Hulk(n - 2, n - 2, 10); // 2. Spielerfigur erzeugen
-		bot1 = new Bot(n - 2, n - 2);		
+		//bot1 = new Bot(n - 2, n - 2);		
 
 		map = MapLoader.laden(MapLoader.get_level());
 		game = new Map(map);
-			
-			
 
 		initialize();
 		a = new int[3];
 
 	}
 
-	private static void botStart() {
-		if(bot1.getStart() == 0)bot1.start();
-	}
+	//	private static void botStart() {
+	//		if(bot1.getStart() == 0)bot1.start();
+	//	}
 
 	// Methode zum Initialisieren des Spielfelds:
 
@@ -224,16 +228,15 @@ public class Menue implements KeyListener {
 		mnModus.add(mntmSingleplayer); // Untermenuepunkt "Singleplayer"
 										// hinzufuegen
 		mntmSingleplayer.setAction(Action_Singleplayer); // Aktion
-														// "Action_Singleplayer"
-														// hinzufuegen
-		
+															// "Action_Singleplayer"
+															// hinzufuegen
+
 		JMenuItem mntmMultiplayerBot = new JMenuItem("Multiplayer - Bot"); //Menueunterpunkt
 																			//"Multiplayer - Bot"
 																			//erstellt
 		mnModus.add(mntmMultiplayerBot);//Menueunterpunkt "Multiplayer - Bot hinzugefuegt
-		
-		mntmMultiplayerBot.setAction(Action_MultiplayerBot);
-															
+
+		//	mntmMultiplayerBot.setAction(Action_MultiplayerBot);
 
 		JMenuItem mntmMultiplayer = new JMenuItem("Multiplayer"); // Untermenuepunkt
 																	// "Multiplayer"
@@ -243,6 +246,25 @@ public class Menue implements KeyListener {
 		mntmMultiplayer.setAction(Action_Multiplayer); // Aktion
 														// "Action_Multiplayer"
 														// hinzufuegen
+
+		JMenu mnZeit = new JMenu("Schwierigkeit"); // Menuepunkt "Schwierigkeit" erstellen
+		menuBar.add(mnZeit); 					   // Menuepunkt "Schwierigkeit" hinzufuegen
+
+		JMenuItem noob = new JMenuItem("Anfänger");	// unterpunkt "Anfänger" erstellen..
+		mnZeit.add(noob);							// .. hinzufügen zur Schwierigkeit (Oberpunkt)
+		noob.setAction(Action_noob);				// .. befehl zum Ausführen erstellen
+
+		JMenuItem Leicht = new JMenuItem("Leicht");	// dasselbe schema wie vier zeilen drüber 
+		mnZeit.add(Leicht);
+		Leicht.setAction(Action_Leicht);
+
+		JMenuItem Mittel = new JMenuItem("Mittel");
+		mnZeit.add(Mittel);
+		Mittel.setAction(Action_Mittel);
+
+		JMenuItem Schwer = new JMenuItem("Schwer");
+		mnZeit.add(Schwer);
+		Schwer.setAction(Action_Schwer);
 
 		JMenu mnLevel = new JMenu("Level"); // Menuepunkt "Level" erstellen
 		menuBar.add(mnLevel); // Menuepunkt "Level" hinzufuegen
@@ -278,9 +300,7 @@ public class Menue implements KeyListener {
 
 	// keyPressed-Methode:
 	/**
-	 * Horcht, ob eine Taste gedrueckt wurde und wertet die Aktion gegebenfalls
-	 * aus. Gueltige Aktionen sind: Hoch-, Links-, Rechts-, Runtertaste
-	 * (Bewegung) und Leertaste (Bombe)
+	 * Horcht, ob eine Taste gedrueckt wurde und wertet die Aktion gegebenfalls aus. Gueltige Aktionen sind: Hoch-, Links-, Rechts-, Runtertaste (Bewegung) und Leertaste (Bombe)
 	 * 
 	 */
 	public void keyPressed(KeyEvent Key) {
@@ -585,12 +605,12 @@ public class Menue implements KeyListener {
 
 		hulk2.set_x(n - 2);
 		hulk2.set_y(n - 2);
-		
-		if (bot){
-			bot1.set_x(n - 2);
-			bot1.set_y(n - 2);
-			botStart();
-		}
+
+		//		if (bot){
+		//			bot1.set_x(n - 2);
+		//			bot1.set_y(n - 2);
+		//			botStart();
+		//		}
 	}
 
 	static void spiel_neustarten() {
@@ -636,7 +656,7 @@ public class Menue implements KeyListener {
 			System.exit(0);
 		}
 	}
-	
+
 	//---------------------------GETTER UND SETTER--------------------------
 
 	/**
@@ -696,7 +716,7 @@ public class Menue implements KeyListener {
 	public static int[][] get_map() {
 		return map;
 	}
-	
+
 	/**
 	 * 
 	 * @return Boolean-Wert, ob Multiplayer aktiviert ist
@@ -704,25 +724,25 @@ public class Menue implements KeyListener {
 	public static boolean getMultiplayer() {
 		return twoPlayer;
 	}
-	
+
 	/**
 	 * 
 	 * @return .wav-Datei fuer Soundausgabe
 	 */
-	public static Sound get_EXP(){
-		return exp;
-	}
-	
-	/**
-	 * 
-	 * @return Boolean-Wert, ob Bot aktiviert ist 
-	 */
-	public static boolean getBot() {
-		return bot;
-	}
-	
+	//	public static Sound get_EXP(){
+	//		return exp;
+	//	}
+	//	
+	//	/**
+	//	 * 
+	//	 * @return Boolean-Wert, ob Bot aktiviert ist 
+	//	 */
+	//	public static boolean getBot() {
+	//		return bot;
+	//	}
+
 	//-------------------MENUEBUTTONORGANISATION--------------------------------------
-	
+
 	/**
 	 * Klasse fuer Menuebuttonorganisation "Beenden", beendet das Programm
 	 * 
@@ -785,8 +805,7 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Level Speichern", speichert das
-	 * aktuelle Spiel
+	 * Klasse fuer Menuebuttonorganisation "Level Speichern", speichert das aktuelle Spiel
 	 * 
 	 * @author Tobias Korfmacher
 	 * 
@@ -806,8 +825,7 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Singleplayer", wechselt zum
-	 * Singleplayer-Modus
+	 * Klasse fuer Menuebuttonorganisation "Singleplayer", wechselt zum Singleplayer-Modus
 	 * 
 	 * @author Kolja Salewski
 	 * 
@@ -833,36 +851,34 @@ public class Menue implements KeyListener {
 		}
 
 	}
-	
-	/**
-	 * Klasse fuer Menuebuttonorganisation "Multiplayer - Bot", aktiviert
-	 * den Bot als 2. Spieler
-	 * 
-	 * @author Sebastian Dittmann
-	 *
-	 */
-	public class Action_MultiplayerBot extends AbstractAction {
-		private static final long serialVersionUID = 1L;
-		
-		public Action_MultiplayerBot(){
-			putValue(NAME, "Multiplayer - Bot");
-			putValue(SHORT_DESCRIPTION, "Wechsel in Bot-Modus");
-		}
-		
-		public void actionPerformed (ActionEvent e){
-			if (bot == false){
-				bot = true;
-				System.out.println("Bot aktiviert"); //Test
-				System.out.println();
-				
-				spiel_neustarten();
-			}
-		}
-	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Multiplayer", wechselt zum
-	 * Multiplayer-Modus
+	 * Klasse fuer Menuebuttonorganisation "Multiplayer - Bot", aktiviert den Bot als 2. Spieler
+	 * 
+	 * @author Sebastian Dittmann
+	 * 
+	 */
+	//	public class Action_MultiplayerBot extends AbstractAction {
+	//		private static final long serialVersionUID = 1L;
+	//		
+	//		public Action_MultiplayerBot(){
+	//			putValue(NAME, "Multiplayer - Bot");
+	//			putValue(SHORT_DESCRIPTION, "Wechsel in Bot-Modus");
+	//		}
+	//		
+	//		public void actionPerformed (ActionEvent e){
+	//			if (bot == false){
+	//				bot = true;
+	//				System.out.println("Bot aktiviert"); //Test
+	//				System.out.println();
+	//				
+	//				spiel_neustarten();
+	//			}
+	//		}
+	//	}
+
+	/**
+	 * Klasse fuer Menuebuttonorganisation "Multiplayer", wechselt zum Multiplayer-Modus
 	 * 
 	 * @author Kolja Salewski
 	 * 
@@ -887,6 +903,77 @@ public class Menue implements KeyListener {
 
 		}
 
+	}
+
+	/**
+	 * Klassen für den Button "Schwierigkeit" erstellen. (zur änderung der Schwierigkeit)
+	 * 
+	 * @author Andrej Morlang
+	 * 
+	 */
+
+	private class Action_noob extends AbstractAction {
+		private static final long serialVersionUID = 1L;
+
+		public Action_noob() {								// zuweisung für von Action_noob aus der Zeile 110 & 255
+			putValue(NAME, "Anfänger");
+			putValue(SHORT_DESCRIPTION, "Speil ohne Zeitlimit");
+		}
+
+		public void actionPerformed(ActionEvent e) {		// wenn es ausgeführt wird ..
+			spiel_neustarten();								// .. spiel im Anfängermodus (ohne Zeitlimit) starten.
+			System.out.println("Anfänger");					// Testaugabe
+		}
+	}
+
+	private class Action_Leicht extends AbstractAction {
+		private static final long serialVersionUID = 1L;
+
+		public Action_Leicht() {
+			putValue(NAME, "Leicht");
+			putValue(SHORT_DESCRIPTION, "Für Spieler die Zeit brauchen");
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			spiel_neustarten();								// bei änderung der Schwierigkeit jeweils das Spiel neustarten!
+			Zeit spieltimer = new Zeit();					// objekt zeit (mit Zeitlimit)
+			spieltimer.laufzeit(180);						// die Zeit ist in Sekunden 180sek = 3min (Spielzeit/Rundenzeit)
+			System.out.println("Leicht");					// Testausgabe
+		}
+	}
+
+	private class Action_Mittel extends AbstractAction {	// siehe Erleuterungen von oben (..
+		private static final long serialVersionUID = 1L;	// ..class Action_Leicht und .. 
+															// ..class Action_noob)
+
+		public Action_Mittel() {
+			putValue(NAME, "Mittel");
+			putValue(SHORT_DESCRIPTION, "Für erfahrene Spieler");
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			spiel_neustarten();
+			Zeit spieltimer = new Zeit();
+			spieltimer.laufzeit(90);
+
+			System.out.println("Mitte");
+		}
+	}
+
+	private class Action_Schwer extends AbstractAction {      // siehe oben
+		private static final long serialVersionUID = 1L;
+
+		public Action_Schwer() {
+			putValue(NAME, "Schwer");
+			putValue(SHORT_DESCRIPTION, "Für Blitzschnelle Spieler");
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			spiel_neustarten();
+			Zeit spieltimer = new Zeit();
+			spieltimer.laufzeit(45);
+			System.out.println("Schwer");
+		}
 	}
 
 	/**
@@ -952,7 +1039,6 @@ public class Menue implements KeyListener {
 		}
 
 	}
-
 
 	// main-Methode:
 	public static void main(String[] args) {
