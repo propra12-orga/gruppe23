@@ -121,7 +121,7 @@ public class Server extends Thread {
 				// Spiel neustarten:
 				else if (in_string.equals("neustart")) {
 					antwort = "leer";
-					Menue.createAndShowGui("Das Spiel wird in ", " neugestartet...", 5, 300, 100, 0);
+					//Menue.createAndShowGui("Das Spiel wird in ", " neugestartet...", 5, 300, 100, 0);
 					Menue.spiel_neustarten();
 				}
 				
