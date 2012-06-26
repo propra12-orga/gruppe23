@@ -10,9 +10,7 @@ import javax.swing.border.EmptyBorder;
 
 /**
  * 
- * @author 
- *         Tobias
- *         Korfmacher
+ * @author Tobias Korfmacher
  * 
  */
 
@@ -43,70 +41,16 @@ public class Map extends JPanel {
 
 	// move_Hulk-Methode:
 	/**
-	 * Setzt
-	 * die
-	 * Icons
-	 * "Hulk"
-	 * und
-	 * "Weg"
-	 * ,
-	 * die
-	 * bei
-	 * einer
-	 * Bewegung
-	 * verändert
+	 * Setzt die Icons "Hulk" und "Weg" , die bei einer Bewegung verändert
 	 * werden
 	 * 
-	 * @param x
-	 *            X
-	 *            -
-	 *            Koordinate
-	 *            im
-	 *            Map
-	 *            -
-	 *            Array
-	 *            ,
-	 *            um
-	 *            welche
-	 *            die
-	 *            Spielfigur
-	 *            bewegt
-	 *            werden
-	 *            soll
+	 * @param * X - Koordinate im Map - Array , um welche die Spielfigur bewegt
+	 * werden soll
 	 * @param y
-	 *            Y
-	 *            -
-	 *            Koordinate
-	 *            im
-	 *            Map
-	 *            -
-	 *            Array
-	 *            ,
-	 *            um
-	 *            welche
-	 *            die
-	 *            Spielfigur
-	 *            bewegt
-	 *            werden
-	 *            soll
+	 * Y - Koordinate im Map - Array , um welche die Spielfigur bewegt werden
+	 * soll
 	 * @param z
-	 *            zu
-	 *            bewegende
-	 *            Spielfigur
-	 *            (
-	 *            1
-	 *            :
-	 *            =
-	 *            Spieler
-	 *            1
-	 *            ,
-	 *            2
-	 *            :
-	 *            =
-	 *            Spieler
-	 *            2
-	 *            ...
-	 *            )
+	 * zu bewegende Spielfigur ( 1 : = Spieler 1 , 2 : = Spieler 2 ... )
 	 */
 	public void move_Hulk(int x, int y, int z) {
 		/* Grafische Fortbewegung der Spielfigur: */
@@ -251,12 +195,12 @@ public class Map extends JPanel {
 
 		case 3: // Block
 			label.setIcon(new ImageIcon(Map.class.getResource(block_pic))); 	// Grafik-Quelle:
-																			// http://openclipart.org/detail/151531/char-somua-s35-by-spadassin-151531
+			// http://openclipart.org/detail/151531/char-somua-s35-by-spadassin-151531
 			break;
 
 		case 4: // Mauer (nicht zerstoerbar)
 			label.setIcon(new ImageIcon(Map.class.getResource(mauer_pic))); 	// Grafik-Quelle:
-																			// http://openclipart.org/detail/3318/house-by-barretr
+			// http://openclipart.org/detail/3318/house-by-barretr
 			break;
 
 		case 5: // Bombe
