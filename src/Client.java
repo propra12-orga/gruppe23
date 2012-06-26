@@ -94,6 +94,7 @@ public class Client extends Thread {
 					switch (frage) {
 						case 0:
 							out.println("yes");
+							//Menue.createAndShowGui("Das Spiel wird in ", " neugestartet...", 5, 300, 100, 0); // BITTE AUSKOMMENTIERT LASSEN & NICHT LOESCHEN
 							break;
 						case 1:
 							out.println("no");

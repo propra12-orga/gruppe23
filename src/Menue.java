@@ -692,7 +692,7 @@ public class Menue implements KeyListener {
 			System.out.println("Spieler 1 hat gewonnen"); // Test
 			System.out.println(); // Test
 
-			abfrage_neustarten();
+			abfrage_neustarten();			
 		}
 
 		// Niederlage Spieler 1
@@ -705,8 +705,8 @@ public class Menue implements KeyListener {
 																		// ist
 			System.out.println("Spieler 1 hat verloren"); // Test
 			System.out.println(); // Test
-
-			abfrage_neustarten();
+			
+			abfrage_neustarten();			
 		}
 
 	}
@@ -837,44 +837,38 @@ public class Menue implements KeyListener {
 	 */
 	static void abfrage_neustarten() {
 		int eingabe = 0;
-
+		
 		if (serverThread != null) {
-			eingabe = JOptionPane.showConfirmDialog(null,
-					"Möchten Sie noch eine Runde spielen?", "Spiel zuende",
-					JOptionPane.YES_NO_CANCEL_OPTION);
-			if (eingabe == 0) {
-				serverThread.out
-						.println("Spieler 1 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
-				createAndShowGui(
-						"Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
-						" auf Antwort...", 60, 600, 100, 0);
-			}
-
-			else if (eingabe == 1) {
-				System.exit(0);
-			}
-
-		}
-
-		else if (clientThread != null) {
 			createAndShowGui(
-					"Spieler 1 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
+					"Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
 					" auf Antwort...", 60, 600, 100, 0);
 		}
-
+		
 		else {
 			eingabe = JOptionPane.showConfirmDialog(null,
 					"Möchten Sie noch eine Runde spielen?", "Spiel zuende",
 					JOptionPane.YES_NO_CANCEL_OPTION);
 
 			if (eingabe == 0) {
-				spiel_neustarten();
+				if (clientThread != null) {
+					clientThread.out
+					.println("Spieler 2 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
+			createAndShowGui(
+					"Spieler 1 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
+					" auf Antwort...", 60, 600, 100, 0);
+				}
+				
+				else {
+					spiel_neustarten();
+				}
+				
 				if (zeit != 0) {
 					spieltimer.timer.cancel();
 					spieltimer = new Zeit();
 					spieltimer.laufzeit(zeit); // die Zeit ist in Sekunden 180sek = 3min
 												// (Spielzeit/Rundenzeit)
 				}
+				
 			}
 
 			else if (eingabe == 1) {
@@ -920,12 +914,11 @@ public class Menue implements KeyListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Window win = SwingUtilities.getWindowAncestor(label);
-				((JDialog) win)
-						.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+				//((JDialog) win).setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 				if (timeLeft > 0 && Menue.antwort_erhalten == false) {
 					label.setText(text_anfang + timeLeft + " Sekunden"
 							+ text_ende);
-					win.setSize(breite, hoehe);
+					//win.setSize(breite, hoehe);
 					antwort_verarbeiten(win, e, level);
 					timeLeft--;
 				}
@@ -954,7 +947,7 @@ public class Menue implements KeyListener {
 	 */
 	static void antwort_verarbeiten(Window win, ActionEvent e, int level) {
 		if (serverThread != null) {
-			if ("yes".equals(serverThread.antwort)) {
+			if (serverThread.antwort.equals("yes")) {
 				antwort_erhalten = true;
 				if (level != 0) {
 					serverThread.out.println("level");
@@ -976,11 +969,11 @@ public class Menue implements KeyListener {
 					MapLoader.set_level(level);
 				}
 
-				else {
-					createAndShowGui(
-							"Spieler 2 moechte ebenfalls das Spiel neustarten. Das Spiel wird in ",
-							" neugestartet...", 5, 600, 100, 0);
-				}
+//				else {
+//					createAndShowGui(
+//							"Spieler 2 moechte ebenfalls das Spiel neustarten. Das Spiel wird in ",
+//							" neugestartet...", 5, 600, 100, 0);
+//				}
 
 				spiel_neustarten();
 			}
@@ -997,18 +990,25 @@ public class Menue implements KeyListener {
 					// AUSKOMMENTIERT LASSEN & NICHT LOESCHEN
 				}
 
-				else {
-					Menue.createAndShowGui(
-							"Spieler 2 moechte das Spiel nicht neustarten.\nDas Spiel wird in ",
-							" fortgesetzt...", 5, 300, 100, 0);
-				}
+//				else {
+//					Menue.createAndShowGui(
+//							"Spieler 2 moechte das Spiel nicht neustarten.\nDas Spiel wird in ",
+//							" fortgesetzt...", 5, 300, 100, 0);
+//				}
 
+			}
+			
+			else if (serverThread.in_string.contains("?")) {
+				antwort_erhalten = true;
+				((Timer) e.getSource()).stop();
+				win.setVisible(false);
+				serverThread.antwort = "leer";
 			}
 
 		}
 
 		else if (clientThread != null) {
-			if ("yes".equals(clientThread.antwort)) {
+			if (clientThread.antwort.equals("yes")) {
 				antwort_erhalten = true;
 				if (level != 0) {
 					clientThread.out.println("level");
@@ -1030,11 +1030,11 @@ public class Menue implements KeyListener {
 					MapLoader.set_level(level);
 				}
 
-				else {
-					createAndShowGui(
-							"Spieler 1 moechte ebenfalls das Spiel neustarten. Das Spiel wird in ",
-							" neugestartet...", 5, 600, 100, 0);
-				}
+//				else {
+//					createAndShowGui(
+//							"Spieler 1 moechte ebenfalls das Spiel neustarten. Das Spiel wird in ",
+//							" neugestartet...", 5, 600, 100, 0);
+//				}
 
 				spiel_neustarten();
 			}
@@ -1051,12 +1051,19 @@ public class Menue implements KeyListener {
 					// AUSKOMMENTIERT LASSEN & NICHT LOESCHEN
 				}
 
-				else {
-					Menue.createAndShowGui(
-							"Spieler 1 moechte das Spiel nicht neustarten.\nDas Spiel wird in ",
-							" fortgesetzt...", 5, 300, 100, 0);
-				}
+//				else {
+//					Menue.createAndShowGui(
+//							"Spieler 1 moechte das Spiel nicht neustarten.\nDas Spiel wird in ",
+//							" fortgesetzt...", 5, 300, 100, 0);
+//				}
 
+			}
+			
+			else if (clientThread.in_string.contains("?")) {
+				antwort_erhalten = true;
+				((Timer) e.getSource()).stop();
+				win.setVisible(false);
+				clientThread.antwort = "leer";
 			}
 
 		}

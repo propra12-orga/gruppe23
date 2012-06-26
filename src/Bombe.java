@@ -19,6 +19,7 @@ public class Bombe extends JLabel {
 	// Pro Richtung kann die Bombe maximal einen Treffer verursachen:
 	boolean treffer_oben = false, treffer_rechts = false,
 			treffer_unten = false, treffer_links = false;
+	boolean hulk_getroffen = false;
 
 	int n = MapLoader.get_n();
 
@@ -358,10 +359,11 @@ public class Bombe extends JLabel {
 																	// zweite
 																	// Spielfigur
 																	// trifft
-					if (treffer_rechts == false) {
+					if (treffer_rechts == false && hulk_getroffen == false) {
+						hulk_getroffen = true;
 						System.out.println("Game over"); // Test
 						System.out.println(); // Test
-
+						
 						Menue.abfrage_neustarten();
 					}
 
@@ -383,10 +385,11 @@ public class Bombe extends JLabel {
 																		// zweite
 																		// Spielfigur
 																		// trifft
-					if (treffer_unten == false) {
+					if (treffer_unten == false && hulk_getroffen == false) {
+						hulk_getroffen = true;
 						System.out.println("Game over"); // Test
 						System.out.println(); // Test
-
+						
 						Menue.abfrage_neustarten();
 					}
 
@@ -682,7 +685,8 @@ public class Bombe extends JLabel {
 																	// zweite
 																	// Spielfigur
 																	// trifft
-					if (treffer_links == false) {
+					if (treffer_links == false && hulk_getroffen == false) {
+						hulk_getroffen = true;
 						System.out.println("Game over"); // Test
 						System.out.println(); // Test
 
@@ -707,11 +711,12 @@ public class Bombe extends JLabel {
 																		// zweite
 																		// Spielfigur
 																		// trifft
-					if (treffer_oben == false) {
+					if (treffer_oben == false && hulk_getroffen == false) {
+						hulk_getroffen = true;
 						System.out.println("Game over"); // Test
 						System.out.println(); // Test
 
-						Menue.abfrage_neustarten();
+						Menue.abfrage_neustarten();						
 					}
 
 				}

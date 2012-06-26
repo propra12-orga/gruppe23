@@ -90,13 +90,14 @@ public class Server extends Thread {
 				
 				// Frage ausgeben:
 				else if (in_string.contains("?")) {
-
 					int frage = JOptionPane.showConfirmDialog(null,
 							in_string,
 							"Frage des Clients", JOptionPane.YES_NO_OPTION);
+					
 					switch (frage) {
 						case 0:
 							out.println("yes");
+							//Menue.createAndShowGui("Das Spiel wird in ", " neugestartet...", 5, 300, 100, 0); // BITTE AUSKOMMENTIERT LASSEN & NICHT LOESCHEN
 							break;
 						case 1:
 							out.println("no");
@@ -108,7 +109,7 @@ public class Server extends Thread {
 				
 				// Antwort speichern:
 				else if (in_string.equals("yes") || in_string.equals("no")) {
-					antwort = "" + in_string;
+					antwort = in_string;
 				}
 				
 //				// Abfrage zum Neustart des Spiels ausgeben:
