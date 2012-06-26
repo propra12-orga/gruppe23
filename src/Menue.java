@@ -31,6 +31,8 @@ public class Menue implements KeyListener {
 	 */
 
 	static JFrame frame;
+	static int spieltimer = 0;
+	
 	// private int anzahlLevel = 2; // nacher levelanzahl get methode;
 	//
 	//
@@ -889,6 +891,11 @@ public class Menue implements KeyListener {
 					JOptionPane.YES_NO_CANCEL_OPTION);
 			if (eingabe == 0) {
 				spiel_neustarten();
+				if (spieltimer != 0) {
+					Zeit spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
+					spieltimer.laufzeit(180); // die Zeit ist in Sekunden 180sek = 3min
+												// (Spielzeit/Rundenzeit)
+				}
 			}
 			
 			else if (eingabe == 1) {
@@ -1637,6 +1644,7 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
+			spieltimer = 180;
 			spiel_neustarten(); // bei änderung der Schwierigkeit jeweils das
 								// Spiel neustarten!
 			Zeit spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
@@ -1661,6 +1669,7 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
+			spieltimer = 90;
 			spiel_neustarten();
 			Zeit spieltimer = new Zeit();
 			spieltimer.laufzeit(90);
@@ -1680,6 +1689,7 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
+			spieltimer = 45;
 			spiel_neustarten();
 			Zeit spieltimer = new Zeit();
 			spieltimer.laufzeit(45);
