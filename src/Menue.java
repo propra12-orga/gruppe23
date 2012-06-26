@@ -884,7 +884,17 @@ public class Menue implements KeyListener {
 		}
 		
 		else {
-			spiel_neustarten();
+			eingabe = JOptionPane.showConfirmDialog(null,
+					"Möchten Sie noch eine Runde spielen?", "Spiel zuende",
+					JOptionPane.YES_NO_CANCEL_OPTION);
+			if (eingabe == 0) {
+				spiel_neustarten();
+			}
+			
+			else if (eingabe == 1) {
+				System.exit(0);
+			}
+			
 		}
 
 	}
