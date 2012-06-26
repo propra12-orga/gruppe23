@@ -30,6 +30,7 @@ public class MapEditor {
 	private static boolean abfrageHulk2 = false;
 	private static boolean abfrageAusgang = false;
 	private static File f;
+	private static String eingabe;
 
 	/* Konstruktor: */
 	public MapEditor() {
@@ -42,20 +43,25 @@ public class MapEditor {
 	public int edit() {
 
 		int anzahlIcons = 9;
+		boolean richtigeAbfrage = false;
 
-		final String eingabe = JOptionPane.showInputDialog(null,
-				"Bitte geben Sie die Level-Nummer ein: ", "Levelnummer",
-				JOptionPane.PLAIN_MESSAGE);
-		if (eingabe == null) {
-			return 0;
-		}
+		do {
+			eingabe = JOptionPane.showInputDialog(null,
+					"Bitte geben Sie die Level-Nummer ein: \nNicht 1 oder 2",
+					"Levelnummer", JOptionPane.PLAIN_MESSAGE);
+			if (eingabe == null || eingabe.equals("")) {
+				richtigeAbfrage = false;
+			}
 
-		else {
-			MapLoader.set_level(Integer.parseInt(eingabe));
-		}
+			else {
+				MapLoader.set_level(Integer.parseInt(eingabe));
+				richtigeAbfrage = true;
+			}
+		} while (richtigeAbfrage != true);
 
 		// datei existiert?
-		String dateiName = "/Maps/Level-" + eingabe + ".txt";
+		String dateiName = "/Maps/Level-";
+		dateiName = dateiName + eingabe + ".txt";
 
 		f = new File(dateiName);
 		System.out.println(f.exists());
