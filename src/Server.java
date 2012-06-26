@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -35,6 +36,15 @@ public class Server extends Thread {
 		try {
 			// Sockets erstellen:
 			serverSocket = new ServerSocket(4711);
+			
+			// Ausgabe:
+			System.out.println("Ihre IP-Adresse(n):");					// Test
+	        String localHost = InetAddress.getLocalHost().getHostName();
+	        for (InetAddress ia : InetAddress.getAllByName(localHost)) {
+	        	if (ia.getHostAddress().contains(".")) {
+	        		System.out.println(ia.getHostAddress());			// Test
+	        	}
+	    	}
 			System.out.println("Es wird auf einen Client gewartet...");	// Test
 			System.out.println();										// Test
 			
