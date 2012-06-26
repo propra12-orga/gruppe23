@@ -31,7 +31,6 @@ public class Menue implements KeyListener {
 	 */
 
 	static JFrame frame;
-	static int spieltimer = 0;
 	
 	// private int anzahlLevel = 2; // nacher levelanzahl get methode;
 	//
@@ -207,6 +206,8 @@ public class Menue implements KeyListener {
 	static Client clientThread;
 	static boolean antwort_erhalten = false;
 	static Window win;
+	static int zeit = 0;
+	static Zeit spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
 
 	private static int[][] map; // Internes Spielfeld
 
@@ -891,9 +892,11 @@ public class Menue implements KeyListener {
 					JOptionPane.YES_NO_CANCEL_OPTION);
 			if (eingabe == 0) {
 				spiel_neustarten();
-				if (spieltimer != 0) {
-					Zeit spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
-					spieltimer.laufzeit(180); // die Zeit ist in Sekunden 180sek = 3min
+				if (zeit != 0) {
+					//Zeit spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
+					spieltimer.timer.cancel();
+					spieltimer = new Zeit();
+					spieltimer.laufzeit(zeit); // die Zeit ist in Sekunden 180sek = 3min
 												// (Spielzeit/Rundenzeit)
 				}
 			}
@@ -1644,11 +1647,11 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			spieltimer = 180;
+			zeit = 180;
 			spiel_neustarten(); // bei änderung der Schwierigkeit jeweils das
 								// Spiel neustarten!
 			Zeit spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
-			spieltimer.laufzeit(180); // die Zeit ist in Sekunden 180sek = 3min
+			spieltimer.laufzeit(zeit); // die Zeit ist in Sekunden 180sek = 3min
 										// (Spielzeit/Rundenzeit)
 			System.out.println("Leicht"); // Testausgabe
 		}
@@ -1669,10 +1672,10 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			spieltimer = 90;
+			zeit = 90;
 			spiel_neustarten();
 			Zeit spieltimer = new Zeit();
-			spieltimer.laufzeit(90);
+			spieltimer.laufzeit(zeit);
 
 			System.out.println("Mitte");
 
@@ -1689,10 +1692,10 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			spieltimer = 45;
+			zeit = 45;
 			spiel_neustarten();
 			Zeit spieltimer = new Zeit();
-			spieltimer.laufzeit(45);
+			spieltimer.laufzeit(zeit);
 			System.out.println("Schwer");
 		}
 
