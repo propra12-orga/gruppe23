@@ -40,42 +40,6 @@ public class Bombe extends JLabel {
 	}
 
 	/* METHODEN: */
-	
-	/* setter & getter: */
-	
-	// get_x-Methode:
-	/**
-	 * @return Bombenposition x-Koord.
-	 */
-	public int get_x() {
-		return x;
-	}
-
-	// set_x-Methode:
-	/**
-	 * @param x
-	 *            Bombenposition x-Koord. setzen
-	 */
-	public void set_x(int x) {
-		this.x = x;
-	}
-
-	// get_y-Methode:
-	/**
-	 * @return Bombenposition y-Koord.
-	 */
-	public int get_y() {
-		return y;
-	}
-
-	// set_y-Methode:
-	/**
-	 * @param y
-	 *            Bombenposition y-Koord. setzen
-	 */
-	public void set_y(int y) {
-		this.y = y;
-	}
 
 	// aktivieren-Methode:
 	/**
@@ -430,9 +394,6 @@ public class Bombe extends JLabel {
 
 			}
 
-			// Spielfeld grafisch reinitialisieren:
-			Menue.get_game().removeAll();
-			Menue.get_game().refresh();
 		}
 
 		/* Ausbreitung der Detonation nach links und oben: */
@@ -757,9 +718,6 @@ public class Bombe extends JLabel {
 
 			}
 
-			// Spielfeld grafisch reinitialisieren:
-			Menue.get_game().removeAll();
-			Menue.get_game().refresh();
 		}
 
 		// Treffer zurücksetzen:
@@ -787,8 +745,45 @@ public class Bombe extends JLabel {
 																	// einlesen
 		}
 
+		// Spielfeld grafisch reinitialisieren:
 		Menue.get_game().removeAll();
 		Menue.get_game().refresh();
+	}
+	
+	/* setter & getter: */
+	
+	// get_x-Methode:
+	/**
+	 * @return Bombenposition x-Koord.
+	 */
+	public int get_x() {
+		return x;
+	}
+
+	// set_x-Methode:
+	/**
+	 * @param x
+	 *            Bombenposition x-Koord. setzen
+	 */
+	public void set_x(int x) {
+		this.x = x;
+	}
+
+	// get_y-Methode:
+	/**
+	 * @return Bombenposition y-Koord.
+	 */
+	public int get_y() {
+		return y;
+	}
+
+	// set_y-Methode:
+	/**
+	 * @param y
+	 *            Bombenposition y-Koord. setzen
+	 */
+	public void set_y(int y) {
+		this.y = y;
 	}
 
 }
