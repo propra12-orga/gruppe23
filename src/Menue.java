@@ -1310,14 +1310,8 @@ public class Menue implements KeyListener {
 	 * .
 	 */
 	static void abfrage_neustarten() {
-//		if (serverThread != null && serverThread.anfrage_erhalten == false) {
-//			serverThread.out.println("abfrage_neustart");
-//		}
-//		
-//		else if (clientThread != null && clientThread.anfrage_erhalten == false) {
-//			clientThread.out.println("abfrage_neustart");
-//		}
 		int eingabe = 0;
+		
 		if	(serverThread != null) {
 			eingabe = JOptionPane.showConfirmDialog(null,
 					"Möchten Sie noch eine Runde spielen?", "Spiel zuende",
@@ -1331,35 +1325,9 @@ public class Menue implements KeyListener {
 			else if (eingabe == 1) {
 				System.exit(0);
 			}
+			
 		}
 
-<<<<<<< HEAD
-		else if (clientThread != null && clientThread.anfrage_erhalten == false) {
-			clientThread.out.println("abfrage_neustart");
-		}
-
-		int eingabe = JOptionPane.showConfirmDialog(null,
-				"Möchten Sie noch eine Runde spielen?", "Spiel zuende",
-				JOptionPane.YES_NO_OPTION);
-
-		if (eingabe == 0) {
-			if (clientThread != null) {
-				clientThread.out
-						.println("Spieler 2 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
-				createAndShowGui(
-						"Spieler 1 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
-						" auf Antwort...", 60, 600, 100, 0);
-			}
-
-			else if (serverThread != null) {
-				serverThread.out
-						.println("Spieler 1 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
-				createAndShowGui(
-						"Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
-						" auf Antwort...", 60, 600, 100, 0);
-			} else {
-				spiel_neustarten();
-=======
 		else if (clientThread != null) {
 			createAndShowGui(
 			"Spieler 1 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
@@ -1370,6 +1338,7 @@ public class Menue implements KeyListener {
 			eingabe = JOptionPane.showConfirmDialog(null,
 					"Möchten Sie noch eine Runde spielen?", "Spiel zuende",
 					JOptionPane.YES_NO_CANCEL_OPTION);
+			
 			if (eingabe == 0) {
 				spiel_neustarten();
 				if (zeit != 0) {
@@ -1382,7 +1351,6 @@ public class Menue implements KeyListener {
 			
 			else if (eingabe == 1) {
 				System.exit(0);
->>>>>>> e3860eb264e8c65d19c8bef8c83324556c174c21
 			}
 
 		}
