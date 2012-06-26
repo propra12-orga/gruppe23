@@ -10,8 +10,10 @@ import javax.swing.border.EmptyBorder;
 
 /**
  * 
- * @author Tobias Korfmacher
- *
+ * @author 
+ *         Tobias
+ *         Korfmacher
+ * 
  */
 
 public class Map extends JPanel {
@@ -32,51 +34,113 @@ public class Map extends JPanel {
 			for (int y = 0; y < n; y++) {
 				bomb[x][y] = new Bombe();
 			}
-			
+
 		}
-		
+
 	}
 
 	/* METHODEN: */
-	
+
 	// move_Hulk-Methode:
 	/**
-	 * Setzt die Icons "Hulk" und "Weg", die bei einer Bewegung verÃ¤ndert werden
+	 * Setzt
+	 * die
+	 * Icons
+	 * "Hulk"
+	 * und
+	 * "Weg"
+	 * ,
+	 * die
+	 * bei
+	 * einer
+	 * Bewegung
+	 * verÃ¤ndert
+	 * werden
 	 * 
-	 * @param x		X-Koordinate im Map-Array, um welche die Spielfigur bewegt werden soll
-	 * @param y		Y-Koordinate im Map-Array, um welche die Spielfigur bewegt werden soll
-	 * @param z		zu bewegende Spielfigur (1 := Spieler 1, 2:= Spieler 2 ...)
+	 * @param x
+	 *            X
+	 *            -
+	 *            Koordinate
+	 *            im
+	 *            Map
+	 *            -
+	 *            Array
+	 *            ,
+	 *            um
+	 *            welche
+	 *            die
+	 *            Spielfigur
+	 *            bewegt
+	 *            werden
+	 *            soll
+	 * @param y
+	 *            Y
+	 *            -
+	 *            Koordinate
+	 *            im
+	 *            Map
+	 *            -
+	 *            Array
+	 *            ,
+	 *            um
+	 *            welche
+	 *            die
+	 *            Spielfigur
+	 *            bewegt
+	 *            werden
+	 *            soll
+	 * @param z
+	 *            zu
+	 *            bewegende
+	 *            Spielfigur
+	 *            (
+	 *            1
+	 *            :
+	 *            =
+	 *            Spieler
+	 *            1
+	 *            ,
+	 *            2
+	 *            :
+	 *            =
+	 *            Spieler
+	 *            2
+	 *            ...
+	 *            )
 	 */
 	public void move_Hulk(int x, int y, int z) {
 		/* Grafische Fortbewegung der Spielfigur: */
 		if (map[Menue.get_hulk(z).get_x()][Menue.get_hulk(z).get_y()] == 1
-			|| map[Menue.get_hulk(z).get_x()][Menue.get_hulk(z).get_y()] == 10) { 	// falls das Feld das Hulk-Icon (1 oder 10) beinhaltet,... 
+				|| map[Menue.get_hulk(z).get_x()][Menue.get_hulk(z).get_y()] == 10) { 	// falls das Feld das Hulk-Icon (1 oder 10) beinhaltet,... 
 			map[Menue.get_hulk(z).get_x()][Menue.get_hulk(z).get_y()] = 2; 			// ...weise dem Feld das Weg-Icon (2) zu
 		}
-		
+
 		if (map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] == 12		// falls das nächste Feld das Bomben-Item-Icon enthält...
-			&& Menue.get_hulk(z).get_max_bomben() < 8) {								// ...und der Spieler noch nicht bei max. 8 Bomben angelangt ist...
-			Menue.get_hulk(z).set_max_bomben(Menue.get_hulk(z).get_max_bomben() + 1);	// ...dann erhoehe die maximale Anzahl an Bomben um 1
+				&& Menue.get_hulk(z).get_max_bomben() < 8) {								// ...und der Spieler noch nicht bei max. 8 Bomben angelangt ist...
+			Menue.get_hulk(z).set_max_bomben(
+					Menue.get_hulk(z).get_max_bomben() + 1);	// ...dann erhoehe die maximale Anzahl an Bomben um 1
 		}
-		
+
 		if (map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] == 15) {		// falls das nächste Feld das Bomben-Item-Icon enthält...
-			Menue.get_hulk(z).set_bomben_radius(Menue.get_hulk(z).get_bomben_radius()+1);	// ...dann erhoehe die maximale Anzahl an Bomben um 1
+			Menue.get_hulk(z).set_bomben_radius(
+					Menue.get_hulk(z).get_bomben_radius() + 1);	// ...dann erhoehe die maximale Anzahl an Bomben um 1
 		}
-		
+
 		if (z == 1) {
 			map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] = 1; 	// weise dem naechsten Feld das Hulk-Icon zu
 		}
-		
+
 		else if (z == 2) {
 			map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] = 10; // weise dem naechsten Feld das Hulk-Icon zu
 		}
-		
+
 		/* Logische Fortbewegung der Spielfigur: */
 		Menue.get_hulk(z).set_x(Menue.get_hulk(z).get_x() + x); 					// setze horizontale Hulk-Position weiter
 		Menue.get_hulk(z).set_y(Menue.get_hulk(z).get_y() + y); 					// setze vertikale Hulk-Position weiter
 
-		System.out.println("Neue Position des " + z + "ten Spielers: " + Menue.get_hulk(z).get_x()	// Test
-							+ "te Spalte, " + Menue.get_hulk(z).get_y() + "te Zeile"); 				// Test
+		System.out.println("Neue Position des " + z + "ten Spielers: "
+				+ Menue.get_hulk(z).get_x()	// Test
+				+ "te Spalte, " + Menue.get_hulk(z).get_y() + "te Zeile"); 				// Test
 		System.out.println();																		// Test		
 	}
 
@@ -87,7 +151,8 @@ public class Map extends JPanel {
 		bomb[bomb_x][bomb_y] = new Bombe(bomb_x, bomb_y);
 
 		add(bomb[bomb_x][bomb_y]); 					// Bombe hinzufuegen
-		bomb[bomb_x][bomb_y].aktivieren(Spieler, Menue.get_hulk(Spieler).get_bomben_radius()); 	// Bombe aktivieren
+		bomb[bomb_x][bomb_y].aktivieren(Spieler, Menue.get_hulk(Spieler)
+				.get_bomben_radius()); 	// Bombe aktivieren
 		map[bomb_x][bomb_y] = 5; 					// Bombe darstellen
 	}
 
@@ -163,21 +228,18 @@ public class Map extends JPanel {
 	// label_laden-Methode:
 	public void label_laden(JLabel label, int i) {
 		int iconSatz = MapLoader.get_iconSatz();
-		String 	exit_pic 	= "/Pics/"+iconSatz+"/Exit.png",
-				block_pic 	= "/Pics/"+iconSatz+"/Block.png",
-				weg_pic 	= "/Pics/"+iconSatz+"/Weg.png",
-				mauer_pic 	= "/Pics/"+iconSatz+"/Mauer.png",
-				hulk_pic	= "/Pics/"+iconSatz+"/Hulk.png",
-				hulk2_pic	= "/Pics/"+iconSatz+"/Hulk2.png",
-				bomb_pic	= "/Pics/"+iconSatz+"/Bombe.png",
-				exp_pic		= "/Pics/"+iconSatz+"/EXP.png";
-		
+		String exit_pic = "/Pics/" + iconSatz + "/Exit.png", block_pic = "/Pics/"
+				+ iconSatz + "/Block.png", weg_pic = "/Pics/" + iconSatz
+				+ "/Weg.png", mauer_pic = "/Pics/" + iconSatz + "/Mauer.png", hulk_pic = "/Pics/"
+				+ iconSatz + "/Hulk.png", hulk2_pic = "/Pics/" + iconSatz
+				+ "/Hulk2.png", bomb_pic = "/Pics/" + iconSatz + "/Bombe.png", exp_pic = "/Pics/"
+				+ iconSatz + "/EXP.png";
+
 		switch (i) {
 		case 0: // Block/Bomben-Item
-			label.setIcon(new ImageIcon(Map.class
-					.getResource(block_pic)));
+			label.setIcon(new ImageIcon(Map.class.getResource(block_pic)));
 			break;
-		
+
 		case 1: // Hulk
 			label.setIcon(new ImageIcon(Map.class.getResource(hulk_pic))); 	// Grafik-Quelle:
 																			// http://openclipart.org/detail/168616/hunk-by-bedpanner
@@ -188,21 +250,18 @@ public class Map extends JPanel {
 			break;
 
 		case 3: // Block
-			label.setIcon(new ImageIcon(Map.class
-					.getResource(block_pic))); 	// Grafik-Quelle:
-												// http://openclipart.org/detail/151531/char-somua-s35-by-spadassin-151531
+			label.setIcon(new ImageIcon(Map.class.getResource(block_pic))); 	// Grafik-Quelle:
+																			// http://openclipart.org/detail/151531/char-somua-s35-by-spadassin-151531
 			break;
 
-		case 4: // Mauer (nicht zerstoerbar, eventuell ueber Hulkmodus)
-			label.setIcon(new ImageIcon(Map.class
-					.getResource(mauer_pic))); 	// Grafik-Quelle:
-												// http://openclipart.org/detail/3318/house-by-barretr
+		case 4: // Mauer (nicht zerstoerbar)
+			label.setIcon(new ImageIcon(Map.class.getResource(mauer_pic))); 	// Grafik-Quelle:
+																			// http://openclipart.org/detail/3318/house-by-barretr
 			break;
 
 		case 5: // Bombe
-			label.setIcon(new ImageIcon(Map.class
-					.getResource(bomb_pic)));	// Grafik-Quelle:
-												// http://openclipart.org/detail/165734/dynamite-by-magnesus
+			label.setIcon(new ImageIcon(Map.class.getResource(bomb_pic)));	// Grafik-Quelle:
+																			// http://openclipart.org/detail/165734/dynamite-by-magnesus
 			break;
 
 		case 6: // Explosion
@@ -222,34 +281,36 @@ public class Map extends JPanel {
 		case 9: // Block/Flammen-Item 	
 			label.setIcon(new ImageIcon(Map.class.getResource(block_pic)));
 			break;
-			
+
 		case 10: // 2. Spieler
 			label.setIcon(new ImageIcon(Map.class.getResource(hulk2_pic))); // selbst gemalt :D
 			break;
-			
+
 		case 11: // Explosion/Bomben-Item 	
 			label.setIcon(new ImageIcon(Map.class.getResource(exp_pic)));
 			break;
-			
+
 		case 12: // Bomben-Item
-			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Bomben-Item.png")));
+			label.setIcon(new ImageIcon(Map.class
+					.getResource("/Pics/Bomben-Item.png")));
 			break;
-			
+
 		case 13: // Explosion/Ausgang 	
 			label.setIcon(new ImageIcon(Map.class.getResource(exp_pic)));
 			break;
-		
+
 		case 14: // Explosion/Flammen-Item 	
 			label.setIcon(new ImageIcon(Map.class.getResource(exp_pic)));
 			break;
-			
+
 		case 15: // Flammen-Item 	
-			label.setIcon(new ImageIcon(Map.class.getResource("/Pics/Flammen-Item.png")));
+			label.setIcon(new ImageIcon(Map.class
+					.getResource("/Pics/Flammen-Item.png")));
 			break;
 		}
-		
+
 	}
-	
+
 	/* setter & getter: */
 
 	// get_map-Methode:

@@ -8,9 +8,21 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
 /**
- * Liest die Level aus der Datei aus und verpackt sie in ein int-Array
+ * Liest
+ * die
+ * Level
+ * aus der
+ * Datei
+ * aus und
+ * verpackt
+ * sie in
+ * ein
+ * int-
+ * Array
  * 
- * @author Tobias Korfmacher
+ * @author 
+ *         Tobias
+ *         Korfmacher
  */
 public class MapLoader {
 	public static boolean twoPlayerSet, botSet;
@@ -23,8 +35,16 @@ public class MapLoader {
 	// laden-Methode:
 	/**
 	 * @param i
-	 *            legt das zu ladene Level fest
-	 * @return map-Objekt
+	 *            legt
+	 *            das
+	 *            zu
+	 *            ladene
+	 *            Level
+	 *            fest
+	 * @return 
+	 *         map
+	 *         -
+	 *         Objekt
 	 */
 	public static int[][] laden(int i) { // mit parameter i als level nummer
 		twoPlayerSet = Menue.getMultiplayer();
@@ -315,6 +335,37 @@ public class MapLoader {
 	// set_level-Methode:
 	public static void set_level(int level) {
 		MapLoader.level = level; // level speichern
+	}
+
+	public static int get_icon_x(int[][] map, int i) {
+		int found = 0;
+		for (int a = 0; a < MapLoader.get_n(); a++) {
+			for (int b = 0; b < MapLoader.get_n(); b++) {
+				if (map[a][b] == i)
+					found = a;
+				else {
+					System.out.println("Icon nicht gefunden");
+				}
+			}
+		}
+
+		return found;
+
+	}
+
+	public static int get_icon_y(int[][] map, int i) {
+		int found = 0;
+		for (int a = 0; a < MapLoader.get_n(); a++) {
+			for (int b = 0; b < MapLoader.get_n(); b++) {
+				if (map[a][b] == i)
+					found = b;
+				else {
+					System.out.println("Icon nicht gefunden");
+				}
+			}
+		}
+
+		return found;
 	}
 
 }

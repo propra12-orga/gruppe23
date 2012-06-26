@@ -60,15 +60,12 @@ public class MapEditor {
 		} while (richtigeAbfrage != true);
 
 		// datei existiert?
-		String dateiName = "/Maps/Level-";
+		String dateiName = "src/Maps/Level-";
 		dateiName = dateiName + eingabe + ".txt";
 
 		f = new File(dateiName);
-		System.out.println(f.exists());
-		System.out.print(f.getPath());
-
-		if (f.getAbsoluteFile().exists() == true) {
-
+		if (f.exists() == true) {
+			// level öffnen
 		}
 
 		else {
@@ -87,8 +84,17 @@ public class MapEditor {
 			}
 
 			for (int i = 0; i < n; i++) {
+
+				map[i][i] = 4;
+				map[n - 1][i] = 4;
+				map[i][n - 1] = 4;
+
+			}
+			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < n; j++) {
-					map[i][j] = 2;
+					if (map[i][j] != 4)
+						map[i][j] = 2;
+
 				}
 			}
 
@@ -107,7 +113,7 @@ public class MapEditor {
 		JButton save_button = new JButton("Level speichern");
 		ActionListener save = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (new File("/Maps/Level-" + eingabe).exists()) {
+				if (new File("/Maps/Level-" + eingabe + ".txt").exists()) {
 					int dateiAbfrage = JOptionPane.showConfirmDialog(null,
 							"Die Datei existiert bereits.\n"
 									+ "Möchten Sie die Datei überschreiben?",
@@ -226,8 +232,8 @@ public class MapEditor {
 		JPanel buttonPanel = new JPanel(new GridLayout(n, n));
 		final JButton feld[][] = new JButton[n][n];
 
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
+		for (int i = 0; i < n - 1; i++) {
+			for (int j = 0; j < n - 1; j++) {
 				final int a = i;
 				final int b = j;
 				ActionListener list = new ActionListener() {
@@ -245,6 +251,9 @@ public class MapEditor {
 								} else {
 									System.out
 											.println("Hulk1 wurde schon gesetzt");
+									//									int neu = JOptionPane.showConfirmDialog(null,
+									//											"Neue Position?", "Bereits gesetz",
+									//											JOptionPane.YES_NO_OPTION);
 									power = 2;
 									pic = new ImageIcon(
 											Map.class.getResource("/Pics/"
