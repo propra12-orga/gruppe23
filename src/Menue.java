@@ -893,7 +893,6 @@ public class Menue implements KeyListener {
 			if (eingabe == 0) {
 				spiel_neustarten();
 				if (zeit != 0) {
-					//Zeit spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
 					spieltimer.timer.cancel();
 					spieltimer = new Zeit();
 					spieltimer.laufzeit(zeit); // die Zeit ist in Sekunden 180sek = 3min
@@ -1650,7 +1649,9 @@ public class Menue implements KeyListener {
 			zeit = 180;
 			spiel_neustarten(); // bei änderung der Schwierigkeit jeweils das
 								// Spiel neustarten!
-			Zeit spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
+
+			spieltimer.timer.cancel();
+			spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
 			spieltimer.laufzeit(zeit); // die Zeit ist in Sekunden 180sek = 3min
 										// (Spielzeit/Rundenzeit)
 			System.out.println("Leicht"); // Testausgabe
@@ -1674,8 +1675,10 @@ public class Menue implements KeyListener {
 		public void actionPerformed(ActionEvent e) {
 			zeit = 90;
 			spiel_neustarten();
-			Zeit spieltimer = new Zeit();
-			spieltimer.laufzeit(zeit);
+			spieltimer.timer.cancel();
+			spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
+			spieltimer.laufzeit(zeit); // die Zeit ist in Sekunden 180sek = 3min
+										// (Spielzeit/Rundenzeit)
 
 			System.out.println("Mitte");
 
@@ -1694,8 +1697,10 @@ public class Menue implements KeyListener {
 		public void actionPerformed(ActionEvent e) {
 			zeit = 45;
 			spiel_neustarten();
-			Zeit spieltimer = new Zeit();
-			spieltimer.laufzeit(zeit);
+			spieltimer.timer.cancel();
+			spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
+			spieltimer.laufzeit(zeit); // die Zeit ist in Sekunden 180sek = 3min
+										// (Spielzeit/Rundenzeit)
 			System.out.println("Schwer");
 		}
 
