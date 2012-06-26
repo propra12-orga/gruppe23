@@ -56,6 +56,7 @@ public class Menue implements KeyListener {
 	 */
 
 	static JFrame frame;
+	
 	// private int anzahlLevel = 2; // nacher levelanzahl get methode;
 	//
 	//
@@ -327,6 +328,8 @@ public class Menue implements KeyListener {
 	static Client clientThread;
 	static boolean antwort_erhalten = false;
 	static Window win;
+	static int zeit = 0;
+	static Zeit spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
 
 	private static int[][] map; // Internes Spielfeld
 
@@ -1307,10 +1310,30 @@ public class Menue implements KeyListener {
 	 * .
 	 */
 	static void abfrage_neustarten() {
-		if (serverThread != null && serverThread.anfrage_erhalten == false) {
-			serverThread.out.println("abfrage_neustart");
+//		if (serverThread != null && serverThread.anfrage_erhalten == false) {
+//			serverThread.out.println("abfrage_neustart");
+//		}
+//		
+//		else if (clientThread != null && clientThread.anfrage_erhalten == false) {
+//			clientThread.out.println("abfrage_neustart");
+//		}
+		int eingabe = 0;
+		if	(serverThread != null) {
+			eingabe = JOptionPane.showConfirmDialog(null,
+					"Möchten Sie noch eine Runde spielen?", "Spiel zuende",
+					JOptionPane.YES_NO_CANCEL_OPTION);
+			if (eingabe == 0) {
+				serverThread.out.println("Spieler 1 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
+				createAndShowGui("Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
+									" auf Antwort...", 60, 600, 100, 0);
+			}
+			
+			else if (eingabe == 1) {
+				System.exit(0);
+			}
 		}
 
+<<<<<<< HEAD
 		else if (clientThread != null && clientThread.anfrage_erhalten == false) {
 			clientThread.out.println("abfrage_neustart");
 		}
@@ -1336,12 +1359,33 @@ public class Menue implements KeyListener {
 						" auf Antwort...", 60, 600, 100, 0);
 			} else {
 				spiel_neustarten();
+=======
+		else if (clientThread != null) {
+			createAndShowGui(
+			"Spieler 1 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
+			" auf Antwort...", 60, 600, 100, 0);
+		}
+		
+		else {
+			eingabe = JOptionPane.showConfirmDialog(null,
+					"Möchten Sie noch eine Runde spielen?", "Spiel zuende",
+					JOptionPane.YES_NO_CANCEL_OPTION);
+			if (eingabe == 0) {
+				spiel_neustarten();
+				if (zeit != 0) {
+					//Zeit spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
+					spieltimer.timer.cancel();
+					spieltimer = new Zeit();
+					spieltimer.laufzeit(zeit); // die Zeit ist in Sekunden 180sek = 3min
+												// (Spielzeit/Rundenzeit)
+				}
+			}
+			
+			else if (eingabe == 1) {
+				System.exit(0);
+>>>>>>> e3860eb264e8c65d19c8bef8c83324556c174c21
 			}
 
-		}
-
-		else if (eingabe == 1) {
-			System.exit(0);
 		}
 
 	}
@@ -2472,10 +2516,11 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
+			zeit = 180;
 			spiel_neustarten(); // bei änderung der Schwierigkeit jeweils das
 								// Spiel neustarten!
 			Zeit spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
-			spieltimer.laufzeit(180); // die Zeit ist in Sekunden 180sek = 3min
+			spieltimer.laufzeit(zeit); // die Zeit ist in Sekunden 180sek = 3min
 										// (Spielzeit/Rundenzeit)
 			System.out.println("Leicht"); // Testausgabe
 		}
@@ -2496,9 +2541,10 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
+			zeit = 90;
 			spiel_neustarten();
 			Zeit spieltimer = new Zeit();
-			spieltimer.laufzeit(90);
+			spieltimer.laufzeit(zeit);
 
 			System.out.println("Mitte");
 
@@ -2515,9 +2561,10 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
+			zeit = 45;
 			spiel_neustarten();
 			Zeit spieltimer = new Zeit();
-			spieltimer.laufzeit(45);
+			spieltimer.laufzeit(zeit);
 			System.out.println("Schwer");
 		}
 
