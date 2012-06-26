@@ -11,7 +11,7 @@ public class Client extends Thread {
 	PrintWriter out;
 	BufferedReader in;
 	int x, y, level;
-	String in_string, out_string, antwort = "leer";
+	String in_string, out_string, antwort = "leer", schwierigkeitsgrad = "";
 	boolean anfrage_erhalten = false;
 	
 	/* METHODEN: */
@@ -119,6 +119,8 @@ public class Client extends Thread {
 				// Spiel neustarten:
 				else if (in_string.equals("neustart")) {
 					antwort = "leer";
+					Menue.antwort_erhalten = true;
+					
 					//Menue.createAndShowGui("Das Spiel wird in ", " neugestartet...", 5, 300, 100, 0);
 					Menue.spiel_neustarten();
 				}
@@ -127,8 +129,19 @@ public class Client extends Thread {
 				else if (in_string.equals("level")) {
 					level = Integer.parseInt(in.readLine());
 					antwort = "leer";
+					
 					//Menue.createAndShowGui("Es wird in ", " zu Level " + level + " gewechselt...", 5, 400, 100, level); // BITTE AUSKOMMENTIERT LASSEN
 					MapLoader.set_level(level);
+					Menue.spiel_neustarten();
+				}
+				
+				// Schwierigkeitsgrad wechseln:
+				else if (in_string.equals("schwierigkeitsgrad")) {
+					schwierigkeitsgrad = in.readLine();
+					antwort = "leer";
+					Menue.antwort_erhalten = true;
+					
+					Menue.schwierigkeitsgrad_aendern(schwierigkeitsgrad);
 					Menue.spiel_neustarten();
 				}
 				

@@ -25,10 +25,10 @@ import javax.swing.WindowConstants;
 public class Menue implements KeyListener {
 
 	// Deklaration & Initialisierung:
+	
 	/**
 	 * Hauptframe des Programmes
 	 */
-
 	static JFrame frame;
 
 	// private int anzahlLevel = 2; // nacher levelanzahl get methode;
@@ -207,6 +207,7 @@ public class Menue implements KeyListener {
 	static Window win;
 	static int zeit = 0;
 	static Zeit spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
+	static boolean anfrage_geschickt = false;
 
 	private static int[][] map; // Internes Spielfeld
 
@@ -829,6 +830,16 @@ public class Menue implements KeyListener {
 		// Spielfeld grafisch reinitialisieren:
 		game.removeAll();
 		game.refresh();
+		
+		// Boolean-Werte zuruecksetzen:
+		antwort_erhalten = false;
+		anfrage_geschickt = false;
+		
+		System.out.println("antwort_erhalten nach neustart = " + antwort_erhalten); // Test
+		System.out.println(); // Test
+		
+		System.out.println("anfrage_geschickt nach neustart = " + anfrage_geschickt); // Test
+		System.out.println(); // Test
 	}
 
 	// abfrage_neustarten-Methode:
@@ -841,7 +852,7 @@ public class Menue implements KeyListener {
 		if (serverThread != null) {
 			createAndShowGui(
 					"Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
-					" auf Antwort...", 60, 600, 100, 0);
+					" auf Antwort...", 60, 600, 100, 0, "", "neustart");
 		}
 		
 		else {
@@ -855,7 +866,7 @@ public class Menue implements KeyListener {
 					.println("Spieler 2 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
 			createAndShowGui(
 					"Spieler 1 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
-					" auf Antwort...", 60, 600, 100, 0);
+					" auf Antwort...", 60, 600, 100, 0, "", "neustart");
 				}
 				
 				else {
@@ -904,22 +915,22 @@ public class Menue implements KeyListener {
 	@SuppressWarnings("serial")
 	static void createAndShowGui(final String text_anfang,
 			final String text_ende, final int zeit, final int breite,
-			final int hoehe, final int level) {
+			final int hoehe, final int level, final String schwierigkeitsgrad, final String aktion) {
 		final JLabel label = new JLabel();
 		int timerDelay = 1000;
-		Menue.antwort_erhalten = false;
+		antwort_erhalten = false;
 		new Timer(timerDelay, new ActionListener() {
 			int timeLeft = zeit;
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Window win = SwingUtilities.getWindowAncestor(label);
-				//((JDialog) win).setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-				if (timeLeft > 0 && Menue.antwort_erhalten == false) {
+				((JDialog) win).setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+				if (timeLeft > 0 && antwort_erhalten == false) {
 					label.setText(text_anfang + timeLeft + " Sekunden"
 							+ text_ende);
-					//win.setSize(breite, hoehe);
-					antwort_verarbeiten(win, e, level);
+					win.setSize(breite, hoehe);
+					antwort_verarbeiten(win, e, level, schwierigkeitsgrad, aktion);
 					timeLeft--;
 				}
 
@@ -939,34 +950,36 @@ public class Menue implements KeyListener {
 		JOptionPane.showOptionDialog(frame, label, "",
 				JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
 				new Object[] {}, null);
+		
+		antwort_erhalten = false;
 	}
 
 	// antwort_verarbeiten-Methode:
 	/**
 	 * Verarbeitet die Server -/ Client - Antworten
 	 */
-	static void antwort_verarbeiten(Window win, ActionEvent e, int level) {
-		if (serverThread != null) {
+	static void antwort_verarbeiten(Window win, ActionEvent e, int level, String schwierigkeitsgrad, String aktion) {
+		if (serverThread != null) {			
 			if (serverThread.antwort.equals("yes")) {
-				antwort_erhalten = true;
-				if (level != 0) {
+				if (aktion.equals("level")) {
 					serverThread.out.println("level");
 					serverThread.out.println(level);
-				}
-
-				else {
-					serverThread.out.println("neustart");
-				}
-
-				((Timer) e.getSource()).stop();
-				win.setVisible(false);
-				serverThread.antwort = "leer";
-				if (level != 0) {
+					MapLoader.set_level(level);
 					// createAndShowGui("Spieler 2 moechte ebenfalls zu Level "
 					// + level + " wechseln. Es wird in ", " zu Level " + level
-					// + " gewechselt...", 5, 600, 100, level); // BITTE
+					// + " gewechselt...", 5, 600, 100, level, "", "level"); // BITTE
 					// AUSKOMMENTIERT LASSEN
-					MapLoader.set_level(level);
+				}
+
+				else if (aktion.equals("neustart")) {
+					serverThread.out.println("neustart");
+				}
+				
+				else if (aktion.equals("schwierigkeitsgrad")) {
+					serverThread.out.println("schwierigkeitsgrad");
+					serverThread.out.println(schwierigkeitsgrad);
+					
+					schwierigkeitsgrad_aendern(schwierigkeitsgrad);				
 				}
 
 //				else {
@@ -978,27 +991,27 @@ public class Menue implements KeyListener {
 				spiel_neustarten();
 			}
 
-			else if (serverThread.antwort.equals("no")) {
-				antwort_erhalten = true;
-				((Timer) e.getSource()).stop();
-				win.setVisible(false);
-				serverThread.antwort = "leer";
-				if (level != 0) {
-					// Menue.createAndShowGui("Spieler 2 moechte nicht zu Level "
-					// + level + " wechseln.\nDas Spiel wird in ",
-					// " fortgesetzt...", 5, 300, 100, 0); // BITTE
-					// AUSKOMMENTIERT LASSEN & NICHT LOESCHEN
-				}
-
+//			else if (serverThread.antwort.equals("no")) {
+//				antwort_erhalten = true;
+//				((Timer) e.getSource()).stop();
+//				win.setVisible(false);
+//				serverThread.antwort = "leer";
+//				if (level != 0) {
+//					 Menue.createAndShowGui("Spieler 2 moechte nicht zu Level "
+//					 + level + " wechseln.\nDas Spiel wird in ",
+//					 " fortgesetzt...", 5, 300, 100, 0); // BITTE
+//					 AUSKOMMENTIERT LASSEN & NICHT LOESCHEN
+//				}
+//
 //				else {
 //					Menue.createAndShowGui(
 //							"Spieler 2 moechte das Spiel nicht neustarten.\nDas Spiel wird in ",
 //							" fortgesetzt...", 5, 300, 100, 0);
 //				}
-
-			}
+//
+//			}
 			
-			else if (serverThread.in_string.contains("?")) {
+			if (!(serverThread.antwort.equals("leer"))) {
 				antwort_erhalten = true;
 				((Timer) e.getSource()).stop();
 				win.setVisible(false);
@@ -1007,27 +1020,27 @@ public class Menue implements KeyListener {
 
 		}
 
-		else if (clientThread != null) {
-			if (clientThread.antwort.equals("yes")) {
-				antwort_erhalten = true;
-				if (level != 0) {
+		else if (clientThread != null) {			
+			if (clientThread.antwort.equals("yes")) {				
+				if (aktion.equals("level")) {
 					clientThread.out.println("level");
 					clientThread.out.println(level);
-				}
-
-				else {
-					clientThread.out.println("neustart");
-				}
-
-				((Timer) e.getSource()).stop();
-				win.setVisible(false);
-				clientThread.antwort = "leer";
-				if (level != 0) {
+					MapLoader.set_level(level);
 					// createAndShowGui("Spieler 1 moechte ebenfalls zu Level "
 					// + level + " wechseln. Es wird in ",
-					// " zu Level 1 gewechselt...", 5, 600, 100, level); //
+					// " zu Level 1 gewechselt...", 5, 600, 100, level, "", "level"); //
 					// BITTE AUSKOMMENTIERT LASSEN & NICHT LOESCHEN
-					MapLoader.set_level(level);
+				}
+
+				else if (aktion.equals("neustart")) {
+					clientThread.out.println("neustart");
+				}
+				
+				else if (aktion.equals("schwierigkeitsgrad")) {
+					clientThread.out.println("schwierigkeitsgrad");
+					clientThread.out.println(schwierigkeitsgrad);
+					
+					schwierigkeitsgrad_aendern(schwierigkeitsgrad);
 				}
 
 //				else {
@@ -1039,27 +1052,27 @@ public class Menue implements KeyListener {
 				spiel_neustarten();
 			}
 
-			else if (clientThread.antwort.equals("no")) {
-				antwort_erhalten = true;
-				((Timer) e.getSource()).stop();
-				win.setVisible(false);
-				clientThread.antwort = "leer";
-				if (level != 0) {
-					// Menue.createAndShowGui("Spieler 1 moechte nicht zu Level "
-					// + level + " wechseln.\nDas Spiel wird in ",
-					// " fortgesetzt...", 5, 300, 100, 0); // BITTE
-					// AUSKOMMENTIERT LASSEN & NICHT LOESCHEN
-				}
-
+//			else if (clientThread.antwort.equals("no")) {
+//				antwort_erhalten = true;
+//				((Timer) e.getSource()).stop();
+//				win.setVisible(false);
+//				clientThread.antwort = "leer";
+//				if (level != 0) {
+//					 Menue.createAndShowGui("Spieler 1 moechte nicht zu Level "
+//					 + level + " wechseln.\nDas Spiel wird in ",
+//					 " fortgesetzt...", 5, 300, 100, 0); // BITTE
+//					 AUSKOMMENTIERT LASSEN & NICHT LOESCHEN
+//				}
+//
 //				else {
 //					Menue.createAndShowGui(
 //							"Spieler 1 moechte das Spiel nicht neustarten.\nDas Spiel wird in ",
 //							" fortgesetzt...", 5, 300, 100, 0);
 //				}
-
-			}
-			
-			else if (clientThread.in_string.contains("?")) {
+//
+//			}
+	
+			if (!(clientThread.antwort.equals("leer"))) {
 				antwort_erhalten = true;
 				((Timer) e.getSource()).stop();
 				win.setVisible(false);
@@ -1069,10 +1082,72 @@ public class Menue implements KeyListener {
 		}
 
 	}
+	
+	// schwierigkeitsgrad_aendern-Methode:
+	/**
+	 * Aendert den Schwierigkeitsgrad
+	 */
+	static void schwierigkeitsgrad_aendern(String schwierigkeitsgrad) {
+		System.out.println("antwort_erhalten vor neustart = " + antwort_erhalten); // Test
+		System.out.println(); // Test
+		
+		System.out.println("anfrage_geschickt vor neustart = " + anfrage_geschickt); // Test
+		System.out.println(); // Test
+		
+		
+		if (clientThread != null && anfrage_geschickt == false && antwort_erhalten == false) {
+			anfrage_geschickt = true;
+			clientThread.out
+			.println("Spieler 2 moechte zum Schwierigkeitsgrad '" + schwierigkeitsgrad + "' wechseln. Soll zum Schwierigkeitsgrad '" + schwierigkeitsgrad + "' gewechselt werden?");
+			createAndShowGui(
+			"Spieler 1 wurde eine Anfrage zum Wechsel zu Schwierigkeitsgrad '" + schwierigkeitsgrad + "' geschickt. Warte ",
+			" auf Antwort...", 60, 750, 100, 0, schwierigkeitsgrad, "schwierigkeitsgrad");
+		}
+
+		else if (serverThread != null && anfrage_geschickt == false && antwort_erhalten == false) {
+			anfrage_geschickt = true;
+			serverThread.out
+			.println("Spieler 1 moechte zum Schwierigkeitsgrad '" + schwierigkeitsgrad + "' wechseln. Soll zum Schwierigkeitsgrad '" + schwierigkeitsgrad + "' gewechselt werden?");
+			createAndShowGui(
+			"Spieler 2 wurde eine Anfrage zum Wechsel zu Schwierigkeitsgrad '" + schwierigkeitsgrad + "' geschickt. Warte ",
+			" auf Antwort...", 60, 750, 100, 0, schwierigkeitsgrad, "schwierigkeitsgrad");
+		}
+
+		else {
+			if (schwierigkeitsgrad.equals("Anfänger")) {
+				zeit = 0;
+			}
+			
+			else if (schwierigkeitsgrad.equals("Leicht")) {
+				zeit = 180;
+			}
+			
+			else if (schwierigkeitsgrad.equals("Mittel")) {
+				zeit = 90;
+			}
+			
+			else if (schwierigkeitsgrad.equals("Schwer")) {
+				zeit = 45;
+			}
+			
+			spiel_neustarten();
+			System.out.println(schwierigkeitsgrad); // Test
+			anfrage_geschickt = false;
+			antwort_erhalten = false;
+			
+			if (zeit != 0) {
+				spieltimer.timer.cancel();
+				spieltimer = new Zeit(); 	// objekt zeit (mit Zeitlimit)
+				spieltimer.laufzeit(zeit); 	// zeit in Sekunden
+			}
+			
+		}
+		
+	}
 
 	// lan_modus_beenden-Methode:
 	/**
-	 * Beendet den LAN - Modus
+	 * Beendet den LAN-Modus
 	 */
 	static void lan_modus_beenden() {
 		if (serverThread != null) {
@@ -1153,7 +1228,7 @@ public class Menue implements KeyListener {
 						.println("Spieler 2 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
 				createAndShowGui(
 						"Spieler 1 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
-						" auf Antwort...", 60, 600, 100, 0);
+						" auf Antwort...", 60, 600, 100, 0, "", "neustart");
 			}
 
 			else if (serverThread != null) {
@@ -1161,7 +1236,7 @@ public class Menue implements KeyListener {
 						.println("Spieler 1 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
 				createAndShowGui(
 						"Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
-						" auf Antwort...", 60, 600, 100, 0);
+						" auf Antwort...", 60, 600, 100, 0, "", "neustart");
 			}
 
 			else {
@@ -1446,7 +1521,7 @@ public class Menue implements KeyListener {
 						.println("Spieler 2 moechte zu Level 1 wechseln. Soll zu Level 1 gewechselt werden?");
 				createAndShowGui(
 						"Spieler 1 wurde eine Anfrage zum Wechsel zu Level 1 geschickt. Warte ",
-						" auf Antwort...", 60, 600, 100, 1);
+						" auf Antwort...", 60, 600, 100, 1, "", "level");
 			}
 
 			else if (serverThread != null) {
@@ -1454,7 +1529,7 @@ public class Menue implements KeyListener {
 						.println("Spieler 1 moechte zu Level 1 wechseln. Soll zu Level 1 gewechselt werden?");
 				createAndShowGui(
 						"Spieler 2 wurde eine Anfrage zum Wechsel zu Level 1 geschickt. Warte ",
-						" auf Antwort...", 60, 600, 100, 1);
+						" auf Antwort...", 60, 600, 100, 1, "", "level");
 			}
 
 			else {
@@ -1493,7 +1568,7 @@ public class Menue implements KeyListener {
 						.println("Spieler 2 moechte zu Level 2 wechseln. Soll zu Level 2 gewechselt werden?");
 				createAndShowGui(
 						"Spieler 1 wurde eine Anfrage zum Wechsel zu Level 2 geschickt. Warte ",
-						" auf Antwort...", 60, 600, 100, 2);
+						" auf Antwort...", 60, 600, 100, 2, "", "level");
 			}
 
 			else if (serverThread != null) {
@@ -1501,7 +1576,7 @@ public class Menue implements KeyListener {
 						.println("Spieler 1 moechte zu Level 2 wechseln. Soll zu Level 2 gewechselt werden?");
 				createAndShowGui(
 						"Spieler 2 wurde eine Anfrage zum Wechsel zu Level 2 geschickt. Warte ",
-						" auf Antwort...", 60, 600, 100, 2);
+						" auf Antwort...", 60, 600, 100, 2, "", "level");
 			}
 
 			else {
@@ -1594,15 +1669,12 @@ public class Menue implements KeyListener {
 		public Action_noob() { // zuweisung für von Action_noob aus der Zeile
 								// 110 & 255
 			putValue(NAME, "Anfänger");
-			putValue(SHORT_DESCRIPTION, "Speil ohne Zeitlimit");
+			putValue(SHORT_DESCRIPTION, "Spiel ohne Zeitlimit");
 		}
 
 		public void actionPerformed(ActionEvent e) { // wenn es ausgeführt wird
 														// ..
-			zeit = 0;
-			spiel_neustarten(); // .. spiel im Anfängermodus (ohne Zeitlimit)
-								// starten.
-			System.out.println("Anfänger"); // Testaugabe
+			schwierigkeitsgrad_aendern("Anfänger");
 		}
 
 	}
@@ -1612,19 +1684,11 @@ public class Menue implements KeyListener {
 
 		public Action_Leicht() {
 			putValue(NAME, "Leicht");
-			putValue(SHORT_DESCRIPTION, "Für Spieler die Zeit brauchen");
+			putValue(SHORT_DESCRIPTION, "Für Spieler, die Zeit brauchen");
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			zeit = 180;
-			spiel_neustarten(); // bei änderung der Schwierigkeit jeweils das
-								// Spiel neustarten!
-
-			spieltimer.timer.cancel();
-			spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
-			spieltimer.laufzeit(zeit); // die Zeit ist in Sekunden 180sek = 3min
-										// (Spielzeit/Rundenzeit)
-			System.out.println("Leicht"); // Testausgabe
+			schwierigkeitsgrad_aendern("Leicht");
 		}
 
 	}
@@ -1643,15 +1707,7 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			zeit = 90;
-			spiel_neustarten();
-			spieltimer.timer.cancel();
-			spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
-			spieltimer.laufzeit(zeit); // die Zeit ist in Sekunden 180sek = 3min
-										// (Spielzeit/Rundenzeit)
-
-			System.out.println("Mitte");
-
+			schwierigkeitsgrad_aendern("Mittel");
 		}
 
 	}
@@ -1661,17 +1717,11 @@ public class Menue implements KeyListener {
 
 		public Action_Schwer() {
 			putValue(NAME, "Schwer");
-			putValue(SHORT_DESCRIPTION, "Für Blitzschnelle Spieler");
+			putValue(SHORT_DESCRIPTION, "Für blitzschnelle Spieler");
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			zeit = 45;
-			spiel_neustarten();
-			spieltimer.timer.cancel();
-			spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
-			spieltimer.laufzeit(zeit); // die Zeit ist in Sekunden 180sek = 3min
-										// (Spielzeit/Rundenzeit)
-			System.out.println("Schwer");
+			schwierigkeitsgrad_aendern("Schwer");
 		}
 
 	}
