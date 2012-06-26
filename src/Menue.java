@@ -18,16 +18,41 @@ import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
 /**
- * Beinhaltet die Main-Methode, erstellt Fenster & Menue, startet & beendet das
- * Programm, verwaltet Tastatureingaben und fuehrt Neustart des Spiels durch
+ * Beinhaltet
+ * die
+ * Main-
+ * Methode
+ * ,
+ * erstellt
+ * Fenster
+ * & Menue
+ * ,
+ * startet
+ * &
+ * beendet
+ * das
+ * Programm
+ * ,
+ * verwaltet
+ * Tastatureingaben
+ * und
+ * fuehrt
+ * Neustart
+ * des
+ * Spiels
+ * durch
  * 
- * @author Kolja Salewski
+ * @author 
+ *         Kolja
+ *         Salewski
  */
 public class Menue implements KeyListener {
 
 	// Deklaration & Initialisierung:
 	/**
-	 * Hauptframe des Programmes
+	 * Hauptframe
+	 * des
+	 * Programmes
 	 */
 
 	static JFrame frame;
@@ -55,7 +80,14 @@ public class Menue implements KeyListener {
 	//
 
 	/**
-	 * Button im Leistenmenue (Schliesst das Programm)
+	 * Button
+	 * im
+	 * Leistenmenue
+	 * (
+	 * Schliesst
+	 * das
+	 * Programm
+	 * )
 	 */
 	private final Action_Beenden Action_Beenden = new Action_Beenden(); // Aktion
 																		// zum
@@ -65,21 +97,42 @@ public class Menue implements KeyListener {
 																		// erstellen
 
 	/**
-	 * Button im Leistenmenue (Neustart des Spieles)
+	 * Button
+	 * im
+	 * Leistenmenue
+	 * (
+	 * Neustart
+	 * des
+	 * Spieles
+	 * )
 	 */
 	private final Action_Neu Action_Neu = new Action_Neu(); // Aktion zum
 															// Neustart des
 															// Spiels erstellen
 
 	/**
-	 * Button im Leistenmenue (Laden des Spieles)
+	 * Button
+	 * im
+	 * Leistenmenue
+	 * (
+	 * Laden
+	 * des
+	 * Spieles
+	 * )
 	 */
 	private final Action_Load Action_Load = new Action_Load(); // Aktion zum
 																// Neustart des
 																// Spiels
 																// erstellen
 	/**
-	 * Button im Leistenmenue (Speichern des Spieles)
+	 * Button
+	 * im
+	 * Leistenmenue
+	 * (
+	 * Speichern
+	 * des
+	 * Spieles
+	 * )
 	 */
 	private final Action_Save Action_Save = new Action_Save(); // Aktion zum
 																// Neustart des
@@ -87,7 +140,16 @@ public class Menue implements KeyListener {
 																// erstellen
 
 	/**
-	 * Button im Leistenmenue (Wechsel zum Singleplayer-Modus)
+	 * Button
+	 * im
+	 * Leistenmenue
+	 * (
+	 * Wechsel
+	 * zum
+	 * Singleplayer
+	 * -
+	 * Modus
+	 * )
 	 */
 	private final Action_Singleplayer Action_Singleplayer = new Action_Singleplayer(); // Aktion
 																						// zum
@@ -98,7 +160,16 @@ public class Menue implements KeyListener {
 																						// erstellen
 
 	/**
-	 * Button im Leistenmenue (Wechsel zum HotSeat-Modus)
+	 * Button
+	 * im
+	 * Leistenmenue
+	 * (
+	 * Wechsel
+	 * zum
+	 * HotSeat
+	 * -
+	 * Modus
+	 * )
 	 */
 	private final Action_HotSeat Action_HotSeat = new Action_HotSeat(); // Aktion
 																		// zum
@@ -109,7 +180,16 @@ public class Menue implements KeyListener {
 																		// erstellen
 
 	/**
-	 * Button im Leistenmenue (Wechsel zum Server-Modus)
+	 * Button
+	 * im
+	 * Leistenmenue
+	 * (
+	 * Wechsel
+	 * zum
+	 * Server
+	 * -
+	 * Modus
+	 * )
 	 */
 	private final Action_Server Action_Server = new Action_Server(); // Aktion
 																		// zum
@@ -120,7 +200,16 @@ public class Menue implements KeyListener {
 																		// erstellen
 
 	/**
-	 * Button im Leistenmenue (Wechsel zum Client-Modus)
+	 * Button
+	 * im
+	 * Leistenmenue
+	 * (
+	 * Wechsel
+	 * zum
+	 * Client
+	 * -
+	 * Modus
+	 * )
 	 */
 	private final Action_Client Action_Client = new Action_Client(); // Aktion
 																		// zum
@@ -131,7 +220,14 @@ public class Menue implements KeyListener {
 																		// erstellen
 
 	/**
-	 * Button im Leistenmenue (Wechsel zu Level 1)
+	 * Button
+	 * im
+	 * Leistenmenue
+	 * (
+	 * Wechsel
+	 * zu
+	 * Level
+	 * 1)
 	 */
 	private final Action_Level_1 Action_Level_1 = new Action_Level_1(); // Aktion
 																		// zum
@@ -142,7 +238,14 @@ public class Menue implements KeyListener {
 																		// erstellen
 
 	/**
-	 * Button im Leistenmenue (Wechsel zu Level 2)
+	 * Button
+	 * im
+	 * Leistenmenue
+	 * (
+	 * Wechsel
+	 * zu
+	 * Level
+	 * 2)
 	 */
 	private final Action_Level_2 Action_Level_2 = new Action_Level_2(); // Aktion
 																		// zum
@@ -163,7 +266,16 @@ public class Menue implements KeyListener {
 	// erstellen
 
 	/**
-	 * Button im Leistenmenue (Wechsel zu Map-Editor)
+	 * Button
+	 * im
+	 * Leistenmenue
+	 * (
+	 * Wechsel
+	 * zu
+	 * Map
+	 * -
+	 * Editor
+	 * )
 	 */
 	private final Action_Map_Editor Action_Map_Editor = new Action_Map_Editor(); // Aktion
 																					// zum
@@ -182,9 +294,19 @@ public class Menue implements KeyListener {
 	// erstellen
 
 	/**
-	 * Buttons für den Schwierigkeitsgrad (schweirigkeit ist Zeitabhängig)
+	 * Buttons
+	 * für
+	 * den
+	 * Schwierigkeitsgrad
+	 * (
+	 * schweirigkeit
+	 * ist
+	 * Zeitabhängig
+	 * )
 	 * 
-	 * @author Andrej Morlang
+	 * @author 
+	 *         Andrej
+	 *         Morlang
 	 */
 	private final Action_noob Action_noob = new Action_noob(); // Aktion zum
 																// setzen der
@@ -212,12 +334,33 @@ public class Menue implements KeyListener {
 	private static int[][] map; // Internes Spielfeld
 
 	/**
-	 * Objekt der Map-Klasse; enthaelt die Daten des Spielfeldes;
+	 * Objekt
+	 * der
+	 * Map
+	 * -
+	 * Klasse
+	 * ;
+	 * enthaelt
+	 * die
+	 * Daten
+	 * des
+	 * Spielfeldes
+	 * ;
 	 */
 	private static Map game; // Grafisches Spielfeld
 
 	/**
-	 * enthaelt die Informationen ueber die Spielerposition ((x,y)-Koordinate)
+	 * enthaelt
+	 * die
+	 * Informationen
+	 * ueber
+	 * die
+	 * Spielerposition
+	 * ((x
+	 * ,y)
+	 * -
+	 * Koordinate
+	 * )
 	 */
 	private static Hulk hulk1, hulk2; // Spielfiguren
 
@@ -227,8 +370,21 @@ public class Menue implements KeyListener {
 
 	/* Konstruktor: */
 	/**
-	 * {@code initialize()} legt die Panels in das JFrame {@code frame()} &
-	 * erstellt die grafische Oberflaeche des Spieles
+	 * {@code initialize()}
+	 * legt
+	 * die
+	 * Panels
+	 * in
+	 * das
+	 * JFrame
+	 * {@code frame()}
+	 * &
+	 * erstellt
+	 * die
+	 * grafische
+	 * Oberflaeche
+	 * des
+	 * Spieles
 	 */
 	public Menue() {
 		spiel_neugestartet = false;
@@ -251,7 +407,15 @@ public class Menue implements KeyListener {
 
 	// initialize-Methode:
 	/**
-	 * Initialisiert das Spielfeld (Panels, frames etc.),
+	 * Initialisiert
+	 * das
+	 * Spielfeld
+	 * (
+	 * Panels
+	 * ,
+	 * frames
+	 * etc
+	 * .),
 	 */
 	private void initialize() {
 		frame = new JFrame(); // Fenster erstellen
@@ -401,10 +565,58 @@ public class Menue implements KeyListener {
 
 	// keyPressed-Methode:
 	/**
-	 * Horcht, ob eine Taste gedrueckt wurde und wertet die Aktion gegebenfalls
-	 * aus. Gueltige Aktionen sind: Hoch-, Links-, Rechts-, Runtertaste
-	 * (Bewegung) und Leertaste (Bombe) für den 1. Spieler sowie W, A, S, D
-	 * (Bewegung) und E (Bombe) für den 2. Spieler
+	 * Horcht
+	 * ,
+	 * ob
+	 * eine
+	 * Taste
+	 * gedrueckt
+	 * wurde
+	 * und
+	 * wertet
+	 * die
+	 * Aktion
+	 * gegebenfalls
+	 * aus
+	 * .
+	 * Gueltige
+	 * Aktionen
+	 * sind
+	 * :
+	 * Hoch
+	 * -,
+	 * Links
+	 * -,
+	 * Rechts
+	 * -,
+	 * Runtertaste
+	 * (
+	 * Bewegung
+	 * )
+	 * und
+	 * Leertaste
+	 * (
+	 * Bombe
+	 * )
+	 * für
+	 * den
+	 * 1.
+	 * Spieler
+	 * sowie
+	 * W,
+	 * A,
+	 * S,
+	 * D (
+	 * Bewegung
+	 * )
+	 * und
+	 * E (
+	 * Bombe
+	 * )
+	 * für
+	 * den
+	 * 2.
+	 * Spieler
 	 */
 	public void keyPressed(KeyEvent Key) {
 		// Key-Methoden fuer 1. Spieler
@@ -545,9 +757,39 @@ public class Menue implements KeyListener {
 
 	// spieler1_bombe-Methode:
 	/**
-	 * Ueberprueft, ob der 1. Spieler noch eine Bombe legen darf, verringert
-	 * ggf. die max. Bomben-Anzahl und ruft die bombe_legen-Methode aus der
-	 * Map-Klasse auf
+	 * Ueberprueft
+	 * ,
+	 * ob
+	 * der
+	 * 1.
+	 * Spieler
+	 * noch
+	 * eine
+	 * Bombe
+	 * legen
+	 * darf
+	 * ,
+	 * verringert
+	 * ggf
+	 * .
+	 * die
+	 * max
+	 * .
+	 * Bomben
+	 * -
+	 * Anzahl
+	 * und
+	 * ruft
+	 * die
+	 * bombe_legen
+	 * -
+	 * Methode
+	 * aus
+	 * der
+	 * Map
+	 * -
+	 * Klasse
+	 * auf
 	 */
 	static void spieler1_bombe() {
 		System.out.println("Bombe S1"); // Test
@@ -588,9 +830,39 @@ public class Menue implements KeyListener {
 
 	// spieler2_bombe-Methode:
 	/**
-	 * Ueberprueft, ob der 2. Spieler noch eine Bombe legen darf, verringert
-	 * ggf. die max. Bomben-Anzahl und ruft die bombe_legen-Methode aus der
-	 * Map-Klasse auf
+	 * Ueberprueft
+	 * ,
+	 * ob
+	 * der
+	 * 2.
+	 * Spieler
+	 * noch
+	 * eine
+	 * Bombe
+	 * legen
+	 * darf
+	 * ,
+	 * verringert
+	 * ggf
+	 * .
+	 * die
+	 * max
+	 * .
+	 * Bomben
+	 * -
+	 * Anzahl
+	 * und
+	 * ruft
+	 * die
+	 * bombe_legen
+	 * -
+	 * Methode
+	 * aus
+	 * der
+	 * Map
+	 * -
+	 * Klasse
+	 * auf
 	 */
 	static void spieler2_bombe() {
 		System.out.println("Bombe S2"); // Test
@@ -630,10 +902,56 @@ public class Menue implements KeyListener {
 
 	// spieler1_aktionen-Methode:
 	/**
-	 * Ueberprueft, ob der Spieler mit den Pfeiltasten im Client-, Server- oder
-	 * Einspieler-Modus ist. Je nach Modus: Client: 2. Spielfigur bewegen &
-	 * Bewegungen dem Server mitteilen; Server: 1. Spielfigur bewegen &
-	 * Bewegungen dem Client mitteilen; Einspieler: 1. Spielfigur bewegen
+	 * Ueberprueft
+	 * ,
+	 * ob
+	 * der
+	 * Spieler
+	 * mit
+	 * den
+	 * Pfeiltasten
+	 * im
+	 * Client
+	 * -,
+	 * Server
+	 * -
+	 * oder
+	 * Einspieler
+	 * -
+	 * Modus
+	 * ist
+	 * .
+	 * Je
+	 * nach
+	 * Modus
+	 * :
+	 * Client
+	 * :
+	 * 2.
+	 * Spielfigur
+	 * bewegen
+	 * &
+	 * Bewegungen
+	 * dem
+	 * Server
+	 * mitteilen
+	 * ;
+	 * Server
+	 * :
+	 * 1.
+	 * Spielfigur
+	 * bewegen
+	 * &
+	 * Bewegungen
+	 * dem
+	 * Client
+	 * mitteilen
+	 * ;
+	 * Einspieler
+	 * :
+	 * 1.
+	 * Spielfigur
+	 * bewegen
 	 */
 	void spieler1_aktionen(int x, int y) {
 		// Bewegung Spieler 1
@@ -666,9 +984,41 @@ public class Menue implements KeyListener {
 
 	// spieler1_aktionen2-Methode:
 	/**
-	 * Ueberprueft, ob sich die 1. Spielfigur in die gewuenschte Richtung
-	 * bewegen kann. Je nachdem, welches Feld als nächstes betreten wird, werden
-	 * unterschiedliche Aktionen durchgefuehrt (Bewegung, Sieg, Niederlage).
+	 * Ueberprueft
+	 * ,
+	 * ob
+	 * sich
+	 * die
+	 * 1.
+	 * Spielfigur
+	 * in
+	 * die
+	 * gewuenschte
+	 * Richtung
+	 * bewegen
+	 * kann
+	 * .
+	 * Je
+	 * nachdem
+	 * ,
+	 * welches
+	 * Feld
+	 * als
+	 * nächstes
+	 * betreten
+	 * wird
+	 * ,
+	 * werden
+	 * unterschiedliche
+	 * Aktionen
+	 * durchgefuehrt
+	 * (
+	 * Bewegung
+	 * ,
+	 * Sieg
+	 * ,
+	 * Niederlage
+	 * ).
 	 */
 	static void spieler1_aktionen2(int x, int y) {
 		if (Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 2 // falls
@@ -727,9 +1077,41 @@ public class Menue implements KeyListener {
 
 	// spieler2_aktionen-Methode:
 	/**
-	 * Ueberprueft, ob sich die 2. Spielfigur in die gewuenschte Richtung
-	 * bewegen kann. Je nachdem, welches Feld als nächstes betreten wird, werden
-	 * unterschiedliche Aktionen durchgefuehrt (Bewegung, Sieg, Niederlage).
+	 * Ueberprueft
+	 * ,
+	 * ob
+	 * sich
+	 * die
+	 * 2.
+	 * Spielfigur
+	 * in
+	 * die
+	 * gewuenschte
+	 * Richtung
+	 * bewegen
+	 * kann
+	 * .
+	 * Je
+	 * nachdem
+	 * ,
+	 * welches
+	 * Feld
+	 * als
+	 * nächstes
+	 * betreten
+	 * wird
+	 * ,
+	 * werden
+	 * unterschiedliche
+	 * Aktionen
+	 * durchgefuehrt
+	 * (
+	 * Bewegung
+	 * ,
+	 * Sieg
+	 * ,
+	 * Niederlage
+	 * ).
 	 */
 	static void spieler2_aktionen(int x, int y) {
 		// Bewegung Spieler 2
@@ -795,9 +1177,37 @@ public class Menue implements KeyListener {
 
 	// reset_Hulk-Methode:
 	/**
-	 * Setzt die beiden Spielfiguren auf ihre Startpositionen zurueck. Die 1.
-	 * Spielfigur landet immer in der oberen linken Ecke. Die 2. Spielfigur
-	 * landet immer in der unteren rechten Ecke.
+	 * Setzt
+	 * die
+	 * beiden
+	 * Spielfiguren
+	 * auf
+	 * ihre
+	 * Startpositionen
+	 * zurueck
+	 * .
+	 * Die
+	 * 1.
+	 * Spielfigur
+	 * landet
+	 * immer
+	 * in
+	 * der
+	 * oberen
+	 * linken
+	 * Ecke
+	 * .
+	 * Die
+	 * 2.
+	 * Spielfigur
+	 * landet
+	 * immer
+	 * in
+	 * der
+	 * unteren
+	 * rechten
+	 * Ecke
+	 * .
 	 */
 	static void reset_Hulk() {
 		hulk1.set_x(1);
@@ -815,9 +1225,35 @@ public class Menue implements KeyListener {
 
 	// spiel_neustarten-Methode:
 	/**
-	 * Startet das Spiel folgendermaßen neu: Zuruecksetzen der Spielfiguren,
-	 * max. Anzahl Bomben und Bomben-Radien, Entfernen aktueller Bomben,
-	 * Reinitialisieren der internen und grafischen Spielfelder
+	 * Startet
+	 * das
+	 * Spiel
+	 * folgendermaßen
+	 * neu
+	 * :
+	 * Zuruecksetzen
+	 * der
+	 * Spielfiguren
+	 * ,
+	 * max
+	 * .
+	 * Anzahl
+	 * Bomben
+	 * und
+	 * Bomben
+	 * -
+	 * Radien
+	 * ,
+	 * Entfernen
+	 * aktueller
+	 * Bomben
+	 * ,
+	 * Reinitialisieren
+	 * der
+	 * internen
+	 * und
+	 * grafischen
+	 * Spielfelder
 	 */
 	static void spiel_neustarten() {
 
@@ -853,8 +1289,25 @@ public class Menue implements KeyListener {
 
 	// abfrage_neustarten-Methode:
 	/**
-	 * Fragt den Benutzer, ob er das Spiel neustarten oder beenden möchte und
-	 * fuehrt die jeweilige Aktion aus.
+	 * Fragt
+	 * den
+	 * Benutzer
+	 * ,
+	 * ob
+	 * er
+	 * das
+	 * Spiel
+	 * neustarten
+	 * oder
+	 * beenden
+	 * möchte
+	 * und
+	 * fuehrt
+	 * die
+	 * jeweilige
+	 * Aktion
+	 * aus
+	 * .
 	 */
 	static void abfrage_neustarten() {
 //		if (serverThread != null && serverThread.anfrage_erhalten == false) {
@@ -880,6 +1333,33 @@ public class Menue implements KeyListener {
 			}
 		}
 
+<<<<<<< HEAD
+		else if (clientThread != null && clientThread.anfrage_erhalten == false) {
+			clientThread.out.println("abfrage_neustart");
+		}
+
+		int eingabe = JOptionPane.showConfirmDialog(null,
+				"Möchten Sie noch eine Runde spielen?", "Spiel zuende",
+				JOptionPane.YES_NO_OPTION);
+
+		if (eingabe == 0) {
+			if (clientThread != null) {
+				clientThread.out
+						.println("Spieler 2 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
+				createAndShowGui(
+						"Spieler 1 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
+						" auf Antwort...", 60, 600, 100, 0);
+			}
+
+			else if (serverThread != null) {
+				serverThread.out
+						.println("Spieler 1 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
+				createAndShowGui(
+						"Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
+						" auf Antwort...", 60, 600, 100, 0);
+			} else {
+				spiel_neustarten();
+=======
 		else if (clientThread != null) {
 			createAndShowGui(
 			"Spieler 1 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
@@ -902,15 +1382,20 @@ public class Menue implements KeyListener {
 			
 			else if (eingabe == 1) {
 				System.exit(0);
+>>>>>>> e3860eb264e8c65d19c8bef8c83324556c174c21
 			}
-			
+
 		}
 
 	}
 
 	// singleplayer_starten-Methode:
 	/**
-	 * Startet den Singleplayer-Modus
+	 * Startet
+	 * den
+	 * Singleplayer
+	 * -
+	 * Modus
 	 */
 	static void singleplayer_starten() {
 		twoPlayer = false;
@@ -928,7 +1413,10 @@ public class Menue implements KeyListener {
 
 	// createAndShowGui-Methode:
 	/**
-	 * Oeffnet Timer-Dialog
+	 * Oeffnet
+	 * Timer
+	 * -
+	 * Dialog
 	 */
 	@SuppressWarnings("serial")
 	static void createAndShowGui(final String text_anfang,
@@ -973,7 +1461,13 @@ public class Menue implements KeyListener {
 
 	// antwort_verarbeiten-Methode:
 	/**
-	 * Verarbeitet die Server-/Client-Antworten
+	 * Verarbeitet
+	 * die
+	 * Server
+	 * -/
+	 * Client
+	 * -
+	 * Antworten
 	 */
 	static void antwort_verarbeiten(Window win, ActionEvent e, int level) {
 		if (serverThread != null) {
@@ -1088,7 +1582,11 @@ public class Menue implements KeyListener {
 
 	// lan_modus_beenden-Methode:
 	/**
-	 * Beendet den LAN-Modus
+	 * Beendet
+	 * den
+	 * LAN
+	 * -
+	 * Modus
 	 */
 	static void lan_modus_beenden() {
 		if (serverThread != null) {
@@ -1132,9 +1630,18 @@ public class Menue implements KeyListener {
 	/* INTERNE KLASSEN: */
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Beenden", beendet das Spiel
+	 * Klasse
+	 * fuer
+	 * Menuebuttonorganisation
+	 * "Beenden"
+	 * ,
+	 * beendet
+	 * das
+	 * Spiel
 	 * 
-	 * @author Kolja Salewski
+	 * @author 
+	 *         Kolja
+	 *         Salewski
 	 */
 	private class Action_Beenden extends AbstractAction {
 		private static final long serialVersionUID = 1L;
@@ -1151,9 +1658,19 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Neu", startet das Spiel neu
+	 * Klasse
+	 * fuer
+	 * Menuebuttonorganisation
+	 * "Neu"
+	 * ,
+	 * startet
+	 * das
+	 * Spiel
+	 * neu
 	 * 
-	 * @author Kolja Salewski
+	 * @author 
+	 *         Kolja
+	 *         Salewski
 	 */
 	private class Action_Neu extends AbstractAction {
 		private static final long serialVersionUID = 1L;
@@ -1189,17 +1706,36 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Laden", lädt ein zuvor gespeichertes
+	 * Klasse
+	 * fuer
+	 * Menuebuttonorganisation
+	 * "Laden"
+	 * ,
+	 * lädt
+	 * ein
+	 * zuvor
+	 * gespeichertes
 	 * Spiel
 	 * 
-	 * @author Tobias Korfmacher
+	 * @author 
+	 *         Tobias
+	 *         Korfmacher
 	 */
 	private class Action_Load extends AbstractAction {
 		private static final long serialVersionUID = 1L;
 
 		// Konstruktor:
 		/**
-		 * Setzt den Namen und die Kurzbeschreibung des Laden-Buttons
+		 * Setzt
+		 * den
+		 * Namen
+		 * und
+		 * die
+		 * Kurzbeschreibung
+		 * des
+		 * Laden
+		 * -
+		 * Buttons
 		 */
 		public Action_Load() {
 			putValue(NAME, "Laden");
@@ -1208,7 +1744,15 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Laedt einen zuvor gespeicherten Spielstand aus einer Datei.
+		 * Laedt
+		 * einen
+		 * zuvor
+		 * gespeicherten
+		 * Spielstand
+		 * aus
+		 * einer
+		 * Datei
+		 * .
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (lan == true) {
@@ -1237,17 +1781,35 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Speichern", speichert das aktuelle
+	 * Klasse
+	 * fuer
+	 * Menuebuttonorganisation
+	 * "Speichern"
+	 * ,
+	 * speichert
+	 * das
+	 * aktuelle
 	 * Spiel
 	 * 
-	 * @author Tobias Korfmacher
+	 * @author 
+	 *         Tobias
+	 *         Korfmacher
 	 */
 	private class Action_Save extends AbstractAction {
 		private static final long serialVersionUID = 1L;
 
 		// Konstruktor:
 		/**
-		 * Setzt den Namen und die Kurzbeschreibung des Speichern-Buttons
+		 * Setzt
+		 * den
+		 * Namen
+		 * und
+		 * die
+		 * Kurzbeschreibung
+		 * des
+		 * Speichern
+		 * -
+		 * Buttons
 		 */
 		public Action_Save() {
 			putValue(NAME, "Speichern");
@@ -1256,7 +1818,14 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Speichert den aktuellen Spielstand in einer Datei.
+		 * Speichert
+		 * den
+		 * aktuellen
+		 * Spielstand
+		 * in
+		 * einer
+		 * Datei
+		 * .
 		 */
 		public void actionPerformed(ActionEvent e) {
 			MapLoader.level_speichern(map);
@@ -1265,17 +1834,36 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Singleplayer", wechselt zum
-	 * Singleplayer-Modus
+	 * Klasse
+	 * fuer
+	 * Menuebuttonorganisation
+	 * "Singleplayer"
+	 * ,
+	 * wechselt
+	 * zum
+	 * Singleplayer
+	 * -
+	 * Modus
 	 * 
-	 * @author Kolja Salewski
+	 * @author 
+	 *         Kolja
+	 *         Salewski
 	 */
 	private class Action_Singleplayer extends AbstractAction {
 		private static final long serialVersionUID = 1L;
 
 		// Konstruktor:
 		/**
-		 * Setzt den Namen und die Kurzbeschreibung des Singleplayer-Buttons
+		 * Setzt
+		 * den
+		 * Namen
+		 * und
+		 * die
+		 * Kurzbeschreibung
+		 * des
+		 * Singleplayer
+		 * -
+		 * Buttons
 		 */
 		public Action_Singleplayer() {
 			putValue(NAME, "Singleplayer");
@@ -1284,9 +1872,31 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Ueberprueft, ob man sich im Mehrspieler-Modus befindet und wechselt
-		 * ggf. zum Einzelspieler-Modus. Anschliessend wird das Spiel
-		 * neugestartet.
+		 * Ueberprueft
+		 * ,
+		 * ob
+		 * man
+		 * sich
+		 * im
+		 * Mehrspieler
+		 * -
+		 * Modus
+		 * befindet
+		 * und
+		 * wechselt
+		 * ggf
+		 * .
+		 * zum
+		 * Einzelspieler
+		 * -
+		 * Modus
+		 * .
+		 * Anschliessend
+		 * wird
+		 * das
+		 * Spiel
+		 * neugestartet
+		 * .
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (twoPlayer == true) {
@@ -1298,16 +1908,36 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "HotSeat", wechselt zum HotSeat-Modus
+	 * Klasse
+	 * fuer
+	 * Menuebuttonorganisation
+	 * "HotSeat"
+	 * ,
+	 * wechselt
+	 * zum
+	 * HotSeat
+	 * -
+	 * Modus
 	 * 
-	 * @author Kolja Salewski
+	 * @author 
+	 *         Kolja
+	 *         Salewski
 	 */
 	private class Action_HotSeat extends AbstractAction {
 		private static final long serialVersionUID = 1L;
 
 		// Konstruktor:
 		/**
-		 * Setzt den Namen und die Kurzbeschreibung des HotSeat-Buttons
+		 * Setzt
+		 * den
+		 * Namen
+		 * und
+		 * die
+		 * Kurzbeschreibung
+		 * des
+		 * HotSeat
+		 * -
+		 * Buttons
 		 */
 		public Action_HotSeat() {
 			putValue(NAME, "HotSeat");
@@ -1316,9 +1946,28 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Ueberprueft, ob man sich bereits im HotSeat-Modus befindet und
-		 * wechselt anderenfalls dorthin. Anschließend wird das Spiel
-		 * neugestartet.
+		 * Ueberprueft
+		 * ,
+		 * ob
+		 * man
+		 * sich
+		 * bereits
+		 * im
+		 * HotSeat
+		 * -
+		 * Modus
+		 * befindet
+		 * und
+		 * wechselt
+		 * anderenfalls
+		 * dorthin
+		 * .
+		 * Anschließend
+		 * wird
+		 * das
+		 * Spiel
+		 * neugestartet
+		 * .
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (hotSeat == false) {
@@ -1340,16 +1989,36 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Server", wechselt zum Server-Modus
+	 * Klasse
+	 * fuer
+	 * Menuebuttonorganisation
+	 * "Server"
+	 * ,
+	 * wechselt
+	 * zum
+	 * Server
+	 * -
+	 * Modus
 	 * 
-	 * @author Kolja Salewski
+	 * @author 
+	 *         Kolja
+	 *         Salewski
 	 */
 	private class Action_Server extends AbstractAction {
 		private static final long serialVersionUID = 1L;
 
 		// Konstruktor:
 		/**
-		 * Setzt den Namen und die Kurzbeschreibung des Server-Buttons
+		 * Setzt
+		 * den
+		 * Namen
+		 * und
+		 * die
+		 * Kurzbeschreibung
+		 * des
+		 * Server
+		 * -
+		 * Buttons
 		 */
 		public Action_Server() {
 			putValue(NAME, "Server");
@@ -1358,10 +2027,50 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Ueberprueft, ob man sich bereits im Server-Modus befindet und
-		 * wechselt anderenfalls dorthin. Falls man sich vorher im Client-Modus
-		 * befunden hat, wird der Client-Thread beendet. Der Server-Modus wird
-		 * als neuer Thread gestartet.
+		 * Ueberprueft
+		 * ,
+		 * ob
+		 * man
+		 * sich
+		 * bereits
+		 * im
+		 * Server
+		 * -
+		 * Modus
+		 * befindet
+		 * und
+		 * wechselt
+		 * anderenfalls
+		 * dorthin
+		 * .
+		 * Falls
+		 * man
+		 * sich
+		 * vorher
+		 * im
+		 * Client
+		 * -
+		 * Modus
+		 * befunden
+		 * hat
+		 * ,
+		 * wird
+		 * der
+		 * Client
+		 * -
+		 * Thread
+		 * beendet
+		 * .
+		 * Der
+		 * Server
+		 * -
+		 * Modus
+		 * wird
+		 * als
+		 * neuer
+		 * Thread
+		 * gestartet
+		 * .
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (serverThread == null) {
@@ -1387,16 +2096,36 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Client", wechselt zum Client-Modus
+	 * Klasse
+	 * fuer
+	 * Menuebuttonorganisation
+	 * "Client"
+	 * ,
+	 * wechselt
+	 * zum
+	 * Client
+	 * -
+	 * Modus
 	 * 
-	 * @author Kolja Salewski
+	 * @author 
+	 *         Kolja
+	 *         Salewski
 	 */
 	private class Action_Client extends AbstractAction {
 		private static final long serialVersionUID = 1L;
 
 		// Konstruktor:
 		/**
-		 * Setzt den Namen und die Kurzbeschreibung des Client-Buttons
+		 * Setzt
+		 * den
+		 * Namen
+		 * und
+		 * die
+		 * Kurzbeschreibung
+		 * des
+		 * Client
+		 * -
+		 * Buttons
 		 */
 		public Action_Client() {
 			putValue(NAME, "Client");
@@ -1405,10 +2134,49 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Ueberprueft, ob man sich bereits im Client-Modus befindet und
-		 * wechselt anderenfalls dorthin. Falls man sich vorher im Server-Modus
-		 * befunden hat, wird der Server-Thread beendet. Der Client-Modus wird
-		 * als neuer Thread gestartet
+		 * Ueberprueft
+		 * ,
+		 * ob
+		 * man
+		 * sich
+		 * bereits
+		 * im
+		 * Client
+		 * -
+		 * Modus
+		 * befindet
+		 * und
+		 * wechselt
+		 * anderenfalls
+		 * dorthin
+		 * .
+		 * Falls
+		 * man
+		 * sich
+		 * vorher
+		 * im
+		 * Server
+		 * -
+		 * Modus
+		 * befunden
+		 * hat
+		 * ,
+		 * wird
+		 * der
+		 * Server
+		 * -
+		 * Thread
+		 * beendet
+		 * .
+		 * Der
+		 * Client
+		 * -
+		 * Modus
+		 * wird
+		 * als
+		 * neuer
+		 * Thread
+		 * gestartet
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (clientThread == null) {
@@ -1448,16 +2216,35 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Level 1", wechselt zu Level 1
+	 * Klasse
+	 * fuer
+	 * Menuebuttonorganisation
+	 * "Level 1"
+	 * ,
+	 * wechselt
+	 * zu
+	 * Level
+	 * 1
 	 * 
-	 * @author Kolja Salewski
+	 * @author 
+	 *         Kolja
+	 *         Salewski
 	 */
 	private class Action_Level_1 extends AbstractAction {
 		private static final long serialVersionUID = 1L;
 
 		// Konstruktor:
 		/**
-		 * Setzt den Namen und die Kurzbeschreibung des Level1-Buttons
+		 * Setzt
+		 * den
+		 * Namen
+		 * und
+		 * die
+		 * Kurzbeschreibung
+		 * des
+		 * Level1
+		 * -
+		 * Buttons
 		 */
 		public Action_Level_1() {
 			putValue(NAME, "1");
@@ -1466,7 +2253,15 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Wechselt zum 1. Level und startet das Spiel neu
+		 * Wechselt
+		 * zum
+		 * 1.
+		 * Level
+		 * und
+		 * startet
+		 * das
+		 * Spiel
+		 * neu
 		 */
 		public void actionPerformed(ActionEvent e) {
 
@@ -1496,16 +2291,35 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Level 2", wechselt zu Level 2
+	 * Klasse
+	 * fuer
+	 * Menuebuttonorganisation
+	 * "Level 2"
+	 * ,
+	 * wechselt
+	 * zu
+	 * Level
+	 * 2
 	 * 
-	 * @author Kolja Salewski
+	 * @author 
+	 *         Kolja
+	 *         Salewski
 	 */
 	private class Action_Level_2 extends AbstractAction {
 		private static final long serialVersionUID = 1L;
 
 		// Konstruktor:
 		/**
-		 * Setzt den Namen und die Kurzbeschreibung des Level2-Buttons
+		 * Setzt
+		 * den
+		 * Namen
+		 * und
+		 * die
+		 * Kurzbeschreibung
+		 * des
+		 * Level2
+		 * -
+		 * Buttons
 		 */
 		public Action_Level_2() {
 			putValue(NAME, "2");
@@ -1514,7 +2328,15 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Wechselt zum 2. Level und startet das Spiel neu
+		 * Wechselt
+		 * zum
+		 * 2.
+		 * Level
+		 * und
+		 * startet
+		 * das
+		 * Spiel
+		 * neu
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (clientThread != null) {
@@ -1543,16 +2365,36 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "MapEditor", startet den Map-Editor
+	 * Klasse
+	 * fuer
+	 * Menuebuttonorganisation
+	 * "MapEditor"
+	 * ,
+	 * startet
+	 * den
+	 * Map
+	 * -
+	 * Editor
 	 * 
-	 * @author Tobias Korfmacher
+	 * @author 
+	 *         Tobias
+	 *         Korfmacher
 	 */
 	private class Action_Map_Editor extends AbstractAction {
 		private static final long serialVersionUID = 1L;
 
 		// Konstruktor:
 		/**
-		 * Setzt den Namen und die Kurzbeschreibung des MapEdior-Buttons
+		 * Setzt
+		 * den
+		 * Namen
+		 * und
+		 * die
+		 * Kurzbeschreibung
+		 * des
+		 * MapEdior
+		 * -
+		 * Buttons
 		 */
 		public Action_Map_Editor() {
 			putValue(NAME, "Map-Editor");
@@ -1561,7 +2403,11 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Startet den Map-Editor
+		 * Startet
+		 * den
+		 * Map
+		 * -
+		 * Editor
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (lan == true) {
@@ -1588,10 +2434,21 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Multiplayer - Bot", aktiviert den
-	 * Bot als 2. Spieler
+	 * Klasse
+	 * fuer
+	 * Menuebuttonorganisation
+	 * "Multiplayer - Bot"
+	 * ,
+	 * aktiviert
+	 * den
+	 * Bot
+	 * als
+	 * 2.
+	 * Spieler
 	 * 
-	 * @author Sebastian Dittmann
+	 * @author 
+	 *         Sebastian
+	 *         Dittmann
 	 * 
 	 */
 	// public class Action_MultiplayerBot extends AbstractAction {
@@ -1614,10 +2471,22 @@ public class Menue implements KeyListener {
 	// }
 
 	/**
-	 * Klassen für den Button "Schwierigkeit" erstellen. (zur änderung der
-	 * Schwierigkeit)
+	 * Klassen
+	 * für
+	 * den
+	 * Button
+	 * "Schwierigkeit"
+	 * erstellen
+	 * . (
+	 * zur
+	 * änderung
+	 * der
+	 * Schwierigkeit
+	 * )
 	 * 
-	 * @author Andrej Morlang
+	 * @author 
+	 *         Andrej
+	 *         Morlang
 	 */
 	private class Action_noob extends AbstractAction {
 		private static final long serialVersionUID = 1L;
@@ -1710,9 +2579,15 @@ public class Menue implements KeyListener {
 
 	// get_newPos-Methode:
 	/**
-	 * Gibt Array mit neuer Spielfigurenposition zurueck
+	 * Gibt
+	 * Array
+	 * mit
+	 * neuer
+	 * Spielfigurenposition
+	 * zurueck
 	 * 
-	 * @return a
+	 * @return 
+	 *         a
 	 */
 	public static int[] get_newPos() {
 		return a;
@@ -1720,9 +2595,14 @@ public class Menue implements KeyListener {
 
 	// get_game-Methode:
 	/**
-	 * Gibt das grafische Spielfeld zurueck
+	 * Gibt
+	 * das
+	 * grafische
+	 * Spielfeld
+	 * zurueck
 	 * 
-	 * @return game
+	 * @return 
+	 *         game
 	 */
 	public static Map get_game() {
 		return game;
@@ -1730,7 +2610,10 @@ public class Menue implements KeyListener {
 
 	// set_game-Methode:
 	/**
-	 * Setzt das grafische Spielfeld
+	 * Setzt
+	 * das
+	 * grafische
+	 * Spielfeld
 	 * 
 	 * @param game
 	 */
@@ -1740,10 +2623,16 @@ public class Menue implements KeyListener {
 
 	// get_hulk-Methode:
 	/**
-	 * Gibt jeweiliges Spielerobjekt zurueck
+	 * Gibt
+	 * jeweiliges
+	 * Spielerobjekt
+	 * zurueck
 	 * 
 	 * @param a
-	 * @return hulk1 / hulk2
+	 * @return 
+	 *         hulk1
+	 *         /
+	 *         hulk2
 	 */
 	public static Hulk get_hulk(int a) {
 		if (a == 1)
@@ -1756,7 +2645,10 @@ public class Menue implements KeyListener {
 
 	// set_hulk1-Methode:
 	/**
-	 * Setzt das 1. Spielerobjekt
+	 * Setzt
+	 * das
+	 * 1.
+	 * Spielerobjekt
 	 * 
 	 * @param hulk
 	 */
@@ -1766,7 +2658,10 @@ public class Menue implements KeyListener {
 
 	// setHulk2-Methode:
 	/**
-	 * Setzt das 1. Spielerobjekt
+	 * Setzt
+	 * das
+	 * 1.
+	 * Spielerobjekt
 	 * 
 	 * @param hulk2
 	 */
@@ -1776,9 +2671,16 @@ public class Menue implements KeyListener {
 
 	// get_map-Methode:
 	/**
-	 * Gibt Positionen der Icons im Spielfeld zurueck
+	 * Gibt
+	 * Positionen
+	 * der
+	 * Icons
+	 * im
+	 * Spielfeld
+	 * zurueck
 	 * 
-	 * @return map
+	 * @return 
+	 *         map
 	 */
 	public static int[][] get_map() {
 		return map;
@@ -1786,9 +2688,18 @@ public class Menue implements KeyListener {
 
 	// getMultiplayer-Methode:
 	/**
-	 * Gibt zureck, ob Mehrspieler-Modus aktiv ist
+	 * Gibt
+	 * zureck
+	 * ,
+	 * ob
+	 * Mehrspieler
+	 * -
+	 * Modus
+	 * aktiv
+	 * ist
 	 * 
-	 * @return twoPlayer
+	 * @return 
+	 *         twoPlayer
 	 */
 	public static boolean getMultiplayer() {
 		return twoPlayer;
@@ -1796,7 +2707,11 @@ public class Menue implements KeyListener {
 
 	// set_clientThread-Methode:
 	/**
-	 * Setzt das clientThread-Objekt
+	 * Setzt
+	 * das
+	 * clientThread
+	 * -
+	 * Objekt
 	 * 
 	 * @param clientThread
 	 */
@@ -1806,7 +2721,11 @@ public class Menue implements KeyListener {
 
 	// set_serverThread-Methode:
 	/**
-	 * Setzt das serverThread-Objekt
+	 * Setzt
+	 * das
+	 * serverThread
+	 * -
+	 * Objekt
 	 * 
 	 * @param serverThread
 	 */
@@ -1816,7 +2735,13 @@ public class Menue implements KeyListener {
 
 	/**
 	 * 
-	 * @return .wav-Datei fuer Soundausgabe
+	 * @return 
+	 *         .
+	 *         wav
+	 *         -
+	 *         Datei
+	 *         fuer
+	 *         Soundausgabe
 	 */
 	// public static Sound get_EXP(){
 	// return exp;
@@ -1835,7 +2760,13 @@ public class Menue implements KeyListener {
 		SwingUtilities.invokeLater(new Runnable() {
 			// run-Methode:
 			/**
-			 * Erstellt das Programmfenster und stellt es dar
+			 * Erstellt
+			 * das
+			 * Programmfenster
+			 * und
+			 * stellt
+			 * es
+			 * dar
 			 */
 			public void run() {
 				try {
