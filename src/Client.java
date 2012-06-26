@@ -12,6 +12,7 @@ public class Client extends Thread {
 	BufferedReader in;
 	int x, y, level;
 	String in_string, out_string, antwort = "leer";
+	boolean anfrage_erhalten = false;
 	
 	/* METHODEN: */
 	
@@ -105,6 +106,13 @@ public class Client extends Thread {
 				// Antwort speichern:
 				else if (in_string.equals("yes") || in_string.equals("no")) {
 					antwort = in_string;
+				}
+				
+				// Abfrage zum Neustart des Spiels ausgeben:
+				else if (in_string.equals("abfrage_neustarten")) {
+					anfrage_erhalten = true;
+					Menue.abfrage_neustarten();
+					anfrage_erhalten = false;
 				}
 				
 				// Spiel neustarten:

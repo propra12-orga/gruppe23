@@ -854,11 +854,11 @@ public class Menue implements KeyListener {
 	 * fuehrt die jeweilige Aktion aus.
 	 */
 	static void abfrage_neustarten() {
-		if (serverThread != null) {
+		if (serverThread != null && serverThread.anfrage_erhalten == false) {
 			serverThread.out.println("abfrage_neustart");
 		}
 		
-		else if (clientThread != null) {
+		else if (clientThread != null && clientThread.anfrage_erhalten == false) {
 			clientThread.out.println("abfrage_neustart");
 		}
 		
