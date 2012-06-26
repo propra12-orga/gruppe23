@@ -861,35 +861,30 @@ public class Menue implements KeyListener {
 //		else if (clientThread != null && clientThread.anfrage_erhalten == false) {
 //			clientThread.out.println("abfrage_neustart");
 //		}
-//		
-//		else {
-			int eingabe = JOptionPane.showConfirmDialog(null,
-				"Möchten Sie noch eine Runde spielen?", "Spiel zuende",
-				JOptionPane.YES_NO_CANCEL_OPTION);
-		//}
-
-		if (eingabe == 0) {
-			if (clientThread != null) {
-				clientThread.out
-				.println("Spieler 2 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
-				createAndShowGui(
-				"Spieler 1 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
-				" auf Antwort...", 60, 600, 100, 0);
+		int eingabe = 0;
+		if	(serverThread != null) {
+			eingabe = JOptionPane.showConfirmDialog(null,
+					"Möchten Sie noch eine Runde spielen?", "Spiel zuende",
+					JOptionPane.YES_NO_CANCEL_OPTION);
+			if (eingabe == 0) {
+				serverThread.out.println("Spieler 1 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
+				createAndShowGui("Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
+									" auf Antwort...", 60, 600, 100, 0);
 			}
 			
-			else if	(serverThread != null) {
-					serverThread.out.println("Spieler 1 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
-					createAndShowGui("Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
-										" auf Antwort...", 60, 600, 100, 0);
+			else if (eingabe == 1) {
+				System.exit(0);
 			}
-			else {
-				spiel_neustarten();
-			}
-			
 		}
 
-		else if (eingabe == 1) {
-			System.exit(0);
+		else if (clientThread != null) {
+			createAndShowGui(
+			"Spieler 1 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
+			" auf Antwort...", 60, 600, 100, 0);
+		}
+		
+		else {
+			spiel_neustarten();
 		}
 
 	}
