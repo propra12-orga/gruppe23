@@ -9,6 +9,7 @@ import javax.swing.filechooser.FileFilter;
 
 /**
  * Liest die Level aus der Datei aus und verpackt sie in ein int-Array
+ * 
  * @author Tobias Korfmacher
  */
 public class MapLoader {
@@ -18,7 +19,7 @@ public class MapLoader {
 	static int iconSatz = 1;
 
 	/* METHODEN: */
-	
+
 	// laden-Methode:
 	/**
 	 * @param i
@@ -27,19 +28,19 @@ public class MapLoader {
 	 */
 	public static int[][] laden(int i) { // mit parameter i als level nummer
 		twoPlayerSet = Menue.getMultiplayer();
-		//	botSet = Menue.getBot();
+		// botSet = Menue.getBot();
 
 		int c = 0;
 
 		int k = 0, l = 0;
 		int[][] map = new int[n][n];
-		String filename = "src/Maps/Level-" + i + ".txt";		
+		String filename = "src/Maps/Level-" + i + ".txt";
 
 		try {
 			FileReader f = new FileReader(filename);
 
 			System.out.println("Spielfeld eingelesen:"); // Test
-			
+
 			iconSatz = Character.getNumericValue(f.read());
 
 			while ((c = f.read()) != -1) {
@@ -89,12 +90,12 @@ public class MapLoader {
 	// level_speichern-Methode 1:
 	public static void level_speichern(int[][] map, String levelname) {
 
-		String[] line = new String[n]; 
+		String[] line = new String[n];
 		String path = "src/Maps/" + levelname + ".txt";
 		for (int i = 0; i < n; i++) {
 			line[i] = "";
 		}
-		
+
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 
@@ -102,15 +103,15 @@ public class MapLoader {
 				if (j < n - 1) {
 					line[i] += ":";
 				}
-				
+
 			}
 
 		}
-		
+
 		BufferedWriter out = null;
 		try {
 			out = new BufferedWriter(new FileWriter(path));
-			out.write(""+iconSatz);
+			out.write("" + iconSatz);
 			out.newLine();
 			for (int i = 0; i < n; i++) {
 				out.write(line[i]);
@@ -118,22 +119,22 @@ public class MapLoader {
 			}
 
 		}
-		
+
 		catch (IOException e) {
 			System.out.println(e);
 		}
-		
+
 		finally {
 			try {
 				if (out != null)
 					out.close();
 			}
-			
+
 			catch (Exception ex) {
 			}
-			
+
 		}
-		
+
 	}
 
 	// level_speichern-Methode 2:
@@ -143,53 +144,56 @@ public class MapLoader {
 		// JFileChooser-Objekt erstellen
 		JFileChooser chooser = new JFileChooser(new File("./src/Maps"));
 		// Dialog zum Speichern von Dateien anzeigen
-		chooser.showSaveDialog(null);
+		int state = chooser.showSaveDialog(null);
+		if (state == JFileChooser.APPROVE_OPTION) {
 
-		String path = chooser.getSelectedFile().getAbsolutePath();
-		path += ".txt";
-		for (int i = 0; i < n; i++) {
-			line[i] = "";
-		}
-		
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-
-				line[i] += map[i][j];
-				if (j < n - 1) {
-					line[i] += ":";
-				}
-				System.out.println(line[i]);
-			}
-
-		}
-		
-		BufferedWriter out = null;
-		try {
-			out = new BufferedWriter(new FileWriter(path));
-			out.write(""+iconSatz);
-			out.newLine();
+			String path = chooser.getSelectedFile().getAbsolutePath();
+			path += ".txt";
 			for (int i = 0; i < n; i++) {
-				out.write(line[i]);
-				out.newLine();
+				line[i] = "";
 			}
 
-		}
-		
-		catch (IOException e) {
-			System.out.println(e);
-		}
-		
-		finally {
+			for (int i = 0; i < n; i++) {
+				for (int j = 0; j < n; j++) {
+
+					line[i] += map[i][j];
+					if (j < n - 1) {
+						line[i] += ":";
+					}
+					System.out.println(line[i]);
+				}
+
+			}
+
+			BufferedWriter out = null;
 			try {
-				if (out != null)
-					out.close();
-			}
-			
-			catch (Exception ex) {
-			}
-			
-		}
+				out = new BufferedWriter(new FileWriter(path));
+				out.write("" + iconSatz);
+				out.newLine();
+				for (int i = 0; i < n; i++) {
+					out.write(line[i]);
+					out.newLine();
+				}
 
+			}
+
+			catch (IOException e) {
+				System.out.println(e);
+			}
+
+			finally {
+				try {
+					if (out != null)
+						out.close();
+				}
+
+				catch (Exception ex) {
+				}
+
+			}
+		} else
+
+			System.out.println("Auswahl abgebrochen");
 	}
 
 	// level_laden-Methode:
@@ -231,11 +235,11 @@ public class MapLoader {
 						if (Character.getNumericValue(c) != 58) {
 							map[k][l] = Character.getNumericValue(c);
 						}
-						
+
 						else {
 							f.read();
 						}
-						
+
 						System.out.print(map[k][l] + ", "); // Test
 
 						if (k < n - 1) {
@@ -272,15 +276,15 @@ public class MapLoader {
 
 			return map;
 		}
-		
+
 		else
 			System.out.println("Auswahl abgebrochen");
-		System.exit(0);
+
 		return null;
 	}
-	
+
 	/* setter & getter: */
-	
+
 	// get_n-Methode:
 	public static int get_n() {
 		return n;
@@ -290,7 +294,7 @@ public class MapLoader {
 	public static int get_level() {
 		return level;
 	}
-	
+
 	// get_iconSatz-Methode:
 	public static int get_iconSatz() {
 		return iconSatz;
@@ -299,8 +303,8 @@ public class MapLoader {
 	// set_iconSatz-Methode:
 	public static void set_iconSatz(int iconSatz) {
 		MapLoader.iconSatz = iconSatz; // Icon-Satz speichern
-	} 
-	
+	}
+
 	// get_level_nummer-Methode:
 	public static int get_level_nummer(String levelname) {
 		levelname = levelname.replace("Level-", "");
@@ -312,5 +316,5 @@ public class MapLoader {
 	public static void set_level(int level) {
 		MapLoader.level = level; // level speichern
 	}
-	
+
 }
