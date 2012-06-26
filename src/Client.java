@@ -108,12 +108,12 @@ public class Client extends Thread {
 					antwort = in_string;
 				}
 				
-				// Abfrage zum Neustart des Spiels ausgeben:
-				else if (in_string.equals("abfrage_neustarten")) {
-					anfrage_erhalten = true;
-					Menue.abfrage_neustarten();
-					anfrage_erhalten = false;
-				}
+//				// Abfrage zum Neustart des Spiels ausgeben:
+//				else if (in_string.equals("abfrage_neustarten")) {
+//					anfrage_erhalten = true;
+//					Menue.abfrage_neustarten();
+//					anfrage_erhalten = false;
+//				}
 				
 				// Spiel neustarten:
 				else if (in_string.equals("neustart")) {

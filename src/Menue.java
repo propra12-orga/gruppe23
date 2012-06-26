@@ -854,17 +854,19 @@ public class Menue implements KeyListener {
 	 * fuehrt die jeweilige Aktion aus.
 	 */
 	static void abfrage_neustarten() {
-		if (serverThread != null && serverThread.anfrage_erhalten == false) {
-			serverThread.out.println("abfrage_neustart");
-		}
-		
-		else if (clientThread != null && clientThread.anfrage_erhalten == false) {
-			clientThread.out.println("abfrage_neustart");
-		}
-		
-		int eingabe = JOptionPane.showConfirmDialog(null,
+//		if (serverThread != null && serverThread.anfrage_erhalten == false) {
+//			serverThread.out.println("abfrage_neustart");
+//		}
+//		
+//		else if (clientThread != null && clientThread.anfrage_erhalten == false) {
+//			clientThread.out.println("abfrage_neustart");
+//		}
+//		
+//		else {
+			int eingabe = JOptionPane.showConfirmDialog(null,
 				"Möchten Sie noch eine Runde spielen?", "Spiel zuende",
 				JOptionPane.YES_NO_CANCEL_OPTION);
+		//}
 
 		if (eingabe == 0) {
 			if (clientThread != null) {
