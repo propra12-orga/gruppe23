@@ -8,21 +8,9 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
 /**
- * Liest
- * die
- * Level
- * aus der
- * Datei
- * aus und
- * verpackt
- * sie in
- * ein
- * int-
- * Array
+ * Liest die Level aus der Datei aus und verpackt sie in ein int- Array
  * 
- * @author 
- *         Tobias
- *         Korfmacher
+ * @author Tobias Korfmacher
  */
 public class MapLoader {
 	public static boolean twoPlayerSet, botSet;
@@ -35,16 +23,8 @@ public class MapLoader {
 	// laden-Methode:
 	/**
 	 * @param i
-	 *            legt
-	 *            das
-	 *            zu
-	 *            ladene
-	 *            Level
-	 *            fest
-	 * @return 
-	 *         map
-	 *         -
-	 *         Objekt
+	 * legt das zu ladene Level fest
+	 * @return map - Objekt
 	 */
 	public static int[][] laden(int i) { // mit parameter i als level nummer
 		twoPlayerSet = Menue.getMultiplayer();
@@ -318,6 +298,25 @@ public class MapLoader {
 	// get_iconSatz-Methode:
 	public static int get_iconSatz() {
 		return iconSatz;
+	}
+
+	public static int get_iconSatzLevel(String filename) {
+		int satz = 1;
+		try {
+			FileReader f = new FileReader(filename);
+
+			System.out.println("Spielfeld eingelesen:"); // Test
+
+			satz = Character.getNumericValue(f.read());
+			f.close();
+		}
+
+		catch (IOException e) {
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+			System.exit(1);
+		}
+		return satz;
 	}
 
 	// set_iconSatz-Methode:

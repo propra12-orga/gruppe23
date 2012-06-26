@@ -31,6 +31,7 @@ public class MapEditor {
 	private static boolean abfrageAusgang = false;
 	private static File f;
 	private static String eingabe;
+	private static JButton feld[][] = new JButton[n][n];
 
 	/* Konstruktor: */
 	public MapEditor() {
@@ -65,7 +66,9 @@ public class MapEditor {
 
 		f = new File(dateiName);
 		if (f.exists() == true) {
-			// level öffnen
+			System.out.println(" ICONSATZ: "
+					+ MapLoader.get_iconSatzLevel(dateiName));
+			MapLoader.set_iconSatz(MapLoader.get_iconSatzLevel(dateiName));
 		}
 
 		else {
@@ -85,7 +88,8 @@ public class MapEditor {
 
 			for (int i = 0; i < n; i++) {
 
-				map[i][i] = 4;
+				map[i][0] = 4;
+				map[0][i] = 4;
 				map[n - 1][i] = 4;
 				map[i][n - 1] = 4;
 
@@ -230,7 +234,6 @@ public class MapEditor {
 		frame.getContentPane().add(radioPanel, BorderLayout.LINE_START);
 		frame.pack();
 		JPanel buttonPanel = new JPanel(new GridLayout(n, n));
-		final JButton feld[][] = new JButton[n][n];
 
 		for (int i = 0; i < n - 1; i++) {
 			for (int j = 0; j < n - 1; j++) {
