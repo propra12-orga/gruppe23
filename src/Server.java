@@ -111,6 +111,11 @@ public class Server extends Thread {
 					antwort = "" + in_string;
 				}
 				
+				// Abfrage zum Neustart des Spiels ausgeben:
+				else if (in_string.equals("abfrage_neustarten")) {
+					Menue.abfrage_neustarten();
+				}
+				
 				// Spiel neustarten:
 				else if (in_string.equals("neustart")) {
 					antwort = "leer";
