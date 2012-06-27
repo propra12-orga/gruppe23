@@ -28,7 +28,7 @@ public class MapLoader {
 	 */
 	public static int[][] laden(int i) { // mit parameter i als level nummer
 		twoPlayerSet = Menue.getMultiplayer();
-		// botSet = Menue.getBot();
+		botSet = Menue.getBot();
 
 		int c = 0;
 
@@ -69,6 +69,11 @@ public class MapLoader {
 			System.out.println(); // Test
 
 			if (twoPlayerSet) {
+				map[n - 2][n - 2] = 10;
+				map[1][n - 2] = 2;
+			}
+			
+			if (botSet) {
 				map[n - 2][n - 2] = 10;
 				map[1][n - 2] = 2;
 			}
@@ -138,7 +143,7 @@ public class MapLoader {
 	}
 
 	// level_speichern-Methode 2:
-	public static void level_speichern(int[][] map) {// über filechooser
+	public static void level_speichern(int[][] map) {// ï¿½ber filechooser
 
 		String[] line = new String[n];
 		// JFileChooser-Objekt erstellen
@@ -199,6 +204,7 @@ public class MapLoader {
 	// level_laden-Methode:
 	public static int[][] level_laden() {
 		twoPlayerSet = Menue.getMultiplayer();
+		botSet = Menue.getBot();
 
 		JFileChooser fc = new JFileChooser();
 		fc.setMultiSelectionEnabled(false);
@@ -259,6 +265,11 @@ public class MapLoader {
 				System.out.println(); // Test
 
 				if (twoPlayerSet) {
+					map[n - 2][n - 2] = 10;
+					map[1][n - 2] = 2;
+				}
+				
+				if (botSet) {
 					map[n - 2][n - 2] = 10;
 					map[1][n - 2] = 2;
 				}

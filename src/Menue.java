@@ -40,18 +40,17 @@ public class Menue implements KeyListener {
 	// * enthaelt .wav-Datei fuer Explosionsgeraeusch der Bombe
 	// */
 	// public static Sound exp = new Sound("explosion.wav");
-	//
-	// /**
-	// * true, wenn Bot aktiviert ist
-	// */
-	// public static boolean bot = false;
-	//
-	// /**
-	// * Bot1-Objekt (Bestimmung der Bewegung und Bombenaktion fuer Bot1)
-	// */
-	// public static Bot bot1;
-	//
-	//
+	
+	/**
+	* true, wenn Bot aktiviert ist
+	*/
+	public static boolean bot = false;
+	
+	/**
+	* Bot1-Objekt (Bestimmung der Bewegung und Bombenaktion fuer Bot1)
+	*/
+	public static Bot bot1;
+
 
 	/**
 	 * Button im Leistenmenue ( Schliesst das Programm )
@@ -172,13 +171,12 @@ public class Menue implements KeyListener {
 																					// Editor
 																					// erstellen
 
-	// private final Action_MultiplayerBot Action_MultiplayerBot = new
-	// Action_MultiplayerBot(); // Aktion
-	// zum Wechsel
-	// in den
-	// botgesteuerten
-	// Multiplayer-Modus
-	// erstellen
+	private final Action_MultiplayerBot Action_MultiplayerBot = new Action_MultiplayerBot(); // Aktion
+	//zum Wechsel
+	//in den
+	//botgesteuerten
+	//Multiplayer-Modus
+	//erstellen
 
 	/**
 	 * Buttons für den Schwierigkeitsgrad ( schweirigkeit ist Zeitabhängig )
@@ -233,7 +231,7 @@ public class Menue implements KeyListener {
 		spiel_neugestartet = false;
 		hulk1 = new Hulk(1, 1, 1); // 1. Spielerfigur erzeugen
 		hulk2 = new Hulk(n - 2, n - 2, 10); // 2. Spielerfigur erzeugen
-		// bot1 = new Bot(n - 2, n - 2);
+		bot1 = new Bot(n - 2, n - 2);
 
 		map = MapLoader.laden(MapLoader.get_level());
 		game = new Map(map);
@@ -244,9 +242,9 @@ public class Menue implements KeyListener {
 
 	/* METHODEN: */
 
-	// private static void botStart() {
-	// if(bot1.getStart() == 0)bot1.start();
-	// }
+	private static void botStart() {
+		if(bot1.getStart() == 0)bot1.start();
+	}
 
 	// initialize-Methode:
 	/**
@@ -326,7 +324,7 @@ public class Menue implements KeyListener {
 																// erstellen
 		mnMultiplayer.add(mntmMultiplayerBot); // Menueunterpunkt "Multiplayer -
 												// Bot hinzugefuegen
-		// mntmMultiplayerBot.setAction(Action_MultiplayerBot);
+		mntmMultiplayerBot.setAction(Action_MultiplayerBot); 
 
 		JMenu mnLAN = new JMenu("LAN"); // Untermenue
 										// "LAN"
@@ -789,11 +787,11 @@ public class Menue implements KeyListener {
 		hulk2.set_x(n - 2);
 		hulk2.set_y(n - 2);
 
-		// if (bot){
-		// bot1.set_x(n - 2);
-		// bot1.set_y(n - 2);
-		// botStart();
-		// }
+		if (bot){
+			bot1.set_x(n - 2);
+			bot1.set_y(n - 2);
+			botStart();
+		}
 	}
 
 	// spiel_neustarten-Methode:
@@ -1639,24 +1637,24 @@ public class Menue implements KeyListener {
 	 * @author Sebastian Dittmann
 	 * 
 	 */
-	// public class Action_MultiplayerBot extends AbstractAction {
-	// private static final long serialVersionUID = 1L;
-	//
-	// public Action_MultiplayerBot(){
-	// putValue(NAME, "Multiplayer - Bot");
-	// putValue(SHORT_DESCRIPTION, "Wechsel in Bot-Modus");
-	// }
-	//
-	// public void actionPerformed (ActionEvent e){
-	// if (bot == false){
-	// bot = true;
-	// System.out.println("Bot aktiviert"); //Test
-	// System.out.println();
-	//
-	// spiel_neustarten();
-	// }
-	// }
-	// }
+	public class Action_MultiplayerBot extends AbstractAction {
+		private static final long serialVersionUID = 1L;
+	
+		public Action_MultiplayerBot(){
+		putValue(NAME, "Bot");
+		putValue(SHORT_DESCRIPTION, "Wechsel in Bot-Modus");
+	}
+	
+		public void actionPerformed (ActionEvent e){
+			if (bot == false){
+				bot = true;
+				System.out.println("Bot aktiviert"); //Test
+				System.out.println();
+				
+				spiel_neustarten();
+			}
+		}
+	}
 
 	/**
 	 * Klassen für den Button "Schwierigkeit" erstellen . ( zur änderung der Schwierigkeit )
@@ -1841,14 +1839,14 @@ public class Menue implements KeyListener {
 	// public static Sound get_EXP(){
 	// return exp;
 	// }
-	//
-	// /**
-	// *
-	// * @return Boolean-Wert, ob Bot aktiviert ist
-	// */
-	// public static boolean getBot() {
-	// return bot;
-	// }
+	
+	/**
+	*
+	* @return Boolean-Wert, ob Bot aktiviert ist
+	*/
+	public static boolean getBot() {
+	 return bot;
+	}
 
 	// main-Methode:
 	public static void main(String[] args) {
