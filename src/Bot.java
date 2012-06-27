@@ -6,10 +6,12 @@
  */
 public class Bot extends Thread{
 	private int[][] map;
-	private int x, y, oben, unten, rechts, links, icon, start;
+	private int x, y, xNeu, yNeu, oben, unten, rechts, links, icon, start;
 	public int[] startPos = new int[2];
 	public int max_bomben = 1;
 	private int bomben_radius = 2;
+	private boolean loaded;
+	
 	
 	/** 
 	 * @param xKoord aktuelle horizontale Position
@@ -19,6 +21,7 @@ public class Bot extends Thread{
 		x = xKoord; y = yKoord;
 		rechts = 0; links = 0; oben = 0; unten = 0;
 		icon = 10;
+		xNeu = 0; yNeu = 0;
 		
 	}
 	
@@ -28,44 +31,65 @@ public class Bot extends Thread{
 	public void run(){
 		start = 1;
 		while(true){
-			move();
+			try {
+				move();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	
 	/**
 	 * Testet Bedingungen fuer Bewegung
+	 * @throws InterruptedException 
 	 */
-	private void move(){
+	private void move() throws InterruptedException{
+		xNeu = 0; yNeu = 0;
+		loaded = Menue.get_mapLoaded();
 		map = Menue.get_map();
 		rechts = map[x+1][y];
 		links = map[x-1][y];
 		oben = map[x][y+1];
 		unten = map[x][y-1];
+//		System.out.println("Rechts: " + rechts);
+//		System.out.println("Links: " + links);
+//		System.out.println("Oben: " + oben);
+//		System.out.println("Unten: " + unten);
 		
 		if (links == 2){
-			x -= 1;
+			xNeu -= 1;
 		}
 		else if (oben == 2){
-			y += 1;
+			yNeu += 1;
 		}
 		else if (rechts == 2){
-			x += 1;
+			xNeu += 1;
 		}
 		else if (unten == 2){
-			y -= 1;
+			yNeu -= 1;
 		}
 		
-		Menue.get_game().move_Hulk(x, y, 2);
+		System.out.println("Bot laueft!");
+		if(Menue.mapLoaded){
+			Menue.get_game().move_Bot(xNeu, yNeu, 1);
+			System.out.println("Thread arbeitet");
+			Menue.get_game().removeAll(); // ...entferne alle bisherigen Komponenten
+											// vom Panel...
+			Menue.get_game().refresh(); // ...und zeichne alle Komponenten des
+										// Panels neu
+		}
+		System.out.println();
 		
 		try {
-			Bot.sleep(500);
+			Bot.sleep(2000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		
 	}
 	
+	//-------------------Setter & Getter-----------------------
 	public void set_x(int X){
 		x = X;
 	}
@@ -74,7 +98,35 @@ public class Bot extends Thread{
 		y = Y;
 	}
 	
+	public int get_x(){
+		return x;
+	}
+	
+	public int get_y(){
+		return y;
+	}
+	
+	public void set_max_bomben(int anzahl){
+		max_bomben = anzahl;
+	}
+	
+	public int get_max_bomben(){
+		return max_bomben;
+	}
+	
+	public void set_bomben_radius (int radius){
+		bomben_radius = radius;
+	}
+	
+	public int get_bomben_radius(){
+		return bomben_radius;
+	}
+	
 	public int getStart(){
 		return start;
+	}
+	
+	public int get_icon(){
+		return icon;
 	}
 }

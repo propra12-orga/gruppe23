@@ -725,7 +725,7 @@ public class Bombe extends JLabel {
 
 		}
 
-		// Treffer zurücksetzen:
+		// Treffer zurï¿½cksetzen:
 		treffer_oben 	= false;
 		treffer_rechts 	= false;
 		treffer_unten 	= false;

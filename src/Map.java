@@ -40,6 +40,51 @@ public class Map extends JPanel {
 	/* METHODEN: */
 
 	// move_Hulk-Methode:
+
+	/**
+	 * Aehnliche Methode zu move_hulk(), prueft label der Bot-Bewegung und veraendert diese entsprechend
+	 * @param x	 Horizontale Koordinate
+	 * @param y vertikale Koordinate
+	 * @param Botnummer 1 entspricht Bot fuer 2. Spieler, 2 fuer 3. Spieler etc.
+	 */
+	public void move_Bot(int x, int y, int Botnummer) {
+		/* Grafische Fortbewegung der Spielfigur: */
+		map[Menue.get_bot(Botnummer).get_x()][Menue.get_bot(Botnummer).get_y()] = 2;
+		map[Menue.get_bot(Botnummer).get_x()+x][Menue.get_bot(Botnummer).get_y()+y] = 10;
+		
+//		if (map[Menue.get_bot(Botnummer).get_x()][Menue.get_bot(Botnummer).get_y()] == 1
+//				|| map[Menue.get_bot(Botnummer).get_x()][Menue.get_bot(Botnummer).get_y()] == 10) { 	// falls das Feld das Hulk-Icon (1 oder 10) beinhaltet,... 
+//			map[Menue.get_bot(Botnummer).get_x()][Menue.get_bot(Botnummer).get_y()] = 2; 			// ...weise dem Feld das Weg-Icon (2) zu
+//		}
+//
+//		if (map[Menue.get_bot(Botnummer).get_x() + x][Menue.get_bot(Botnummer).get_y() + y] == 12		// falls das n�chste Feld das Bomben-Item-Icon enth�lt...
+//				&& Menue.get_bot(Botnummer).get_max_bomben() < 8) {								// ...und der Spieler noch nicht bei max. 8 Bomben angelangt ist...
+//			Menue.get_bot(Botnummer).set_max_bomben(
+//					Menue.get_bot(Botnummer).get_max_bomben() + 1);	// ...dann erhoehe die maximale Anzahl an Bomben um 1
+//		}
+//
+//		if (map[Menue.get_bot(Botnummer).get_x() + x][Menue.get_bot(Botnummer).get_y() + y] == 15) {		// falls das n�chste Feld das Bomben-Item-Icon enth�lt...
+//			Menue.get_bot(Botnummer).set_bomben_radius(Menue.get_bot(Botnummer).get_bomben_radius() + 1);	// ...dann erhoehe die maximale Anzahl an Bomben um 1
+//		}
+//
+//		if (Botnummer == 1) {
+//			map[Menue.get_bot(Botnummer).get_x() + x][Menue.get_bot(Botnummer).get_y() + y] = 1; 	// weise dem naechsten Feld das Hulk-Icon zu
+//		}
+//
+//		else if (Botnummer == 2) {
+//			map[Menue.get_bot(Botnummer).get_x() + x][Menue.get_bot(Botnummer).get_y() + y] = 10; // weise dem naechsten Feld das Hulk-Icon zu
+//		}
+
+		/* Logische Fortbewegung der Spielfigur: */
+		Menue.get_bot(Botnummer).set_x(Menue.get_bot(Botnummer).get_x() + x); 					// setze horizontale Hulk-Position weiter
+		Menue.get_bot(Botnummer).set_y(Menue.get_bot(Botnummer).get_y() + y); 					// setze vertikale Hulk-Position weiter
+
+		System.out.println("Neue Position des " + Botnummer + "ten Bots: "
+				+ Menue.get_bot(Botnummer).get_x()	// Test
+				+ "te Spalte, " + Menue.get_bot(Botnummer).get_y() + "te Zeile"); 				// Test
+		System.out.println();																		// Test		
+	}
+	
 	/**
 	 * Setzt die Icons "Hulk" und "Weg" , die bei einer Bewegung verändert
 	 * werden
@@ -95,6 +140,16 @@ public class Map extends JPanel {
 
 		add(bomb[bomb_x][bomb_y]); 					// Bombe hinzufuegen
 		bomb[bomb_x][bomb_y].aktivieren(Spieler, Menue.get_hulk(Spieler).get_bomben_radius()); 	// Bombe aktivieren
+		map[bomb_x][bomb_y] = 5; 					// Bombe darstellen
+	}
+	
+	public void bombe_legenBot(int Spieler) {
+		bomb_x = Menue.get_bot(Spieler).get_x();
+		bomb_y = Menue.get_bot(Spieler).get_y();
+		bomb[bomb_x][bomb_y] = new Bombe(bomb_x, bomb_y);
+
+		add(bomb[bomb_x][bomb_y]); 					// Bombe hinzufuegen
+		bomb[bomb_x][bomb_y].aktivieren(Spieler, Menue.get_bot(Spieler).get_bomben_radius()); 	// Bombe aktivieren
 		map[bomb_x][bomb_y] = 5; 					// Bombe darstellen
 	}
 

@@ -80,16 +80,16 @@ public class Zeit extends JLabel {
 	}
 
 	/**
-	 * Timer zum ändern der Schwierigkeit
+	 * Timer zum aendern der Schwierigkeit
 	 * 
 	 * @author Andrej Morlang
 	 */
 	public void laufzeit(int spielzeit) {							// Multiplayer um quelltext in der Menue ..
-		if (Menue.getMultiplayer() == true) {						// ..nicht unnötig zu vergrössern!!!
-			timer.schedule(new Schwierigkeit(), spielzeit * 1000);  // Timer wartet in abhängigkeit von ..
+		if (Menue.getMultiplayer() == true) {						// ..nicht unnï¿½tig zu vergrï¿½ssern!!!
+			timer.schedule(new Schwierigkeit(), spielzeit * 1000);  // Timer wartet in abhï¿½ngigkeit von ..
 																	//.. der schwierigkeit (aus der Menue) dann beendet das Speil 
 		} else if (Menue.getMultiplayer() == false) {
-			timer.schedule(new Schwierigkeit(), spielzeit * 1000);  // 1000 steht hier für (Zeitlich) 1 sekunde
+			timer.schedule(new Schwierigkeit(), spielzeit * 1000);  // 1000 steht hier fï¿½r (Zeitlich) 1 sekunde
 		}
 
 	}
@@ -120,7 +120,7 @@ public class Zeit extends JLabel {
 		 * startet den TimerTask-Thread Detonation nach Ablauf der Zeit x (timer_starten-Methode), welcher die Detonationsschritte vollzieht
 		 */
 		public void run() {
-			//StdAudio.play("/media/explosion.wav");
+			//StdAudio.play("/src/media/explosion.wav");
 			System.out.println("Detonation beendet"); // Test
 			System.out.println("");
 

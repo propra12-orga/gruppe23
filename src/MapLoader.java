@@ -77,9 +77,9 @@ public class MapLoader {
 				map[n - 2][n - 2] = 10;
 				map[1][n - 2] = 2;
 			}
-
+			
 			System.out.println(); // Test
-
+			Menue.set_mapLoaded(true);
 			f.close();
 		}
 
@@ -284,8 +284,10 @@ public class MapLoader {
 				e.printStackTrace();
 				System.exit(1);
 			}
-
+			
+			Menue.set_mapLoaded(true);
 			return map;
+			
 		}
 
 		else

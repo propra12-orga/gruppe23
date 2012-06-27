@@ -30,6 +30,8 @@ public class Menue implements KeyListener {
 	 * Hauptframe des Programmes
 	 */
 	static JFrame frame;
+	
+	public static boolean mapLoaded = false;
 
 	// private int anzahlLevel = 2; // nacher levelanzahl get methode;
 	//
@@ -776,6 +778,14 @@ public class Menue implements KeyListener {
 	public void keyReleased(KeyEvent Key) {
 	}
 
+	//botStop-Methode
+	/**
+	 * beendet den Bot-Thread. Verwendung bei Wechsel des Spielmodus.
+	 */
+	static void botStop(){
+		bot1.interrupt();
+	}
+	
 	// reset_Hulk-Methode:
 	/**
 	 * Setzt die beiden Spielfiguren auf ihre Startpositionen zurueck . Die 1. Spielfigur landet immer in der oberen linken Ecke . Die 2. Spielfigur landet immer in der unteren rechten Ecke .
@@ -895,6 +905,8 @@ public class Menue implements KeyListener {
 	static void singleplayer_starten() {
 		twoPlayer = false;
 		hotSeat = false;
+		bot = false;
+		botStop();
 
 		if (lan == true) {
 			lan_modus_beenden();
@@ -1801,6 +1813,16 @@ public class Menue implements KeyListener {
 	public static int[][] get_map() {
 		return map;
 	}
+	
+	//get_bot-Methode:
+	
+	/**
+	 * @return bot1-Objekt fuer eventuelle Erweiterung auf mehrere Bots   
+	*/
+	
+	public static Bot get_bot(int bot){	
+		return bot1;
+	}
 
 	// getMultiplayer-Methode:
 	/**
@@ -1847,6 +1869,10 @@ public class Menue implements KeyListener {
 	public static boolean getBot() {
 	 return bot;
 	}
+	
+	public static void set_mapLoaded(boolean Wert){
+		mapLoaded = Wert;
+	}
 
 	// main-Methode:
 	public static void main(String[] args) {
@@ -1869,6 +1895,10 @@ public class Menue implements KeyListener {
 
 		});
 
+	}
+
+	public static boolean get_mapLoaded() {
+		return mapLoaded;
 	}
 
 }
