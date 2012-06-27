@@ -104,7 +104,7 @@ public class MapEditor {
 
 			}
 			for (int i = 0; i < n; i++) {
-				for (int j = 0; j < n; j++) {// Rest mit weg füllen
+				for (int j = 0; j < n; j++) {// Rest mit weg füllen	
 					if (map[i][j] != 4)
 						map[i][j] = 2;
 
@@ -254,7 +254,7 @@ public class MapEditor {
 				ActionListener list = new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 
-						if (!exist) {
+						if (true) {
 							String name = getSelectedButton(buttonGroup)
 									.getText();
 							if (name != null) {
