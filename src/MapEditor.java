@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 // Autor T. K 
-// überschreibt noch eine datei, falls sie schon vorhanden ist. muss noch ins menü eingebunden werden. ist wieder im jframe!
+// 
 public class MapEditor {
 	final static int n = MapLoader.get_n();
 	private static int[][] map = new int[n][n];
@@ -33,6 +33,7 @@ public class MapEditor {
 	private static String eingabe;
 	private static boolean exist = false;
 	private static JButton feld[][] = new JButton[n][n];
+	private static int oldLevel = MapLoader.get_level();
 
 	/* Konstruktor: */
 	public MapEditor() {
@@ -49,13 +50,17 @@ public class MapEditor {
 
 		do {
 			eingabe = JOptionPane.showInputDialog(null,
-					"Bitte geben Sie die Level-Nummer ein: \nNicht 1 oder 2",
-					"Levelnummer", JOptionPane.PLAIN_MESSAGE);
-			if (eingabe == null || eingabe.equals("")) {
-				richtigeAbfrage = false;
-			}
+					"Bitte geben Sie die Level-Nummer ein:\nNicht 1 oder 2.",
+					"Levelnummer", JOptionPane.OK_CANCEL_OPTION);
 
-			else {
+			if (eingabe == null) {
+				System.out.println("Boo");
+				richtigeAbfrage = true;
+				// Editor abbrechen!
+				return 0;
+			} else if (eingabe.equals("")) {
+				richtigeAbfrage = false;
+			} else {
 				MapLoader.set_level(Integer.parseInt(eingabe));
 				richtigeAbfrage = true;
 			}
@@ -70,13 +75,14 @@ public class MapEditor {
 
 			MapLoader.set_iconSatz(MapLoader.get_iconSatzLevel(dateiName));
 			iconSatz = MapLoader.get_iconSatzLevel(dateiName);
+			MapLoader.set_iconSatz(iconSatz);
 			map = MapLoader.laden(MapLoader.get_level());
 			exist = true;
 		}
 
 		else {
 			int iconAbfrage = JOptionPane.showConfirmDialog(null,
-					"Möchten Sie den ersten Icon-Satz nutzen?", "Gespeichert?",
+					"Möchten Sie den ersten Icon-Satz nutzen?", "Icon-Satz?",
 					JOptionPane.YES_NO_OPTION);
 			switch (iconAbfrage) {
 			case 0:
@@ -89,7 +95,7 @@ public class MapEditor {
 				break;
 			}
 
-			for (int i = 0; i < n; i++) {
+			for (int i = 0; i < n; i++) {// Map mit Mauern umranden!
 
 				map[i][0] = 4;
 				map[0][i] = 4;
@@ -98,7 +104,7 @@ public class MapEditor {
 
 			}
 			for (int i = 0; i < n; i++) {
-				for (int j = 0; j < n; j++) {
+				for (int j = 0; j < n; j++) {// Rest mit weg füllen
 					if (map[i][j] != 4)
 						map[i][j] = 2;
 
@@ -160,6 +166,7 @@ public class MapEditor {
 
 				if (saved) {
 					frame.setVisible(false);
+					MapLoader.set_level(oldLevel);
 				}
 
 				else {
@@ -171,10 +178,12 @@ public class MapEditor {
 					case 0:
 						MapLoader.level_speichern(map, levelnummer);
 						frame.setVisible(false);
+						MapLoader.set_level(oldLevel);
 						break;
 					case 1:
 						frame.setVisible(false);
-						f.delete();
+						f.delete();//  funktioniert noch nicht
+						MapLoader.set_level(oldLevel);
 						break;
 					case 2: // abbrechen nichts machen
 						break;

@@ -18,19 +18,21 @@ import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
 /**
- * Beinhaltet die Main- Methode , erstellt Fenster & Menue , startet & beendet das Programm , verwaltet Tastatureingaben und fuehrt Neustart des Spiels durch
+ * Beinhaltet die Main- Methode , erstellt Fenster & Menue , startet & beendet
+ * das Programm , verwaltet Tastatureingaben und fuehrt Neustart des Spiels
+ * durch
  * 
  * @author Kolja Salewski
  */
 public class Menue implements KeyListener {
 
 	// Deklaration & Initialisierung:
-	
+
 	/**
 	 * Hauptframe des Programmes
 	 */
 	static JFrame frame;
-	
+
 	public static boolean mapLoaded = false;
 
 	// private int anzahlLevel = 2; // nacher levelanzahl get methode;
@@ -42,17 +44,16 @@ public class Menue implements KeyListener {
 	// * enthaelt .wav-Datei fuer Explosionsgeraeusch der Bombe
 	// */
 	// public static Sound exp = new Sound("explosion.wav");
-	
-	/**
-	* true, wenn Bot aktiviert ist
-	*/
-	public static boolean bot = false;
-	
-	/**
-	* Bot1-Objekt (Bestimmung der Bewegung und Bombenaktion fuer Bot1)
-	*/
-	public static Bot bot1;
 
+	/**
+	 * true, wenn Bot aktiviert ist
+	 */
+	public static boolean bot = false;
+
+	/**
+	 * Bot1-Objekt (Bestimmung der Bewegung und Bombenaktion fuer Bot1)
+	 */
+	public static Bot bot1;
 
 	/**
 	 * Button im Leistenmenue ( Schliesst das Programm )
@@ -217,7 +218,8 @@ public class Menue implements KeyListener {
 	private static Map game; // Grafisches Spielfeld
 
 	/**
-	 * enthaelt die Informationen ueber die Spielerposition ((x ,y) - Koordinate )
+	 * enthaelt die Informationen ueber die Spielerposition ((x ,y) - Koordinate
+	 * )
 	 */
 	private static Hulk hulk1, hulk2; // Spielfiguren
 
@@ -227,7 +229,8 @@ public class Menue implements KeyListener {
 
 	/* Konstruktor: */
 	/**
-	 * {@code initialize()} legt die Panels in das JFrame {@code frame()} & erstellt die grafische Oberflaeche des Spieles
+	 * {@code initialize()} legt die Panels in das JFrame {@code frame()} &
+	 * erstellt die grafische Oberflaeche des Spieles
 	 */
 	public Menue() {
 		spiel_neugestartet = false;
@@ -245,7 +248,8 @@ public class Menue implements KeyListener {
 	/* METHODEN: */
 
 	private static void botStart() {
-		if(bot1.getStart() == 0)bot1.start();
+		if (bot1.getStart() == 0)
+			bot1.start();
 	}
 
 	// initialize-Methode:
@@ -326,7 +330,7 @@ public class Menue implements KeyListener {
 																// erstellen
 		mnMultiplayer.add(mntmMultiplayerBot); // Menueunterpunkt "Multiplayer -
 												// Bot hinzugefuegen
-		mntmMultiplayerBot.setAction(Action_MultiplayerBot); 
+		mntmMultiplayerBot.setAction(Action_MultiplayerBot);
 
 		JMenu mnLAN = new JMenu("LAN"); // Untermenue
 										// "LAN"
@@ -400,7 +404,10 @@ public class Menue implements KeyListener {
 
 	// keyPressed-Methode:
 	/**
-	 * Horcht , ob eine Taste gedrueckt wurde und wertet die Aktion gegebenfalls aus . Gueltige Aktionen sind : Hoch -, Links -, Rechts -, Runtertaste ( Bewegung ) und Leertaste ( Bombe ) für den 1. Spieler sowie W, A, S, D ( Bewegung ) und E ( Bombe ) für den 2. Spieler
+	 * Horcht , ob eine Taste gedrueckt wurde und wertet die Aktion gegebenfalls
+	 * aus . Gueltige Aktionen sind : Hoch -, Links -, Rechts -, Runtertaste (
+	 * Bewegung ) und Leertaste ( Bombe ) für den 1. Spieler sowie W, A, S, D (
+	 * Bewegung ) und E ( Bombe ) für den 2. Spieler
 	 */
 	public void keyPressed(KeyEvent Key) {
 		// Key-Methoden fuer 1. Spieler
@@ -541,7 +548,9 @@ public class Menue implements KeyListener {
 
 	// spieler1_bombe-Methode:
 	/**
-	 * Ueberprueft , ob der 1. Spieler noch eine Bombe legen darf , verringert ggf . die max . Bomben - Anzahl und ruft die bombe_legen - Methode aus der Map - Klasse auf
+	 * Ueberprueft , ob der 1. Spieler noch eine Bombe legen darf , verringert
+	 * ggf . die max . Bomben - Anzahl und ruft die bombe_legen - Methode aus
+	 * der Map - Klasse auf
 	 */
 	static void spieler1_bombe() {
 		System.out.println("Bombe S1"); // Test
@@ -582,7 +591,9 @@ public class Menue implements KeyListener {
 
 	// spieler2_bombe-Methode:
 	/**
-	 * Ueberprueft , ob der 2. Spieler noch eine Bombe legen darf , verringert ggf . die max . Bomben - Anzahl und ruft die bombe_legen - Methode aus der Map - Klasse auf
+	 * Ueberprueft , ob der 2. Spieler noch eine Bombe legen darf , verringert
+	 * ggf . die max . Bomben - Anzahl und ruft die bombe_legen - Methode aus
+	 * der Map - Klasse auf
 	 */
 	static void spieler2_bombe() {
 		System.out.println("Bombe S2"); // Test
@@ -622,7 +633,11 @@ public class Menue implements KeyListener {
 
 	// spieler1_aktionen-Methode:
 	/**
-	 * Ueberprueft , ob der Spieler mit den Pfeiltasten im Client -, Server - oder Einspieler - Modus ist . Je nach Modus : Client : 2. Spielfigur bewegen & Bewegungen dem Server mitteilen ; Server : 1. Spielfigur bewegen & Bewegungen dem Client mitteilen ; Einspieler : 1. Spielfigur bewegen
+	 * Ueberprueft , ob der Spieler mit den Pfeiltasten im Client -, Server -
+	 * oder Einspieler - Modus ist . Je nach Modus : Client : 2. Spielfigur
+	 * bewegen & Bewegungen dem Server mitteilen ; Server : 1. Spielfigur
+	 * bewegen & Bewegungen dem Client mitteilen ; Einspieler : 1. Spielfigur
+	 * bewegen
 	 */
 	void spieler1_aktionen(int x, int y) {
 		// Bewegung Spieler 1
@@ -655,7 +670,10 @@ public class Menue implements KeyListener {
 
 	// spieler1_aktionen2-Methode:
 	/**
-	 * Ueberprueft , ob sich die 1. Spielfigur in die gewuenschte Richtung bewegen kann . Je nachdem , welches Feld als nächstes betreten wird , werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg , Niederlage ).
+	 * Ueberprueft , ob sich die 1. Spielfigur in die gewuenschte Richtung
+	 * bewegen kann . Je nachdem , welches Feld als nächstes betreten wird ,
+	 * werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg ,
+	 * Niederlage ).
 	 */
 	static void spieler1_aktionen2(int x, int y) {
 		if (Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 2 // falls
@@ -693,7 +711,7 @@ public class Menue implements KeyListener {
 			System.out.println("Spieler 1 hat gewonnen"); // Test
 			System.out.println(); // Test
 
-			abfrage_neustarten();			
+			abfrage_neustarten();
 		}
 
 		// Niederlage Spieler 1
@@ -706,15 +724,18 @@ public class Menue implements KeyListener {
 																		// ist
 			System.out.println("Spieler 1 hat verloren"); // Test
 			System.out.println(); // Test
-			
-			abfrage_neustarten();			
+
+			abfrage_neustarten();
 		}
 
 	}
 
 	// spieler2_aktionen-Methode:
 	/**
-	 * Ueberprueft , ob sich die 2. Spielfigur in die gewuenschte Richtung bewegen kann . Je nachdem , welches Feld als nächstes betreten wird , werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg , Niederlage ).
+	 * Ueberprueft , ob sich die 2. Spielfigur in die gewuenschte Richtung
+	 * bewegen kann . Je nachdem , welches Feld als nächstes betreten wird ,
+	 * werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg ,
+	 * Niederlage ).
 	 */
 	static void spieler2_aktionen(int x, int y) {
 		// Bewegung Spieler 2
@@ -782,13 +803,15 @@ public class Menue implements KeyListener {
 	/**
 	 * beendet den Bot-Thread. Verwendung bei Wechsel des Spielmodus.
 	 */
-	static void botStop(){
+	static void botStop() {
 		bot1.interrupt();
 	}
-	
+
 	// reset_Hulk-Methode:
 	/**
-	 * Setzt die beiden Spielfiguren auf ihre Startpositionen zurueck . Die 1. Spielfigur landet immer in der oberen linken Ecke . Die 2. Spielfigur landet immer in der unteren rechten Ecke .
+	 * Setzt die beiden Spielfiguren auf ihre Startpositionen zurueck . Die 1.
+	 * Spielfigur landet immer in der oberen linken Ecke . Die 2. Spielfigur
+	 * landet immer in der unteren rechten Ecke .
 	 */
 	static void reset_Hulk() {
 		hulk1.set_x(1);
@@ -797,7 +820,7 @@ public class Menue implements KeyListener {
 		hulk2.set_x(n - 2);
 		hulk2.set_y(n - 2);
 
-		if (bot){
+		if (bot) {
 			bot1.set_x(n - 2);
 			bot1.set_y(n - 2);
 			botStart();
@@ -806,7 +829,9 @@ public class Menue implements KeyListener {
 
 	// spiel_neustarten-Methode:
 	/**
-	 * Startet das Spiel folgendermaßen neu : Zuruecksetzen der Spielfiguren , max . Anzahl Bomben und Bomben - Radien , Entfernen aktueller Bomben , Reinitialisieren der internen und grafischen Spielfelder
+	 * Startet das Spiel folgendermaßen neu : Zuruecksetzen der Spielfiguren ,
+	 * max . Anzahl Bomben und Bomben - Radien , Entfernen aktueller Bomben ,
+	 * Reinitialisieren der internen und grafischen Spielfelder
 	 */
 	static void spiel_neustarten() {
 
@@ -838,56 +863,59 @@ public class Menue implements KeyListener {
 		// Spielfeld grafisch reinitialisieren:
 		game.removeAll();
 		game.refresh();
-		
+
 		// Boolean-Werte zuruecksetzen:
 		antwort_erhalten = false;
 		anfrage_geschickt = false;
-		
-		System.out.println("antwort_erhalten nach neustart = " + antwort_erhalten); // Test
+
+		System.out.println("antwort_erhalten nach neustart = "
+				+ antwort_erhalten); // Test
 		System.out.println(); // Test
-		
-		System.out.println("anfrage_geschickt nach neustart = " + anfrage_geschickt); // Test
+
+		System.out.println("anfrage_geschickt nach neustart = "
+				+ anfrage_geschickt); // Test
 		System.out.println(); // Test
 	}
 
 	// abfrage_neustarten-Methode:
 	/**
-	 * Fragt den Benutzer , ob er das Spiel neustarten oder beenden möchte und fuehrt die jeweilige Aktion aus .
+	 * Fragt den Benutzer , ob er das Spiel neustarten oder beenden möchte und
+	 * fuehrt die jeweilige Aktion aus .
 	 */
 	static void abfrage_neustarten() {
 		int eingabe = 0;
-		
+
 		if (serverThread != null) {
 			createAndShowGui(
 					"Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
 					" auf Antwort...", 60, 600, 100, 0, "", "neustart");
 		}
-		
+
 		else {
 			eingabe = JOptionPane.showConfirmDialog(null,
 					"Möchten Sie noch eine Runde spielen?", "Spiel zuende",
-					JOptionPane.YES_NO_CANCEL_OPTION);
+					JOptionPane.YES_NO_OPTION);
 
 			if (eingabe == 0) {
 				if (clientThread != null) {
 					clientThread.out
-					.println("Spieler 2 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
-			createAndShowGui(
-					"Spieler 1 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
-					" auf Antwort...", 60, 600, 100, 0, "", "neustart");
+							.println("Spieler 2 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
+					createAndShowGui(
+							"Spieler 1 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
+							" auf Antwort...", 60, 600, 100, 0, "", "neustart");
 				}
-				
+
 				else {
 					spiel_neustarten();
 				}
-				
+
 				if (zeit != 0) {
 					spieltimer.timer.cancel();
 					spieltimer = new Zeit();
 					spieltimer.laufzeit(zeit); // die Zeit ist in Sekunden 180sek = 3min
 												// (Spielzeit/Rundenzeit)
 				}
-				
+
 			}
 
 			else if (eingabe == 1) {
@@ -925,7 +953,8 @@ public class Menue implements KeyListener {
 	@SuppressWarnings("serial")
 	static void createAndShowGui(final String text_anfang,
 			final String text_ende, final int zeit, final int breite,
-			final int hoehe, final int level, final String schwierigkeitsgrad, final String aktion) {
+			final int hoehe, final int level, final String schwierigkeitsgrad,
+			final String aktion) {
 		final JLabel label = new JLabel();
 		int timerDelay = 1000;
 		antwort_erhalten = false;
@@ -935,12 +964,14 @@ public class Menue implements KeyListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Window win = SwingUtilities.getWindowAncestor(label);
-				((JDialog) win).setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+				((JDialog) win)
+						.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 				if (timeLeft > 0 && antwort_erhalten == false) {
 					label.setText(text_anfang + timeLeft + " Sekunden"
 							+ text_ende);
 					win.setSize(breite, hoehe);
-					antwort_verarbeiten(win, e, level, schwierigkeitsgrad, aktion);
+					antwort_verarbeiten(win, e, level, schwierigkeitsgrad,
+							aktion);
 					timeLeft--;
 				}
 
@@ -960,7 +991,7 @@ public class Menue implements KeyListener {
 		JOptionPane.showOptionDialog(frame, label, "",
 				JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
 				new Object[] {}, null);
-		
+
 		antwort_erhalten = false;
 	}
 
@@ -968,8 +999,9 @@ public class Menue implements KeyListener {
 	/**
 	 * Verarbeitet die Server -/ Client - Antworten
 	 */
-	static void antwort_verarbeiten(Window win, ActionEvent e, int level, String schwierigkeitsgrad, String aktion) {
-		if (serverThread != null) {			
+	static void antwort_verarbeiten(Window win, ActionEvent e, int level,
+			String schwierigkeitsgrad, String aktion) {
+		if (serverThread != null) {
 			if (serverThread.antwort.equals("yes")) {
 				if (aktion.equals("level")) {
 					serverThread.out.println("level");
@@ -984,43 +1016,43 @@ public class Menue implements KeyListener {
 				else if (aktion.equals("neustart")) {
 					serverThread.out.println("neustart");
 				}
-				
+
 				else if (aktion.equals("schwierigkeitsgrad")) {
 					serverThread.out.println("schwierigkeitsgrad");
 					serverThread.out.println(schwierigkeitsgrad);
-					
-					schwierigkeitsgrad_aendern(schwierigkeitsgrad);				
+
+					schwierigkeitsgrad_aendern(schwierigkeitsgrad);
 				}
 
-//				else {
-//					createAndShowGui(
-//							"Spieler 2 moechte ebenfalls das Spiel neustarten. Das Spiel wird in ",
-//							" neugestartet...", 5, 600, 100, 0);
-//				}
+				//				else {
+				//					createAndShowGui(
+				//							"Spieler 2 moechte ebenfalls das Spiel neustarten. Das Spiel wird in ",
+				//							" neugestartet...", 5, 600, 100, 0);
+				//				}
 
 				spiel_neustarten();
 			}
 
-//			else if (serverThread.antwort.equals("no")) {
-//				antwort_erhalten = true;
-//				((Timer) e.getSource()).stop();
-//				win.setVisible(false);
-//				serverThread.antwort = "leer";
-//				if (level != 0) {
-//					 Menue.createAndShowGui("Spieler 2 moechte nicht zu Level "
-//					 + level + " wechseln.\nDas Spiel wird in ",
-//					 " fortgesetzt...", 5, 300, 100, 0); // BITTE
-//					 AUSKOMMENTIERT LASSEN & NICHT LOESCHEN
-//				}
-//
-//				else {
-//					Menue.createAndShowGui(
-//							"Spieler 2 moechte das Spiel nicht neustarten.\nDas Spiel wird in ",
-//							" fortgesetzt...", 5, 300, 100, 0);
-//				}
-//
-//			}
-			
+			//			else if (serverThread.antwort.equals("no")) {
+			//				antwort_erhalten = true;
+			//				((Timer) e.getSource()).stop();
+			//				win.setVisible(false);
+			//				serverThread.antwort = "leer";
+			//				if (level != 0) {
+			//					 Menue.createAndShowGui("Spieler 2 moechte nicht zu Level "
+			//					 + level + " wechseln.\nDas Spiel wird in ",
+			//					 " fortgesetzt...", 5, 300, 100, 0); // BITTE
+			//					 AUSKOMMENTIERT LASSEN & NICHT LOESCHEN
+			//				}
+			//
+			//				else {
+			//					Menue.createAndShowGui(
+			//							"Spieler 2 moechte das Spiel nicht neustarten.\nDas Spiel wird in ",
+			//							" fortgesetzt...", 5, 300, 100, 0);
+			//				}
+			//
+			//			}
+
 			if (!(serverThread.antwort.equals("leer"))) {
 				antwort_erhalten = true;
 				((Timer) e.getSource()).stop();
@@ -1030,8 +1062,8 @@ public class Menue implements KeyListener {
 
 		}
 
-		else if (clientThread != null) {			
-			if (clientThread.antwort.equals("yes")) {				
+		else if (clientThread != null) {
+			if (clientThread.antwort.equals("yes")) {
 				if (aktion.equals("level")) {
 					clientThread.out.println("level");
 					clientThread.out.println(level);
@@ -1045,43 +1077,43 @@ public class Menue implements KeyListener {
 				else if (aktion.equals("neustart")) {
 					clientThread.out.println("neustart");
 				}
-				
+
 				else if (aktion.equals("schwierigkeitsgrad")) {
 					clientThread.out.println("schwierigkeitsgrad");
 					clientThread.out.println(schwierigkeitsgrad);
-					
+
 					schwierigkeitsgrad_aendern(schwierigkeitsgrad);
 				}
 
-//				else {
-//					createAndShowGui(
-//							"Spieler 1 moechte ebenfalls das Spiel neustarten. Das Spiel wird in ",
-//							" neugestartet...", 5, 600, 100, 0);
-//				}
+				//				else {
+				//					createAndShowGui(
+				//							"Spieler 1 moechte ebenfalls das Spiel neustarten. Das Spiel wird in ",
+				//							" neugestartet...", 5, 600, 100, 0);
+				//				}
 
 				spiel_neustarten();
 			}
 
-//			else if (clientThread.antwort.equals("no")) {
-//				antwort_erhalten = true;
-//				((Timer) e.getSource()).stop();
-//				win.setVisible(false);
-//				clientThread.antwort = "leer";
-//				if (level != 0) {
-//					 Menue.createAndShowGui("Spieler 1 moechte nicht zu Level "
-//					 + level + " wechseln.\nDas Spiel wird in ",
-//					 " fortgesetzt...", 5, 300, 100, 0); // BITTE
-//					 AUSKOMMENTIERT LASSEN & NICHT LOESCHEN
-//				}
-//
-//				else {
-//					Menue.createAndShowGui(
-//							"Spieler 1 moechte das Spiel nicht neustarten.\nDas Spiel wird in ",
-//							" fortgesetzt...", 5, 300, 100, 0);
-//				}
-//
-//			}
-	
+			//			else if (clientThread.antwort.equals("no")) {
+			//				antwort_erhalten = true;
+			//				((Timer) e.getSource()).stop();
+			//				win.setVisible(false);
+			//				clientThread.antwort = "leer";
+			//				if (level != 0) {
+			//					 Menue.createAndShowGui("Spieler 1 moechte nicht zu Level "
+			//					 + level + " wechseln.\nDas Spiel wird in ",
+			//					 " fortgesetzt...", 5, 300, 100, 0); // BITTE
+			//					 AUSKOMMENTIERT LASSEN & NICHT LOESCHEN
+			//				}
+			//
+			//				else {
+			//					Menue.createAndShowGui(
+			//							"Spieler 1 moechte das Spiel nicht neustarten.\nDas Spiel wird in ",
+			//							" fortgesetzt...", 5, 300, 100, 0);
+			//				}
+			//
+			//			}
+
 			if (!(clientThread.antwort.equals("leer"))) {
 				antwort_erhalten = true;
 				((Timer) e.getSource()).stop();
@@ -1092,67 +1124,80 @@ public class Menue implements KeyListener {
 		}
 
 	}
-	
+
 	// schwierigkeitsgrad_aendern-Methode:
 	/**
 	 * Aendert den Schwierigkeitsgrad
 	 */
 	static void schwierigkeitsgrad_aendern(String schwierigkeitsgrad) {
-		System.out.println("antwort_erhalten vor neustart = " + antwort_erhalten); // Test
+		System.out.println("antwort_erhalten vor neustart = "
+				+ antwort_erhalten); // Test
 		System.out.println(); // Test
-		
-		System.out.println("anfrage_geschickt vor neustart = " + anfrage_geschickt); // Test
+
+		System.out.println("anfrage_geschickt vor neustart = "
+				+ anfrage_geschickt); // Test
 		System.out.println(); // Test
-		
-		
-		if (clientThread != null && anfrage_geschickt == false && antwort_erhalten == false) {
+
+		if (clientThread != null && anfrage_geschickt == false
+				&& antwort_erhalten == false) {
 			anfrage_geschickt = true;
 			clientThread.out
-			.println("Spieler 2 moechte zum Schwierigkeitsgrad '" + schwierigkeitsgrad + "' wechseln. Soll zum Schwierigkeitsgrad '" + schwierigkeitsgrad + "' gewechselt werden?");
+					.println("Spieler 2 moechte zum Schwierigkeitsgrad '"
+							+ schwierigkeitsgrad
+							+ "' wechseln. Soll zum Schwierigkeitsgrad '"
+							+ schwierigkeitsgrad + "' gewechselt werden?");
 			createAndShowGui(
-			"Spieler 1 wurde eine Anfrage zum Wechsel zu Schwierigkeitsgrad '" + schwierigkeitsgrad + "' geschickt. Warte ",
-			" auf Antwort...", 60, 750, 100, 0, schwierigkeitsgrad, "schwierigkeitsgrad");
+					"Spieler 1 wurde eine Anfrage zum Wechsel zu Schwierigkeitsgrad '"
+							+ schwierigkeitsgrad + "' geschickt. Warte ",
+					" auf Antwort...", 60, 750, 100, 0, schwierigkeitsgrad,
+					"schwierigkeitsgrad");
 		}
 
-		else if (serverThread != null && anfrage_geschickt == false && antwort_erhalten == false) {
+		else if (serverThread != null && anfrage_geschickt == false
+				&& antwort_erhalten == false) {
 			anfrage_geschickt = true;
 			serverThread.out
-			.println("Spieler 1 moechte zum Schwierigkeitsgrad '" + schwierigkeitsgrad + "' wechseln. Soll zum Schwierigkeitsgrad '" + schwierigkeitsgrad + "' gewechselt werden?");
+					.println("Spieler 1 moechte zum Schwierigkeitsgrad '"
+							+ schwierigkeitsgrad
+							+ "' wechseln. Soll zum Schwierigkeitsgrad '"
+							+ schwierigkeitsgrad + "' gewechselt werden?");
 			createAndShowGui(
-			"Spieler 2 wurde eine Anfrage zum Wechsel zu Schwierigkeitsgrad '" + schwierigkeitsgrad + "' geschickt. Warte ",
-			" auf Antwort...", 60, 750, 100, 0, schwierigkeitsgrad, "schwierigkeitsgrad");
+					"Spieler 2 wurde eine Anfrage zum Wechsel zu Schwierigkeitsgrad '"
+							+ schwierigkeitsgrad + "' geschickt. Warte ",
+					" auf Antwort...", 60, 750, 100, 0, schwierigkeitsgrad,
+					"schwierigkeitsgrad");
 		}
 
 		else {
 			if (schwierigkeitsgrad.equals("Anfänger")) {
 				zeit = 0;
 			}
-			
+
 			else if (schwierigkeitsgrad.equals("Leicht")) {
 				zeit = 180;
 			}
-			
+
 			else if (schwierigkeitsgrad.equals("Mittel")) {
 				zeit = 90;
 			}
-			
+
 			else if (schwierigkeitsgrad.equals("Schwer")) {
 				zeit = 45;
 			}
-			
+
 			spiel_neustarten();
 			System.out.println(schwierigkeitsgrad); // Test
 			anfrage_geschickt = false;
 			antwort_erhalten = false;
-			
+
 			if (zeit != 0) {
 				spieltimer.timer.cancel();
 				spieltimer = new Zeit(); 	// objekt zeit (mit Zeitlimit)
 				spieltimer.laufzeit(zeit); 	// zeit in Sekunden
 			}
-			
+
 		}
-		
+
 	}
 
 	// lan_modus_beenden-Methode:
@@ -1258,7 +1303,8 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Laden" , lädt ein zuvor gespeichertes Spiel
+	 * Klasse fuer Menuebuttonorganisation "Laden" , lädt ein zuvor
+	 * gespeichertes Spiel
 	 * 
 	 * @author Tobias Korfmacher
 	 */
@@ -1305,7 +1351,8 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Speichern" , speichert das aktuelle Spiel
+	 * Klasse fuer Menuebuttonorganisation "Speichern" , speichert das aktuelle
+	 * Spiel
 	 * 
 	 * @author Tobias Korfmacher
 	 */
@@ -1332,7 +1379,8 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Singleplayer" , wechselt zum Singleplayer - Modus
+	 * Klasse fuer Menuebuttonorganisation "Singleplayer" , wechselt zum
+	 * Singleplayer - Modus
 	 * 
 	 * @author Kolja Salewski
 	 */
@@ -1350,7 +1398,9 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Ueberprueft , ob man sich im Mehrspieler - Modus befindet und wechselt ggf . zum Einzelspieler - Modus . Anschliessend wird das Spiel neugestartet .
+		 * Ueberprueft , ob man sich im Mehrspieler - Modus befindet und
+		 * wechselt ggf . zum Einzelspieler - Modus . Anschliessend wird das
+		 * Spiel neugestartet .
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (twoPlayer == true) {
@@ -1362,7 +1412,8 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "HotSeat" , wechselt zum HotSeat - Modus
+	 * Klasse fuer Menuebuttonorganisation "HotSeat" , wechselt zum HotSeat -
+	 * Modus
 	 * 
 	 * @author Kolja Salewski
 	 */
@@ -1380,7 +1431,9 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Ueberprueft , ob man sich bereits im HotSeat - Modus befindet und wechselt anderenfalls dorthin . Anschließend wird das Spiel neugestartet .
+		 * Ueberprueft , ob man sich bereits im HotSeat - Modus befindet und
+		 * wechselt anderenfalls dorthin . Anschließend wird das Spiel
+		 * neugestartet .
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (hotSeat == false) {
@@ -1402,7 +1455,8 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Server" , wechselt zum Server - Modus
+	 * Klasse fuer Menuebuttonorganisation "Server" , wechselt zum Server -
+	 * Modus
 	 * 
 	 * @author Kolja Salewski
 	 */
@@ -1420,7 +1474,10 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Ueberprueft , ob man sich bereits im Server - Modus befindet und wechselt anderenfalls dorthin . Falls man sich vorher im Client - Modus befunden hat , wird der Client - Thread beendet . Der Server - Modus wird als neuer Thread gestartet .
+		 * Ueberprueft , ob man sich bereits im Server - Modus befindet und
+		 * wechselt anderenfalls dorthin . Falls man sich vorher im Client -
+		 * Modus befunden hat , wird der Client - Thread beendet . Der Server -
+		 * Modus wird als neuer Thread gestartet .
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (serverThread == null) {
@@ -1446,7 +1503,8 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Client" , wechselt zum Client - Modus
+	 * Klasse fuer Menuebuttonorganisation "Client" , wechselt zum Client -
+	 * Modus
 	 * 
 	 * @author Kolja Salewski
 	 */
@@ -1464,7 +1522,10 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Ueberprueft , ob man sich bereits im Client - Modus befindet und wechselt anderenfalls dorthin . Falls man sich vorher im Server - Modus befunden hat , wird der Server - Thread beendet . Der Client - Modus wird als neuer Thread gestartet
+		 * Ueberprueft , ob man sich bereits im Client - Modus befindet und
+		 * wechselt anderenfalls dorthin . Falls man sich vorher im Server -
+		 * Modus befunden hat , wird der Server - Thread beendet . Der Client -
+		 * Modus wird als neuer Thread gestartet
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (clientThread == null) {
@@ -1599,7 +1660,8 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "MapEditor" , startet den Map - Editor
+	 * Klasse fuer Menuebuttonorganisation "MapEditor" , startet den Map -
+	 * Editor
 	 * 
 	 * @author Tobias Korfmacher
 	 */
@@ -1644,32 +1706,34 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Multiplayer - Bot" , aktiviert den Bot als 2. Spieler
+	 * Klasse fuer Menuebuttonorganisation "Multiplayer - Bot" , aktiviert den
+	 * Bot als 2. Spieler
 	 * 
 	 * @author Sebastian Dittmann
 	 * 
 	 */
 	public class Action_MultiplayerBot extends AbstractAction {
 		private static final long serialVersionUID = 1L;
-	
-		public Action_MultiplayerBot(){
-		putValue(NAME, "Bot");
-		putValue(SHORT_DESCRIPTION, "Wechsel in Bot-Modus");
-	}
-	
-		public void actionPerformed (ActionEvent e){
-			if (bot == false){
+
+		public Action_MultiplayerBot() {
+			putValue(NAME, "Bot");
+			putValue(SHORT_DESCRIPTION, "Wechsel in Bot-Modus");
+		}
+
+		public void actionPerformed(ActionEvent e) {
+			if (bot == false) {
 				bot = true;
 				System.out.println("Bot aktiviert"); //Test
 				System.out.println();
-				
+
 				spiel_neustarten();
 			}
 		}
 	}
 
 	/**
-	 * Klassen für den Button "Schwierigkeit" erstellen . ( zur änderung der Schwierigkeit )
+	 * Klassen für den Button "Schwierigkeit" erstellen . ( zur änderung der
+	 * Schwierigkeit )
 	 * 
 	 * @author Andrej Morlang
 	 */
@@ -1813,14 +1877,14 @@ public class Menue implements KeyListener {
 	public static int[][] get_map() {
 		return map;
 	}
-	
+
 	//get_bot-Methode:
-	
+
 	/**
-	 * @return bot1-Objekt fuer eventuelle Erweiterung auf mehrere Bots   
-	*/
-	
-	public static Bot get_bot(int bot){	
+	 * @return bot1-Objekt fuer eventuelle Erweiterung auf mehrere Bots
+	 */
+
+	public static Bot get_bot(int bot) {
 		return bot1;
 	}
 
@@ -1861,16 +1925,16 @@ public class Menue implements KeyListener {
 	// public static Sound get_EXP(){
 	// return exp;
 	// }
-	
+
 	/**
-	*
-	* @return Boolean-Wert, ob Bot aktiviert ist
-	*/
+	 * 
+	 * @return Boolean-Wert, ob Bot aktiviert ist
+	 */
 	public static boolean getBot() {
-	 return bot;
+		return bot;
 	}
-	
-	public static void set_mapLoaded(boolean Wert){
+
+	public static void set_mapLoaded(boolean Wert) {
 		mapLoaded = Wert;
 	}
 
