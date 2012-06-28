@@ -103,11 +103,9 @@ public class MapEditor {
 				map[i][n - 1] = 4;
 
 			}
-			for (int i = 0; i < n; i++) {
-				for (int j = 0; j < n; j++) {// Rest mit weg füllen	
-					if (map[i][j] != 4)
-						map[i][j] = 2;
-
+			for (int i = 1; i < n - 1; i++) {
+				for (int j = 1; j < n - 1; j++) {// Rest mit weg füllen	
+					map[i][j] = 2;
 				}
 			}
 
@@ -177,13 +175,16 @@ public class MapEditor {
 					switch (eingabe) {
 					case 0:
 						MapLoader.level_speichern(map, levelnummer);
+						saved = true;
 						frame.setVisible(false);
 						MapLoader.set_level(oldLevel);
 						break;
 					case 1:
 						frame.setVisible(false);
+						f.deleteOnExit();
 						f.delete();//  funktioniert noch nicht
 						MapLoader.set_level(oldLevel);
+						Menue.spiel_neustarten();
 						break;
 					case 2: // abbrechen nichts machen
 						break;
@@ -196,8 +197,8 @@ public class MapEditor {
 		ActionListener test = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				// map editor soll das aktuelle spiel in hauptfenster öffnen und
-				// spielen
+				MapLoader.set_level(Integer.parseInt(eingabe));
+				Menue.spiel_neustarten();
 
 			}
 
@@ -254,124 +255,111 @@ public class MapEditor {
 				ActionListener list = new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 
-						if (true) {
-							String name = getSelectedButton(buttonGroup)
-									.getText();
-							if (name != null) {
-								if (name == "Hulk") {
-									if (!abfrageHulk1) {
-										power = 1;
-										pic = new ImageIcon(
-												Map.class.getResource("/Pics/"
-														+ iconSatz
-														+ "/Hulk.png"));
-										abfrageHulk1 = true;
-									} else {
-										System.out
-												.println("Hulk1 wurde schon gesetzt");
-										//									int neu = JOptionPane.showConfirmDialog(null,
-										//											"Neue Position?", "Bereits gesetz",
-										//											JOptionPane.YES_NO_OPTION);
-										power = 2;
-										pic = new ImageIcon(
-												Map.class
-														.getResource("/Pics/"
-																+ iconSatz
-																+ "/Weg.png"));
-									}
-								} else if (name == "Weg") {
+						String name = getSelectedButton(buttonGroup).getText();
+						if (name != null) {
+							if (name == "Hulk") {
+								if (!abfrageHulk1) {
+									power = 1;
+									pic = new ImageIcon(
+											Map.class.getResource("/Pics/"
+													+ iconSatz + "/Hulk.png"));
+									abfrageHulk1 = true;
+								} else {
+									System.out
+											.println("Hulk1 wurde schon gesetzt");
+									//									int neu = JOptionPane.showConfirmDialog(null,
+									//											"Neue Position?", "Bereits gesetz",
+									//											JOptionPane.YES_NO_OPTION);
 									power = 2;
 									pic = new ImageIcon(
 											Map.class.getResource("/Pics/"
 													+ iconSatz + "/Weg.png"));
-								} else if (name == "Block") {
-									power = 4;
-									pic = new ImageIcon(
-											Map.class.getResource("/Pics/"
-													+ iconSatz + "/Block.png"));
-								} else if (name == "Mauer") {
-									power = 3;
-									pic = new ImageIcon(
-											Map.class.getResource("/Pics/"
-													+ iconSatz + "/Mauer.png"));
-								} else if (name == "Ausgang") {
-									if (!abfrageAusgang) {
-										power = 7;
-										pic = new ImageIcon(
-												Map.class.getResource("/Pics/"
-														+ iconSatz
-														+ "/Exit.png"));
-										abfrageAusgang = true;
-									} else {
-
-										System.out
-												.println("Ausgang wurde schon gesetzt");
-										power = 2;
-										pic = new ImageIcon(
-												Map.class
-														.getResource("/Pics/"
-																+ iconSatz
-																+ "/Weg.png"));
-									}
-								} else if (name == "Block-Ausgang") {
-									if (!abfrageAusgang) {
-										power = 8;
-										pic = new ImageIcon(
-												Map.class.getResource("/Pics/"
-														+ iconSatz
-														+ "/Exit.png"));
-									} else {
-
-										System.out
-												.println("Ausgang wurde schon gesetzt");
-									}
-								} else if (name == "Block/Flammen-Item") {
-									power = 9;
-									pic = new ImageIcon(
-											Map.class
-													.getResource("/Pics/Flammen-Item.png"));
-								} else if (name == "Block/Bomben-Item") {
-									power = 12;
-									pic = new ImageIcon(
-											Map.class
-													.getResource("/Pics/Bomben-Item.png"));
-								} else if (name == "2.Spieler") {
-									if (!abfrageHulk2) {
-										power = 10;
-
-										pic = new ImageIcon(
-												Map.class.getResource("/Pics/"
-														+ iconSatz
-														+ "/Hulk2.png"));
-										abfrageHulk2 = true;
-									} else {
-
-										System.out
-												.println("Hulk2 wurde schon gesetzt");
-										power = 10;
-										pic = new ImageIcon(
-												Map.class
-														.getResource("/Pics/"
-																+ iconSatz
-																+ "/Weg.png"));
-									}
 								}
+							} else if (name == "Weg") {
+								power = 2;
+								pic = new ImageIcon(
+										Map.class.getResource("/Pics/"
+												+ iconSatz + "/Weg.png"));
+							} else if (name == "Block") {
+								power = 3;
+								pic = new ImageIcon(
+										Map.class.getResource("/Pics/"
+												+ iconSatz + "/Block.png"));
+							} else if (name == "Mauer") {
+								power = 4;
+								pic = new ImageIcon(
+										Map.class.getResource("/Pics/"
+												+ iconSatz + "/Mauer.png"));
+							} else if (name == "Ausgang") {
+								if (!abfrageAusgang) {
+									power = 7;
+									pic = new ImageIcon(
+											Map.class.getResource("/Pics/"
+													+ iconSatz + "/Exit.png"));
+									abfrageAusgang = true;
+								} else {
 
-								map[a][b] = power;
+									System.out
+											.println("Ausgang wurde schon gesetzt");
+									power = 2;
+									pic = new ImageIcon(
+											Map.class.getResource("/Pics/"
+													+ iconSatz + "/Weg.png"));
+								}
+							} else if (name == "Block-Ausgang") {
+								if (!abfrageAusgang) {
+									power = 8;
+									pic = new ImageIcon(
+											Map.class.getResource("/Pics/"
+													+ iconSatz + "/Exit.png"));
+								} else {
 
-								feld[a][b].setIcon(pic); // ...Grafik auf Button
+									System.out
+											.println("Ausgang wurde schon gesetzt");
+								}
+							} else if (name == "Block/Flammen-Item") {
+								power = 9;
+								pic = new ImageIcon(
+										Map.class
+												.getResource("/Pics/Flammen-Item.png"));
+							} else if (name == "Block/Bomben-Item") {
+								power = 12;
+								pic = new ImageIcon(
+										Map.class
+												.getResource("/Pics/Bomben-Item.png"));
+							} else if (name == "2.Spieler") {
+								if (!abfrageHulk2) {
+									power = 10;
 
-								Menue.spiel_neustarten();
+									pic = new ImageIcon(
+											Map.class.getResource("/Pics/"
+													+ iconSatz + "/Hulk2.png"));
+									abfrageHulk2 = true;
+								} else {
+
+									System.out
+											.println("Hulk2 wurde schon gesetzt");
+									power = 2;
+									pic = new ImageIcon(
+											Map.class.getResource("/Pics/"
+													+ iconSatz + "/Weg.png"));
+								}
 							}
+
+							map[a][b] = power;
+
+							feld[a][b].setIcon(pic); // ...Grafik auf Button
+
+							Menue.spiel_neustarten();
 						}
+
 					}
 				};
 
 				feld[i][j] = new JButton();
-				if (exist) {
-					pic = getPic(map[i][j]);
-					feld[i][j].setIcon(pic);
-				}
+
+				pic = getPic(map[i][j]);
+				feld[i][j].setIcon(pic);
 
 				feld[i][j].setPreferredSize(new Dimension(50, 50));// Button-Größe
 				feld[i][j].addActionListener(list);
@@ -403,6 +391,9 @@ public class MapEditor {
 		ImageIcon pic = null;
 		switch (i) {
 
+		case 0: // Block/Bomben-Item 	
+			pic = new ImageIcon(Map.class.getResource("/Pics/Bomben-Item.png"));
+			break;
 		case 1: // Hulk
 			pic = new ImageIcon(Map.class.getResource("/Pics/" + iconSatz
 					+ "/Hulk.png"));
@@ -413,14 +404,14 @@ public class MapEditor {
 					+ "/Weg.png"));
 			break;
 
-		case 4: // Block
-			pic = new ImageIcon(Map.class.getResource("/Pics/" + iconSatz
-					+ "/Mauer.png"));
-			break;
-
-		case 3: // Mauer (nicht zerstoerbar)
+		case 3: // Block
 			pic = new ImageIcon(Map.class.getResource("/Pics/" + iconSatz
 					+ "/Block.png"));
+			break;
+
+		case 4: // Mauer (nicht zerstoerbar)
+			pic = new ImageIcon(Map.class.getResource("/Pics/" + iconSatz
+					+ "/Mauer.png"));
 			break;
 
 		case 7: // Ausgang
@@ -441,14 +432,13 @@ public class MapEditor {
 
 			pic = new ImageIcon(Map.class.getResource("/Pics/" + iconSatz
 					+ "/Hulk2.png"));
-
 			break;
-
-		case 12:
-			// Bombe
-
-			pic = new ImageIcon(Map.class.getResource("/Pics/" + iconSatz
-					+ "/Hulk2.png"));
+		case 12: // Block/Bomben-Item 	
+			pic = new ImageIcon(Map.class.getResource("/Pics/Bomben-Item.png"));
+			break;
+		case 15: // Block/Flammen-Item 	
+			pic = new ImageIcon(Map.class.getResource("/Pics/Flammen-Item.png"));
+			break;
 
 		}
 		return pic;
