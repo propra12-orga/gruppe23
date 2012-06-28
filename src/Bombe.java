@@ -66,6 +66,7 @@ public class Bombe extends JLabel {
 	 * Felder im Map-Array; Ueberpruefung ob Spieler von Explosion betroffen ist
 	 */
 	public void bombe_detonieren(int Spieler, int bomben_radius) {
+		StdAudio.play("src/media/explosion.wav");
 		Menue.get_hulk(Spieler).set_max_bomben(
 				Menue.get_hulk(Spieler).get_max_bomben() + 1); // Spieler darf
 																// wieder eine
