@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,6 +7,7 @@ import java.awt.event.KeyListener;
 import java.io.IOException;
 
 import javax.swing.AbstractAction;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,14 +15,13 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
 /**
- * Beinhaltet die Main- Methode , erstellt Fenster & Menue , startet & beendet
- * das Programm , verwaltet Tastatureingaben und fuehrt Neustart des Spiels
- * durch
+ * Beinhaltet die Main- Methode , erstellt Fenster & Menue , startet & beendet das Programm , verwaltet Tastatureingaben und fuehrt Neustart des Spiels durch
  * 
  * @author Kolja Salewski
  */
@@ -218,8 +219,7 @@ public class Menue implements KeyListener {
 	private static Map game; // Grafisches Spielfeld
 
 	/**
-	 * enthaelt die Informationen ueber die Spielerposition ((x ,y) - Koordinate
-	 * )
+	 * enthaelt die Informationen ueber die Spielerposition ((x ,y) - Koordinate )
 	 */
 	private static Hulk hulk1, hulk2; // Spielfiguren
 
@@ -229,8 +229,7 @@ public class Menue implements KeyListener {
 
 	/* Konstruktor: */
 	/**
-	 * {@code initialize()} legt die Panels in das JFrame {@code frame()} &
-	 * erstellt die grafische Oberflaeche des Spieles
+	 * {@code initialize()} legt die Panels in das JFrame {@code frame()} & erstellt die grafische Oberflaeche des Spieles
 	 */
 	public Menue() {
 		spiel_neugestartet = false;
@@ -395,6 +394,22 @@ public class Menue implements KeyListener {
 		mnZeit.add(Schwer);
 		Schwer.setAction(Action_Schwer);
 
+		JPanel south = new JPanel();
+		// Deklarationen oder Aktuelle Meldungen einfuegen
+		JButton exit_button = new JButton("Beenden");
+		ActionListener exit = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		};
+
+		// Labels für Zeit oder Meldungen!
+
+		exit_button.addActionListener(exit);
+
+		south.add(exit_button);
+		frame.getContentPane().add(south, BorderLayout.SOUTH);
+
 		frame.getContentPane().add(game); // Spielfeld hinzufuegen
 		game.init(); // Spielfeld zeichnen
 		game.addKeyListener(this); // Keylistener zum Spielfeld hinzufuegen
@@ -404,10 +419,7 @@ public class Menue implements KeyListener {
 
 	// keyPressed-Methode:
 	/**
-	 * Horcht , ob eine Taste gedrueckt wurde und wertet die Aktion gegebenfalls
-	 * aus . Gueltige Aktionen sind : Hoch -, Links -, Rechts -, Runtertaste (
-	 * Bewegung ) und Leertaste ( Bombe ) für den 1. Spieler sowie W, A, S, D (
-	 * Bewegung ) und E ( Bombe ) für den 2. Spieler
+	 * Horcht , ob eine Taste gedrueckt wurde und wertet die Aktion gegebenfalls aus . Gueltige Aktionen sind : Hoch -, Links -, Rechts -, Runtertaste ( Bewegung ) und Leertaste ( Bombe ) für den 1. Spieler sowie W, A, S, D ( Bewegung ) und E ( Bombe ) für den 2. Spieler
 	 */
 	public void keyPressed(KeyEvent Key) {
 		// Key-Methoden fuer 1. Spieler
@@ -548,9 +560,7 @@ public class Menue implements KeyListener {
 
 	// spieler1_bombe-Methode:
 	/**
-	 * Ueberprueft , ob der 1. Spieler noch eine Bombe legen darf , verringert
-	 * ggf . die max . Bomben - Anzahl und ruft die bombe_legen - Methode aus
-	 * der Map - Klasse auf
+	 * Ueberprueft , ob der 1. Spieler noch eine Bombe legen darf , verringert ggf . die max . Bomben - Anzahl und ruft die bombe_legen - Methode aus der Map - Klasse auf
 	 */
 	static void spieler1_bombe() {
 		System.out.println("Bombe S1"); // Test
@@ -591,9 +601,7 @@ public class Menue implements KeyListener {
 
 	// spieler2_bombe-Methode:
 	/**
-	 * Ueberprueft , ob der 2. Spieler noch eine Bombe legen darf , verringert
-	 * ggf . die max . Bomben - Anzahl und ruft die bombe_legen - Methode aus
-	 * der Map - Klasse auf
+	 * Ueberprueft , ob der 2. Spieler noch eine Bombe legen darf , verringert ggf . die max . Bomben - Anzahl und ruft die bombe_legen - Methode aus der Map - Klasse auf
 	 */
 	static void spieler2_bombe() {
 		System.out.println("Bombe S2"); // Test
@@ -633,11 +641,7 @@ public class Menue implements KeyListener {
 
 	// spieler1_aktionen-Methode:
 	/**
-	 * Ueberprueft , ob der Spieler mit den Pfeiltasten im Client -, Server -
-	 * oder Einspieler - Modus ist . Je nach Modus : Client : 2. Spielfigur
-	 * bewegen & Bewegungen dem Server mitteilen ; Server : 1. Spielfigur
-	 * bewegen & Bewegungen dem Client mitteilen ; Einspieler : 1. Spielfigur
-	 * bewegen
+	 * Ueberprueft , ob der Spieler mit den Pfeiltasten im Client -, Server - oder Einspieler - Modus ist . Je nach Modus : Client : 2. Spielfigur bewegen & Bewegungen dem Server mitteilen ; Server : 1. Spielfigur bewegen & Bewegungen dem Client mitteilen ; Einspieler : 1. Spielfigur bewegen
 	 */
 	void spieler1_aktionen(int x, int y) {
 		// Bewegung Spieler 1
@@ -670,10 +674,7 @@ public class Menue implements KeyListener {
 
 	// spieler1_aktionen2-Methode:
 	/**
-	 * Ueberprueft , ob sich die 1. Spielfigur in die gewuenschte Richtung
-	 * bewegen kann . Je nachdem , welches Feld als nächstes betreten wird ,
-	 * werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg ,
-	 * Niederlage ).
+	 * Ueberprueft , ob sich die 1. Spielfigur in die gewuenschte Richtung bewegen kann . Je nachdem , welches Feld als nächstes betreten wird , werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg , Niederlage ).
 	 */
 	static void spieler1_aktionen2(int x, int y) {
 		if (Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 2 // falls
@@ -732,10 +733,7 @@ public class Menue implements KeyListener {
 
 	// spieler2_aktionen-Methode:
 	/**
-	 * Ueberprueft , ob sich die 2. Spielfigur in die gewuenschte Richtung
-	 * bewegen kann . Je nachdem , welches Feld als nächstes betreten wird ,
-	 * werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg ,
-	 * Niederlage ).
+	 * Ueberprueft , ob sich die 2. Spielfigur in die gewuenschte Richtung bewegen kann . Je nachdem , welches Feld als nächstes betreten wird , werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg , Niederlage ).
 	 */
 	static void spieler2_aktionen(int x, int y) {
 		// Bewegung Spieler 2
@@ -809,9 +807,7 @@ public class Menue implements KeyListener {
 
 	// reset_Hulk-Methode:
 	/**
-	 * Setzt die beiden Spielfiguren auf ihre Startpositionen zurueck . Die 1.
-	 * Spielfigur landet immer in der oberen linken Ecke . Die 2. Spielfigur
-	 * landet immer in der unteren rechten Ecke .
+	 * Setzt die beiden Spielfiguren auf ihre Startpositionen zurueck . Die 1. Spielfigur landet immer in der oberen linken Ecke . Die 2. Spielfigur landet immer in der unteren rechten Ecke .
 	 */
 	static void reset_Hulk() {
 		hulk1.set_x(1);
@@ -829,9 +825,7 @@ public class Menue implements KeyListener {
 
 	// spiel_neustarten-Methode:
 	/**
-	 * Startet das Spiel folgendermaßen neu : Zuruecksetzen der Spielfiguren ,
-	 * max . Anzahl Bomben und Bomben - Radien , Entfernen aktueller Bomben ,
-	 * Reinitialisieren der internen und grafischen Spielfelder
+	 * Startet das Spiel folgendermaßen neu : Zuruecksetzen der Spielfiguren , max . Anzahl Bomben und Bomben - Radien , Entfernen aktueller Bomben , Reinitialisieren der internen und grafischen Spielfelder
 	 */
 	static void spiel_neustarten() {
 
@@ -879,8 +873,7 @@ public class Menue implements KeyListener {
 
 	// abfrage_neustarten-Methode:
 	/**
-	 * Fragt den Benutzer , ob er das Spiel neustarten oder beenden möchte und
-	 * fuehrt die jeweilige Aktion aus .
+	 * Fragt den Benutzer , ob er das Spiel neustarten oder beenden möchte und fuehrt die jeweilige Aktion aus .
 	 */
 	static void abfrage_neustarten() {
 		int eingabe = 0;
@@ -1303,8 +1296,7 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Laden" , lädt ein zuvor
-	 * gespeichertes Spiel
+	 * Klasse fuer Menuebuttonorganisation "Laden" , lädt ein zuvor gespeichertes Spiel
 	 * 
 	 * @author Tobias Korfmacher
 	 */
@@ -1351,8 +1343,7 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Speichern" , speichert das aktuelle
-	 * Spiel
+	 * Klasse fuer Menuebuttonorganisation "Speichern" , speichert das aktuelle Spiel
 	 * 
 	 * @author Tobias Korfmacher
 	 */
@@ -1379,8 +1370,7 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Singleplayer" , wechselt zum
-	 * Singleplayer - Modus
+	 * Klasse fuer Menuebuttonorganisation "Singleplayer" , wechselt zum Singleplayer - Modus
 	 * 
 	 * @author Kolja Salewski
 	 */
@@ -1398,9 +1388,7 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Ueberprueft , ob man sich im Mehrspieler - Modus befindet und
-		 * wechselt ggf . zum Einzelspieler - Modus . Anschliessend wird das
-		 * Spiel neugestartet .
+		 * Ueberprueft , ob man sich im Mehrspieler - Modus befindet und wechselt ggf . zum Einzelspieler - Modus . Anschliessend wird das Spiel neugestartet .
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (twoPlayer == true) {
@@ -1412,8 +1400,7 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "HotSeat" , wechselt zum HotSeat -
-	 * Modus
+	 * Klasse fuer Menuebuttonorganisation "HotSeat" , wechselt zum HotSeat - Modus
 	 * 
 	 * @author Kolja Salewski
 	 */
@@ -1431,9 +1418,7 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Ueberprueft , ob man sich bereits im HotSeat - Modus befindet und
-		 * wechselt anderenfalls dorthin . Anschließend wird das Spiel
-		 * neugestartet .
+		 * Ueberprueft , ob man sich bereits im HotSeat - Modus befindet und wechselt anderenfalls dorthin . Anschließend wird das Spiel neugestartet .
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (hotSeat == false) {
@@ -1455,8 +1440,7 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Server" , wechselt zum Server -
-	 * Modus
+	 * Klasse fuer Menuebuttonorganisation "Server" , wechselt zum Server - Modus
 	 * 
 	 * @author Kolja Salewski
 	 */
@@ -1474,10 +1458,7 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Ueberprueft , ob man sich bereits im Server - Modus befindet und
-		 * wechselt anderenfalls dorthin . Falls man sich vorher im Client -
-		 * Modus befunden hat , wird der Client - Thread beendet . Der Server -
-		 * Modus wird als neuer Thread gestartet .
+		 * Ueberprueft , ob man sich bereits im Server - Modus befindet und wechselt anderenfalls dorthin . Falls man sich vorher im Client - Modus befunden hat , wird der Client - Thread beendet . Der Server - Modus wird als neuer Thread gestartet .
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (serverThread == null) {
@@ -1503,8 +1484,7 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Client" , wechselt zum Client -
-	 * Modus
+	 * Klasse fuer Menuebuttonorganisation "Client" , wechselt zum Client - Modus
 	 * 
 	 * @author Kolja Salewski
 	 */
@@ -1522,10 +1502,7 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Ueberprueft , ob man sich bereits im Client - Modus befindet und
-		 * wechselt anderenfalls dorthin . Falls man sich vorher im Server -
-		 * Modus befunden hat , wird der Server - Thread beendet . Der Client -
-		 * Modus wird als neuer Thread gestartet
+		 * Ueberprueft , ob man sich bereits im Client - Modus befindet und wechselt anderenfalls dorthin . Falls man sich vorher im Server - Modus befunden hat , wird der Server - Thread beendet . Der Client - Modus wird als neuer Thread gestartet
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (clientThread == null) {
@@ -1660,8 +1637,7 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "MapEditor" , startet den Map -
-	 * Editor
+	 * Klasse fuer Menuebuttonorganisation "MapEditor" , startet den Map - Editor
 	 * 
 	 * @author Tobias Korfmacher
 	 */
@@ -1706,8 +1682,7 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Multiplayer - Bot" , aktiviert den
-	 * Bot als 2. Spieler
+	 * Klasse fuer Menuebuttonorganisation "Multiplayer - Bot" , aktiviert den Bot als 2. Spieler
 	 * 
 	 * @author Sebastian Dittmann
 	 * 
@@ -1732,8 +1707,7 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klassen für den Button "Schwierigkeit" erstellen . ( zur änderung der
-	 * Schwierigkeit )
+	 * Klassen für den Button "Schwierigkeit" erstellen . ( zur änderung der Schwierigkeit )
 	 * 
 	 * @author Andrej Morlang
 	 */
