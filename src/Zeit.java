@@ -14,6 +14,7 @@ public class Zeit extends JLabel {
 	int bomb_x, bomb_y;
 	public int spielzeit;	   //Zeit pro durchlauf
 	int n = MapLoader.get_n();
+	private static int restZeit = 0;
 
 	/* METHODEN: */
 
@@ -84,13 +85,8 @@ public class Zeit extends JLabel {
 	 * 
 	 * @author Andrej Morlang
 	 */
-	public void laufzeit(int spielzeit) {							// Multiplayer um quelltext in der Menue ..
-		if (Menue.getMultiplayer() == true) {						// ..nicht unn�tig zu vergr�ssern!!!
-			timer.schedule(new Schwierigkeit(), spielzeit * 1000);  // Timer wartet in abh�ngigkeit von ..
-																	//.. der schwierigkeit (aus der Menue) dann beendet das Speil 
-		} else if (Menue.getMultiplayer() == false) {
-			timer.schedule(new Schwierigkeit(), spielzeit * 1000);  // 1000 steht hier f�r (Zeitlich) 1 sekunde
-		}
+	public void laufzeit(final int spielzeit) {
+		timer.schedule(new Schwierigkeit(), spielzeit * 1000);  // 1000 steht hier fuer (Zeitlich) 1 sekunde
 
 	}
 
@@ -120,7 +116,7 @@ public class Zeit extends JLabel {
 		 * startet den TimerTask-Thread Detonation nach Ablauf der Zeit x (timer_starten-Methode), welcher die Detonationsschritte vollzieht
 		 */
 		public void run() {
-			
+
 			System.out.println("Detonation beendet"); // Test
 			System.out.println("");
 
@@ -200,6 +196,14 @@ public class Zeit extends JLabel {
 	 */
 	public void set_bomb_y(int bomb_y) {
 		this.bomb_y = bomb_y;
+	}
+
+	public static void set_restZeit(int zeit) {
+		restZeit = zeit;
+	}
+
+	public static int get_restZeit() {
+		return restZeit;
 	}
 
 }

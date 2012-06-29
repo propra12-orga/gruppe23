@@ -6,7 +6,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 
 /**
  * 
@@ -43,59 +42,64 @@ public class Map extends JPanel {
 
 	/**
 	 * Aehnliche Methode zu move_hulk(), prueft label der Bot-Bewegung und veraendert diese entsprechend
-	 * @param x	 Horizontale Koordinate
-	 * @param y vertikale Koordinate
-	 * @param Botnummer 1 entspricht Bot fuer 2. Spieler, 2 fuer 3. Spieler etc.
+	 * 
+	 * @param x
+	 *            Horizontale Koordinate
+	 * @param y
+	 *            vertikale Koordinate
+	 * @param Botnummer
+	 *            1 entspricht Bot fuer 2. Spieler, 2 fuer 3. Spieler etc.
 	 */
 	public void move_Bot(int x, int y, int Botnummer) {
 		/* Grafische Fortbewegung der Spielfigur: */
 		map[Menue.get_bot(Botnummer).get_x()][Menue.get_bot(Botnummer).get_y()] = 2;
-		map[Menue.get_bot(Botnummer).get_x()+x][Menue.get_bot(Botnummer).get_y()+y] = 10;
-		
-//		if (map[Menue.get_bot(Botnummer).get_x()][Menue.get_bot(Botnummer).get_y()] == 1
-//				|| map[Menue.get_bot(Botnummer).get_x()][Menue.get_bot(Botnummer).get_y()] == 10) { 	// falls das Feld das Hulk-Icon (1 oder 10) beinhaltet,... 
-//			map[Menue.get_bot(Botnummer).get_x()][Menue.get_bot(Botnummer).get_y()] = 2; 			// ...weise dem Feld das Weg-Icon (2) zu
-//		}
-//
-//		if (map[Menue.get_bot(Botnummer).get_x() + x][Menue.get_bot(Botnummer).get_y() + y] == 12		// falls das n�chste Feld das Bomben-Item-Icon enth�lt...
-//				&& Menue.get_bot(Botnummer).get_max_bomben() < 8) {								// ...und der Spieler noch nicht bei max. 8 Bomben angelangt ist...
-//			Menue.get_bot(Botnummer).set_max_bomben(
-//					Menue.get_bot(Botnummer).get_max_bomben() + 1);	// ...dann erhoehe die maximale Anzahl an Bomben um 1
-//		}
-//
-//		if (map[Menue.get_bot(Botnummer).get_x() + x][Menue.get_bot(Botnummer).get_y() + y] == 15) {		// falls das n�chste Feld das Bomben-Item-Icon enth�lt...
-//			Menue.get_bot(Botnummer).set_bomben_radius(Menue.get_bot(Botnummer).get_bomben_radius() + 1);	// ...dann erhoehe die maximale Anzahl an Bomben um 1
-//		}
-//
-//		if (Botnummer == 1) {
-//			map[Menue.get_bot(Botnummer).get_x() + x][Menue.get_bot(Botnummer).get_y() + y] = 1; 	// weise dem naechsten Feld das Hulk-Icon zu
-//		}
-//
-//		else if (Botnummer == 2) {
-//			map[Menue.get_bot(Botnummer).get_x() + x][Menue.get_bot(Botnummer).get_y() + y] = 10; // weise dem naechsten Feld das Hulk-Icon zu
-//		}
+		map[Menue.get_bot(Botnummer).get_x() + x][Menue.get_bot(Botnummer)
+				.get_y() + y] = 10;
+
+		//		if (map[Menue.get_bot(Botnummer).get_x()][Menue.get_bot(Botnummer).get_y()] == 1
+		//				|| map[Menue.get_bot(Botnummer).get_x()][Menue.get_bot(Botnummer).get_y()] == 10) { 	// falls das Feld das Hulk-Icon (1 oder 10) beinhaltet,... 
+		//			map[Menue.get_bot(Botnummer).get_x()][Menue.get_bot(Botnummer).get_y()] = 2; 			// ...weise dem Feld das Weg-Icon (2) zu
+		//		}
+		//
+		//		if (map[Menue.get_bot(Botnummer).get_x() + x][Menue.get_bot(Botnummer).get_y() + y] == 12		// falls das n�chste Feld das Bomben-Item-Icon enth�lt...
+		//				&& Menue.get_bot(Botnummer).get_max_bomben() < 8) {								// ...und der Spieler noch nicht bei max. 8 Bomben angelangt ist...
+		//			Menue.get_bot(Botnummer).set_max_bomben(
+		//					Menue.get_bot(Botnummer).get_max_bomben() + 1);	// ...dann erhoehe die maximale Anzahl an Bomben um 1
+		//		}
+		//
+		//		if (map[Menue.get_bot(Botnummer).get_x() + x][Menue.get_bot(Botnummer).get_y() + y] == 15) {		// falls das n�chste Feld das Bomben-Item-Icon enth�lt...
+		//			Menue.get_bot(Botnummer).set_bomben_radius(Menue.get_bot(Botnummer).get_bomben_radius() + 1);	// ...dann erhoehe die maximale Anzahl an Bomben um 1
+		//		}
+		//
+		//		if (Botnummer == 1) {
+		//			map[Menue.get_bot(Botnummer).get_x() + x][Menue.get_bot(Botnummer).get_y() + y] = 1; 	// weise dem naechsten Feld das Hulk-Icon zu
+		//		}
+		//
+		//		else if (Botnummer == 2) {
+		//			map[Menue.get_bot(Botnummer).get_x() + x][Menue.get_bot(Botnummer).get_y() + y] = 10; // weise dem naechsten Feld das Hulk-Icon zu
+		//		}
 
 		/* Logische Fortbewegung der Spielfigur: */
 		Menue.get_bot(Botnummer).set_x(Menue.get_bot(Botnummer).get_x() + x); 					// setze horizontale Hulk-Position weiter
 		Menue.get_bot(Botnummer).set_y(Menue.get_bot(Botnummer).get_y() + y); 					// setze vertikale Hulk-Position weiter
 
-		System.out.println("Neue Position des " + Botnummer + "ten Bots: "
-				+ Menue.get_bot(Botnummer).get_x()	// Test
-				+ "te Spalte, " + Menue.get_bot(Botnummer).get_y() + "te Zeile"); 				// Test
+		System.out
+				.println("Neue Position des " + Botnummer
+						+ "ten Bots: "
+						+ Menue.get_bot(Botnummer).get_x()	// Test
+						+ "te Spalte, " + Menue.get_bot(Botnummer).get_y()
+						+ "te Zeile"); 				// Test
 		System.out.println();																		// Test		
 	}
-	
+
 	/**
-	 * Setzt die Icons "Hulk" und "Weg" , die bei einer Bewegung verändert
-	 * werden
+	 * Setzt die Icons "Hulk" und "Weg" , die bei einer Bewegung verändert werden
 	 * 
-	 * @param * X - Koordinate im Map - Array , um welche die Spielfigur bewegt
-	 * werden soll
+	 * @param * X - Koordinate im Map - Array , um welche die Spielfigur bewegt werden soll
 	 * @param y
-	 * Y - Koordinate im Map - Array , um welche die Spielfigur bewegt werden
-	 * soll
+	 *            Y - Koordinate im Map - Array , um welche die Spielfigur bewegt werden soll
 	 * @param z
-	 * zu bewegende Spielfigur ( 1 : = Spieler 1 , 2 : = Spieler 2 ... )
+	 *            zu bewegende Spielfigur ( 1 : = Spieler 1 , 2 : = Spieler 2 ... )
 	 */
 	public void move_Hulk(int x, int y, int z) {
 		/* Grafische Fortbewegung der Spielfigur: */
@@ -112,7 +116,8 @@ public class Map extends JPanel {
 		}
 
 		if (map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] == 15) {		// falls das n�chste Feld das Bomben-Item-Icon enth�lt...
-			Menue.get_hulk(z).set_bomben_radius(Menue.get_hulk(z).get_bomben_radius() + 1);	// ...dann erhoehe die maximale Anzahl an Bomben um 1
+			Menue.get_hulk(z).set_bomben_radius(
+					Menue.get_hulk(z).get_bomben_radius() + 1);	// ...dann erhoehe die maximale Anzahl an Bomben um 1
 			StdAudio.play("src/media/Item.wav");
 		}
 
@@ -141,17 +146,19 @@ public class Map extends JPanel {
 		bomb[bomb_x][bomb_y] = new Bombe(bomb_x, bomb_y);
 
 		add(bomb[bomb_x][bomb_y]); 					// Bombe hinzufuegen
-		bomb[bomb_x][bomb_y].aktivieren(Spieler, Menue.get_hulk(Spieler).get_bomben_radius()); 	// Bombe aktivieren
+		bomb[bomb_x][bomb_y].aktivieren(Spieler, Menue.get_hulk(Spieler)
+				.get_bomben_radius()); 	// Bombe aktivieren
 		map[bomb_x][bomb_y] = 5; 					// Bombe darstellen
 	}
-	
+
 	public void bombe_legenBot(int Spieler) {
 		bomb_x = Menue.get_bot(Spieler).get_x();
 		bomb_y = Menue.get_bot(Spieler).get_y();
 		bomb[bomb_x][bomb_y] = new Bombe(bomb_x, bomb_y);
 
 		add(bomb[bomb_x][bomb_y]); 					// Bombe hinzufuegen
-		bomb[bomb_x][bomb_y].aktivieren(Spieler, Menue.get_bot(Spieler).get_bomben_radius()); 	// Bombe aktivieren
+		bomb[bomb_x][bomb_y].aktivieren(Spieler, Menue.get_bot(Spieler)
+				.get_bomben_radius()); 	// Bombe aktivieren
 		map[bomb_x][bomb_y] = 5; 					// Bombe darstellen
 	}
 
@@ -192,31 +199,23 @@ public class Map extends JPanel {
 
 	// init-Methode:
 	public void init() {
-		setBounds(100, 100, 650, 680); // Panel erstellen
-
-		setBorder(new EmptyBorder(3, 3, 3, 3));
+		int n = MapLoader.get_n();
+		System.out.print(n);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[] { 1, 1, 1, 1, 0 };
-		gbl_contentPane.rowHeights = new int[] { 1, 0, 0 };
-		gbl_contentPane.columnWeights = new double[] { 1.0, 1.0, 1.0, 1.0,
-				Double.MIN_VALUE };
-		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
 		setLayout(gbl_contentPane);
 
 		GridBagConstraints[][] gbc_label = new GridBagConstraints[n][n];
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				label[i][j] = new JLabel(); 			// fuer jedes einzele Arrayelement wird ein neues Label erstellt
-				label[i][j].setHorizontalAlignment(SwingConstants.CENTER);
 				label_laden(label[i][j], map[i][j]); 	// laedt in das Label das Bild (Map hat die Werte ob Hulk, etc..)
 				gbc_label[i][j] = new GridBagConstraints();
 				gbc_label[i][j].anchor = GridBagConstraints.CENTER;
-				gbc_label[i][j].fill = GridBagConstraints.NONE;
-				gbc_label[i][j].gridwidth = 1;
-				gbc_label[i][j].gridheight = 1;
-				gbc_label[i][j].insets = new Insets(0, 0, 0, 0);
+				gbc_label[i][j].fill = GridBagConstraints.BOTH;
 				gbc_label[i][j].gridx = i;
 				gbc_label[i][j].gridy = j;
+				gbc_label[i][j].weightx = 0.5;
+				gbc_label[i][j].weighty = 0.;
 				add(label[i][j], gbc_label[i][j]); 		// Label auf Panel laden
 			}
 

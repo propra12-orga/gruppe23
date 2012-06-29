@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,6 +34,7 @@ public class Menue implements KeyListener {
 	 * Hauptframe des Programmes
 	 */
 	static JFrame frame;
+	private static JLabel zeitAnzeige;
 
 	public static boolean mapLoaded = false;
 
@@ -210,6 +212,7 @@ public class Menue implements KeyListener {
 	static int zeit = 0;
 	static Zeit spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
 	static boolean anfrage_geschickt = false;
+	private static boolean running;
 
 	private static int[][] map; // Internes Spielfeld
 
@@ -258,14 +261,14 @@ public class Menue implements KeyListener {
 	private void initialize() {
 		frame = new JFrame(); // Fenster erstellen
 		frame.setTitle("Bomberhulk"); // Fenstertitel setzen
-		frame.setBounds(100, 100, 650, 700); // Fenstergroesse einstellen
-												// (x-Position, y-Position,
-												// Breite, Hoehe)
+		frame.setBounds(100, 100, 650, 740); // Fenstergroesse einstellen
+		// (x-Position, y-Position,
+		// Breite, Hoehe)
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Programm beim
 																// Schliessen
 																// des Fensters
 																// beenden
-		frame.setResizable(false); // Fenster soll nicht skalierbar sein
+		frame.setResizable(true); // Fenster soll nicht skalierbar sein
 
 		JMenuBar menuBar = new JMenuBar(); // Menueleiste erstellen
 		frame.setJMenuBar(menuBar); // Menueleiste hinzufuegen
@@ -393,8 +396,10 @@ public class Menue implements KeyListener {
 		JMenuItem Schwer = new JMenuItem("Schwer");
 		mnZeit.add(Schwer);
 		Schwer.setAction(Action_Schwer);
+		int anzahl = 2;
+		JPanel south = new JPanel(new GridLayout(1, anzahl));
+		zeitAnzeige = new JLabel("" + Zeit.get_restZeit());
 
-		JPanel south = new JPanel();
 		// Deklarationen oder Aktuelle Meldungen einfuegen
 		JButton exit_button = new JButton("Beenden");
 		ActionListener exit = new ActionListener() {
@@ -406,11 +411,11 @@ public class Menue implements KeyListener {
 		// Labels für Zeit oder Meldungen!
 
 		exit_button.addActionListener(exit);
-
+		south.add(zeitAnzeige);
 		south.add(exit_button);
-		frame.getContentPane().add(south, BorderLayout.SOUTH);
-
+		frame.getContentPane().add(south, BorderLayout.SOUTH);// south - Panel hinzufuegen
 		frame.getContentPane().add(game); // Spielfeld hinzufuegen
+
 		game.init(); // Spielfeld zeichnen
 		game.addKeyListener(this); // Keylistener zum Spielfeld hinzufuegen
 		game.setFocusable(true); // Spielfeld fokussierbar machen
@@ -1122,7 +1127,9 @@ public class Menue implements KeyListener {
 	/**
 	 * Aendert den Schwierigkeitsgrad
 	 */
+	@SuppressWarnings("serial")
 	static void schwierigkeitsgrad_aendern(String schwierigkeitsgrad) {
+
 		System.out.println("antwort_erhalten vor neustart = "
 				+ antwort_erhalten); // Test
 		System.out.println(); // Test
@@ -1182,11 +1189,39 @@ public class Menue implements KeyListener {
 			System.out.println(schwierigkeitsgrad); // Test
 			anfrage_geschickt = false;
 			antwort_erhalten = false;
+			int timerZeit = 1000;
+
+			running = true;
+			ActionListener action = new ActionListener() {
+				int timeLeft = zeit;
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (timeLeft > 0 && running) {
+
+						zeitAnzeige.setText("Restzeit: " + timeLeft);
+						timeLeft--;
+					}
+
+					else {
+						running = false;
+						((Timer) e.getSource()).stop();
+
+					}
+				}
+			};
+			new Timer(timerZeit, action) {
+				{
+					setInitialDelay(0);
+				}
+			}.start();
 
 			if (zeit != 0) {
 				spieltimer.timer.cancel();
 				spieltimer = new Zeit(); 	// objekt zeit (mit Zeitlimit)
-				spieltimer.laufzeit(zeit); 	// zeit in Sekunden
+				spieltimer.laufzeit(zeit);// zeit in Sekunden
+				Zeit.set_restZeit(zeit);
+
 			}
 
 		}
