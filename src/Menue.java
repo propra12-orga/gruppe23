@@ -205,6 +205,10 @@ public class Menue implements KeyListener {
 																		// ..
 	private final Action_Schwer Action_Schwer = new Action_Schwer(); // ..
 																		// (Schwer).
+	private final Action_Config Action_Config = new Action_Config(); // Aktion
+	//zum Wechsel
+	// Konfigurieren der Einstellungen!
+	//erstellen
 
 	static boolean twoPlayer = false;
 	static boolean hotSeat = false;
@@ -421,7 +425,21 @@ public class Menue implements KeyListener {
 		JMenuItem Schwer = new JMenuItem("Schwer");
 		mnZeit.add(Schwer);
 		Schwer.setAction(Action_Schwer);
+
+		JMenu mnOption = new JMenu("Einstellungen"); // Menuepunkt "Modus" erstellen
+		menuBar.add(mnOption); // Menuepunkt "Modus" hinzufuegen
+
+		JMenuItem mntmConfig = new JMenuItem("Konfigurieren"); // Untermenuepunkt
+																// "Singleplayer"
+																// erstellen
+		mnOption.add(mntmConfig); // Untermenuepunkt "Singleplayer"
+									// hinzufuegen
+		mntmConfig.setAction(Action_Config); // Aktion
+												// "Action_Singleplayer"
+												// hinzufuegen
+
 		int anzahl = 2;
+
 		JPanel south = new JPanel(new GridLayout(1, anzahl));
 		zeitAnzeige = new JLabel("" + Zeit.get_restZeit());
 
@@ -1541,6 +1559,7 @@ public class Menue implements KeyListener {
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (twoPlayer == true) {
+
 				singleplayer_starten();
 			}
 
@@ -1696,6 +1715,34 @@ public class Menue implements KeyListener {
 				clientThread = new Client();
 				clientThread.start();
 			}
+
+		}
+
+	}
+
+	/**
+	 * Klasse fuer Menuebuttonorganisation "Singleplayer" , wechselt zum
+	 * Singleplayer - Modus
+	 * 
+	 * @author Kolja Salewski
+	 */
+	private class Action_Config extends AbstractAction {
+		private static final long serialVersionUID = 1L;
+
+		// Konstruktor:
+		/**
+		 * Setzt den Namen und die Kurzbeschreibung des Singleplayer - Buttons
+		 */
+		public Action_Config() {
+			putValue(NAME, "konfigurieren");
+			putValue(SHORT_DESCRIPTION, "Einstellungen konfigurieren");
+		}
+
+		// actionPerformed-Methode:
+		/**
+	
+		 */
+		public void actionPerformed(ActionEvent e) {
 
 		}
 
