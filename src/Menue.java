@@ -3,6 +3,8 @@ import java.awt.GridLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
@@ -265,14 +267,12 @@ public class Menue implements KeyListener {
 	private void initialize() {
 		frame = new JFrame(); // Fenster erstellen
 		frame.setTitle("Bomberhulk"); // Fenstertitel setzen
-		frame.setBounds(100, 100, 650, 740); // Fenstergroesse einstellen
-		// (x-Position, y-Position,
-		// Breite, Hoehe)
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Programm beim
 																// Schliessen
 																// des Fensters
 																// beenden
 		frame.setResizable(true); // Fenster soll nicht skalierbar sein
+		frame.pack();
 
 		JMenuBar menuBar = new JMenuBar(); // Menueleiste erstellen
 		frame.setJMenuBar(menuBar); // Menueleiste hinzufuegen
@@ -420,11 +420,58 @@ public class Menue implements KeyListener {
 		frame.getContentPane().add(south, BorderLayout.SOUTH);// south - Panel hinzufuegen
 		frame.getContentPane().add(game); // Spielfeld hinzufuegen
 
+		game.bilder_skalieren();
 		game.init(); // Spielfeld zeichnen
 		game.addKeyListener(this); // Keylistener zum Spielfeld hinzufuegen
 		game.setFocusable(true); // Spielfeld fokussierbar machen
 		game.requestFocus(); // Fokus auf Spielfeld setzen
+		frame.pack();
+		frame.setLocationRelativeTo(null);
+	    frame.addComponentListener(new ComponentListener() {
+	    	public void componentResized(ComponentEvent e) {
+	    		frame.setSize(frame.getSize().height, frame.getSize().height);
+		   		game.breite = frame.getSize().width / 13;
+		   		game.hoehe = frame.getSize().height / 13;
+		   		System.out.println("Fenster skaliert");
+		   		game.bilder_skalieren();
+	   			game.removeAll(); // ...entferne alle bisherigen Komponenten vom Panel...
+	   			game.refresh();
+	     	}
+
+	     	public void componentMoved(ComponentEvent e) {
+	     		
+	     	}
+
+	     	public void componentShown(ComponentEvent e) {
+
+	     	}
+
+	     	public void componentHidden(ComponentEvent e) {
+
+	     	}
+	     });
 	}
+    
+//    frame.addComponentListener(new ComponentListener() {
+//    	public void componentResized(ComponentEvent e) {
+//    		game.breite = frame.getSize().width;
+//    		game.hoehe = frame.getSize().height;
+//    		System.out.println("Fenster skaliert");
+//            game.refresh();
+//        }
+//    	
+//    	public void componentMoved(ComponentEvent e) {
+//        }
+//     
+//        public void componentShown(ComponentEvent e) {
+//        }
+//     
+//        public void componentHidden(ComponentEvent e) {
+//        }
+//        
+//    	});
+    
+
 
 	// keyPressed-Methode:
 	/**
@@ -584,7 +631,7 @@ public class Menue implements KeyListener {
 			System.out.println(); // Test
 
 			Menue.get_hulk(1).set_max_bomben(
-					(Menue.get_hulk(1).get_max_bomben()) - 1); // ...dekrementiere
+					(Menue.get_hulk(1).get_max_bomben()) - 1); 	// ...dekrementiere
 																// die
 																// Anzahl
 																// der
@@ -598,12 +645,12 @@ public class Menue implements KeyListener {
 					+ Menue.get_hulk(1).get_max_bomben()); // Test
 			System.out.println(); // Test
 
-			game.bombe_legen(1); // ...lass den 1. Spieler eine Bombe legen,
+			game.bombe_legen(1); 	// ...lass den 1. Spieler eine Bombe legen,
 									// ...
 
-			game.removeAll(); // ...entferne alle bisherigen Komponenten vom
+			game.removeAll(); 	// ...entferne alle bisherigen Komponenten vom
 								// Panel und...
-			game.refresh(); // ...zeichne alle Komponenten des Panels neu
+			game.refresh(); 	// ...zeichne alle Komponenten des Panels neu
 		}
 
 	}
@@ -614,7 +661,7 @@ public class Menue implements KeyListener {
 	 */
 	static void spieler2_bombe() {
 		System.out.println("Bombe S2"); // Test
-		System.out.println(); // Test
+		System.out.println(); 			// Test
 
 		if ((Menue.get_hulk(2).get_max_bomben()) > 0) { // falls der 2.
 														// Spieler (noch)
@@ -625,7 +672,7 @@ public class Menue implements KeyListener {
 			System.out.println(); // Test
 
 			Menue.get_hulk(2).set_max_bomben(
-					(Menue.get_hulk(2).get_max_bomben()) - 1); // ...dekrementiere
+					(Menue.get_hulk(2).get_max_bomben()) - 1); 	// ...dekrementiere
 																// die
 																// Anzahl
 																// der
@@ -636,15 +683,15 @@ public class Menue implements KeyListener {
 																// um 1,
 
 			System.out.println("max_bomben S2 nach Legen: "
-					+ Menue.get_hulk(2).get_max_bomben()); // Test
-			System.out.println(); // Test
+					+ Menue.get_hulk(2).get_max_bomben()); 	// Test
+			System.out.println(); 							// Test
 
-			game.bombe_legen(2); // ...lass den 2. Spieler eine Bombe legen,
+			game.bombe_legen(2); 	// ...lass den 2. Spieler eine Bombe legen,
 									// ...
 
-			game.removeAll(); // ...entferne alle bisherigen Komponenten vom
+			game.removeAll();	// ...entferne alle bisherigen Komponenten vom
 								// Panel und...
-			game.refresh(); // ...zeichne alle Komponenten des Panels neu
+			game.refresh(); 	// ...zeichne alle Komponenten des Panels neu
 		}
 	}
 
@@ -686,23 +733,23 @@ public class Menue implements KeyListener {
 	 * Ueberprueft , ob sich die 1. Spielfigur in die gewuenschte Richtung bewegen kann . Je nachdem , welches Feld als nächstes betreten wird , werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg , Niederlage ).
 	 */
 	static void spieler1_aktionen2(int x, int y) {
-		if (Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 2 // falls
-																// das
-																// naechste
-																// Feld
-																// ein
-																// Weg-Feld,...
-				|| Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 12 // ...oder
-																		// Bomben-Item-Feld...
-				|| Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 15) { // ...oder
+		if (Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 2 				// falls
+																			// das
+																			// naechste
+																			// Feld
+																			// ein
+																			// Weg-Feld,...
+				|| Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 12 		// ...oder
+																			// Bomben-Item-Feld...
+				|| Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 15) { 	// ...oder
 																			// Flammen-Item
 																			// Feld
 																			// ist...
 
-			game.move_Hulk(x, y, 1); // ...dann bewege
+			game.move_Hulk(x, y, 1); 	// ...dann bewege
 										// Spielerfigur 1 auf
 										// dem Spielfeld,...
-			game.removeAll(); // ...entferne alle bisherigen Komponenten
+			game.removeAll(); 	// ...entferne alle bisherigen Komponenten
 								// vom Panel...
 			game.refresh(); // ...und zeichne alle Komponenten des
 							// Panels neu
@@ -711,29 +758,29 @@ public class Menue implements KeyListener {
 		}
 
 		// Sieg Spieler 1
-		else if (Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 7) { // falls
+		else if (Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 7) { 	// falls
 																		// das
 																		// naechste
 																		// Feld
 																		// das
 																		// Ziel-Feld
 																		// ist
-			System.out.println("Spieler 1 hat gewonnen"); // Test
-			System.out.println(); // Test
+			System.out.println("Spieler 1 hat gewonnen"); 	// Test
+			System.out.println(); 							// Test
 			sound.playZiel();
 			abfrage_neustarten();
 		}
 
 		// Niederlage Spieler 1
-		else if (Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 6) { // falls
+		else if (Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 6) { 	// falls
 																		// das
 																		// naechste
 																		// Feld
 																		// ein
 																		// Explosions-Feld
 																		// ist
-			System.out.println("Spieler 1 hat verloren"); // Test
-			System.out.println(); // Test
+			System.out.println("Spieler 1 hat verloren"); 	// Test
+			System.out.println(); 							// Test
 			sound.playTod();
 
 			abfrage_neustarten();
@@ -747,54 +794,54 @@ public class Menue implements KeyListener {
 	 */
 	static void spieler2_aktionen(int x, int y) {
 		// Bewegung Spieler 2
-		if (Map.map[hulk2.get_x() + x][hulk2.get_y() + y] == 2 // falls
-																// das
-																// naechste
-																// Feld
-																// ein
-																// Weg-Feld,...
-				|| Map.map[hulk2.get_x() + x][hulk2.get_y() + y] == 12 // ...oder
-																		// Bomben-Item-Feld...
-				|| Map.map[hulk2.get_x() + x][hulk2.get_y() + y] == 15) { // ...oder
+		if (Map.map[hulk2.get_x() + x][hulk2.get_y() + y] == 2 				// falls
+																			// das
+																			// naechste
+																			// Feld
+																			// ein
+																			// Weg-Feld,...
+				|| Map.map[hulk2.get_x() + x][hulk2.get_y() + y] == 12 		// ...oder
+																			// Bomben-Item-Feld...
+				|| Map.map[hulk2.get_x() + x][hulk2.get_y() + y] == 15) { 	// ...oder
 																			// Flammen-Item
 																			// Feld
 																			// ist...
 
-			game.move_Hulk(x, y, 2); // ...dann bewege
+			game.move_Hulk(x, y, 2); 	// ...dann bewege
 										// Spielfigur 2 auf dem
 										// Spielfeld,...
-			game.removeAll(); // ...entferne alle bisherigen Komponenten
+			game.removeAll(); 	// ...entferne alle bisherigen Komponenten
 								// vom Panel...
-			game.refresh(); // ...und zeichne alle Komponenten des
-							// Panels neu
+			game.refresh(); 	// ...und zeichne alle Komponenten des
+								// Panels neu
 			a[0] = 0;
 			a[1] = 0;
 		}
 
 		// Sieg Spieler 2
-		else if (Map.map[hulk2.get_x() + x][hulk2.get_y() + y] == 7) { // falls
+		else if (Map.map[hulk2.get_x() + x][hulk2.get_y() + y] == 7) { 	// falls
 																		// das
 																		// naechste
 																		// Feld
 																		// das
 																		// Ziel-Feld
 																		// ist
-			System.out.println("Spieler 2 hat gewonnen"); // Test
-			System.out.println(); // Test
+			System.out.println("Spieler 2 hat gewonnen"); 	// Test
+			System.out.println(); 							// Test
 			sound.playZiel();
 			abfrage_neustarten();
 		}
 
 		// Niederlage Spieler 2
-		else if (Map.map[hulk2.get_x() + x][hulk2.get_y() + y] == 6) { // falls
+		else if (Map.map[hulk2.get_x() + x][hulk2.get_y() + y] == 6) { 	// falls
 																		// das
 																		// naechste
 																		// Feld
 																		// ein
 																		// Explosions-Feld
 																		// ist
-			System.out.println("Spieler 2 hat verloren"); // Test
-			System.out.println(); // Test
+			System.out.println("Spieler 2 hat verloren"); 	// Test
+			System.out.println(); 							// Test
 			sound.playTod();
 
 			abfrage_neustarten();
@@ -841,8 +888,8 @@ public class Menue implements KeyListener {
 	 */
 	static void spiel_neustarten() {
 
-		System.out.println("Spiel neugestartet"); // Test
-		System.out.println(); // Test
+		System.out.println("Spiel neugestartet"); 	// Test
+		System.out.println(); 						// Test
 
 		// Hulk zurueckpositionieren:
 		reset_Hulk();
@@ -870,6 +917,9 @@ public class Menue implements KeyListener {
 
 		// Spielfeld intern reinitialisieren:
 		Map.set_map(MapLoader.laden(MapLoader.get_level()));
+		
+		// Bilder erneut skalieren:
+		game.bilder_skalieren();
 
 		// Spielfeld grafisch reinitialisieren:
 		game.removeAll();
@@ -880,12 +930,12 @@ public class Menue implements KeyListener {
 		anfrage_geschickt = false;
 
 		System.out.println("antwort_erhalten nach neustart = "
-				+ antwort_erhalten); // Test
-		System.out.println(); // Test
+				+ antwort_erhalten); 	// Test
+		System.out.println(); 			// Test
 
 		System.out.println("anfrage_geschickt nach neustart = "
-				+ anfrage_geschickt); // Test
-		System.out.println(); // Test
+				+ anfrage_geschickt); 	// Test
+		System.out.println(); 			// Test
 	}
 
 	// abfrage_neustarten-Methode:
@@ -922,7 +972,7 @@ public class Menue implements KeyListener {
 				if (zeit != 0) {
 					spieltimer.timer.cancel();
 					spieltimer = new Zeit();
-					spieltimer.laufzeit(zeit); // die Zeit ist in Sekunden 180sek = 3min
+					spieltimer.laufzeit(zeit); 	// die Zeit ist in Sekunden 180sek = 3min
 												// (Spielzeit/Rundenzeit)
 				}
 
@@ -951,7 +1001,7 @@ public class Menue implements KeyListener {
 		}
 
 		System.out.println("Singleplayer-Modus aktiviert"); // Test
-		System.out.println(); // Test
+		System.out.println(); 								// Test
 
 		spiel_neustarten();
 	}
@@ -1231,7 +1281,7 @@ public class Menue implements KeyListener {
 			if (zeit != 0) {
 				spieltimer.timer.cancel();
 				spieltimer = new Zeit(); 	// objekt zeit (mit Zeitlimit)
-				spieltimer.laufzeit(zeit);// zeit in Sekunden
+				spieltimer.laufzeit(zeit);	// zeit in Sekunden
 				Zeit.set_restZeit(zeit);
 
 			}
@@ -1260,8 +1310,8 @@ public class Menue implements KeyListener {
 			}
 
 			serverThread = null;
-			System.out.println("Server beendet"); // Test
-			System.out.println(); // Test
+			System.out.println("Server beendet"); 	// Test
+			System.out.println(); 					// Test
 		}
 
 		else if (clientThread != null) {
@@ -1276,8 +1326,8 @@ public class Menue implements KeyListener {
 			}
 
 			clientThread = null;
-			System.out.println("Client beendet"); // Test
-			System.out.println(); // Test
+			System.out.println("Client beendet"); 	// Test
+			System.out.println(); 					// Test
 		}
 
 		lan = false;
@@ -1515,12 +1565,12 @@ public class Menue implements KeyListener {
 
 				if (clientThread != null) {
 					clientThread.interrupt();
-					System.out.println("Client beendet"); // Test
-					System.out.println(); // Test
+					System.out.println("Client beendet"); 	// Test
+					System.out.println(); 					// Test
 				}
 
-				System.out.println("Server-Modus aktiviert"); // Test
-				System.out.println(); // Test
+				System.out.println("Server-Modus aktiviert"); 	// Test
+				System.out.println(); 							// Test
 
 				serverThread = new Server();
 				serverThread.start();
@@ -1573,12 +1623,12 @@ public class Menue implements KeyListener {
 					}
 
 					serverThread = null;
-					System.out.println("Server beendet"); // Test
-					System.out.println(); // Test
+					System.out.println("Server beendet"); 	// Test
+					System.out.println();					// Test
 				}
 
-				System.out.println("Client-Modus aktiviert"); // Test
-				System.out.println(); // Test
+				System.out.println("Client-Modus aktiviert"); 	// Test
+				System.out.println(); 							// Test
 
 				clientThread = new Client();
 				clientThread.start();
@@ -1767,7 +1817,7 @@ public class Menue implements KeyListener {
 			putValue(SHORT_DESCRIPTION, "Spiel ohne Zeitlimit");
 		}
 
-		public void actionPerformed(ActionEvent e) { // wenn es ausgeführt wird
+		public void actionPerformed(ActionEvent e) { 	// wenn es ausgeführt wird
 														// ..
 			schwierigkeitsgrad_aendern("Anfänger");
 		}
@@ -1788,9 +1838,9 @@ public class Menue implements KeyListener {
 
 	}
 
-	private class Action_Mittel extends AbstractAction { // siehe Erleuterungen
+	private class Action_Mittel extends AbstractAction { 	// siehe Erleuterungen
 															// von oben (..
-		private static final long serialVersionUID = 1L; // ..class
+		private static final long serialVersionUID = 1L; 	// ..class
 															// Action_Leicht und
 															// ..
 															// ..class
