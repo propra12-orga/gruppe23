@@ -55,7 +55,7 @@ public class MapLoader {
 					} else {
 						f.read();
 					}
-					System.out.print(map[k][l] + ", "); // Test
+					//					System.out.print(map[k][l] + ", "); // Test
 
 					if (k < n - 1) {
 						k++;

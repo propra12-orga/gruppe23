@@ -219,13 +219,13 @@ public class Menue implements KeyListener {
 	private static boolean running; //Abfrage für den Timer
 	private static JLabel zeitAnzeige;
 	static Timer tim;
-	static boolean editorlaeuft = false;
+
 	private static int[][] map; // Internes Spielfeld
 	/**
 	 * Objekt der MapEditor - Klasse ; enthaelt den editor ;
 	 */
 	private static MapEditor mapping;
-
+	static boolean editorlaeuft = false;
 	/**
 	 * Objekt der Map - Klasse ; enthaelt die Daten des Spielfeldes ;
 	 */
@@ -1864,9 +1864,34 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Startet den Map - Editor
+		 * Setzt den Map - Editor fort falls er schonmal gelaufen ist
 		 */
 		public void actionPerformed(ActionEvent e) {
+			if (editorlaeuft) {
+
+			} else {
+				if (lan == true) {
+					int antwort = JOptionPane.showConfirmDialog(null,
+							"Diese Aktion beendet den LAN-Modus. Fortfahren?",
+							"LAN-Modus", JOptionPane.YES_NO_OPTION);
+					switch (antwort) {
+					case 0:
+						lan_modus_beenden();
+						mapping = new MapEditor();
+						editorlaeuft = true;
+						break;
+					case 1:
+						break;
+					}
+
+				}
+
+				else {
+					mapping = new MapEditor();
+					editorlaeuft = true;
+				}
+
+			}
 
 		}
 

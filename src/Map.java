@@ -26,9 +26,11 @@ public class Map extends JPanel {
 	public static boolean twoPlayerset;			// Multiplayerabfrage
 	int hoehe = 50, breite = 50;
 	// Icons:
-	Icon block_icon, hulk_icon, hulk2_icon, weg_icon, exit_icon, mauer_icon, bomb_icon, exp_icon, bomben_item_icon, flammen_item_icon;
+	Icon block_icon, hulk_icon, hulk2_icon, weg_icon, exit_icon, mauer_icon,
+			bomb_icon, exp_icon, bomben_item_icon, flammen_item_icon;
 	// Dateipfade zu Grafiken:
-	String exit_pic, block_pic, weg_pic, mauer_pic, hulk_pic, hulk2_pic, bomb_pic, exp_pic;
+	String exit_pic, block_pic, weg_pic, mauer_pic, hulk_pic, hulk2_pic,
+			bomb_pic, exp_pic;
 
 	/* Konstruktor: */
 	public Map(int[][] map) {
@@ -48,14 +50,15 @@ public class Map extends JPanel {
 	// move_Hulk-Methode:
 
 	/**
-	 * Aehnliche Methode zu move_hulk(), prueft label der Bot-Bewegung und veraendert diese entsprechend
+	 * Aehnliche Methode zu move_hulk(), prueft label der Bot-Bewegung und
+	 * veraendert diese entsprechend
 	 * 
 	 * @param x
-	 *            Horizontale Koordinate
+	 * Horizontale Koordinate
 	 * @param y
-	 *            vertikale Koordinate
+	 * vertikale Koordinate
 	 * @param Botnummer
-	 *            1 entspricht Bot fuer 2. Spieler, 2 fuer 3. Spieler etc.
+	 * 1 entspricht Bot fuer 2. Spieler, 2 fuer 3. Spieler etc.
 	 */
 	public void move_Bot(int x, int y, int Botnummer) {
 		/* Grafische Fortbewegung der Spielfigur: */
@@ -98,76 +101,91 @@ public class Map extends JPanel {
 						+ "te Zeile"); 										// Test
 		System.out.println();												// Test		
 	}
-	
+
 	void bilder_skalieren() {
 		int iconSatz = MapLoader.get_iconSatz();
-		String 	exit_pic 	= "/Pics/" + iconSatz + "/Exit.png",	// Grafik-Quelle:
-																	// http://openclipart.org/detail/126307/panneau-sortie--traffic-sign-exit-by-lmproulx
-				block_pic 	= "/Pics/" + iconSatz + "/Block.png",	// Grafik-Quelle:
-																	// http://openclipart.org/detail/151531/char-somua-s35-by-spadassin-151531
-				weg_pic 	= "/Pics/" + iconSatz + "/Weg.png",
-				mauer_pic 	= "/Pics/" + iconSatz + "/Mauer.png",	// Grafik-Quelle:
-																	// http://openclipart.org/detail/3318/house-by-barretr
-				hulk_pic 	= "/Pics/" + iconSatz + "/Hulk.png",	// Grafik-Quelle:
-																	// http://openclipart.org/detail/168616/hunk-by-bedpanner
-				hulk2_pic 	= "/Pics/" + iconSatz + "/Hulk2.png",	// Grafik-Quelle:
-																	// http://openclipart.org/detail/168616/hunk-by-bedpanner
-				bomb_pic 	= "/Pics/" + iconSatz + "/Bombe.png",	// Grafik-Quelle:
-																	// http://openclipart.org/detail/165734/dynamite-by-magnesus
-				exp_pic 	= "/Pics/" + iconSatz + "/EXP.png";		// Grafik-Quelle:
-																	// http://openclipart.org/detail/122959/pow-by-viscious-speed
-		
+		String exit_pic = "/Pics/" + iconSatz + "/Exit.png",	// Grafik-Quelle:
+																// http://openclipart.org/detail/126307/panneau-sortie--traffic-sign-exit-by-lmproulx
+		block_pic = "/Pics/" + iconSatz + "/Block.png",	// Grafik-Quelle:
+														// http://openclipart.org/detail/151531/char-somua-s35-by-spadassin-151531
+		weg_pic = "/Pics/" + iconSatz + "/Weg.png", mauer_pic = "/Pics/"
+				+ iconSatz + "/Mauer.png",	// Grafik-Quelle:
+											// http://openclipart.org/detail/3318/house-by-barretr
+		hulk_pic = "/Pics/" + iconSatz + "/Hulk.png",	// Grafik-Quelle:
+														// http://openclipart.org/detail/168616/hunk-by-bedpanner
+		hulk2_pic = "/Pics/" + iconSatz + "/Hulk2.png",	// Grafik-Quelle:
+														// http://openclipart.org/detail/168616/hunk-by-bedpanner
+		bomb_pic = "/Pics/" + iconSatz + "/Bombe.png",	// Grafik-Quelle:
+														// http://openclipart.org/detail/165734/dynamite-by-magnesus
+		exp_pic = "/Pics/" + iconSatz + "/EXP.png";		// Grafik-Quelle:
+		// http://openclipart.org/detail/122959/pow-by-viscious-speed
+
 		Image source, scaledImage;
-		
-		source				= new ImageIcon(Map.class.getResource(block_pic)).getImage();
-		scaledImage			= source.getScaledInstance(breite,hoehe,Image.SCALE_SMOOTH);
-		block_icon			= new ImageIcon(scaledImage);
-		
-		source				= new ImageIcon(Map.class.getResource(hulk_pic)).getImage();
-		scaledImage			= source.getScaledInstance(breite,hoehe,Image.SCALE_SMOOTH);
-		hulk_icon			= new ImageIcon(scaledImage);
-		
-		source				= new ImageIcon(Map.class.getResource(weg_pic)).getImage();
-		scaledImage			= source.getScaledInstance(breite,hoehe,Image.SCALE_SMOOTH);
-		weg_icon			= new ImageIcon(scaledImage);
-		
-		source				= new ImageIcon(Map.class.getResource(mauer_pic)).getImage();
-		scaledImage			= source.getScaledInstance(breite,hoehe,Image.SCALE_SMOOTH);
-		mauer_icon			= new ImageIcon(scaledImage);
-		
-		source				= new ImageIcon(Map.class.getResource(bomb_pic)).getImage();
-		scaledImage			= source.getScaledInstance(breite,hoehe,Image.SCALE_SMOOTH);
-		bomb_icon			= new ImageIcon(scaledImage);
-		
-		source				= new ImageIcon(Map.class.getResource(exp_pic)).getImage();
-		scaledImage			= source.getScaledInstance(breite,hoehe,Image.SCALE_SMOOTH);
-		exp_icon			= new ImageIcon(scaledImage);
-		
-		source				= new ImageIcon(Map.class.getResource(exit_pic)).getImage();
-		scaledImage			= source.getScaledInstance(breite,hoehe,Image.SCALE_SMOOTH);
-		exit_icon			= new ImageIcon(scaledImage);
-		
-		source				= new ImageIcon(Map.class.getResource(hulk2_pic)).getImage();
-		scaledImage			= source.getScaledInstance(breite,hoehe,Image.SCALE_SMOOTH);
-		hulk2_icon			= new ImageIcon(scaledImage);
-		
-		source				= new ImageIcon(Map.class.getResource("/Pics/Bomben-Item.png")).getImage();
-		scaledImage			= source.getScaledInstance(breite,hoehe,Image.SCALE_SMOOTH);
-		bomben_item_icon	= new ImageIcon(scaledImage);
-		
-		source				= new ImageIcon(Map.class.getResource("/Pics/Flammen-Item.png")).getImage();
-		scaledImage			= source.getScaledInstance(breite,hoehe,Image.SCALE_SMOOTH);
-		flammen_item_icon	= new ImageIcon(scaledImage);
+
+		source = new ImageIcon(Map.class.getResource(block_pic)).getImage();
+		scaledImage = source.getScaledInstance(breite, hoehe,
+				Image.SCALE_SMOOTH);
+		block_icon = new ImageIcon(scaledImage);
+
+		source = new ImageIcon(Map.class.getResource(hulk_pic)).getImage();
+		scaledImage = source.getScaledInstance(breite, hoehe,
+				Image.SCALE_SMOOTH);
+		hulk_icon = new ImageIcon(scaledImage);
+
+		source = new ImageIcon(Map.class.getResource(weg_pic)).getImage();
+		scaledImage = source.getScaledInstance(breite, hoehe,
+				Image.SCALE_SMOOTH);
+		weg_icon = new ImageIcon(scaledImage);
+
+		source = new ImageIcon(Map.class.getResource(mauer_pic)).getImage();
+		scaledImage = source.getScaledInstance(breite, hoehe,
+				Image.SCALE_SMOOTH);
+		mauer_icon = new ImageIcon(scaledImage);
+
+		source = new ImageIcon(Map.class.getResource(bomb_pic)).getImage();
+		scaledImage = source.getScaledInstance(breite, hoehe,
+				Image.SCALE_SMOOTH);
+		bomb_icon = new ImageIcon(scaledImage);
+
+		source = new ImageIcon(Map.class.getResource(exp_pic)).getImage();
+		scaledImage = source.getScaledInstance(breite, hoehe,
+				Image.SCALE_SMOOTH);
+		exp_icon = new ImageIcon(scaledImage);
+
+		source = new ImageIcon(Map.class.getResource(exit_pic)).getImage();
+		scaledImage = source.getScaledInstance(breite, hoehe,
+				Image.SCALE_SMOOTH);
+		exit_icon = new ImageIcon(scaledImage);
+
+		source = new ImageIcon(Map.class.getResource(hulk2_pic)).getImage();
+		scaledImage = source.getScaledInstance(breite, hoehe,
+				Image.SCALE_SMOOTH);
+		hulk2_icon = new ImageIcon(scaledImage);
+
+		source = new ImageIcon(Map.class.getResource("/Pics/Bomben-Item.png"))
+				.getImage();
+		scaledImage = source.getScaledInstance(breite, hoehe,
+				Image.SCALE_SMOOTH);
+		bomben_item_icon = new ImageIcon(scaledImage);
+
+		source = new ImageIcon(Map.class.getResource("/Pics/Flammen-Item.png"))
+				.getImage();
+		scaledImage = source.getScaledInstance(breite, hoehe,
+				Image.SCALE_SMOOTH);
+		flammen_item_icon = new ImageIcon(scaledImage);
 	}
 
 	/**
-	 * Setzt die Icons "Hulk" und "Weg" , die bei einer Bewegung verändert werden
+	 * Setzt die Icons "Hulk" und "Weg" , die bei einer Bewegung verändert
+	 * werden
 	 * 
-	 * @param * X - Koordinate im Map - Array , um welche die Spielfigur bewegt werden soll
+	 * @param * X - Koordinate im Map - Array , um welche die Spielfigur bewegt
+	 * werden soll
 	 * @param y
-	 *            Y - Koordinate im Map - Array , um welche die Spielfigur bewegt werden soll
+	 * Y - Koordinate im Map - Array , um welche die Spielfigur bewegt werden
+	 * soll
 	 * @param z
-	 *            zu bewegende Spielfigur ( 1 : = Spieler 1 , 2 : = Spieler 2 ... )
+	 * zu bewegende Spielfigur ( 1 : = Spieler 1 , 2 : = Spieler 2 ... )
 	 */
 	public void move_Hulk(int x, int y, int z) {
 		/* Grafische Fortbewegung der Spielfigur: */
@@ -239,10 +257,10 @@ public class Map extends JPanel {
 				label[i][j] = new JLabel(); // fuer jedes einzele Arrayelement wird ein neues Label erstellt
 				label[i][j].setHorizontalAlignment(SwingConstants.CENTER);
 
-				System.out.print(map[i][j] + ", "); // Test
-				if (j == n - 1) {
-					System.out.println();
-				}
+				//				System.out.print(map[i][j] + ", "); // Test
+				//				if (j == n - 1) {
+				//					System.out.println();
+				//				}
 
 				label_laden(label[i][j], map[i][j]); 				// laedt in das Label das Bild (Map hat die Werte ob Hulk, etc..)
 				gbc_label[i][j] = new GridBagConstraints();
@@ -259,16 +277,12 @@ public class Map extends JPanel {
 			}
 
 		}
-
-		System.out.println();
-
 		updateUI();
 	}
 
 	// init-Methode:
 	public void init() {
 		int n = MapLoader.get_n();
-		System.out.print(n);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		setLayout(gbl_contentPane);
 
@@ -299,7 +313,7 @@ public class Map extends JPanel {
 			break;
 
 		case 1: // Hulk
-			label.setIcon(hulk_icon);	
+			label.setIcon(hulk_icon);
 			break;
 
 		case 2: // Weg
@@ -315,7 +329,7 @@ public class Map extends JPanel {
 			break;
 
 		case 5: // Bombe
-			label.setIcon(bomb_icon);	
+			label.setIcon(bomb_icon);
 			break;
 
 		case 6: // Explosion

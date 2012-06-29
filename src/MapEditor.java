@@ -18,7 +18,7 @@ import javax.swing.JRadioButton;
 
 // Autor T. K 
 // 
-public class MapEditor  extends JPanel{
+public class MapEditor extends JPanel {
 	final static int n = MapLoader.get_n();
 	private static int[][] map = new int[n][n];
 	JFrame frame;
@@ -314,10 +314,15 @@ public class MapEditor  extends JPanel{
 									pic = new ImageIcon(
 											Map.class.getResource("/Pics/"
 													+ iconSatz + "/Exit.png"));
+									abfrageAusgang = true;
 								} else {
 
 									System.out
 											.println("Ausgang wurde schon gesetzt");
+									power = 2;
+									pic = new ImageIcon(
+											Map.class.getResource("/Pics/"
+													+ iconSatz + "/Weg.png"));
 								}
 							} else if (name == "Block/Flammen-Item") {
 								power = 9;
