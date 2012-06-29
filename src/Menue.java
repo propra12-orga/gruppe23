@@ -24,7 +24,9 @@ import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
 /**
- * Beinhaltet die Main- Methode , erstellt Fenster & Menue , startet & beendet das Programm , verwaltet Tastatureingaben und fuehrt Neustart des Spiels durch
+ * Beinhaltet die Main- Methode , erstellt Fenster & Menue , startet & beendet
+ * das Programm , verwaltet Tastatureingaben und fuehrt Neustart des Spiels
+ * durch
  * 
  * @author Kolja Salewski
  */
@@ -37,11 +39,11 @@ public class Menue implements KeyListener {
 	 */
 	static JFrame frame;
 	private static JLabel zeitAnzeige;
-	
+	static Timer tim;
 	public static Sound sound = new Sound();
 
 	public static boolean theme;
-	
+
 	public static boolean mapLoaded = false;
 
 	// private int anzahlLevel = 2; // nacher levelanzahl get methode;
@@ -228,7 +230,8 @@ public class Menue implements KeyListener {
 	private static Map game; // Grafisches Spielfeld
 
 	/**
-	 * enthaelt die Informationen ueber die Spielerposition ((x ,y) - Koordinate )
+	 * enthaelt die Informationen ueber die Spielerposition ((x ,y) - Koordinate
+	 * )
 	 */
 	private static Hulk hulk1, hulk2; // Spielfiguren
 
@@ -238,7 +241,8 @@ public class Menue implements KeyListener {
 
 	/* Konstruktor: */
 	/**
-	 * {@code initialize()} legt die Panels in das JFrame {@code frame()} & erstellt die grafische Oberflaeche des Spieles
+	 * {@code initialize()} legt die Panels in das JFrame {@code frame()} &
+	 * erstellt die grafische Oberflaeche des Spieles
 	 */
 	public Menue() {
 		spiel_neugestartet = false;
@@ -427,55 +431,56 @@ public class Menue implements KeyListener {
 		game.requestFocus(); // Fokus auf Spielfeld setzen
 		frame.pack();
 		frame.setLocationRelativeTo(null);
-	    frame.addComponentListener(new ComponentListener() {
-	    	public void componentResized(ComponentEvent e) {
-	    		frame.setSize(frame.getSize().height, frame.getSize().height);
-		   		game.breite = frame.getSize().width / 13;
-		   		game.hoehe = frame.getSize().height / 13;
-		   		System.out.println("Fenster skaliert");
-		   		game.bilder_skalieren();
-	   			game.removeAll(); // ...entferne alle bisherigen Komponenten vom Panel...
-	   			game.refresh();
-	     	}
+		frame.addComponentListener(new ComponentListener() {
+			public void componentResized(ComponentEvent e) {
+				frame.setSize(frame.getSize().height, frame.getSize().height);
+				game.breite = frame.getSize().width / 13;
+				game.hoehe = frame.getSize().height / 13;
+				System.out.println("Fenster skaliert");
+				game.bilder_skalieren();
+				game.removeAll(); // ...entferne alle bisherigen Komponenten vom Panel...
+				game.refresh();
+			}
 
-	     	public void componentMoved(ComponentEvent e) {
-	     		
-	     	}
+			public void componentMoved(ComponentEvent e) {
 
-	     	public void componentShown(ComponentEvent e) {
+			}
 
-	     	}
+			public void componentShown(ComponentEvent e) {
 
-	     	public void componentHidden(ComponentEvent e) {
+			}
 
-	     	}
-	     });
+			public void componentHidden(ComponentEvent e) {
+
+			}
+		});
 	}
-    
-//    frame.addComponentListener(new ComponentListener() {
-//    	public void componentResized(ComponentEvent e) {
-//    		game.breite = frame.getSize().width;
-//    		game.hoehe = frame.getSize().height;
-//    		System.out.println("Fenster skaliert");
-//            game.refresh();
-//        }
-//    	
-//    	public void componentMoved(ComponentEvent e) {
-//        }
-//     
-//        public void componentShown(ComponentEvent e) {
-//        }
-//     
-//        public void componentHidden(ComponentEvent e) {
-//        }
-//        
-//    	});
-    
 
+	//    frame.addComponentListener(new ComponentListener() {
+	//    	public void componentResized(ComponentEvent e) {
+	//    		game.breite = frame.getSize().width;
+	//    		game.hoehe = frame.getSize().height;
+	//    		System.out.println("Fenster skaliert");
+	//            game.refresh();
+	//        }
+	//    	
+	//    	public void componentMoved(ComponentEvent e) {
+	//        }
+	//     
+	//        public void componentShown(ComponentEvent e) {
+	//        }
+	//     
+	//        public void componentHidden(ComponentEvent e) {
+	//        }
+	//        
+	//    	});
 
 	// keyPressed-Methode:
 	/**
-	 * Horcht , ob eine Taste gedrueckt wurde und wertet die Aktion gegebenfalls aus . Gueltige Aktionen sind : Hoch -, Links -, Rechts -, Runtertaste ( Bewegung ) und Leertaste ( Bombe ) für den 1. Spieler sowie W, A, S, D ( Bewegung ) und E ( Bombe ) für den 2. Spieler
+	 * Horcht , ob eine Taste gedrueckt wurde und wertet die Aktion gegebenfalls
+	 * aus . Gueltige Aktionen sind : Hoch -, Links -, Rechts -, Runtertaste (
+	 * Bewegung ) und Leertaste ( Bombe ) für den 1. Spieler sowie W, A, S, D (
+	 * Bewegung ) und E ( Bombe ) für den 2. Spieler
 	 */
 	public void keyPressed(KeyEvent Key) {
 		// Key-Methoden fuer 1. Spieler
@@ -616,7 +621,9 @@ public class Menue implements KeyListener {
 
 	// spieler1_bombe-Methode:
 	/**
-	 * Ueberprueft , ob der 1. Spieler noch eine Bombe legen darf , verringert ggf . die max . Bomben - Anzahl und ruft die bombe_legen - Methode aus der Map - Klasse auf
+	 * Ueberprueft , ob der 1. Spieler noch eine Bombe legen darf , verringert
+	 * ggf . die max . Bomben - Anzahl und ruft die bombe_legen - Methode aus
+	 * der Map - Klasse auf
 	 */
 	static void spieler1_bombe() {
 		System.out.println("Bombe S1"); // Test
@@ -657,7 +664,9 @@ public class Menue implements KeyListener {
 
 	// spieler2_bombe-Methode:
 	/**
-	 * Ueberprueft , ob der 2. Spieler noch eine Bombe legen darf , verringert ggf . die max . Bomben - Anzahl und ruft die bombe_legen - Methode aus der Map - Klasse auf
+	 * Ueberprueft , ob der 2. Spieler noch eine Bombe legen darf , verringert
+	 * ggf . die max . Bomben - Anzahl und ruft die bombe_legen - Methode aus
+	 * der Map - Klasse auf
 	 */
 	static void spieler2_bombe() {
 		System.out.println("Bombe S2"); // Test
@@ -697,7 +706,11 @@ public class Menue implements KeyListener {
 
 	// spieler1_aktionen-Methode:
 	/**
-	 * Ueberprueft , ob der Spieler mit den Pfeiltasten im Client -, Server - oder Einspieler - Modus ist . Je nach Modus : Client : 2. Spielfigur bewegen & Bewegungen dem Server mitteilen ; Server : 1. Spielfigur bewegen & Bewegungen dem Client mitteilen ; Einspieler : 1. Spielfigur bewegen
+	 * Ueberprueft , ob der Spieler mit den Pfeiltasten im Client -, Server -
+	 * oder Einspieler - Modus ist . Je nach Modus : Client : 2. Spielfigur
+	 * bewegen & Bewegungen dem Server mitteilen ; Server : 1. Spielfigur
+	 * bewegen & Bewegungen dem Client mitteilen ; Einspieler : 1. Spielfigur
+	 * bewegen
 	 */
 	void spieler1_aktionen(int x, int y) {
 		// Bewegung Spieler 1
@@ -730,17 +743,20 @@ public class Menue implements KeyListener {
 
 	// spieler1_aktionen2-Methode:
 	/**
-	 * Ueberprueft , ob sich die 1. Spielfigur in die gewuenschte Richtung bewegen kann . Je nachdem , welches Feld als nächstes betreten wird , werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg , Niederlage ).
+	 * Ueberprueft , ob sich die 1. Spielfigur in die gewuenschte Richtung
+	 * bewegen kann . Je nachdem , welches Feld als nächstes betreten wird ,
+	 * werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg ,
+	 * Niederlage ).
 	 */
 	static void spieler1_aktionen2(int x, int y) {
 		if (Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 2 				// falls
-																			// das
-																			// naechste
-																			// Feld
-																			// ein
-																			// Weg-Feld,...
+				// das
+				// naechste
+				// Feld
+				// ein
+				// Weg-Feld,...
 				|| Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 12 		// ...oder
-																			// Bomben-Item-Feld...
+				// Bomben-Item-Feld...
 				|| Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 15) { 	// ...oder
 																			// Flammen-Item
 																			// Feld
@@ -790,18 +806,21 @@ public class Menue implements KeyListener {
 
 	// spieler2_aktionen-Methode:
 	/**
-	 * Ueberprueft , ob sich die 2. Spielfigur in die gewuenschte Richtung bewegen kann . Je nachdem , welches Feld als nächstes betreten wird , werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg , Niederlage ).
+	 * Ueberprueft , ob sich die 2. Spielfigur in die gewuenschte Richtung
+	 * bewegen kann . Je nachdem , welches Feld als nächstes betreten wird ,
+	 * werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg ,
+	 * Niederlage ).
 	 */
 	static void spieler2_aktionen(int x, int y) {
 		// Bewegung Spieler 2
 		if (Map.map[hulk2.get_x() + x][hulk2.get_y() + y] == 2 				// falls
-																			// das
-																			// naechste
-																			// Feld
-																			// ein
-																			// Weg-Feld,...
+				// das
+				// naechste
+				// Feld
+				// ein
+				// Weg-Feld,...
 				|| Map.map[hulk2.get_x() + x][hulk2.get_y() + y] == 12 		// ...oder
-																			// Bomben-Item-Feld...
+				// Bomben-Item-Feld...
 				|| Map.map[hulk2.get_x() + x][hulk2.get_y() + y] == 15) { 	// ...oder
 																			// Flammen-Item
 																			// Feld
@@ -813,7 +832,7 @@ public class Menue implements KeyListener {
 			game.removeAll(); 	// ...entferne alle bisherigen Komponenten
 								// vom Panel...
 			game.refresh(); 	// ...und zeichne alle Komponenten des
-								// Panels neu
+			// Panels neu
 			a[0] = 0;
 			a[1] = 0;
 		}
@@ -865,7 +884,9 @@ public class Menue implements KeyListener {
 
 	// reset_Hulk-Methode:
 	/**
-	 * Setzt die beiden Spielfiguren auf ihre Startpositionen zurueck . Die 1. Spielfigur landet immer in der oberen linken Ecke . Die 2. Spielfigur landet immer in der unteren rechten Ecke .
+	 * Setzt die beiden Spielfiguren auf ihre Startpositionen zurueck . Die 1.
+	 * Spielfigur landet immer in der oberen linken Ecke . Die 2. Spielfigur
+	 * landet immer in der unteren rechten Ecke .
 	 */
 	static void reset_Hulk() {
 		hulk1.set_x(1);
@@ -883,8 +904,10 @@ public class Menue implements KeyListener {
 
 	// spiel_neustarten-Methode:
 	/**
-	 * Startet das Spiel folgendermaßen neu : Zuruecksetzen der Spielfiguren , max . Anzahl Bomben und Bomben - Radien , Entfernen aktueller Bomben , Reinitialisieren der internen und grafischen Spielfelder.
-	 * Erweitert fuer Bot.
+	 * Startet das Spiel folgendermaßen neu : Zuruecksetzen der Spielfiguren ,
+	 * max . Anzahl Bomben und Bomben - Radien , Entfernen aktueller Bomben ,
+	 * Reinitialisieren der internen und grafischen Spielfelder. Erweitert fuer
+	 * Bot.
 	 */
 	static void spiel_neustarten() {
 
@@ -901,8 +924,8 @@ public class Menue implements KeyListener {
 		// Bomben-Radius zuruecksetzen:
 		get_hulk(1).set_bomben_radius(2);
 		get_hulk(2).set_bomben_radius(2);
-		
-		if (bot){
+
+		if (bot) {
 			get_bot(1).set_bomben_radius(2);
 			get_bot(1).set_max_bomben(1);
 		}
@@ -917,7 +940,7 @@ public class Menue implements KeyListener {
 
 		// Spielfeld intern reinitialisieren:
 		Map.set_map(MapLoader.laden(MapLoader.get_level()));
-		
+
 		// Bilder erneut skalieren:
 		game.bilder_skalieren();
 
@@ -940,7 +963,8 @@ public class Menue implements KeyListener {
 
 	// abfrage_neustarten-Methode:
 	/**
-	 * Fragt den Benutzer , ob er das Spiel neustarten oder beenden möchte und fuehrt die jeweilige Aktion aus .
+	 * Fragt den Benutzer , ob er das Spiel neustarten oder beenden möchte und
+	 * fuehrt die jeweilige Aktion aus .
 	 */
 	static void abfrage_neustarten() {
 		int eingabe = 0;
@@ -1233,20 +1257,25 @@ public class Menue implements KeyListener {
 		else {
 			if (schwierigkeitsgrad.equals("Anfänger")) {
 				zeit = 0;
+
 			}
 
 			else if (schwierigkeitsgrad.equals("Leicht")) {
 				zeit = 180;
+
 			}
 
 			else if (schwierigkeitsgrad.equals("Mittel")) {
 				zeit = 90;
+
 			}
 
 			else if (schwierigkeitsgrad.equals("Schwer")) {
 				zeit = 45;
-			}
 
+			}
+			if (running)
+				tim.stop();
 			spiel_neustarten();
 			System.out.println(schwierigkeitsgrad); // Test
 			anfrage_geschickt = false;
@@ -1267,16 +1296,17 @@ public class Menue implements KeyListener {
 
 					else {
 						running = false;
-						((Timer) e.getSource()).stop();
+						tim.stop();
 
 					}
 				}
 			};
-			new Timer(timerZeit, action) {
+			tim = new Timer(timerZeit, action) {
 				{
 					setInitialDelay(0);
 				}
-			}.start();
+			};
+			tim.start();
 
 			if (zeit != 0) {
 				spieltimer.timer.cancel();
@@ -1393,7 +1423,8 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Laden" , lädt ein zuvor gespeichertes Spiel
+	 * Klasse fuer Menuebuttonorganisation "Laden" , lädt ein zuvor
+	 * gespeichertes Spiel
 	 * 
 	 * @author Tobias Korfmacher
 	 */
@@ -1440,7 +1471,8 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Speichern" , speichert das aktuelle Spiel
+	 * Klasse fuer Menuebuttonorganisation "Speichern" , speichert das aktuelle
+	 * Spiel
 	 * 
 	 * @author Tobias Korfmacher
 	 */
@@ -1467,7 +1499,8 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Singleplayer" , wechselt zum Singleplayer - Modus
+	 * Klasse fuer Menuebuttonorganisation "Singleplayer" , wechselt zum
+	 * Singleplayer - Modus
 	 * 
 	 * @author Kolja Salewski
 	 */
@@ -1485,7 +1518,9 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Ueberprueft , ob man sich im Mehrspieler - Modus befindet und wechselt ggf . zum Einzelspieler - Modus . Anschliessend wird das Spiel neugestartet .
+		 * Ueberprueft , ob man sich im Mehrspieler - Modus befindet und
+		 * wechselt ggf . zum Einzelspieler - Modus . Anschliessend wird das
+		 * Spiel neugestartet .
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (twoPlayer == true) {
@@ -1497,7 +1532,8 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "HotSeat" , wechselt zum HotSeat - Modus
+	 * Klasse fuer Menuebuttonorganisation "HotSeat" , wechselt zum HotSeat -
+	 * Modus
 	 * 
 	 * @author Kolja Salewski
 	 */
@@ -1515,7 +1551,9 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Ueberprueft , ob man sich bereits im HotSeat - Modus befindet und wechselt anderenfalls dorthin . Anschließend wird das Spiel neugestartet .
+		 * Ueberprueft , ob man sich bereits im HotSeat - Modus befindet und
+		 * wechselt anderenfalls dorthin . Anschließend wird das Spiel
+		 * neugestartet .
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (hotSeat == false) {
@@ -1537,7 +1575,8 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Server" , wechselt zum Server - Modus
+	 * Klasse fuer Menuebuttonorganisation "Server" , wechselt zum Server -
+	 * Modus
 	 * 
 	 * @author Kolja Salewski
 	 */
@@ -1555,7 +1594,10 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Ueberprueft , ob man sich bereits im Server - Modus befindet und wechselt anderenfalls dorthin . Falls man sich vorher im Client - Modus befunden hat , wird der Client - Thread beendet . Der Server - Modus wird als neuer Thread gestartet .
+		 * Ueberprueft , ob man sich bereits im Server - Modus befindet und
+		 * wechselt anderenfalls dorthin . Falls man sich vorher im Client -
+		 * Modus befunden hat , wird der Client - Thread beendet . Der Server -
+		 * Modus wird als neuer Thread gestartet .
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (serverThread == null) {
@@ -1581,7 +1623,8 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Client" , wechselt zum Client - Modus
+	 * Klasse fuer Menuebuttonorganisation "Client" , wechselt zum Client -
+	 * Modus
 	 * 
 	 * @author Kolja Salewski
 	 */
@@ -1599,7 +1642,10 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Ueberprueft , ob man sich bereits im Client - Modus befindet und wechselt anderenfalls dorthin . Falls man sich vorher im Server - Modus befunden hat , wird der Server - Thread beendet . Der Client - Modus wird als neuer Thread gestartet
+		 * Ueberprueft , ob man sich bereits im Client - Modus befindet und
+		 * wechselt anderenfalls dorthin . Falls man sich vorher im Server -
+		 * Modus befunden hat , wird der Server - Thread beendet . Der Client -
+		 * Modus wird als neuer Thread gestartet
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (clientThread == null) {
@@ -1734,7 +1780,8 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "MapEditor" , startet den Map - Editor
+	 * Klasse fuer Menuebuttonorganisation "MapEditor" , startet den Map -
+	 * Editor
 	 * 
 	 * @author Tobias Korfmacher
 	 */
@@ -1779,7 +1826,8 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Multiplayer - Bot" , aktiviert den Bot als 2. Spieler
+	 * Klasse fuer Menuebuttonorganisation "Multiplayer - Bot" , aktiviert den
+	 * Bot als 2. Spieler
 	 * 
 	 * @author Sebastian Dittmann
 	 * 
@@ -1804,7 +1852,8 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klassen für den Button "Schwierigkeit" erstellen . ( zur änderung der Schwierigkeit )
+	 * Klassen für den Button "Schwierigkeit" erstellen . ( zur änderung der
+	 * Schwierigkeit )
 	 * 
 	 * @author Andrej Morlang
 	 */

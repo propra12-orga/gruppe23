@@ -181,8 +181,10 @@ public class MapEditor {
 						break;
 					case 1:
 						frame.setVisible(false);
-						f.deleteOnExit();
-						f.delete();//  funktioniert noch nicht
+						if (!exist) {
+							f.deleteOnExit();
+							f.delete();//  funktioniert noch nicht
+						}
 						MapLoader.set_level(oldLevel);
 						Menue.spiel_neustarten();
 						break;
