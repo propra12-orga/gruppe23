@@ -38,8 +38,7 @@ public class Menue implements KeyListener {
 	 * Hauptframe des Programmes
 	 */
 	static JFrame frame;
-	private static JLabel zeitAnzeige;
-	static Timer tim;
+
 	public static Sound sound = new Sound();
 
 	public static boolean theme;
@@ -164,26 +163,23 @@ public class Menue implements KeyListener {
 																		// 2
 																		// erstellen
 
-	// for(int i = 1; i <= anzahlLevel; i ++) {
-	// String name = "Action_Level_" + i;
-	// } // Aktion
-	// zum
-	// Wechsel
-	// zu
-	// Level
-	// 1
-	// erstellen
-
 	/**
 	 * Button im Leistenmenue ( Wechsel zu Map - Editor )
 	 */
-	private final Action_Map_Editor Action_Map_Editor = new Action_Map_Editor(); // Aktion
-																					// zum
-																					// Wechsel
-																					// zu
-																					// Map-
-																					// Editor
-																					// erstellen
+	private final Action_Map_Editor_start Action_Map_Editor_start = new Action_Map_Editor_start(); // Aktion
+	// zum
+	// Wechsel
+	// zu
+	// Map-
+	// Editor
+	//
+	private final Action_Map_Editor_contin Action_Map_Editor_contin = new Action_Map_Editor_contin(); // Aktion
+	// zum
+	// Wechsel
+	// zu
+	// Map-
+	// Editor
+	// erstellen
 
 	private final Action_MultiplayerBot Action_MultiplayerBot = new Action_MultiplayerBot(); // Aktion
 	//zum Wechsel
@@ -221,6 +217,8 @@ public class Menue implements KeyListener {
 	static Zeit spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
 	static boolean anfrage_geschickt = false;
 	private static boolean running;
+	private static JLabel zeitAnzeige;
+	static Timer tim;
 
 	private static int[][] map; // Internes Spielfeld
 
@@ -246,8 +244,8 @@ public class Menue implements KeyListener {
 	 */
 	public Menue() {
 		spiel_neugestartet = false;
-		hulk1 = new Hulk(1, 1, 1); // 1. Spielerfigur erzeugen
-		hulk2 = new Hulk(n - 2, n - 2, 10); // 2. Spielerfigur erzeugen
+		hulk1 = new Hulk(1, 1, 1); // 1. Spielerfigur erzeugen // getHulkfunktion anwenden
+		hulk2 = new Hulk(n - 2, n - 2, 10); // 2. Spielerfigur erzeugenget hulk 2 funktion
 		bot1 = new Bot();	//1. Bot erzeugen
 
 		map = MapLoader.laden(MapLoader.get_level());
@@ -374,14 +372,20 @@ public class Menue implements KeyListener {
 		mntmLevel_2.setAction(Action_Level_2); // Aktion "Action_Level_2"
 												// hinzufuegen
 
-		JMenu mnEditor = new JMenu("Editor"); // Menuepunkt "Editor" erstellen
+		JMenu mnEditor = new JMenu("Map - Editor"); // Menuepunkt "Editor" erstellen
 		menuBar.add(mnEditor); // Menuepunkt "Editor" hinzufuegen
 
 		JMenuItem mntmOpen = new JMenuItem("Open"); // Untermenuepunkt "Open"
 													// erstellen
 		mnEditor.add(mntmOpen); // Untermenuepunkt "Open" hinzufuegen
-		mntmOpen.setAction(Action_Map_Editor); // Aktion "Action_Map_Editor"
-												// hinzufuegen
+		mntmOpen.setAction(Action_Map_Editor_start); // Aktion "Action_Map_Editor_start"
+		// hinzufuegen
+
+		JMenuItem mntmContin = new JMenuItem("Contin"); // Untermenuepunkt "Open"
+		// erstellen
+		mnEditor.add(mntmContin); // Untermenuepunkt "Open" hinzufuegen
+		mntmContin.setAction(Action_Map_Editor_contin); // Aktion "Action_Map_Editor_contin"
+		// hinzufuegen
 
 		JMenu mnZeit = new JMenu("Schwierigkeit"); // Menuepunkt "Schwierigkeit"
 													// erstellen
@@ -1785,16 +1789,16 @@ public class Menue implements KeyListener {
 	 * 
 	 * @author Tobias Korfmacher
 	 */
-	private class Action_Map_Editor extends AbstractAction {
+	private class Action_Map_Editor_start extends AbstractAction {
 		private static final long serialVersionUID = 1L;
 
 		// Konstruktor:
 		/**
 		 * Setzt den Namen und die Kurzbeschreibung des MapEdior - Buttons
 		 */
-		public Action_Map_Editor() {
-			putValue(NAME, "Map-Editor");
-			putValue(SHORT_DESCRIPTION, "Öffnet den Map-Editor");
+		public Action_Map_Editor_start() {
+			putValue(NAME, "Starten");
+			putValue(SHORT_DESCRIPTION, "Startet den Map-Editor");
 		}
 
 		// actionPerformed-Methode:
@@ -1820,6 +1824,34 @@ public class Menue implements KeyListener {
 			else {
 				new MapEditor();
 			}
+
+		}
+
+	}
+
+	/**
+	 * Klasse fuer Menuebuttonorganisation "MapEditor" , fortsetzen den Map -
+	 * Editor
+	 * 
+	 * @author Tobias Korfmacher
+	 */
+	private class Action_Map_Editor_contin extends AbstractAction {
+		private static final long serialVersionUID = 1L;
+
+		// Konstruktor:
+		/**
+		 * Setzt den Namen und die Kurzbeschreibung des MapEdior - Buttons
+		 */
+		public Action_Map_Editor_contin() {
+			putValue(NAME, "Fortsetzen");
+			putValue(SHORT_DESCRIPTION, "Fortsetzen des Map-Editors");
+		}
+
+		// actionPerformed-Methode:
+		/**
+		 * Startet den Map - Editor
+		 */
+		public void actionPerformed(ActionEvent e) {
 
 		}
 
