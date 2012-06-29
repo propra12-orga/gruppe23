@@ -242,7 +242,7 @@ public class Menue implements KeyListener {
 		spiel_neugestartet = false;
 		hulk1 = new Hulk(1, 1, 1); // 1. Spielerfigur erzeugen
 		hulk2 = new Hulk(n - 2, n - 2, 10); // 2. Spielerfigur erzeugen
-		bot1 = new Bot(n - 2, n - 2);
+		bot1 = new Bot();	//1. Bot erzeugen
 
 		map = MapLoader.laden(MapLoader.get_level());
 		game = new Map(map);
@@ -836,7 +836,8 @@ public class Menue implements KeyListener {
 
 	// spiel_neustarten-Methode:
 	/**
-	 * Startet das Spiel folgendermaßen neu : Zuruecksetzen der Spielfiguren , max . Anzahl Bomben und Bomben - Radien , Entfernen aktueller Bomben , Reinitialisieren der internen und grafischen Spielfelder
+	 * Startet das Spiel folgendermaßen neu : Zuruecksetzen der Spielfiguren , max . Anzahl Bomben und Bomben - Radien , Entfernen aktueller Bomben , Reinitialisieren der internen und grafischen Spielfelder.
+	 * Erweitert fuer Bot.
 	 */
 	static void spiel_neustarten() {
 
@@ -847,12 +848,17 @@ public class Menue implements KeyListener {
 		reset_Hulk();
 
 		// Maximale Anzahl an Bomben zuruecksetzen:
-		Menue.get_hulk(1).set_max_bomben(1);
-		Menue.get_hulk(2).set_max_bomben(1);
+		get_hulk(1).set_max_bomben(1);
+		get_hulk(2).set_max_bomben(1);
 
 		// Bomben-Radius zuruecksetzen:
-		Menue.get_hulk(1).set_bomben_radius(2);
-		Menue.get_hulk(2).set_bomben_radius(2);
+		get_hulk(1).set_bomben_radius(2);
+		get_hulk(2).set_bomben_radius(2);
+		
+		if (bot){
+			get_bot(1).set_bomben_radius(2);
+			get_bot(1).set_max_bomben(1);
+		}
 
 		// Gelegte Bomben entfernen:
 		for (int x = 0; x < n; x++) {

@@ -290,7 +290,7 @@ public class MapLoader {
 				System.exit(1);
 			}
 			
-			Menue.set_mapLoaded(true);
+//			Menue.set_mapLoaded(true);
 			return map;
 			
 		}

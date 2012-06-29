@@ -10,15 +10,15 @@ public class Bot extends Thread{
 	public int[] startPos = new int[2];
 	public int max_bomben = 1;
 	private int bomben_radius = 2;
-	private boolean loaded;
+	private boolean loaded, used;
 	
 	
 	/** 
 	 * @param xKoord aktuelle horizontale Position
 	 * @param yKoord aktuelle vertikale Position
 	 */
-	public Bot(int xKoord, int yKoord){
-		x = xKoord; y = yKoord;
+	public Bot(){
+		x = 12; y = 12;
 		rechts = 0; links = 0; oben = 0; unten = 0;
 		icon = 10;
 		xNeu = 0; yNeu = 0;
@@ -30,6 +30,11 @@ public class Bot extends Thread{
 	 */
 	public void run(){
 		start = 1;
+		try {
+			Bot.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		while(true){
 			try {
 				move();
@@ -46,28 +51,33 @@ public class Bot extends Thread{
 	 */
 	private void move() throws InterruptedException{
 		xNeu = 0; yNeu = 0;
+		used = false;
 		loaded = Menue.get_mapLoaded();
 		map = Menue.get_map();
 		rechts = map[x+1][y];
 		links = map[x-1][y];
-		oben = map[x][y+1];
-		unten = map[x][y-1];
-//		System.out.println("Rechts: " + rechts);
-//		System.out.println("Links: " + links);
-//		System.out.println("Oben: " + oben);
-//		System.out.println("Unten: " + unten);
+		oben = map[x][y-1];
+		unten = map[x][y+1];
+		System.out.println("Rechts: " + rechts);
+		System.out.println("Links: " + links);
+		System.out.println("Oben: " + oben);
+		System.out.println("Unten: " + unten);
 		
-		if (links == 2){
+		if (links == 2 && !used){
 			xNeu -= 1;
+			used = true;
 		}
-		else if (oben == 2){
+		else if (oben == 2 && !used){
 			yNeu += 1;
+			used = true;
 		}
-		else if (rechts == 2){
+		else if (rechts == 2 && !used){
 			xNeu += 1;
+			used = true;
 		}
-		else if (unten == 2){
+		else if (unten == 2 && !used){
 			yNeu -= 1;
+			used = true;
 		}
 		
 		System.out.println("Bot laueft!");
@@ -82,7 +92,7 @@ public class Bot extends Thread{
 		System.out.println();
 		
 		try {
-			Bot.sleep(2000);
+			Bot.sleep(500);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

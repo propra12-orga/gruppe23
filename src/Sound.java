@@ -15,7 +15,7 @@ public class Sound {
 	}
 	
 	public void playTheme(){
-		StdAudio.loop("src/media/theme.wav");
+//		StdAudio.loop("src/media/theme.wav");
 	}
 	
 	public void playZiel(){
