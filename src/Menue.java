@@ -35,7 +35,11 @@ public class Menue implements KeyListener {
 	 */
 	static JFrame frame;
 	private static JLabel zeitAnzeige;
+	
+	public static Sound sound = new Sound();
 
+	public static boolean theme;
+	
 	public static boolean mapLoaded = false;
 
 	// private int anzahlLevel = 2; // nacher levelanzahl get methode;
@@ -716,7 +720,7 @@ public class Menue implements KeyListener {
 																		// ist
 			System.out.println("Spieler 1 hat gewonnen"); // Test
 			System.out.println(); // Test
-
+			sound.playZiel();
 			abfrage_neustarten();
 		}
 
@@ -730,6 +734,7 @@ public class Menue implements KeyListener {
 																		// ist
 			System.out.println("Spieler 1 hat verloren"); // Test
 			System.out.println(); // Test
+			sound.playTod();
 
 			abfrage_neustarten();
 		}
@@ -776,7 +781,7 @@ public class Menue implements KeyListener {
 																		// ist
 			System.out.println("Spieler 2 hat gewonnen"); // Test
 			System.out.println(); // Test
-
+			sound.playZiel();
 			abfrage_neustarten();
 		}
 
@@ -790,6 +795,7 @@ public class Menue implements KeyListener {
 																		// ist
 			System.out.println("Spieler 2 hat verloren"); // Test
 			System.out.println(); // Test
+			sound.playTod();
 
 			abfrage_neustarten();
 		}

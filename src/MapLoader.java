@@ -29,7 +29,12 @@ public class MapLoader {
 	public static int[][] laden(int i) { // mit parameter i als level nummer
 		twoPlayerSet = Menue.getMultiplayer();
 		botSet = Menue.getBot();
-
+		
+		if (!Menue.theme){
+			Menue.sound.playTheme();
+			Menue.theme = true;
+		}
+		
 		int c = 0;
 
 		int k = 0, l = 0;

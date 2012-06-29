@@ -1,26 +1,28 @@
-import java.applet.Applet;
-import java.applet.AudioClip;
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-
+/**
+	 * Objekt zur Verwaltung der Soundeffekte
+	 * spielt alle Sounds ueber Methoden der StdAudio-Bibliothek ab
+	 */
 
 public class Sound {
-	public static URL exp = null;
-	public String filename;
 	
-	public Sound(String file){filename = file;}
+	public Sound(){}	
+	public void playItem(){ 
+		StdAudio.play("src/media/Item.wav");
+	}
 	
-	public void play(){
-		try{
-			File expF = new File(filename);
-			if (expF.canRead()) exp = expF.toURI().toURL();
-			System.out.println("Soundfile im Arsch");
-		}
-		catch (MalformedURLException e) { e.printStackTrace(); }
-        // URL url = StdAudio.class.getResource(filename);
-        if (exp == null) throw new RuntimeException("Es konnte explosion.wav nicht gefunden werden!");
-        AudioClip explosion = Applet.newAudioClip(exp);
-        explosion.play();
+	public void playExplosion(){
+		StdAudio.play("src/media/explosion.wav");
+	}
+	
+	public void playTheme(){
+		StdAudio.loop("src/media/theme.wav");
+	}
+	
+	public void playZiel(){
+		StdAudio.play("src/media/ziel.wav");
+	}
+	
+	public void playTod(){
+		StdAudio.play("src/media/tod.wav");
 	}
 }

@@ -66,7 +66,7 @@ public class Bombe extends JLabel {
 	 * Felder im Map-Array; Ueberpruefung ob Spieler von Explosion betroffen ist
 	 */
 	public void bombe_detonieren(int Spieler, int bomben_radius) {
-		StdAudio.play("src/media/explosion.wav");
+		Menue.sound.playExplosion();
 		Menue.get_hulk(Spieler).set_max_bomben(
 				Menue.get_hulk(Spieler).get_max_bomben() + 1); // Spieler darf
 																// wieder eine
@@ -362,6 +362,7 @@ public class Bombe extends JLabel {
 																	// trifft
 					if (treffer_rechts == false && hulk_getroffen == false) {
 						hulk_getroffen = true;
+						Menue.sound.playTod();
 						System.out.println("Game over"); // Test
 						System.out.println(); // Test
 						
@@ -388,6 +389,7 @@ public class Bombe extends JLabel {
 																		// trifft
 					if (treffer_unten == false && hulk_getroffen == false) {
 						hulk_getroffen = true;
+						Menue.sound.playTod();
 						System.out.println("Game over"); // Test
 						System.out.println(); // Test
 						
@@ -690,7 +692,7 @@ public class Bombe extends JLabel {
 						hulk_getroffen = true;
 						System.out.println("Game over"); // Test
 						System.out.println(); // Test
-
+						Menue.sound.playTod();
 						Menue.abfrage_neustarten();
 					}
 
@@ -716,7 +718,7 @@ public class Bombe extends JLabel {
 						hulk_getroffen = true;
 						System.out.println("Game over"); // Test
 						System.out.println(); // Test
-
+						Menue.sound.playTod();
 						Menue.abfrage_neustarten();						
 					}
 

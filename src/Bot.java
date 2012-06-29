@@ -71,7 +71,7 @@ public class Bot extends Thread{
 		}
 		
 		System.out.println("Bot laueft!");
-		if(Menue.mapLoaded){
+		if(loaded){
 			Menue.get_game().move_Bot(xNeu, yNeu, 1);
 			System.out.println("Thread arbeitet");
 			Menue.get_game().removeAll(); // ...entferne alle bisherigen Komponenten
