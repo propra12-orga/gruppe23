@@ -18,7 +18,7 @@ import javax.swing.JRadioButton;
 
 // Autor T. K 
 // 
-public class MapEditor {
+public class MapEditor  extends JPanel{
 	final static int n = MapLoader.get_n();
 	private static int[][] map = new int[n][n];
 	JFrame frame;

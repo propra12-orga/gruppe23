@@ -29,12 +29,12 @@ public class MapLoader {
 	public static int[][] laden(int i) { // mit parameter i als level nummer
 		twoPlayerSet = Menue.getMultiplayer();
 		botSet = Menue.getBot();
-		
-		if (!Menue.theme){
+
+		if (!Menue.theme) {
 			Menue.sound.playTheme();
 			Menue.theme = true;
 		}
-		
+
 		int c = 0;
 
 		int k = 0, l = 0;
@@ -77,12 +77,12 @@ public class MapLoader {
 				map[n - 2][n - 2] = 10;
 				map[1][n - 2] = 2;
 			}
-			
+
 			if (botSet) {
 				map[n - 2][n - 2] = 10;
 				map[1][n - 2] = 2;
 			}
-			
+
 			System.out.println(); // Test
 			Menue.set_mapLoaded(true);
 			f.close();
@@ -273,7 +273,7 @@ public class MapLoader {
 					map[n - 2][n - 2] = 10;
 					map[1][n - 2] = 2;
 				}
-				
+
 				if (botSet) {
 					map[n - 2][n - 2] = 10;
 					map[1][n - 2] = 2;
@@ -289,10 +289,10 @@ public class MapLoader {
 				e.printStackTrace();
 				System.exit(1);
 			}
-			
-//			Menue.set_mapLoaded(true);
+
+			//			Menue.set_mapLoaded(true);
 			return map;
-			
+
 		}
 
 		else
@@ -360,9 +360,6 @@ public class MapLoader {
 			for (int b = 0; b < MapLoader.get_n(); b++) {
 				if (map[a][b] == i)
 					found = a;
-				else {
-					System.out.println("Icon nicht gefunden");
-				}
 			}
 		}
 
@@ -376,9 +373,6 @@ public class MapLoader {
 			for (int b = 0; b < MapLoader.get_n(); b++) {
 				if (map[a][b] == i)
 					found = b;
-				else {
-					System.out.println("Icon nicht gefunden");
-				}
 			}
 		}
 

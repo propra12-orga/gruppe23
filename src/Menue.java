@@ -216,11 +216,15 @@ public class Menue implements KeyListener {
 	static int zeit = 0;
 	static Zeit spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
 	static boolean anfrage_geschickt = false;
-	private static boolean running;
+	private static boolean running; //Abfrage für den Timer
 	private static JLabel zeitAnzeige;
 	static Timer tim;
-
+	static boolean editorlaeuft = false;
 	private static int[][] map; // Internes Spielfeld
+	/**
+	 * Objekt der MapEditor - Klasse ; enthaelt den editor ;
+	 */
+	private static MapEditor mapping;
 
 	/**
 	 * Objekt der Map - Klasse ; enthaelt die Daten des Spielfeldes ;
@@ -244,12 +248,21 @@ public class Menue implements KeyListener {
 	 */
 	public Menue() {
 		spiel_neugestartet = false;
-		hulk1 = new Hulk(1, 1, 1); // 1. Spielerfigur erzeugen // getHulkfunktion anwenden
-		hulk2 = new Hulk(n - 2, n - 2, 10); // 2. Spielerfigur erzeugenget hulk 2 funktion
-		bot1 = new Bot();	//1. Bot erzeugen
 
 		map = MapLoader.laden(MapLoader.get_level());
 		game = new Map(map);
+
+		int hulk1Startx, hulk1Starty, hulk2Startx, hulk2Starty;
+
+		hulk1Startx = MapLoader.get_icon_x(map, 1);
+		hulk1Starty = MapLoader.get_icon_y(map, 1);
+		// Startposition von Hulk 2 aus dem Spielfeld auslesen
+		hulk2Startx = MapLoader.get_icon_x(map, 10);
+		hulk2Starty = MapLoader.get_icon_y(map, 10);
+
+		hulk1 = new Hulk(hulk1Startx, hulk1Starty, 1); // 1. Spielerfigur erzeugen // getHulkfunktion anwenden
+		hulk2 = new Hulk(hulk2Startx, hulk2Starty, 10); // 2. Spielerfigur erzeugenget hulk 2 funktion
+		bot1 = new Bot();	//1. Bot erzeugen
 
 		initialize();
 		a = new int[3];
@@ -1798,7 +1811,7 @@ public class Menue implements KeyListener {
 		 */
 		public Action_Map_Editor_start() {
 			putValue(NAME, "Starten");
-			putValue(SHORT_DESCRIPTION, "Startet den Map-Editor");
+			putValue(SHORT_DESCRIPTION, "Starten des Map-Editors");
 		}
 
 		// actionPerformed-Methode:
@@ -1813,7 +1826,8 @@ public class Menue implements KeyListener {
 				switch (antwort) {
 				case 0:
 					lan_modus_beenden();
-					new MapEditor();
+					mapping = new MapEditor();
+					editorlaeuft = true;
 					break;
 				case 1:
 					break;
@@ -1822,7 +1836,8 @@ public class Menue implements KeyListener {
 			}
 
 			else {
-				new MapEditor();
+				mapping = new MapEditor();
+				editorlaeuft = true;
 			}
 
 		}
