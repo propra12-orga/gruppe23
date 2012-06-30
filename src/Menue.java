@@ -180,6 +180,12 @@ public class Menue implements KeyListener {
 	// Map-
 	// Editor
 	// erstellen
+	private final Action_Map_Editor_exit Action_Map_Editor_exit = new Action_Map_Editor_exit(); // Aktion
+	// zum
+	// beenden
+	// zu
+	// Map-
+	// Editor
 
 	private final Action_MultiplayerBot Action_MultiplayerBot = new Action_MultiplayerBot(); // Aktion
 	//zum Wechsel
@@ -403,6 +409,11 @@ public class Menue implements KeyListener {
 		mnEditor.add(mntmContin); // Untermenuepunkt "Open" hinzufuegen
 		mntmContin.setAction(Action_Map_Editor_contin); // Aktion "Action_Map_Editor_contin"
 		// hinzufuegen
+		JMenuItem mntmMexit = new JMenuItem("Mexit"); // Untermenuepunkt "Open"
+		// erstellen
+		mnEditor.add(mntmMexit); // Untermenuepunkt "Open" hinzufuegen
+		mntmMexit.setAction(Action_Map_Editor_exit); // Aktion "Action_Map_Editor_start"
+		// hinzufuegen
 
 		JMenu mnZeit = new JMenu("Schwierigkeit"); // Menuepunkt "Schwierigkeit"
 													// erstellen
@@ -468,6 +479,10 @@ public class Menue implements KeyListener {
 		frame.setLocationRelativeTo(null);
 		frame.addComponentListener(new ComponentListener() {
 			public void componentResized(ComponentEvent e) {
+			}
+
+			public void componentMoved(ComponentEvent e) {
+
 				frame.setSize(frame.getSize().height, frame.getSize().height);
 				game.breite = frame.getSize().width / 13;
 				game.hoehe = frame.getSize().height / 13;
@@ -475,9 +490,6 @@ public class Menue implements KeyListener {
 				game.bilder_skalieren();
 				game.removeAll(); // ...entferne alle bisherigen Komponenten vom Panel...
 				game.refresh();
-			}
-
-			public void componentMoved(ComponentEvent e) {
 
 			}
 
@@ -1873,9 +1885,15 @@ public class Menue implements KeyListener {
 						"LAN-Modus", JOptionPane.YES_NO_OPTION);
 				switch (antwort) {
 				case 0:
+
 					lan_modus_beenden();
+					game.setVisible(false);
 					mapping = new MapEditor();
 					editorlaeuft = true;
+					mapping.setVisible(true);
+					frame.getContentPane().add(mapping);
+					frame.pack();
+
 					break;
 				case 1:
 					break;
@@ -1884,8 +1902,13 @@ public class Menue implements KeyListener {
 			}
 
 			else {
+
+				game.setVisible(false);
 				mapping = new MapEditor();
 				editorlaeuft = true;
+				mapping.setVisible(true);
+				frame.getContentPane().add(mapping);
+				frame.pack();
 			}
 
 		}
@@ -1915,9 +1938,7 @@ public class Menue implements KeyListener {
 		 * Setzt den Map - Editor fort falls er schonmal gelaufen ist
 		 */
 		public void actionPerformed(ActionEvent e) {
-			if (editorlaeuft) {
-
-			} else {
+			if (!editorlaeuft) {
 				if (lan == true) {
 					int antwort = JOptionPane.showConfirmDialog(null,
 							"Diese Aktion beendet den LAN-Modus. Fortfahren?",
@@ -1927,6 +1948,11 @@ public class Menue implements KeyListener {
 						lan_modus_beenden();
 						mapping = new MapEditor();
 						editorlaeuft = true;
+						mapping.setVisible(true);
+
+						frame.getContentPane().add(mapping);
+						frame.pack();
+
 						break;
 					case 1:
 						break;
@@ -1935,12 +1961,50 @@ public class Menue implements KeyListener {
 				}
 
 				else {
+
 					mapping = new MapEditor();
 					editorlaeuft = true;
+					frame.getContentPane().add(mapping);
+					frame.pack();
 				}
 
 			}
 
+			game.setVisible(false);
+			mapping.setVisible(true);
+		}
+
+	}
+
+	/**
+	 * Klasse fuer Menuebuttonorganisation "MapEditor" , fortsetzen den Map -
+	 * Editor
+	 * 
+	 * @author Tobias Korfmacher
+	 */
+	private class Action_Map_Editor_exit extends AbstractAction {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		// Konstruktor:
+		/**
+		 * Setzt den Namen und die Kurzbeschreibung des MapEdior - Buttons
+		 */
+		public Action_Map_Editor_exit() {
+			putValue(NAME, "Beenden");
+			putValue(SHORT_DESCRIPTION, "Beenden des Map-Editors");
+		}
+
+		// actionPerformed-Methode:
+		/**
+		 * Setzt den Map - Editor fort falls er schonmal gelaufen ist
+		 */
+		public void actionPerformed(ActionEvent e) {
+			mapping.setVisible(false);
+			game.setVisible(true);
 		}
 
 	}

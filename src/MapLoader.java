@@ -74,7 +74,7 @@ public class MapLoader {
 			System.out.println(); // Test
 
 			if (twoPlayerSet) {
-				map[n - 2][n - 2] = 10;
+				map[n - 2][n - 2] = 10; // hulk2 aus map auslesen lassen
 				map[1][n - 2] = 2;
 			}
 
@@ -113,9 +113,7 @@ public class MapLoader {
 				if (j < n - 1) {
 					line[i] += ":";
 				}
-
 			}
-
 		}
 
 		BufferedWriter out = null;

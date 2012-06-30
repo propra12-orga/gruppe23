@@ -10,7 +10,6 @@ import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -19,9 +18,12 @@ import javax.swing.JRadioButton;
 // Autor T. K 
 // 
 public class MapEditor extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	final static int n = MapLoader.get_n();
 	private static int[][] map = new int[n][n];
-	JFrame frame;
 	protected static boolean saved = false;
 	private static int power;
 	ImageIcon pic;
@@ -44,14 +46,14 @@ public class MapEditor extends JPanel {
 
 	// edit-Methode:
 	public int edit() {
-
+		setVisible(true);
 		int anzahlIcons = 9;
 		boolean richtigeAbfrage = false;
 
 		do {
 			eingabe = JOptionPane.showInputDialog(null,
-					"Bitte geben Sie die Level-Nummer ein:\nNicht 1 oder 2.",
-					"Levelnummer", JOptionPane.OK_CANCEL_OPTION);
+					"Bitte geben Sie die Level-Nummer ein:", "Levelnummer",
+					JOptionPane.OK_CANCEL_OPTION);
 
 			if (eingabe == null) {
 				System.out.println("Boo");
@@ -73,9 +75,9 @@ public class MapEditor extends JPanel {
 		f = new File(dateiName);
 		if (f.exists() == true) {
 
-			MapLoader.set_iconSatz(MapLoader.get_iconSatzLevel(dateiName));
 			iconSatz = MapLoader.get_iconSatzLevel(dateiName);
 			MapLoader.set_iconSatz(iconSatz);
+
 			map = MapLoader.laden(MapLoader.get_level());
 			exist = true;
 		}
@@ -111,20 +113,20 @@ public class MapEditor extends JPanel {
 
 			MapLoader.level_speichern(map, "Level-" + eingabe);
 		}
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setTitle("Map-Editor"); // Fenstertitel setzen
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		//				frame = new JFrame();
+		//				frame.setBounds(100, 100, 450, 300);
+		//				frame.setTitle("Map-Editor"); // Fenstertitel setzen
+		//				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		//				frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
 		final String levelnummer = "Level-" + eingabe;
 		JLabel levelname = new JLabel(levelnummer, JLabel.CENTER);
 
-		frame.getContentPane().add(levelname, BorderLayout.BEFORE_FIRST_LINE);
+		add(levelname, BorderLayout.NORTH);
 		JButton save_button = new JButton("Level speichern");
 		ActionListener save = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (new File("/Maps/Level-" + eingabe + ".txt").exists()) {
+				if (exist) {
 					int dateiAbfrage = JOptionPane.showConfirmDialog(null,
 							"Die Datei existiert bereits.\n"
 									+ "Möchten Sie die Datei überschreiben?",
@@ -154,16 +156,16 @@ public class MapEditor extends JPanel {
 			}
 
 		};
-		frame.setVisible(true);
+		setVisible(true); // frame.setVisible(true)
 		JPanel place = new JPanel();
-		frame.setResizable(false); // Fenster soll nicht skalierbar sein
+		//		frame.setResizable(false); // Fenster soll nicht skalierbar sein
 
-		JButton exit_button = new JButton("Editor Beenden");
+		JButton exit_button = new JButton("Editor Beenden"); // Editor beenden button hinzu
 		ActionListener exit = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				if (saved) {
-					frame.setVisible(false);
+					setVisible(false);
 					MapLoader.set_level(oldLevel);
 				}
 
@@ -176,11 +178,11 @@ public class MapEditor extends JPanel {
 					case 0:
 						MapLoader.level_speichern(map, levelnummer);
 						saved = true;
-						frame.setVisible(false);
+						setVisible(false);
 						MapLoader.set_level(oldLevel);
 						break;
 					case 1:
-						frame.setVisible(false);
+						setVisible(false);
 						if (!exist) {
 							f.deleteOnExit();
 							f.delete();//  funktioniert noch nicht
@@ -198,7 +200,8 @@ public class MapEditor extends JPanel {
 		JButton test_button = new JButton("Testen");
 		ActionListener test = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				setVisible(false);
+				Menue.get_game().setVisible(true);
 				MapLoader.set_level(Integer.parseInt(eingabe));
 				Menue.spiel_neustarten();
 
@@ -225,7 +228,7 @@ public class MapEditor extends JPanel {
 		place.add(test_button);
 		place.add(freigabe_button);
 
-		frame.getContentPane().add(place, BorderLayout.SOUTH);
+		add(place, BorderLayout.SOUTH);
 		// Icons
 		JRadioButton icon[] = new JRadioButton[anzahlIcons];
 		final ButtonGroup buttonGroup = new ButtonGroup();
@@ -246,8 +249,7 @@ public class MapEditor extends JPanel {
 			radioPanel.add(icon[k]);
 		}
 
-		frame.getContentPane().add(radioPanel, BorderLayout.LINE_START);
-		frame.pack();
+		add(radioPanel, BorderLayout.WEST);
 		JPanel buttonPanel = new JPanel(new GridLayout(n, n));
 
 		for (int i = 0; i < n; i++) {
@@ -373,16 +375,13 @@ public class MapEditor extends JPanel {
 				buttonPanel.add(feld[i][j]);
 
 			}
-			frame.getContentPane().add(buttonPanel);
+			add(buttonPanel);
 		}
-
-		frame.pack();
 
 		return 1;
 	}
 
 	/* setter & getter: */
-
 	// getSelectedButton-Methode:
 	public static JRadioButton getSelectedButton(ButtonGroup group) {
 		Enumeration<AbstractButton> e = group.getElements();
