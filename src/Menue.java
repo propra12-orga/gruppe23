@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -477,20 +478,23 @@ public class Menue implements KeyListener {
 		game.requestFocus(); // Fokus auf Spielfeld setzen
 		frame.pack();
 		frame.setLocationRelativeTo(null);
-		frame.addComponentListener(new ComponentListener() {
+		frame.getToolkit().setDynamicLayout(false);
+		
+		frame.addComponentListener(new ComponentListener() {			
 			public void componentResized(ComponentEvent e) {
-			}
-
-			public void componentMoved(ComponentEvent e) {
-
-				frame.setSize(frame.getSize().height, frame.getSize().height);
+				Dimension d = frame.getSize();
+				int size = Math.min(d.width, d.height);
+				
+				frame.setSize(size, size);
 				game.breite = frame.getSize().width / 13;
 				game.hoehe = frame.getSize().height / 13;
-				System.out.println("Fenster skaliert");
 				game.bilder_skalieren();
 				game.removeAll(); // ...entferne alle bisherigen Komponenten vom Panel...
 				game.refresh();
+			}
 
+			public void componentMoved(ComponentEvent e) {
+			
 			}
 
 			public void componentShown(ComponentEvent e) {
@@ -503,25 +507,6 @@ public class Menue implements KeyListener {
 		});
 	}
 
-	//    frame.addComponentListener(new ComponentListener() {
-	//    	public void componentResized(ComponentEvent e) {
-	//    		game.breite = frame.getSize().width;
-	//    		game.hoehe = frame.getSize().height;
-	//    		System.out.println("Fenster skaliert");
-	//            game.refresh();
-	//        }
-	//    	
-	//    	public void componentMoved(ComponentEvent e) {
-	//        }
-	//     
-	//        public void componentShown(ComponentEvent e) {
-	//        }
-	//     
-	//        public void componentHidden(ComponentEvent e) {
-	//        }
-	//        
-	//    	});
-
 	// keyPressed-Methode:
 	/**
 	 * Horcht , ob eine Taste gedrueckt wurde und wertet die Aktion gegebenfalls
@@ -533,9 +518,6 @@ public class Menue implements KeyListener {
 		// Key-Methoden fuer 1. Spieler
 		// Pfeiltaste oben:
 		if (Key.getKeyCode() == KeyEvent.VK_UP) {
-			System.out.println("Oben S1"); // Test
-			System.out.println(); // Test
-
 			a[0] = 0;
 			a[1] = -1;
 			a[2] = 1;
@@ -543,9 +525,6 @@ public class Menue implements KeyListener {
 
 		// Pfeiltaste links:
 		else if (Key.getKeyCode() == KeyEvent.VK_LEFT) {
-			System.out.println("Links S1"); // Test
-			System.out.println(); // Test
-
 			a[0] = -1;
 			a[1] = 0;
 			a[2] = 1;
@@ -553,9 +532,6 @@ public class Menue implements KeyListener {
 
 		// Pfeiltaste rechts:
 		else if (Key.getKeyCode() == KeyEvent.VK_RIGHT) {
-			System.out.println("Rechts S1"); // Test
-			System.out.println(); // Test
-
 			a[0] = 1;
 			a[1] = 0;
 			a[2] = 1;
@@ -563,9 +539,6 @@ public class Menue implements KeyListener {
 
 		// Pfeiltaste unten:
 		else if (Key.getKeyCode() == KeyEvent.VK_DOWN) {
-			System.out.println("Unten S1"); // Test
-			System.out.println(); // Test
-
 			a[0] = 0;
 			a[1] = 1;
 			a[2] = 1;
@@ -575,14 +548,12 @@ public class Menue implements KeyListener {
 		else if (Key.getKeyCode() == KeyEvent.VK_SPACE) {
 			if (clientThread != null) {
 				spieler2_bombe();
-				System.out.println("Spieler 2 hat Bombe gelegt");
 
 				clientThread.out.println("bomb");
 			}
 
 			else if (serverThread != null) {
 				spieler1_bombe();
-				System.out.println("Spieler 1 hat Bombe gelegt");
 
 				if (serverThread.verbunden) {
 					serverThread.out.println("bomb");
@@ -599,8 +570,6 @@ public class Menue implements KeyListener {
 		// Key-Methoden fuer 2. Spieler
 		// Taste W (oben):
 		else if (Key.getKeyCode() == KeyEvent.VK_W && hotSeat) {
-			System.out.println("Oben S2"); // Test
-			System.out.println(); // Test
 
 			a[0] = 0;
 			a[1] = -1;
@@ -609,8 +578,6 @@ public class Menue implements KeyListener {
 
 		// Taste A (links):
 		else if (Key.getKeyCode() == KeyEvent.VK_A && hotSeat) {
-			System.out.println("Links S2"); // Test
-			System.out.println(); // Test
 
 			a[0] = -1;
 			a[1] = 0;
@@ -619,8 +586,6 @@ public class Menue implements KeyListener {
 
 		// Taste S (unten):
 		else if (Key.getKeyCode() == KeyEvent.VK_S && hotSeat) {
-			System.out.println("Unten S2"); // Test
-			System.out.println(); // Test
 
 			a[0] = 0;
 			a[1] = 1;
@@ -629,9 +594,6 @@ public class Menue implements KeyListener {
 
 		// Taste D (rechts):
 		else if (Key.getKeyCode() == KeyEvent.VK_D && hotSeat) {
-			System.out.println("Rechts S2"); // Test
-			System.out.println(); // Test
-
 			a[0] = 1;
 			a[1] = 0;
 			a[2] = 2;
@@ -673,16 +635,11 @@ public class Menue implements KeyListener {
 	 * der Map - Klasse auf
 	 */
 	static void spieler1_bombe() {
-		System.out.println("Bombe S1"); // Test
-		System.out.println(); // Test
 
 		if ((Menue.get_hulk(1).get_max_bomben()) > 0) { // falls der 1.
 														// Spieler (noch)
 														// eine Bombe legen
 														// darf...
-			System.out.println("max_bomben S1 vor Legen: "
-					+ Menue.get_hulk(1).get_max_bomben()); // Test
-			System.out.println(); // Test
 
 			Menue.get_hulk(1).set_max_bomben(
 					(Menue.get_hulk(1).get_max_bomben()) - 1); 	// ...dekrementiere
@@ -694,10 +651,6 @@ public class Menue implements KeyListener {
 																// von
 																// Spieler 1
 																// um 1,
-
-			System.out.println("max_bomben S1 nach Legen: "
-					+ Menue.get_hulk(1).get_max_bomben()); // Test
-			System.out.println(); // Test
 
 			game.bombe_legen(1); 	// ...lass den 1. Spieler eine Bombe legen,
 									// ...
@@ -716,16 +669,11 @@ public class Menue implements KeyListener {
 	 * der Map - Klasse auf
 	 */
 	static void spieler2_bombe() {
-		System.out.println("Bombe S2"); // Test
-		System.out.println(); 			// Test
 
 		if ((Menue.get_hulk(2).get_max_bomben()) > 0) { // falls der 2.
 														// Spieler (noch)
 														// eine Bombe legen
 														// darf...
-			System.out.println("max_bomben S2 vor Legen: "
-					+ Menue.get_hulk(2).get_max_bomben()); // Test
-			System.out.println(); // Test
 
 			Menue.get_hulk(2).set_max_bomben(
 					(Menue.get_hulk(2).get_max_bomben()) - 1); 	// ...dekrementiere
@@ -737,10 +685,6 @@ public class Menue implements KeyListener {
 																// von
 																// Spieler 2
 																// um 1,
-
-			System.out.println("max_bomben S2 nach Legen: "
-					+ Menue.get_hulk(2).get_max_bomben()); 	// Test
-			System.out.println(); 							// Test
 
 			game.bombe_legen(2); 	// ...lass den 2. Spieler eine Bombe legen,
 									// ...
@@ -763,8 +707,6 @@ public class Menue implements KeyListener {
 		// Bewegung Spieler 1
 		if (clientThread != null) {
 			spieler2_aktionen(x, y);
-			System.out.println("x-Bewegung von Spieler 2: " + x);
-			System.out.println("y-Bewegung von Spieler 2: " + y);
 
 			clientThread.out.println("" + x);
 			clientThread.out.println("" + y);
@@ -772,8 +714,6 @@ public class Menue implements KeyListener {
 
 		else if (serverThread != null) {
 			spieler1_aktionen2(x, y);
-			System.out.println("x-Bewegung von Spieler 1: " + x);
-			System.out.println("y-Bewegung von Spieler 1: " + y);
 
 			if (serverThread.verbunden) {
 				serverThread.out.println("" + x);
@@ -998,14 +938,6 @@ public class Menue implements KeyListener {
 		// Boolean-Werte zuruecksetzen:
 		antwort_erhalten = false;
 		anfrage_geschickt = false;
-
-		System.out.println("antwort_erhalten nach neustart = "
-				+ antwort_erhalten); 	// Test
-		System.out.println(); 			// Test
-
-		System.out.println("anfrage_geschickt nach neustart = "
-				+ anfrage_geschickt); 	// Test
-		System.out.println(); 			// Test
 	}
 
 	// abfrage_neustarten-Methode:
