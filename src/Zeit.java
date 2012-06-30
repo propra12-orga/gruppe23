@@ -67,8 +67,6 @@ public class Zeit extends JLabel {
 		 */
 		public void run() {
 			if (Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) { // falls das Spiel nicht waehrend des Timers neugestartet wurde
-				System.out.println("Bombe explodiert"); // Test
-				System.out.println("");					// Test
 
 				Menue.get_game().bomb[bomb_x][bomb_y].bombe_detonieren(Spieler,
 						bomben_radius); // Detonation der Bombe				
@@ -116,10 +114,6 @@ public class Zeit extends JLabel {
 		 * startet den TimerTask-Thread Detonation nach Ablauf der Zeit x (timer_starten-Methode), welcher die Detonationsschritte vollzieht
 		 */
 		public void run() {
-
-			System.out.println("Detonation beendet"); // Test
-			System.out.println("");
-
 			timer.cancel(); // Timer terminieren	
 
 			// Verschwinden der Explosion:

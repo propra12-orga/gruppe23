@@ -218,11 +218,6 @@ public class Map extends JPanel {
 		/* Logische Fortbewegung der Spielfigur: */
 		Menue.get_hulk(z).set_x(Menue.get_hulk(z).get_x() + x); // setze horizontale Hulk-Position weiter
 		Menue.get_hulk(z).set_y(Menue.get_hulk(z).get_y() + y); // setze vertikale Hulk-Position weiter
-
-		System.out.println("Neue Position des " + z + "ten Spielers: "
-				+ Menue.get_hulk(z).get_x()	// Test
-				+ "te Spalte, " + Menue.get_hulk(z).get_y() + "te Zeile"); 			// Test
-		System.out.println();														// Test		
 	}
 
 	// bombe_legen-Methode:
@@ -251,17 +246,10 @@ public class Map extends JPanel {
 	// refresh-Methode:
 	public void refresh() {
 		GridBagConstraints[][] gbc_label = new GridBagConstraints[n][n];
-		System.out.println("Spielfeld:"); 	// Test
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				label[i][j] = new JLabel(); // fuer jedes einzele Arrayelement wird ein neues Label erstellt
+				label[i][j] = new JLabel(); 						// fuer jedes einzele Arrayelement wird ein neues Label erstellt
 				label[i][j].setHorizontalAlignment(SwingConstants.CENTER);
-
-				//				System.out.print(map[i][j] + ", "); // Test
-				//				if (j == n - 1) {
-				//					System.out.println();
-				//				}
-
 				label_laden(label[i][j], map[i][j]); 				// laedt in das Label das Bild (Map hat die Werte ob Hulk, etc..)
 				gbc_label[i][j] = new GridBagConstraints();
 				gbc_label[i][j].anchor = GridBagConstraints.CENTER;

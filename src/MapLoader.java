@@ -44,8 +44,6 @@ public class MapLoader {
 		try {
 			FileReader f = new FileReader(filename);
 
-			System.out.println("Spielfeld eingelesen:"); // Test
-
 			iconSatz = Character.getNumericValue(f.read());
 
 			while ((c = f.read()) != -1) {
@@ -55,14 +53,12 @@ public class MapLoader {
 					} else {
 						f.read();
 					}
-					//					System.out.print(map[k][l] + ", "); // Test
 
 					if (k < n - 1) {
 						k++;
 					}
 
 					else if (l < n - 1) {
-						System.out.println(); // Test
 						k = 0;
 						l++;
 					}
@@ -70,8 +66,6 @@ public class MapLoader {
 				}
 
 			}
-
-			System.out.println(); // Test
 
 			if (twoPlayerSet) {
 				map[n - 2][n - 2] = 10; // hulk2 aus map auslesen lassen
@@ -83,7 +77,6 @@ public class MapLoader {
 				map[1][n - 2] = 2;
 			}
 
-			System.out.println(); // Test
 			Menue.set_mapLoaded(true);
 			f.close();
 		}
