@@ -84,8 +84,9 @@ public class Server extends Thread {
 		}
 		
 		catch (IOException e) {
-			System.out.println("Server-Socket geschlossen");	// Test
-			System.out.println();								// Test
+			for (int nr = 0; nr < 5; nr++) {
+				Menue.meldungen[nr].setText("");
+			}
 		}
 
 	}
@@ -217,18 +218,6 @@ public class Server extends Thread {
 																			// mit der 2. Spielfigur
 																			// durch
 				}
-				
-//				try {
-//					Thread.sleep(1);
-//				}
-//				
-//				catch (InterruptedException e )
-//			    {
-//					Menue.set_serverThread(null);
-//					JOptionPane.showMessageDialog(null, "Verbindung zum Client getrennt");
-//					Menue.singleplayer_starten();
-//					interrupt();
-//			    } 
 				
 			}
 			

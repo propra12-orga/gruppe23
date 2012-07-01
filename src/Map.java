@@ -198,22 +198,24 @@ public class Map extends JPanel {
 				&& Menue.get_hulk(z).get_max_bomben() < 8) {							// ...und der Spieler noch nicht bei max. 8 Bomben angelangt ist...
 			Menue.get_hulk(z).set_max_bomben(
 					Menue.get_hulk(z).get_max_bomben() + 1);							// ...dann erhoehe die maximale Anzahl an Bomben um 1
-			if (z == 1) {
+			if (z == 1 && Menue.clientThread == null) {
 				Menue.max_bomben_S1.setText("Max. Anzahl Bomben Spieler 1: " + Menue.get_hulk(z).get_max_bomben());
 			}
-			else if (z == 2) {
+			
+			else if (z == 2 && (Menue.hotSeat || Menue.clientThread != null)) {
 				Menue.max_bomben_S2.setText("Max. Anzahl Bomben Spieler 2: " + Menue.get_hulk(z).get_max_bomben());
 			}
 			Menue.sound.playItem();
 		}
 
-		if (map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] == 15) {	// falls das naechste Feld das Bomben-Item-Icon enthaelt...
+		if (map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] == 15) {	// falls das naechste Feld das Flammen-Item-Icon enthaelt...
 			Menue.get_hulk(z).set_bomben_radius(
 					Menue.get_hulk(z).get_bomben_radius() + 1);							// ...dann erhoehe die maximale Anzahl an Bomben um 1
-			if (z == 1) {
+			if (z == 1 && Menue.clientThread == null) {
 				Menue.bomben_radius_S1.setText("Bomben-Radius Spieler 1: " + Menue.get_hulk(z).get_bomben_radius());
 			}
-			else if (z == 2) {
+			
+			else if (z == 2 && (Menue.hotSeat || Menue.clientThread != null)) {
 				Menue.bomben_radius_S2.setText("Bomben-Radius Spieler 2: " + Menue.get_hulk(z).get_bomben_radius());
 			}
 			

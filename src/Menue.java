@@ -199,11 +199,11 @@ public class Menue implements KeyListener {
 	 * 
 	 * @author Andrej Morlang
 	 */
-	private final Action_noob Action_noob = new Action_noob(); // Aktion zum
+	private final Action_noob Action_noob = new Action_noob(); 	// Aktion zum
 																// setzen der
 																// Schwierigkeit
 																// (Anfänger)..
-	private final Action_Leicht Action_Leicht = new Action_Leicht(); // ..
+	private final Action_Leicht Action_Leicht = new Action_Leicht(); 	// ..
 																		// (Leicht)
 																		// ..
 	private final Action_Mittel Action_Mittel = new Action_Mittel(); // ..
@@ -226,7 +226,7 @@ public class Menue implements KeyListener {
 	static int zeit = 0;
 	static Zeit spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
 	static boolean anfrage_geschickt = false;
-	private static boolean running; //Abfrage für den Timer
+	private static boolean running; // Abfrage für den Timer
 	static JLabel bomben_radius_S1, bomben_radius_S2, max_bomben_S1,
 			max_bomben_S2, zeitAnzeige;
 	static JLabel[] meldungen = new JLabel[5];
@@ -473,10 +473,10 @@ public class Menue implements KeyListener {
 		meldungen[2] = new JLabel();
 		meldungen[3] = new JLabel();
 		meldungen[4] = new JLabel();
-		bomben_radius_S1 = new JLabel("Bomben-Radius Spieler 1: "
+		bomben_radius_S1 = new JLabel("Bomben-Radius: "
 				+ get_hulk(1).get_bomben_radius());
 		bomben_radius_S2 = new JLabel();
-		max_bomben_S1 = new JLabel("Max. Anzahl Bomben Spieler 1: "
+		max_bomben_S1 = new JLabel("Max. Anzahl Bomben: "
 				+ get_hulk(1).get_max_bomben());
 		max_bomben_S2 = new JLabel();
 		zeitAnzeige = new JLabel();
@@ -940,15 +940,34 @@ public class Menue implements KeyListener {
 		// Bomben-Radius zuruecksetzen:
 		get_hulk(1).set_bomben_radius(2);
 		get_hulk(2).set_bomben_radius(2);
-		bomben_radius_S1.setText("Bomben-Radius Spieler 1: "
-				+ get_hulk(1).get_bomben_radius());
-		max_bomben_S1.setText("Max. Anzahl Bomben Spieler 1: "
-				+ get_hulk(1).get_bomben_radius());
-		if (twoPlayer) {
+		
+		if (clientThread != null) {
+			bomben_radius_S1.setText("");
+			max_bomben_S1.setText("");
+			bomben_radius_S2.setText("Bomben-Radius: "
+					+ get_hulk(2).get_bomben_radius());
+			max_bomben_S2.setText("Max. Anzahl Bomben: "
+					+ get_hulk(2).get_max_bomben());
+		}
+		
+		else if (hotSeat) {
+			bomben_radius_S1.setText("Bomben-Radius Spieler 1: "
+					+ get_hulk(1).get_bomben_radius());
+			max_bomben_S1.setText("Max. Anzahl Bomben Spieler 1: "
+					+ get_hulk(1).get_max_bomben());
 			bomben_radius_S2.setText("Bomben-Radius Spieler 2: "
 					+ get_hulk(2).get_bomben_radius());
 			max_bomben_S2.setText("Max. Anzahl Bomben Spieler 2: "
-					+ get_hulk(2).get_bomben_radius());
+					+ get_hulk(2).get_max_bomben());
+		}
+		
+		else {
+			bomben_radius_S1.setText("Bomben-Radius: "
+					+ get_hulk(1).get_bomben_radius());
+			max_bomben_S1.setText("Max. Anzahl Bomben: "
+					+ get_hulk(1).get_max_bomben());
+			bomben_radius_S2.setText("");
+			max_bomben_S2.setText("");
 		}
 
 		if (bot) {
