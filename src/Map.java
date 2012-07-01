@@ -124,54 +124,54 @@ public class Map extends JPanel {
 
 		source = new ImageIcon(Map.class.getResource(block_pic)).getImage();
 		scaledImage = source.getScaledInstance(breite, hoehe,
-				Image.SCALE_SMOOTH);
+				Image.SCALE_DEFAULT);
 		block_icon = new ImageIcon(scaledImage);
 
 		source = new ImageIcon(Map.class.getResource(hulk_pic)).getImage();
 		scaledImage = source.getScaledInstance(breite, hoehe,
-				Image.SCALE_SMOOTH);
+				Image.SCALE_DEFAULT);
 		hulk_icon = new ImageIcon(scaledImage);
 
 		source = new ImageIcon(Map.class.getResource(weg_pic)).getImage();
 		scaledImage = source.getScaledInstance(breite, hoehe,
-				Image.SCALE_SMOOTH);
+				Image.SCALE_DEFAULT);
 		weg_icon = new ImageIcon(scaledImage);
 
 		source = new ImageIcon(Map.class.getResource(mauer_pic)).getImage();
 		scaledImage = source.getScaledInstance(breite, hoehe,
-				Image.SCALE_SMOOTH);
+				Image.SCALE_DEFAULT);
 		mauer_icon = new ImageIcon(scaledImage);
 
 		source = new ImageIcon(Map.class.getResource(bomb_pic)).getImage();
 		scaledImage = source.getScaledInstance(breite, hoehe,
-				Image.SCALE_SMOOTH);
+				Image.SCALE_DEFAULT);
 		bomb_icon = new ImageIcon(scaledImage);
 
 		source = new ImageIcon(Map.class.getResource(exp_pic)).getImage();
 		scaledImage = source.getScaledInstance(breite, hoehe,
-				Image.SCALE_SMOOTH);
+				Image.SCALE_DEFAULT);
 		exp_icon = new ImageIcon(scaledImage);
 
 		source = new ImageIcon(Map.class.getResource(exit_pic)).getImage();
 		scaledImage = source.getScaledInstance(breite, hoehe,
-				Image.SCALE_SMOOTH);
+				Image.SCALE_DEFAULT);
 		exit_icon = new ImageIcon(scaledImage);
 
 		source = new ImageIcon(Map.class.getResource(hulk2_pic)).getImage();
 		scaledImage = source.getScaledInstance(breite, hoehe,
-				Image.SCALE_SMOOTH);
+				Image.SCALE_DEFAULT);
 		hulk2_icon = new ImageIcon(scaledImage);
 
 		source = new ImageIcon(Map.class.getResource("/Pics/Bomben-Item.png"))
 				.getImage();
 		scaledImage = source.getScaledInstance(breite, hoehe,
-				Image.SCALE_SMOOTH);
+				Image.SCALE_DEFAULT);
 		bomben_item_icon = new ImageIcon(scaledImage);
 
 		source = new ImageIcon(Map.class.getResource("/Pics/Flammen-Item.png"))
 				.getImage();
 		scaledImage = source.getScaledInstance(breite, hoehe,
-				Image.SCALE_SMOOTH);
+				Image.SCALE_DEFAULT);
 		flammen_item_icon = new ImageIcon(scaledImage);
 	}
 
@@ -194,16 +194,29 @@ public class Map extends JPanel {
 			map[Menue.get_hulk(z).get_x()][Menue.get_hulk(z).get_y()] = 2; 				// ...weise dem Feld das Weg-Icon (2) zu
 		}
 
-		if (map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] == 12		// falls das n�chste Feld das Bomben-Item-Icon enth�lt...
+		if (map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] == 12		// falls das naechste Feld das Bomben-Item-Icon enthaelt...
 				&& Menue.get_hulk(z).get_max_bomben() < 8) {							// ...und der Spieler noch nicht bei max. 8 Bomben angelangt ist...
 			Menue.get_hulk(z).set_max_bomben(
 					Menue.get_hulk(z).get_max_bomben() + 1);							// ...dann erhoehe die maximale Anzahl an Bomben um 1
+			if (z == 1) {
+				Menue.max_bomben_S1.setText("Max. Anzahl Bomben Spieler 1: " + Menue.get_hulk(z).get_max_bomben());
+			}
+			else if (z == 2) {
+				Menue.max_bomben_S2.setText("Max. Anzahl Bomben Spieler 2: " + Menue.get_hulk(z).get_max_bomben());
+			}
 			Menue.sound.playItem();
 		}
 
-		if (map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] == 15) {	// falls das n�chste Feld das Bomben-Item-Icon enth�lt...
+		if (map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] == 15) {	// falls das naechste Feld das Bomben-Item-Icon enthaelt...
 			Menue.get_hulk(z).set_bomben_radius(
 					Menue.get_hulk(z).get_bomben_radius() + 1);							// ...dann erhoehe die maximale Anzahl an Bomben um 1
+			if (z == 1) {
+				Menue.bomben_radius_S1.setText("Bomben-Radius Spieler 1: " + Menue.get_hulk(z).get_bomben_radius());
+			}
+			else if (z == 2) {
+				Menue.bomben_radius_S2.setText("Bomben-Radius Spieler 2: " + Menue.get_hulk(z).get_bomben_radius());
+			}
+			
 			Menue.sound.playItem();
 		}
 

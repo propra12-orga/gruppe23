@@ -88,12 +88,26 @@ public class Client extends Thread {
 				
 				// Frage ausgeben:
 				else if (in_string.contains("?")) {
+					
 					int frage = JOptionPane.showConfirmDialog(null,
 							in_string,
 							"Frage des Servers", JOptionPane.YES_NO_OPTION);
 					switch (frage) {
 						case 0:
-							out.println("yes");
+							if (in_string.contains("Spieler")) {
+								System.out.println("yes geschickt");
+								out.println("yes");	
+							}
+							
+							else {
+								out.println("Spieler 2 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
+								//Menue.antwort_erhalten = true;
+								antwort = "rueckfrage";
+//								Menue.createAndShowGui(
+//								"Spieler 1 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
+//								" auf Antwort...", 60, 600, 100, 0, "", "neustart");
+							}
+
 							//Menue.createAndShowGui("Das Spiel wird in ", " neugestartet...", 5, 300, 100, 0); // BITTE AUSKOMMENTIERT LASSEN & NICHT LOESCHEN
 							break;
 						case 1:
@@ -106,6 +120,7 @@ public class Client extends Thread {
 				
 				// Antwort speichern:
 				else if (in_string.equals("yes") || in_string.equals("no")) {
+					System.out.println("antwort erhalten");
 					antwort = in_string;
 				}
 				
