@@ -68,7 +68,11 @@ public class MapLoader {
 			}
 
 			if (twoPlayerSet) {
-				map[n - 2][n - 2] = 10; // hulk2 aus map auslesen lassen
+				if (get_icon_x(map, 10) == 0 && get_icon_y(map, 10) == 0)
+					map[n - 2][n - 2] = 10;
+				else
+					map[get_icon_x(map, 10)][get_icon_y(map, 10)] = 10; // hulk2 aus map auslesen lassen
+
 				map[1][n - 2] = 2;
 			}
 
