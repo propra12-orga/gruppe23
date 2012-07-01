@@ -227,7 +227,8 @@ public class Menue implements KeyListener {
 	static Zeit spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
 	static boolean anfrage_geschickt = false;
 	private static boolean running; //Abfrage für den Timer
-	static JLabel bomben_radius_S1, bomben_radius_S2, max_bomben_S1, max_bomben_S2, zeitAnzeige;
+	static JLabel bomben_radius_S1, bomben_radius_S2, max_bomben_S1,
+			max_bomben_S2, zeitAnzeige;
 	static JLabel[] meldungen = new JLabel[5];
 	static Timer tim;
 
@@ -237,6 +238,9 @@ public class Menue implements KeyListener {
 	 */
 	private static MapEditor mapping;
 	static boolean editorlaeuft = false;
+	@SuppressWarnings("unused")
+	private static Start starter;
+
 	/**
 	 * Objekt der Map - Klasse ; enthaelt die Daten des Spielfeldes ;
 	 */
@@ -258,22 +262,33 @@ public class Menue implements KeyListener {
 	 * erstellt die grafische Oberflaeche des Spieles
 	 */
 	public Menue() {
-		spiel_neugestartet = false;
 
+		//		starter = new Start();
+
+		spiel_neugestartet = false;
+		// starter einfuegen
 		map = MapLoader.laden(MapLoader.get_level());
 		game = new Map(map);
 
-		int hulk1Startx, hulk1Starty, hulk2Startx, hulk2Starty;
 
+		int hulk1Startx, hulk1Starty;
+		int hulk2Startx, hulk2Starty;
+
+		// Startposition von Hulk 1 aus dem Spielfeld auslesen
 		hulk1Startx = MapLoader.get_icon_x(map, 1);
 		hulk1Starty = MapLoader.get_icon_y(map, 1);
 		// Startposition von Hulk 2 aus dem Spielfeld auslesen
+		if (twoPlayer) {
 		hulk2Startx = MapLoader.get_icon_x(map, 10);
 		hulk2Starty = MapLoader.get_icon_y(map, 10);
-
+		} else {
+			hulk2Startx = n - 2;
+			hulk2Starty = n - 2;
+		}
 		hulk1 = new Hulk(hulk1Startx, hulk1Starty, 1); // 1. Spielerfigur erzeugen // getHulkfunktion anwenden
-		hulk2 = new Hulk(hulk2Startx, hulk2Starty, 10); // 2. Spielerfigur erzeugenget hulk 2 funktion
+		hulk2 = new Hulk(hulk2Startx, hulk2Starty, 10); // 2. Spielerfigur erzeugt hulk 2 funktion
 		bot1 = new Bot();	//1. Bot erzeugen
+
 
 		initialize();
 		a = new int[3];
@@ -458,9 +473,11 @@ public class Menue implements KeyListener {
 		meldungen[2] = new JLabel();
 		meldungen[3] = new JLabel();
 		meldungen[4] = new JLabel();
-		bomben_radius_S1 = new JLabel("Bomben-Radius Spieler 1: " + get_hulk(1).get_bomben_radius());
+		bomben_radius_S1 = new JLabel("Bomben-Radius Spieler 1: "
+				+ get_hulk(1).get_bomben_radius());
 		bomben_radius_S2 = new JLabel();
-		max_bomben_S1 = new JLabel("Max. Anzahl Bomben Spieler 1: " + get_hulk(1).get_max_bomben());
+		max_bomben_S1 = new JLabel("Max. Anzahl Bomben Spieler 1: "
+				+ get_hulk(1).get_max_bomben());
 		max_bomben_S2 = new JLabel();
 		zeitAnzeige = new JLabel();
 
@@ -477,8 +494,10 @@ public class Menue implements KeyListener {
 		south.add(max_bomben_S2);
 		south.add(meldungen[4]);
 		south.add(zeitAnzeige);
-		
+
 		frame.getContentPane().add(south, BorderLayout.SOUTH);// south - Panel hinzufuegen
+		//		frame.getContentPane().add(starter);
+
 		frame.getContentPane().add(game); // Spielfeld hinzufuegen
 
 		game.bilder_skalieren();
@@ -489,13 +508,13 @@ public class Menue implements KeyListener {
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.getToolkit().setDynamicLayout(false);
-		
-		frame.addComponentListener(new ComponentListener() {			
+
+		frame.addComponentListener(new ComponentListener() {
 			public void componentResized(ComponentEvent e) {
 				Dimension d = frame.getSize();
 				int size = Math.min(d.width, d.height);
-				
-				frame.setSize(size, size+50);
+
+				frame.setSize(size, size + 50);
 				game.breite = frame.getSize().width / 13;
 				game.hoehe = frame.getSize().height / 13;
 				game.bilder_skalieren();
@@ -504,7 +523,7 @@ public class Menue implements KeyListener {
 			}
 
 			public void componentMoved(ComponentEvent e) {
-			
+
 			}
 
 			public void componentShown(ComponentEvent e) {
@@ -886,15 +905,15 @@ public class Menue implements KeyListener {
 	 * landet immer in der unteren rechten Ecke .
 	 */
 	static void reset_Hulk() {
-		hulk1.set_x(1);
-		hulk1.set_y(1);
+		hulk1.set_x(hulk1.get_startX());
+		hulk1.set_y(hulk1.get_startY());
 
-		hulk2.set_x(n - 2);
-		hulk2.set_y(n - 2);
+		hulk2.set_x(hulk2.get_startX());
+		hulk2.set_y(hulk2.get_startY());
 
 		if (bot) {
-			bot1.set_x(n - 2);
-			bot1.set_y(n - 2);
+			bot1.set_x(bot1.get_startX());
+			bot1.set_y(bot1.get_startY());
 			botStart();
 		}
 	}
@@ -921,11 +940,15 @@ public class Menue implements KeyListener {
 		// Bomben-Radius zuruecksetzen:
 		get_hulk(1).set_bomben_radius(2);
 		get_hulk(2).set_bomben_radius(2);
-		bomben_radius_S1.setText("Bomben-Radius Spieler 1: " + get_hulk(1).get_bomben_radius());
-		max_bomben_S1.setText("Max. Anzahl Bomben Spieler 1: " + get_hulk(1).get_bomben_radius());
+		bomben_radius_S1.setText("Bomben-Radius Spieler 1: "
+				+ get_hulk(1).get_bomben_radius());
+		max_bomben_S1.setText("Max. Anzahl Bomben Spieler 1: "
+				+ get_hulk(1).get_bomben_radius());
 		if (twoPlayer) {
-			bomben_radius_S2.setText("Bomben-Radius Spieler 2: " + get_hulk(2).get_bomben_radius());
-			max_bomben_S2.setText("Max. Anzahl Bomben Spieler 2: " + get_hulk(2).get_bomben_radius());
+			bomben_radius_S2.setText("Bomben-Radius Spieler 2: "
+					+ get_hulk(2).get_bomben_radius());
+			max_bomben_S2.setText("Max. Anzahl Bomben Spieler 2: "
+					+ get_hulk(2).get_bomben_radius());
 		}
 
 		if (bot) {
@@ -969,12 +992,12 @@ public class Menue implements KeyListener {
 			createAndShowGui(
 					"Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
 					" auf Antwort...", 60, 600, 100, 0, "", "rueckfrage");
-	
-//			serverThread.out
-//			.println("Spieler 1 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
-//			createAndShowGui(
-//				"Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
-//			" auf Antwort...", 60, 600, 100, 0, "", "neustart");
+
+			//			serverThread.out
+			//			.println("Spieler 1 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
+			//			createAndShowGui(
+			//				"Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
+			//			" auf Antwort...", 60, 600, 100, 0, "", "neustart");
 		}
 
 		if (clientThread == null && serverThread == null) {
@@ -983,17 +1006,17 @@ public class Menue implements KeyListener {
 					JOptionPane.YES_NO_OPTION);
 
 			if (eingabe == 0) {
-//				if (clientThread != null) {
-//					clientThread.out
-//							.println("Spieler 2 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
-//					createAndShowGui(
-//							"Spieler 1 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
-//							" auf Antwort...", 60, 600, 100, 0, "", "neustart");
-//				}
-//
-//				else {
-					spiel_neustarten();
-//				}
+				//				if (clientThread != null) {
+				//					clientThread.out
+				//							.println("Spieler 2 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
+				//					createAndShowGui(
+				//							"Spieler 1 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
+				//							" auf Antwort...", 60, 600, 100, 0, "", "neustart");
+				//				}
+				//
+				//				else {
+				spiel_neustarten();
+				//				}
 
 				if (zeit != 0) {
 					spieltimer.timer.cancel();
@@ -1021,7 +1044,7 @@ public class Menue implements KeyListener {
 		hotSeat = false;
 		bot = false;
 		botStop();
-		
+
 		bomben_radius_S2.setText("");
 		max_bomben_S2.setText("");
 		for (int nr = 0; nr < 5; nr++) {
@@ -1050,35 +1073,35 @@ public class Menue implements KeyListener {
 		final JLabel label = new JLabel();
 		int timerDelay = 1000;
 		antwort_erhalten = false;
-		
+
 		new Timer(timerDelay, new ActionListener() {
 			int timeLeft = zeit;
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Window win = SwingUtilities.getWindowAncestor(label);
-				
+
 				try {
 					((JDialog) win)
 							.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 				}
-					
+
 				catch (NullPointerException npe) {
-					
+
 				}
-				
+
 				if (timeLeft > 0 && antwort_erhalten == false) {
 					label.setText(text_anfang + timeLeft + " Sekunden"
 							+ text_ende);
 					try {
 						win.setSize(breite, hoehe);
 					}
-					
+
 					catch (NullPointerException npe) {
 						System.out.println("Fenster nicht gefunden");
 						((Timer) e.getSource()).stop();
 					}
-					
+
 					antwort_verarbeiten(win, e, level, schwierigkeitsgrad,
 							aktion);
 					timeLeft--;
@@ -1138,19 +1161,19 @@ public class Menue implements KeyListener {
 				//							"Spieler 2 moechte ebenfalls das Spiel neustarten. Das Spiel wird in ",
 				//							" neugestartet...", 5, 600, 100, 0);
 				//				}
-				
+
 				else if (serverThread.antwort.equals("rueckfrage")) {
 					serverThread.out
-					.println("Spieler 1 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
+							.println("Spieler 1 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
 					antwort_erhalten = true;
 					//((Timer) e.getSource()).stop();
 					//win.setVisible(false);
 					serverThread.antwort = "leer";
-			createAndShowGui(
-					"Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
-					" auf Antwort...", 60, 600, 100, 0, "", "neustart");
+					createAndShowGui(
+							"Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
+							" auf Antwort...", 60, 600, 100, 0, "", "neustart");
 				}
-				
+
 				spiel_neustarten();
 			}
 
@@ -1211,18 +1234,18 @@ public class Menue implements KeyListener {
 				//							"Spieler 1 moechte ebenfalls das Spiel neustarten. Das Spiel wird in ",
 				//							" neugestartet...", 5, 600, 100, 0);
 				//				}
-				
+
 				else if (clientThread.antwort.equals("rueckfrage")) {
 					clientThread.out
-					.println("Spieler 2 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
+							.println("Spieler 2 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
 					antwort_erhalten = true;
 					//((Timer) e.getSource()).stop();
 					//win.setVisible(false);
 					serverThread.antwort = "leer";
-			createAndShowGui(
-					"Spieler 1 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
-					" auf Antwort...", 60, 600, 100, 0, "", "neustart");
-			
+					createAndShowGui(
+							"Spieler 1 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
+							" auf Antwort...", 60, 600, 100, 0, "", "neustart");
+
 				}
 
 				spiel_neustarten();
@@ -1444,7 +1467,7 @@ public class Menue implements KeyListener {
 				createAndShowGui(
 						"Spieler 1 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
 						" auf Antwort...", 60, 600, 100, 0, "", "neustart");
-				
+
 			}
 
 			else if (serverThread != null) {
@@ -1930,7 +1953,7 @@ public class Menue implements KeyListener {
 		/**
 		 * Setzt den Map - Editor fort falls er schonmal gelaufen ist
 		 */
-		public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e) {// Editor starten
 			if (!editorlaeuft) {
 				if (lan == true) {
 					int antwort = JOptionPane.showConfirmDialog(null,

@@ -157,7 +157,7 @@ public class MapEditor extends JPanel {
 
 		};
 		setVisible(true); // frame.setVisible(true)
-		JPanel place = new JPanel();
+		JPanel place = new JPanel(new GridLayout(4, 1));
 		//		frame.setResizable(false); // Fenster soll nicht skalierbar sein
 
 		JButton exit_button = new JButton("Editor Beenden"); // Editor beenden button hinzu
@@ -219,16 +219,6 @@ public class MapEditor extends JPanel {
 
 		};
 
-		exit_button.addActionListener(exit);
-		save_button.addActionListener(save);
-		test_button.addActionListener(test);
-		test_button.addActionListener(freigabe);
-		place.add(exit_button);
-		place.add(save_button);
-		place.add(test_button);
-		place.add(freigabe_button);
-
-		add(place, BorderLayout.SOUTH);
 		// Icons
 		JRadioButton icon[] = new JRadioButton[anzahlIcons];
 		final ButtonGroup buttonGroup = new ButtonGroup();
@@ -243,13 +233,22 @@ public class MapEditor extends JPanel {
 		icon[8] = new JRadioButton("2.Spieler");
 
 		// eventuell noch mehrere
-		JPanel radioPanel = new JPanel(new GridLayout(anzahlIcons, 1));
+		JPanel radioPanel = new JPanel(new GridLayout(2, anzahlIcons / 2));
 		for (int k = 0; k < anzahlIcons; k++) {
 			buttonGroup.add(icon[k]);
 			radioPanel.add(icon[k]);
 		}
 
 		add(radioPanel, BorderLayout.WEST);
+		exit_button.addActionListener(exit);
+		save_button.addActionListener(save);
+		test_button.addActionListener(test);
+		test_button.addActionListener(freigabe);
+		place.add(exit_button);
+		place.add(save_button);
+		place.add(test_button);
+		place.add(freigabe_button);
+		add(place, BorderLayout.WEST);
 		JPanel buttonPanel = new JPanel(new GridLayout(n, n));
 
 		for (int i = 0; i < n; i++) {
@@ -358,10 +357,10 @@ public class MapEditor extends JPanel {
 							map[a][b] = power;
 
 							feld[a][b].setIcon(pic); // ...Grafik auf Button
-
-							Menue.spiel_neustarten();
+							//
+							//							Menue.spiel_neustarten();
 						}
-
+						saved = false;
 					}
 				};
 
@@ -377,7 +376,6 @@ public class MapEditor extends JPanel {
 			}
 			add(buttonPanel);
 		}
-
 		return 1;
 	}
 

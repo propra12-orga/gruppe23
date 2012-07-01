@@ -231,6 +231,9 @@ public class MapLoader {
 				FileReader f = new FileReader(file);
 
 				System.out.println("Spielfeld eingelesen:"); // Test
+				iconSatz = Character.getNumericValue(f.read());
+				set_iconSatz(iconSatz);
+				System.out.println("IconSatz: " + iconSatz);
 
 				while ((c = f.read()) != -1) {
 					if (Character.getNumericValue(c) != -1) {

@@ -145,4 +145,15 @@ public class Bot extends Thread {
 	public int get_icon() {
 		return icon;
 	}
+
+	// get_startX-Methode:
+	public int get_startX() {
+		return startPos[0];
+	}
+
+	// get_startY-Methode:
+	public int get_startY() {
+		return startPos[1];
+	}
+
 }
