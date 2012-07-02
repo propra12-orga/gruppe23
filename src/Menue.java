@@ -1020,6 +1020,9 @@ public class Menue implements KeyListener {
 	 */
 	static void abfrage_neustarten() {
 		int eingabe = 0;
+		if (running && tim != null) {
+			tim.stop();
+		}
 
 		if (serverThread != null) {
 			serverThread.out.println("Möchten Sie noch eine Runde spielen?");
