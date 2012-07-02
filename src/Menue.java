@@ -1020,7 +1020,7 @@ public class Menue implements KeyListener {
 			tim.stop();
 		}
 
-		if (serverThread != null) {
+		if (serverThread != null && serverThread.verbunden) {
 			serverThread.out.println("Möchten Sie noch eine Runde spielen?");
 			createAndShowGui(
 					"Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
@@ -1033,7 +1033,7 @@ public class Menue implements KeyListener {
 			//			" auf Antwort...", 60, 600, 100, 0, "", "neustart");
 		}
 
-		if (clientThread == null && serverThread == null) {
+		if (clientThread == null && !serverThread.verbunden) {
 			eingabe = JOptionPane.showConfirmDialog(null,
 					"Möchten Sie noch eine Runde spielen?", "Spiel zuende",
 					JOptionPane.YES_NO_OPTION);
@@ -1340,7 +1340,7 @@ public class Menue implements KeyListener {
 		}
 
 		else if (serverThread != null && anfrage_geschickt == false
-				&& antwort_erhalten == false) {
+				&& antwort_erhalten == false && serverThread.verbunden) {
 			anfrage_geschickt = true;
 			serverThread.out
 					.println("Spieler 1 moechte zum Schwierigkeitsgrad '"
@@ -1510,7 +1510,7 @@ public class Menue implements KeyListener {
 
 			}
 
-			else if (serverThread != null) {
+			else if (serverThread != null && serverThread.verbunden) {
 				serverThread.out
 						.println("Spieler 1 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
 				createAndShowGui(
@@ -1707,10 +1707,6 @@ public class Menue implements KeyListener {
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (serverThread == null) {
-				twoPlayer = true;
-				lan = true;
-				hotSeat = false;
-
 				if (clientThread != null) {
 					clientThread.interrupt();
 					System.out.println("Client beendet"); 	// Test
@@ -1845,7 +1841,7 @@ public class Menue implements KeyListener {
 						" auf Antwort...", 60, 600, 100, 1, "", "level");
 			}
 
-			else if (serverThread != null) {
+			else if (serverThread != null && serverThread.verbunden) {
 				serverThread.out
 						.println("Spieler 1 moechte zu Level 1 wechseln. Soll zu Level 1 gewechselt werden?");
 				createAndShowGui(
@@ -1892,7 +1888,7 @@ public class Menue implements KeyListener {
 						" auf Antwort...", 60, 600, 100, 2, "", "level");
 			}
 
-			else if (serverThread != null) {
+			else if (serverThread != null && serverThread.verbunden) {
 				serverThread.out
 						.println("Spieler 1 moechte zu Level 2 wechseln. Soll zu Level 2 gewechselt werden?");
 				createAndShowGui(
