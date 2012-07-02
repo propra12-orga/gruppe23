@@ -7,11 +7,11 @@ public class Sound {
 	
 	public Sound(){}	
 	public void playItem(){ 
-		StdAudio.play("src/media/Item.wav");
+		StdAudio.play("src/media/Item.wav");		//selfmade
 	}
 	
 	public void playExplosion(){
-		StdAudio.play("src/media/explosion.wav");
+		StdAudio.play("src/media/explosion.wav");	//
 	}
 	
 	public void playTheme(){
@@ -19,10 +19,10 @@ public class Sound {
 	}
 	
 	public void playZiel(){
-		StdAudio.play("src/media/ziel.wav");
+		StdAudio.play("src/media/ziel.wav");	//selfmade
 	}
 	
 	public void playTod(){
-		StdAudio.play("src/media/tod.wav");
+		StdAudio.play("src/media/tod.wav");		//selfmade
 	}
 }
