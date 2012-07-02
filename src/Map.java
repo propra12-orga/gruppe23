@@ -50,15 +50,14 @@ public class Map extends JPanel {
 	// move_Hulk-Methode:
 
 	/**
-	 * Aehnliche Methode zu move_hulk(), prueft label der Bot-Bewegung und
-	 * veraendert diese entsprechend
+	 * Aehnliche Methode zu move_hulk(), prueft label der Bot-Bewegung und veraendert diese entsprechend
 	 * 
 	 * @param x
-	 * Horizontale Koordinate
+	 *            Horizontale Koordinate
 	 * @param y
-	 * vertikale Koordinate
+	 *            vertikale Koordinate
 	 * @param Botnummer
-	 * 1 entspricht Bot fuer 2. Spieler, 2 fuer 3. Spieler etc.
+	 *            1 entspricht Bot fuer 2. Spieler, 2 fuer 3. Spieler etc.
 	 */
 	public void move_Bot(int x, int y, int Botnummer) {
 		/* Grafische Fortbewegung der Spielfigur: */
@@ -114,7 +113,7 @@ public class Map extends JPanel {
 														// http://openclipart.org/detail/168616/hunk-by-bedpanner
 		hulk2_pic = "/Pics/" + iconSatz + "/Hulk2.png",	// Grafik-Quelle:
 														// http://openclipart.org/detail/168616/hunk-by-bedpanner
-		bomb_pic = "/Pics/" + iconSatz + "/Bombe.png",	// Grafik-Quelle:
+		bomb_pic = "/Pics/" + iconSatz + "/Bombe.gif",	// Grafik-Quelle:
 														// http://openclipart.org/detail/165734/dynamite-by-magnesus
 		exp_pic = "/Pics/" + iconSatz + "/EXP.png";		// Grafik-Quelle:
 		// http://openclipart.org/detail/122959/pow-by-viscious-speed
@@ -175,16 +174,13 @@ public class Map extends JPanel {
 	}
 
 	/**
-	 * Setzt die Icons "Hulk" und "Weg" , die bei einer Bewegung verändert
-	 * werden
+	 * Setzt die Icons "Hulk" und "Weg" , die bei einer Bewegung verändert werden
 	 * 
-	 * @param * X - Koordinate im Map - Array , um welche die Spielfigur bewegt
-	 * werden soll
+	 * @param * X - Koordinate im Map - Array , um welche die Spielfigur bewegt werden soll
 	 * @param y
-	 * Y - Koordinate im Map - Array , um welche die Spielfigur bewegt werden
-	 * soll
+	 *            Y - Koordinate im Map - Array , um welche die Spielfigur bewegt werden soll
 	 * @param z
-	 * zu bewegende Spielfigur ( 1 : = Spieler 1 , 2 : = Spieler 2 ... )
+	 *            zu bewegende Spielfigur ( 1 : = Spieler 1 , 2 : = Spieler 2 ... )
 	 */
 	public void move_Hulk(int x, int y, int z) {
 		/* Grafische Fortbewegung der Spielfigur: */
@@ -198,11 +194,13 @@ public class Map extends JPanel {
 			Menue.get_hulk(z).set_max_bomben(
 					Menue.get_hulk(z).get_max_bomben() + 1);							// ...dann erhoehe die maximale Anzahl an Bomben um 1
 			if (z == 1 && Menue.clientThread == null) {
-				Menue.max_bomben_S1.setText("Max. Anzahl Bomben Spieler 1: " + Menue.get_hulk(z).get_max_bomben());
+				Menue.max_bomben_S1.setText("Max. Anzahl Bomben Spieler 1: "
+						+ Menue.get_hulk(z).get_max_bomben());
 			}
-			
+
 			else if (z == 2 && (Menue.hotSeat || Menue.clientThread != null)) {
-				Menue.max_bomben_S2.setText("Max. Anzahl Bomben Spieler 2: " + Menue.get_hulk(z).get_max_bomben());
+				Menue.max_bomben_S2.setText("Max. Anzahl Bomben Spieler 2: "
+						+ Menue.get_hulk(z).get_max_bomben());
 			}
 			Menue.sound.playItem();
 		}
@@ -211,16 +209,17 @@ public class Map extends JPanel {
 			Menue.get_hulk(z).set_bomben_radius(
 					Menue.get_hulk(z).get_bomben_radius() + 1);							// ...dann erhoehe die maximale Anzahl an Bomben um 1
 			if (z == 1 && Menue.clientThread == null) {
-				Menue.bomben_radius_S1.setText("Bomben-Radius Spieler 1: " + Menue.get_hulk(z).get_bomben_radius());
+				Menue.bomben_radius_S1.setText("Bomben-Radius Spieler 1: "
+						+ Menue.get_hulk(z).get_bomben_radius());
 			}
-			
+
 			else if (z == 2 && (Menue.hotSeat || Menue.clientThread != null)) {
-				Menue.bomben_radius_S2.setText("Bomben-Radius Spieler 2: " + Menue.get_hulk(z).get_bomben_radius());
+				Menue.bomben_radius_S2.setText("Bomben-Radius Spieler 2: "
+						+ Menue.get_hulk(z).get_bomben_radius());
 			}
-			
+
 			Menue.sound.playItem();
 		}
-		
 
 		if (z == 1) {
 			map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] = 1; 	// weise dem naechsten Feld das Hulk-Icon zu
