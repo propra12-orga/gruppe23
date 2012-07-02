@@ -62,8 +62,7 @@ public class Map extends JPanel {
 	public void move_Bot(int x, int y, int Botnummer) {
 		/* Grafische Fortbewegung der Spielfigur: */
 		map[Menue.get_bot(Botnummer).get_x()][Menue.get_bot(Botnummer).get_y()] = 2;
-		map[Menue.get_bot(Botnummer).get_x() + x][Menue.get_bot(Botnummer)
-				.get_y() + y] = 10;
+		map[Menue.get_bot(Botnummer).get_x() + x][Menue.get_bot(Botnummer).get_y() + y] = 10;
 
 		//		if (map[Menue.get_bot(Botnummer).get_x()][Menue.get_bot(Botnummer).get_y()] == 1
 		//				|| map[Menue.get_bot(Botnummer).get_x()][Menue.get_bot(Botnummer).get_y()] == 10) { 	// falls das Feld das Hulk-Icon (1 oder 10) beinhaltet,... 
