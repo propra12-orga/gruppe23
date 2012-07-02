@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
  */
 public class Bot extends Thread {
 	private int[][] map;
-	private int x, y, xNeu, yNeu, oben, unten, rechts, links, icon, start;
+	private int x, y, xNeu, yNeu, oben, unten, rechts, links, icon, start, steps;
 	public int[] startPos = new int[2];
 	public int max_bomben = 1;
 	private int bomben_radius = 2;
@@ -20,6 +20,7 @@ public class Bot extends Thread {
 	 * @param yKoord aktuelle vertikale Position
 	 */
 	public Bot() {
+		steps = 0;
 		x = 11;
 		y = 11;
 		startPos[0] = 11;
@@ -105,11 +106,13 @@ public class Bot extends Thread {
 		
 		if (lastMove.equals("links")){
 			if (links == 4 || links == 3){
+//				if (links == 3) Menue.get_game().bombe_Bot(1);
 				if(oben == 4 || oben == 3){
 					if (unten == 4 || unten == 3) moveDirection("rechts");
 					else moveDirection("unten");
 				}
 				else moveDirection("oben");
+				steps++;
 			}
 			else if (links == 1){
 				String meldung = Menue.get_hulk(1).get_Spielername();
@@ -124,7 +127,9 @@ public class Bot extends Thread {
 		}		
 		
 		else if (lastMove.equals("rechts")){
+			
 			if (rechts == 4 || rechts == 3){
+//				if(rechts == 3) Menue.get_game().bombe_Bot(1);
 				if(unten == 4 || unten == 3){
 					if (oben == 4 || oben == 3) moveDirection("links");
 					else moveDirection("oben");
@@ -145,6 +150,7 @@ public class Bot extends Thread {
 				
 		else if (lastMove.equals("oben")){
 			if (oben == 4 || oben == 3){
+//				if (oben == 3) Menue.get_game().bombe_Bot(1);
 				if(rechts == 4 || rechts == 3){
 					if (links == 4 || links == 3) moveDirection("unten");
 					else moveDirection("links");
@@ -165,6 +171,7 @@ public class Bot extends Thread {
 		
 		else if (lastMove.equals("unten")){
 			if (unten == 4 || unten == 3){
+//				if (unten == 3) Menue.get_game().bombe_Bot(1);
 				if (links == 4 || links == 3){
 					if (rechts == 4 || rechts == 3) moveDirection("oben");
 					else moveDirection("rechts");
@@ -192,42 +199,44 @@ public class Bot extends Thread {
 	 * @param richtung ist die Richtung, in die sich der Bot bewegen soll
 	 */	
 	public void moveDirection(String richtung){
-		if (richtung.equals("links")){
+		if (Menue.get_map()[x+xNeu][y+yNeu] == 1){
+			Menue.botStop();
+			Menue.sound.playTod();			
+		}
+		else if(Menue.get_map()[x+xNeu][y+yNeu] == 6){
+			Menue.botStop();
+			String meldung = Menue.get_hulk(1).get_Spielername();
+			JOptionPane.showMessageDialog(null, meldung + " hat gewonnen!");
+			Menue.abfrage_neustarten();
+			
+		}		
+		else if (richtung.equals("links")){
+			Menue.set_map(this.x, this.y, 2);
 			yNeu = -1;
-			Menue.get_game().move_Bot(xNeu, yNeu, 1);
-			Menue.get_game().removeAll(); // ...entferne alle bisherigen Komponenten
-											// vom Panel...
-			Menue.get_game().refresh(); // ...und zeichne alle Komponenten des
-										// Panels neu
 			lastMove = "links";
 		}
 		else if (richtung.equals("rechts")){
+			
+			Menue.set_map(this.x, this.y, 2);
 			yNeu = 1;
-			Menue.get_game().move_Bot(xNeu, yNeu, 1);
-			Menue.get_game().removeAll(); // ...entferne alle bisherigen Komponenten
-											// vom Panel...
-			Menue.get_game().refresh(); // ...und zeichne alle Komponenten des
-										// Panels neu
 			lastMove = "rechts";
 		}
 		else if (richtung.equals("oben")){
+			Menue.set_map(this.x, this.y, 2);
 			xNeu = -1;
-			Menue.get_game().move_Bot(xNeu, yNeu, 1);
-			Menue.get_game().removeAll(); // ...entferne alle bisherigen Komponenten
-											// vom Panel...
-			Menue.get_game().refresh(); // ...und zeichne alle Komponenten des
-										// Panels neu
 			lastMove = "oben";
 		}
 		else { 
+			Menue.set_map(this.x, this.y, 2);
 			xNeu = 1;
-			Menue.get_game().move_Bot(xNeu, yNeu, 1);
-			Menue.get_game().removeAll(); // ...entferne alle bisherigen Komponenten
-											// vom Panel...
-			Menue.get_game().refresh(); // ...und zeichne alle Komponenten des
-										// Panels neu
 			lastMove = "unten";
 		}
+		Menue.get_game().move_Bot(xNeu, yNeu, 1);
+		Menue.get_game().removeAll(); // ...entferne alle bisherigen Komponenten
+									// vom Panel...
+		Menue.get_game().refresh(); // ...und zeichne alle Komponenten des
+									// Panels neu
+		steps++;
 		
 	}
 	
@@ -285,5 +294,4 @@ public class Bot extends Thread {
 	public int get_startY() {
 		return startPos[1];
 	}
-
 }

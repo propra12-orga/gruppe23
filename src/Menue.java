@@ -48,16 +48,12 @@ public class Menue implements KeyListener {
 	ButtonGroup gruppe2 = new ButtonGroup();			// (es kann nur ein knopf in der gruppe ausgewahlt werden)
 	ButtonGroup gruppe3 = new ButtonGroup();
 	public static boolean mapLoaded = false;
+	public static boolean botStop;
 
 	// private int anzahlLevel = 2; // nacher levelanzahl get methode;
 	//
 	//
 	// private JFrame frame;
-	//
-	// /**
-	// * enthaelt .wav-Datei fuer Explosionsgeraeusch der Bombe
-	// */
-	// public static Sound exp = new Sound("explosion.wav");
 
 	/**
 	 * true, wenn Bot aktiviert ist
@@ -884,9 +880,9 @@ public class Menue implements KeyListener {
 	/**
 	 * beendet den Bot-Thread. Verwendung bei Wechsel des Spielmodus.
 	 */
-	static void botStop() {
+	public static void botStop() {
 		bot1.botInterrupt();
-		bot1.interrupt();
+		botStop = true;
 	}
 
 	// reset_Hulk-Methode:
@@ -1048,8 +1044,7 @@ public class Menue implements KeyListener {
 		twoPlayer = false;
 		hotSeat = false;
 		bot = false;
-		botStop();
-
+		
 		bomben_radius_S2.setText("");
 		max_bomben_S2.setText("");
 		for (int nr = 0; nr < 5; nr++) {
@@ -1597,6 +1592,13 @@ public class Menue implements KeyListener {
 			if (twoPlayer == true) {
 				singleplayer_starten();
 			}
+			if (bot){
+				bot = false;
+				botStop();
+				bot1.set_x(bot1.get_startX());
+				bot1.set_y(bot1.get_startY());
+				map[(bot1.get_startX())][(bot1.get_startY())]=2;
+			}
 
 		}
 
@@ -2038,6 +2040,7 @@ public class Menue implements KeyListener {
 		public void actionPerformed(ActionEvent e) {
 			if (bot == false) {
 				bot = true;
+				botStop = false;
 				System.out.println("Bot aktiviert"); //Test
 				System.out.println();
 
@@ -2161,6 +2164,8 @@ public class Menue implements KeyListener {
 		else
 			return null;
 	}
+	
+	
 
 	// set_hulk1-Methode:
 	/**
@@ -2190,6 +2195,10 @@ public class Menue implements KeyListener {
 	 */
 	public static int[][] get_map() {
 		return map;
+	}
+	
+	public static void set_map(int x, int y, int Icon){
+		map[x][y] = Icon;
 	}
 
 	//get_bot-Methode:
