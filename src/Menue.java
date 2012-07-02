@@ -897,6 +897,7 @@ public class Menue implements KeyListener {
 	 * beendet den Bot-Thread. Verwendung bei Wechsel des Spielmodus.
 	 */
 	static void botStop() {
+		bot1.botInterrupt();
 		bot1.interrupt();
 	}
 

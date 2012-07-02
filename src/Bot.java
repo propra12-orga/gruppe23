@@ -6,12 +6,12 @@
  */
 public class Bot extends Thread {
 	private int[][] map;
-	private int n;
 	private int x, y, xNeu, yNeu, oben, unten, rechts, links, icon, start;
 	public int[] startPos = new int[2];
 	public int max_bomben = 1;
 	private int bomben_radius = 2;
-	private boolean used;
+	private boolean firstMove, run;
+	private String lastMove;
 
 	/**
 	 * @param xKoord
@@ -20,7 +20,6 @@ public class Bot extends Thread {
 	 * aktuelle vertikale Position
 	 */
 	public Bot() {
-		n = MapLoader.get_n();
 		x = 11;
 		y = 11;
 		startPos[0] = 11;
@@ -32,6 +31,8 @@ public class Bot extends Thread {
 		icon = 10;
 		xNeu = 0;
 		yNeu = 0;
+		firstMove = true;
+		run = true;
 		
 
 	}
@@ -47,7 +48,7 @@ public class Bot extends Thread {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		while (true) {
+		while (run) {
 			try {
 				move();
 			} catch (InterruptedException e) {
@@ -65,57 +66,145 @@ public class Bot extends Thread {
 	private void move() throws InterruptedException {
 		xNeu = 0;
 		yNeu = 0;
-		used = false;
 	
 		map = Menue.get_map();
 		
-		rechts = map[x + 1][y];
-		System.out.println(x + " " + y);
-		links = map[x - 1][y];
-		oben = map[x][y - 1];
-		System.out.println(map[x][y - 1]);
-		unten = map[x][y + 1];
-		System.out.println(map[x][y + 1]);
+		rechts = map[x][y + 1];
+		links = map[x][y - 1];
+		oben = map[x - 1][y];
+		unten = map[x + 1][y];
 		
 		System.out.println("Rechts: " + rechts);
 		System.out.println("Links: " + links);
 		System.out.println("Oben: " + oben);
 		System.out.println("Unten: " + unten);
 
-		if (links == 2 && !used) {
-			xNeu -= 1;
-			used = true;
-		} else if (oben == 2 && !used) {
-			yNeu += 1;
-			used = true;
-		} else if (rechts == 2 && !used) {
-			xNeu += 1;
-			used = true;
-		} else if (unten == 2 && !used) {
-			yNeu -= 1;
-			used = true;
+		if(firstMove){
+			yNeu = -1;
+			Menue.get_game().move_Bot(xNeu, yNeu, 1);
+			Menue.get_game().removeAll(); // ...entferne alle bisherigen Komponenten
+											// vom Panel...
+			Menue.get_game().refresh(); // ...und zeichne alle Komponenten des
+										// Panels neu
+			lastMove = "links";
+			firstMove = false;
 		}
 
-		System.out.println("Bot laueft!");
-		
-		Menue.get_game().move_Bot(xNeu, yNeu, 1);
-		System.out.println("Thread arbeitet");
-		Menue.get_game().removeAll(); // ...entferne alle bisherigen Komponenten
-										// vom Panel...
-		Menue.get_game().refresh(); // ...und zeichne alle Komponenten des
-									// Panels neu
-		
-		System.out.println();
-
+		else proofMove();
+	
 		try {
-			Bot.sleep(500);
+			Bot.sleep(750);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
 	}
+	
+	private void proofMove(){
+		if (lastMove.equals("links")){
+			if (links == 4 || links == 3){
+				if(oben == 4 || oben == 3){
+					if (unten == 4 || unten == 3) moveDirection("rechts");
+					else moveDirection("unten");
+				}
+				else moveDirection("oben");
+			}
+			else if (links == 1){
+				interrupt();
+			}
+			else moveDirection("links");
+		}		
+		
+		if (lastMove.equals("rechts")){
+			if (rechts == 4 || rechts == 3){
+				if(unten == 4 || unten == 3){
+					if (oben == 4 || oben == 3) moveDirection("links");
+					else moveDirection("oben");
+				}
+				else moveDirection("unten");
+			}
+			else if (links == 1){
+				interrupt();
+			}
+			else moveDirection("rechts");
+			
+		}
+				
+		if (lastMove.equals("oben")){
+			if (oben == 4 || oben == 3){
+				if(rechts == 4 || rechts == 3){
+					if (links == 4 || links == 3) moveDirection("unten");
+					else moveDirection("links");
+				}
+				else moveDirection("rechts");
+			}
+			else if (oben == 1){
+				interrupt();
+			}
+			else moveDirection("oben");					
+		}
+		
+		if (lastMove.equals("unten")){
+			if (unten == 4 || unten == 3){
+				if (links == 4 || links == 3){
+					if (rechts == 4 || rechts == 3) moveDirection("oben");
+					else moveDirection("rechts");
+				}
+				else moveDirection("links");
+			}
+			if (unten == 1){
+				interrupt();
+			}
+			else moveDirection("unten");
+			
+		}
+	}
+	
+	public void moveDirection(String richtung){
+		if (richtung.equals("links")){
+			yNeu = -1;
+			Menue.get_game().move_Bot(xNeu, yNeu, 1);
+			Menue.get_game().removeAll(); // ...entferne alle bisherigen Komponenten
+											// vom Panel...
+			Menue.get_game().refresh(); // ...und zeichne alle Komponenten des
+										// Panels neu
+			lastMove = "links";
+		}
+		else if (richtung.equals("rechts")){
+			yNeu = 1;
+			Menue.get_game().move_Bot(xNeu, yNeu, 1);
+			Menue.get_game().removeAll(); // ...entferne alle bisherigen Komponenten
+											// vom Panel...
+			Menue.get_game().refresh(); // ...und zeichne alle Komponenten des
+										// Panels neu
+			lastMove = "rechts";
+		}
+		else if (richtung.equals("oben")){
+			xNeu = -1;
+			Menue.get_game().move_Bot(xNeu, yNeu, 1);
+			Menue.get_game().removeAll(); // ...entferne alle bisherigen Komponenten
+											// vom Panel...
+			Menue.get_game().refresh(); // ...und zeichne alle Komponenten des
+										// Panels neu
+			lastMove = "oben";
+		}
+		else { 
+			xNeu = 1;
+			Menue.get_game().move_Bot(xNeu, yNeu, 1);
+			Menue.get_game().removeAll(); // ...entferne alle bisherigen Komponenten
+											// vom Panel...
+			Menue.get_game().refresh(); // ...und zeichne alle Komponenten des
+										// Panels neu
+			lastMove = "unten";
+		}
+		
+	}
+	
+	public void botInterrupt(){
+		run = false;
+	}
 
-	//-------------------Setter & Getter-----------------------
+	//---------------------------------------Setter & Getter-----------------------
 	public void set_x(int X) {
 		x = X;
 	}
