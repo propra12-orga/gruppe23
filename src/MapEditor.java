@@ -10,18 +10,19 @@ import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 // Autor T. K 
 // 
-public class MapEditor {
+public class MapEditor extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	final static int n = MapLoader.get_n();
 	private static int[][] map = new int[n][n];
-	JFrame frame;
 	protected static boolean saved = false;
 	private static int power;
 	ImageIcon pic;
@@ -44,14 +45,14 @@ public class MapEditor {
 
 	// edit-Methode:
 	public int edit() {
-
+		setVisible(true);
 		int anzahlIcons = 9;
 		boolean richtigeAbfrage = false;
 
 		do {
 			eingabe = JOptionPane.showInputDialog(null,
-					"Bitte geben Sie die Level-Nummer ein:\nNicht 1 oder 2.",
-					"Levelnummer", JOptionPane.OK_CANCEL_OPTION);
+					"Bitte geben Sie die Level-Nummer ein:", "Levelnummer",
+					JOptionPane.OK_CANCEL_OPTION);
 
 			if (eingabe == null) {
 				System.out.println("Boo");
@@ -73,9 +74,9 @@ public class MapEditor {
 		f = new File(dateiName);
 		if (f.exists() == true) {
 
-			MapLoader.set_iconSatz(MapLoader.get_iconSatzLevel(dateiName));
 			iconSatz = MapLoader.get_iconSatzLevel(dateiName);
 			MapLoader.set_iconSatz(iconSatz);
+
 			map = MapLoader.laden(MapLoader.get_level());
 			exist = true;
 		}
@@ -111,20 +112,20 @@ public class MapEditor {
 
 			MapLoader.level_speichern(map, "Level-" + eingabe);
 		}
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setTitle("Map-Editor"); // Fenstertitel setzen
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		//				frame = new JFrame();
+		//				frame.setBounds(100, 100, 450, 300);
+		//				frame.setTitle("Map-Editor"); // Fenstertitel setzen
+		//				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		//				frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
 		final String levelnummer = "Level-" + eingabe;
-		JLabel levelname = new JLabel(levelnummer, JLabel.CENTER);
+		//		JLabel levelname = new JLabel(levelnummer, JLabel.CENTER);
+		//	add(levelname, BorderLayout.NORTH);
 
-		frame.getContentPane().add(levelname, BorderLayout.BEFORE_FIRST_LINE);
 		JButton save_button = new JButton("Level speichern");
 		ActionListener save = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (new File("/Maps/Level-" + eingabe + ".txt").exists()) {
+				if (exist) {
 					int dateiAbfrage = JOptionPane.showConfirmDialog(null,
 							"Die Datei existiert bereits.\n"
 									+ "Möchten Sie die Datei überschreiben?",
@@ -154,17 +155,19 @@ public class MapEditor {
 			}
 
 		};
-		frame.setVisible(true);
-		JPanel place = new JPanel();
-		frame.setResizable(false); // Fenster soll nicht skalierbar sein
+		setVisible(true); // frame.setVisible(true)
+		JPanel place = new JPanel(new GridLayout(1,4));
+		//		frame.setResizable(false); // Fenster soll nicht skalierbar sein
 
-		JButton exit_button = new JButton("Editor Beenden");
+		JButton exit_button = new JButton("Editor Beenden"); // Editor beenden button hinzu
 		ActionListener exit = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				if (saved) {
-					frame.setVisible(false);
+					setVisible(false);
 					MapLoader.set_level(oldLevel);
+					Menue.get_game().setVisible(true);
+					Menue.spiel_neustarten();
 				}
 
 				else {
@@ -176,13 +179,15 @@ public class MapEditor {
 					case 0:
 						MapLoader.level_speichern(map, levelnummer);
 						saved = true;
-						frame.setVisible(false);
+						setVisible(false);
 						MapLoader.set_level(oldLevel);
 						break;
 					case 1:
-						frame.setVisible(false);
-						f.deleteOnExit();
-						f.delete();//  funktioniert noch nicht
+						setVisible(false);
+						if (!exist) {
+							f.deleteOnExit();
+							f.delete();//  funktioniert noch nicht
+						}
 						MapLoader.set_level(oldLevel);
 						Menue.spiel_neustarten();
 						break;
@@ -196,7 +201,8 @@ public class MapEditor {
 		JButton test_button = new JButton("Testen");
 		ActionListener test = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				setVisible(false);
+				Menue.get_game().setVisible(true);
 				MapLoader.set_level(Integer.parseInt(eingabe));
 				Menue.spiel_neustarten();
 
@@ -214,16 +220,6 @@ public class MapEditor {
 
 		};
 
-		exit_button.addActionListener(exit);
-		save_button.addActionListener(save);
-		test_button.addActionListener(test);
-		test_button.addActionListener(freigabe);
-		place.add(exit_button);
-		place.add(save_button);
-		place.add(test_button);
-		place.add(freigabe_button);
-
-		frame.getContentPane().add(place, BorderLayout.SOUTH);
 		// Icons
 		JRadioButton icon[] = new JRadioButton[anzahlIcons];
 		final ButtonGroup buttonGroup = new ButtonGroup();
@@ -238,14 +234,22 @@ public class MapEditor {
 		icon[8] = new JRadioButton("2.Spieler");
 
 		// eventuell noch mehrere
-		JPanel radioPanel = new JPanel(new GridLayout(anzahlIcons, 1));
+		JPanel radioPanel = new JPanel(new GridLayout(2, anzahlIcons / 2));
 		for (int k = 0; k < anzahlIcons; k++) {
 			buttonGroup.add(icon[k]);
 			radioPanel.add(icon[k]);
 		}
 
-		frame.getContentPane().add(radioPanel, BorderLayout.LINE_START);
-		frame.pack();
+		add(radioPanel, BorderLayout.WEST);
+		exit_button.addActionListener(exit);
+		save_button.addActionListener(save);
+		test_button.addActionListener(test);
+		test_button.addActionListener(freigabe);
+		place.add(exit_button);
+		place.add(save_button);
+		place.add(test_button);
+		place.add(freigabe_button);
+		add(place, BorderLayout.WEST);
 		JPanel buttonPanel = new JPanel(new GridLayout(n, n));
 
 		for (int i = 0; i < n; i++) {
@@ -260,20 +264,30 @@ public class MapEditor {
 							if (name == "Hulk") {
 								if (!abfrageHulk1) {
 									power = 1;
+									
 									pic = new ImageIcon(
 											Map.class.getResource("/Pics/"
 													+ iconSatz + "/Hulk.png"));
-									abfrageHulk1 = true;
+									abfrageHulk1 = true;									
 								} else {
 									System.out
 											.println("Hulk1 wurde schon gesetzt");
-									//									int neu = JOptionPane.showConfirmDialog(null,
-									//											"Neue Position?", "Bereits gesetz",
-									//											JOptionPane.YES_NO_OPTION);
-									power = 2;
-									pic = new ImageIcon(
+									int neu = JOptionPane.showConfirmDialog(null,"Neue Position?", "Bereits gesetz",
+											JOptionPane.YES_NO_OPTION);
+									
+										if(neu == 0){
+											map[MapLoader.get_icon_x(map, 1)][MapLoader.get_icon_y(map, 1)] = 2;
+											power = 1;
+											pic = new ImageIcon(
+												Map.class.getResource("/Pics/"
+														+ iconSatz + "/Hulk.png"));
+										}else{
+											power = 2;
+											pic = new ImageIcon(
 											Map.class.getResource("/Pics/"
 													+ iconSatz + "/Weg.png"));
+										}
+									
 								}
 							} else if (name == "Weg") {
 								power = 2;
@@ -301,10 +315,21 @@ public class MapEditor {
 
 									System.out
 											.println("Ausgang wurde schon gesetzt");
-									power = 2;
-									pic = new ImageIcon(
+									int neu = JOptionPane.showConfirmDialog(null,"Neue Position?", "Bereits gesetz",
+											JOptionPane.YES_NO_OPTION);
+										if(neu == 0){
+										map[MapLoader.get_icon_x(map, 7)][MapLoader.get_icon_y(map, 7)] = 2;
+										power = 8;
+										pic = new ImageIcon(
+												Map.class.getResource("/Pics/"
+														+ iconSatz + "/Exit.png"));
+										}
+										else{
+											power = 2;
+											pic = new ImageIcon(
 											Map.class.getResource("/Pics/"
 													+ iconSatz + "/Weg.png"));
+										}
 								}
 							} else if (name == "Block-Ausgang") {
 								if (!abfrageAusgang) {
@@ -312,10 +337,25 @@ public class MapEditor {
 									pic = new ImageIcon(
 											Map.class.getResource("/Pics/"
 													+ iconSatz + "/Exit.png"));
-								} else {
-
-									System.out
-											.println("Ausgang wurde schon gesetzt");
+									abfrageAusgang = true;
+								} else 
+								{
+									System.out.println("Ausgang wurde schon gesetzt");
+									int neu = JOptionPane.showConfirmDialog(null,"Neue Position?", "Bereits gesetz",
+											JOptionPane.YES_NO_OPTION);
+										if(neu == 0){
+										map[MapLoader.get_icon_x(map, 7)][MapLoader.get_icon_y(map, 7)] = 2;
+										power = 8;
+										pic = new ImageIcon(
+												Map.class.getResource("/Pics/"
+														+ iconSatz + "/Exit.png"));
+										}
+										else{
+											power = 2;
+											pic = new ImageIcon(
+											Map.class.getResource("/Pics/"
+													+ iconSatz + "/Weg.png"));
+										}
 								}
 							} else if (name == "Block/Flammen-Item") {
 								power = 9;
@@ -330,31 +370,37 @@ public class MapEditor {
 							} else if (name == "2.Spieler") {
 								if (!abfrageHulk2) {
 									power = 10;
-
 									pic = new ImageIcon(
 											Map.class.getResource("/Pics/"
 													+ iconSatz + "/Hulk2.png"));
 									abfrageHulk2 = true;
 								} else {
-
-									System.out
-											.println("Hulk2 wurde schon gesetzt");
-									power = 2;
-									pic = new ImageIcon(
-											Map.class.getResource("/Pics/"
-													+ iconSatz + "/Weg.png"));
+									System.out.println("Hulk1 wurde schon gesetzt");
+									int neu = JOptionPane.showConfirmDialog(null,"Neue Position?", "Bereits gesetz",
+									JOptionPane.YES_NO_OPTION);
+										if(neu == 0){
+										map[MapLoader.get_icon_x(map, 10)][MapLoader.get_icon_y(map, 10)] = 2;
+										power = 10;
+										pic = new ImageIcon(
+												Map.class.getResource("/Pics/"
+														+ iconSatz + "/Hulk.png"));
+										}else{
+										power = 2;
+										pic = new ImageIcon(
+										Map.class.getResource("/Pics/"
+												+ iconSatz + "/Weg.png"));
 								}
 							}
-
-							map[a][b] = power;
-
-							feld[a][b].setIcon(pic); // ...Grafik auf Button
-
-							Menue.spiel_neustarten();
 						}
-
+							System.out.print(power);
+							map[a][b] = power;
+							feld[a][b].setIcon(pic); // ...Grafik auf Button
+							
+							
+						saved = false;
 					}
-				};
+				}
+			};
 
 				feld[i][j] = new JButton();
 
@@ -366,16 +412,12 @@ public class MapEditor {
 				buttonPanel.add(feld[i][j]);
 
 			}
-			frame.getContentPane().add(buttonPanel);
+			add(buttonPanel);
 		}
-
-		frame.pack();
-
 		return 1;
 	}
 
 	/* setter & getter: */
-
 	// getSelectedButton-Methode:
 	public static JRadioButton getSelectedButton(ButtonGroup group) {
 		Enumeration<AbstractButton> e = group.getElements();

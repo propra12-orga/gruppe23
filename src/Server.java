@@ -17,7 +17,7 @@ public class Server extends Thread {
 	ServerSocket serverSocket = null;
 	PrintWriter out;
 	BufferedReader in;
-	int x, y, level;
+	int x, y, level, meldungen_zaehler;
 	String in_string, out_string, antwort = "leer", schwierigkeitsgrad = "";
 	boolean verbunden = false, anfrage_erhalten = false;
 	
@@ -38,22 +38,35 @@ public class Server extends Thread {
 			serverSocket = new ServerSocket(4711);
 			
 			// Ausgabe:
-			System.out.println("Ihre IP-Adresse(n):");					// Test
+			Menue.meldungen[0].setText("Ihre IP-Adresse(n):");
+			//System.out.println("Ihre IP-Adresse(n):");					// Test
 	        String localHost = InetAddress.getLocalHost().getHostName();
+	        meldungen_zaehler = 1;
 	        for (InetAddress ia : InetAddress.getAllByName(localHost)) {
 	        	if (ia.getHostAddress().contains(".")) {
-	        		System.out.println(ia.getHostAddress());			// Test
+	        		if (meldungen_zaehler == 4) {
+	        			meldungen_zaehler = 1;
+	        		}
+	        		
+	        		//System.out.println(ia.getHostAddress());			// Test
+        			Menue.meldungen[meldungen_zaehler].setText(ia.getHostAddress());
+        			meldungen_zaehler++;	        		 
 	        	}
 	    	}
-			System.out.println("Es wird auf einen Client gewartet...");	// Test
-			System.out.println();										// Test
+	        Menue.meldungen[4].setText("Es wird auf einen Client gewartet...");
+//			System.out.println("Es wird auf einen Client gewartet...");	// Test
+//			System.out.println();										// Test
 			
 			clientSocket = serverSocket.accept();
 			
 			// Verbindungsstatus aktualisieren:
 			verbunden = true;
-			System.out.println("Verbindung mit Client aufgebaut");	// Test
-			System.out.println();									// Test
+			for (int nr = 0; nr < 5; nr++) {
+				Menue.meldungen[nr].setText("");
+			}
+//			Menue.meldungen[4].setText("Verbindung mit Client aufgebaut");
+//			System.out.println("Verbindung mit Client aufgebaut");	// Test
+//			System.out.println();									// Test
 
 			// Writer fuer Aus- & Read fuer Eingabe erstellen
 			out = new PrintWriter(clientSocket.getOutputStream(), true);
@@ -71,8 +84,9 @@ public class Server extends Thread {
 		}
 		
 		catch (IOException e) {
-			System.out.println("Server-Socket geschlossen");	// Test
-			System.out.println();								// Test
+			for (int nr = 0; nr < 5; nr++) {
+				Menue.meldungen[nr].setText("");
+			}
 		}
 
 	}
@@ -100,13 +114,27 @@ public class Server extends Thread {
 				
 				// Frage ausgeben:
 				else if (in_string.contains("?")) {
+					
 					int frage = JOptionPane.showConfirmDialog(null,
 							in_string,
 							"Frage des Clients", JOptionPane.YES_NO_OPTION);
 					
 					switch (frage) {
 						case 0:
-							out.println("yes");
+							if (in_string.contains("Spieler")) {
+								System.out.println("yes geschickt");
+								out.println("yes");	
+							}
+							
+							else {
+								out.println("Spieler 1 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
+								//Menue.antwort_erhalten = true;
+								antwort = "rueckfrage";
+//								Menue.createAndShowGui(
+//								"Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
+//								" auf Antwort...", 60, 600, 100, 0, "", "neustart");
+							}
+
 							//Menue.createAndShowGui("Das Spiel wird in ", " neugestartet...", 5, 300, 100, 0); // BITTE AUSKOMMENTIERT LASSEN & NICHT LOESCHEN
 							break;
 						case 1:
@@ -119,6 +147,7 @@ public class Server extends Thread {
 				
 				// Antwort speichern:
 				else if (in_string.equals("yes") || in_string.equals("no")) {
+					System.out.println("antwort erhalten");
 					antwort = in_string;
 				}
 				
@@ -189,18 +218,6 @@ public class Server extends Thread {
 																			// mit der 2. Spielfigur
 																			// durch
 				}
-				
-//				try {
-//					Thread.sleep(1);
-//				}
-//				
-//				catch (InterruptedException e )
-//			    {
-//					Menue.set_serverThread(null);
-//					JOptionPane.showMessageDialog(null, "Verbindung zum Client getrennt");
-//					Menue.singleplayer_starten();
-//					interrupt();
-//			    } 
 				
 			}
 			

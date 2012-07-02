@@ -48,8 +48,6 @@ public class Bombe extends JLabel {
 	 */
 	public void aktivieren(int Spieler, int bomben_radius) {
 		liegt = true;
-		System.out.println("Bombe gelegt"); // Test
-		System.out.println(); // Test
 
 		timer.set_bomb_x(x);
 		timer.set_bomb_y(y);
@@ -728,7 +726,7 @@ public class Bombe extends JLabel {
 
 		}
 
-		// Treffer zur�cksetzen:
+		// Treffer zuruecksetzen:
 		treffer_oben 	= false;
 		treffer_rechts 	= false;
 		treffer_unten 	= false;
