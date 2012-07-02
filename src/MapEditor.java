@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
@@ -30,7 +31,7 @@ public class MapEditor extends JPanel {
 	private static boolean abfrageHulk1 = false;
 	private static boolean abfrageHulk2 = false;
 	private static boolean abfrageAusgang = false;
-	private static File f;
+	private static File f,f2;
 	private static String eingabe;
 	private static boolean exist = false;
 	private static JButton feld[][] = new JButton[n][n];
@@ -57,7 +58,8 @@ public class MapEditor extends JPanel {
 			if (eingabe == null) {
 				System.out.println("Boo");
 				richtigeAbfrage = true;
-				// Editor abbrechen!
+				setVisible(false);
+				Menue.spiel_neustarten();
 				return 0;
 			} else if (eingabe.equals("")) {
 				richtigeAbfrage = false;
@@ -68,11 +70,14 @@ public class MapEditor extends JPanel {
 		} while (richtigeAbfrage != true);
 
 		// datei existiert?
-		String dateiName = "src/Maps/Level-";
+		String dateiName = "src/Maps/Game/Level-";
+		dateiName = dateiName + eingabe + ".txt";
+		String dateiName2 = "src/Maps/Level/Level-";
 		dateiName = dateiName + eingabe + ".txt";
 
 		f = new File(dateiName);
-		if (f.exists() == true) {
+		f2 = new File(dateiName2);
+		if (f.exists() == true || f2.exists()== true) {
 
 			iconSatz = MapLoader.get_iconSatzLevel(dateiName);
 			MapLoader.set_iconSatz(iconSatz);
@@ -213,8 +218,23 @@ public class MapEditor extends JPanel {
 		JButton freigabe_button = new JButton("Level freigeben");
 		ActionListener freigabe = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				boolean copy = false;
 				// level implentieren wenn es läuft!
+				// level in level ordner koppieren
+
+		        try {
+					copy = MapLoader.copy(f,f2);
+				} catch (IOException e1) {
+					
+					e1.printStackTrace();
+				} 
+				if(copy){
+					JOptionPane.showMessageDialog(null,
+							"Das Level wurde erfolgreich eingebunden");// einbindung ins menue fehlt noch. kolja
+				}else{
+					JOptionPane.showMessageDialog(null,
+							"Es gab Probleme beim einbinden");
+				}
 
 			}
 
@@ -244,7 +264,7 @@ public class MapEditor extends JPanel {
 		exit_button.addActionListener(exit);
 		save_button.addActionListener(save);
 		test_button.addActionListener(test);
-		test_button.addActionListener(freigabe);
+		freigabe_button.addActionListener(freigabe);
 		place.add(exit_button);
 		place.add(save_button);
 		place.add(test_button);
@@ -392,12 +412,9 @@ public class MapEditor extends JPanel {
 								}
 							}
 						}
-							System.out.print(power);
 							map[a][b] = power;
 							feld[a][b].setIcon(pic); // ...Grafik auf Button
-							
-							
-						saved = false;
+							saved = false;
 					}
 				}
 			};
@@ -407,7 +424,7 @@ public class MapEditor extends JPanel {
 				pic = getPic(map[i][j]);
 				feld[i][j].setIcon(pic);
 
-				feld[i][j].setPreferredSize(new Dimension(50, 50));// Button-Größe
+				feld[i][j].setPreferredSize(new Dimension(40,40));// Button-Größe
 				feld[i][j].addActionListener(list);
 				buttonPanel.add(feld[i][j]);
 

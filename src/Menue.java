@@ -1000,6 +1000,8 @@ public class Menue implements KeyListener {
 		// Spielfeld intern reinitialisieren:
 		Map.set_map(MapLoader.laden(MapLoader.get_level()));
 		game.setVisible(true);
+		frame.pack();
+		
 		// Bilder erneut skalieren:
 		game.bilder_skalieren();
 
