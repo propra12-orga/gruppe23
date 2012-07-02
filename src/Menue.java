@@ -916,7 +916,7 @@ public class Menue implements KeyListener {
 	 * Bot.
 	 */
 	static void spiel_neustarten() {
-
+		
 		System.out.println("Spiel neugestartet"); 	// Test
 		System.out.println(); 						// Test
 
@@ -975,14 +975,15 @@ public class Menue implements KeyListener {
 
 		// Spielfeld intern reinitialisieren:
 		Map.set_map(MapLoader.laden(MapLoader.get_level()));
-
+		game.setVisible(true);
 		// Bilder erneut skalieren:
 		game.bilder_skalieren();
 
 		// Spielfeld grafisch reinitialisieren:
 		game.removeAll();
 		game.refresh();
-
+		
+		
 		// Boolean-Werte zuruecksetzen:
 		antwort_erhalten = false;
 		anfrage_geschickt = false;

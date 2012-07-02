@@ -157,7 +157,7 @@ public class MapEditor extends JPanel {
 
 		};
 		setVisible(true); // frame.setVisible(true)
-		JPanel place = new JPanel(new GridLayout(4, 1));
+		JPanel place = new JPanel(new GridLayout(1,4));
 		//		frame.setResizable(false); // Fenster soll nicht skalierbar sein
 
 		JButton exit_button = new JButton("Editor Beenden"); // Editor beenden button hinzu
@@ -167,6 +167,8 @@ public class MapEditor extends JPanel {
 				if (saved) {
 					setVisible(false);
 					MapLoader.set_level(oldLevel);
+					Menue.get_game().setVisible(true);
+					Menue.spiel_neustarten();
 				}
 
 				else {
