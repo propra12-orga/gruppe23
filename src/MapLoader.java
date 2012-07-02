@@ -213,7 +213,7 @@ public class MapLoader {
 		return null;
 	}
 
-	// level_speichern-Methode 2:
+	// level_speichern-Methode mit 2 spielern:
 	public static String level_speichern(int[][] map, Hulk hulk1, Hulk hulk2) {// ueber filechooser
 
 		String[] line = new String[n];
@@ -556,14 +556,8 @@ public class MapLoader {
 			FileReader f = new FileReader(filename);
 
 			System.out.println("Spielfeld eingelesen:"); // Test
-			f.read();
-			f.read();
-			f.read();
-			f.read();
-			f.read();
-			f.read();
-			f.read();
-			f.read();
+			f.read();f.read();f.read();f.read();
+			f.read();f.read();f.read();f.read();
 			max2 = Character.getNumericValue(f.read());
 			f.close();
 		}
@@ -575,4 +569,27 @@ public class MapLoader {
 		}
 		return max2;
 	}
+//	public static boolean twoPlayergame(String filename) {
+//		int abfrage = 0;
+//		try {
+//			FileReader f = new FileReader(filename);
+//			f.read();f.read();f.read();f.read();f.read();
+//			f.read();f.read();f.read();f.read();f.read();
+//			abfrage = Character.getNumericValue(f.read());
+//			f.close();
+//		}
+//
+//		catch (IOException e) {
+//			System.err.println(e.getMessage());
+//			e.printStackTrace();
+//			System.exit(1);
+//		}
+//		if(abfrage == 1){
+//			return false;
+//		}
+//		else{
+//			return true;
+//		}
+//		
+//	}
 }
