@@ -353,9 +353,9 @@ public class Menue implements KeyListener {
 		JMenu mnModus = new JMenu("Modus"); // Menuepunkt "Modus" erstellen
 		menuBar.add(mnModus); // Menuepunkt "Modus" hinzufuegen
 
-		JCheckBox mntmSingleplayer = new JCheckBox("Singleplayer"); // Untermenuepunkt
-																	// "Singleplayer"
-																	// erstellen
+		JCheckBox mntmSingleplayer = new JCheckBox("Singleplayer", true); // Untermenuepunkt
+		// "Singleplayer"
+		// erstellen
 		mnModus.add(mntmSingleplayer); // Untermenuepunkt "Singleplayer"
 										// hinzufuegen
 		mntmSingleplayer.setAction(Action_Singleplayer); // Aktion
@@ -663,20 +663,19 @@ public class Menue implements KeyListener {
 	static void spieler1_bombe() {
 
 		if ((get_hulk(1).get_max_bomben()) > 0) { // falls der 1.
-														// Spieler (noch)
-														// eine Bombe legen
-														// darf...
+													// Spieler (noch)
+													// eine Bombe legen
+													// darf...
 
-			get_hulk(1).set_max_bomben(
-					(get_hulk(1).get_max_bomben()) - 1); 	// ...dekrementiere
-																// die
-																// Anzahl
-																// der
-																// maximalen
-																// Bomben
-																// von
-																// Spieler 1
-																// um 1,
+			get_hulk(1).set_max_bomben((get_hulk(1).get_max_bomben()) - 1); 	// ...dekrementiere
+																			// die
+																			// Anzahl
+																			// der
+																			// maximalen
+																			// Bomben
+																			// von
+																			// Spieler 1
+																			// um 1,
 
 			game.bombe_legen(1); 	// ...lass den 1. Spieler eine Bombe legen,
 									// ...
@@ -695,20 +694,19 @@ public class Menue implements KeyListener {
 	static void spieler2_bombe() {
 
 		if ((get_hulk(2).get_max_bomben()) > 0) { // falls der 2.
-														// Spieler (noch)
-														// eine Bombe legen
-														// darf...
+													// Spieler (noch)
+													// eine Bombe legen
+													// darf...
 
-			get_hulk(2).set_max_bomben(
-					(get_hulk(2).get_max_bomben()) - 1); 	// ...dekrementiere
-																// die
-																// Anzahl
-																// der
-																// maximalen
-																// Bomben
-																// von
-																// Spieler 2
-																// um 1,
+			get_hulk(2).set_max_bomben((get_hulk(2).get_max_bomben()) - 1); 	// ...dekrementiere
+																			// die
+																			// Anzahl
+																			// der
+																			// maximalen
+																			// Bomben
+																			// von
+																			// Spieler 2
+																			// um 1,
 
 			game.bombe_legen(2); 	// ...lass den 2. Spieler eine Bombe legen,
 									// ...
@@ -791,19 +789,21 @@ public class Menue implements KeyListener {
 		}
 
 		// Niederlage Spieler 1
-		else if (Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 6 || (map[hulk1.get_x()+x][hulk1.get_y() + y] == 10 && getBot())) { 	// falls
-																		// das
-																		// naechste
-																		// Feld
-																		// ein
-																		// Explosions-Feld
-																		// ist
+		else if (Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 6
+				|| (map[hulk1.get_x() + x][hulk1.get_y() + y] == 10 && getBot())) { 	// falls
+			// das
+			// naechste
+			// Feld
+			// ein
+			// Explosions-Feld
+			// ist
 			String meldung = hulk1.get_Spielername();
 			JOptionPane.showMessageDialog(null, meldung + " hat verloren!");
 			System.out.println(meldung + " hat verloren."); 	// Test
 			System.out.println(); 							// Test
 			sound.playTod();
-			if(bot) bot1.botInterrupt();
+			if (bot)
+				bot1.botInterrupt();
 			abfrage_neustarten();
 		}
 
@@ -967,7 +967,7 @@ public class Menue implements KeyListener {
 			}
 
 		}
-		
+
 		if (running && tim != null) {
 			tim.stop();
 			tim = null;
@@ -996,12 +996,12 @@ public class Menue implements KeyListener {
 			};
 			tim.start();
 		}
-		
+
 		// Spielfeld intern reinitialisieren:
 		Map.set_map(MapLoader.laden(MapLoader.get_level()));
 		game.setVisible(true);
 		frame.pack();
-		
+
 		// Bilder erneut skalieren:
 		game.bilder_skalieren();
 
@@ -1376,12 +1376,12 @@ public class Menue implements KeyListener {
 				zeit = 45;
 
 			}
-			
+
 			if (running && tim != null) {
 				tim.stop();
 				tim = null;
 			}
-			
+
 			spiel_neustarten();
 			anfrage_geschickt = false;
 			antwort_erhalten = false;
