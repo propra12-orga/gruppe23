@@ -14,10 +14,8 @@ public class Bot extends Thread {
 	private String lastMove;
 
 	/**
-	 * @param xKoord
-	 * aktuelle horizontale Position
-	 * @param yKoord
-	 * aktuelle vertikale Position
+	 * @param xKoord aktuelle horizontale Position
+	 * @param yKoord aktuelle vertikale Position
 	 */
 	public Bot() {
 		x = 11;
@@ -33,12 +31,10 @@ public class Bot extends Thread {
 		yNeu = 0;
 		firstMove = true;
 		run = true;
-		
-
 	}
 
 	/**
-	 * Initialisierung des Bot-Threads
+	 * Initialisierung des Bot-Threads. Start wird um eine Sekunde verzoegert, da Karte geladen werden muss.
 	 */
 
 	public void run() {
@@ -55,7 +51,6 @@ public class Bot extends Thread {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	/**
@@ -100,7 +95,11 @@ public class Bot extends Thread {
 
 	}
 	
+	/**
+	 * Prueft auf moegliche Richtung oder bestimmt gegebenen Falles eine neue Richtung (dreht sich immer 90° nach rechts). Bewegung wird in Extramethoden durchgefuehrt um Uebersicht zu wahren.
+	 */
 	private void proofMove(){
+		
 		if (lastMove.equals("links")){
 			if (links == 4 || links == 3){
 				if(oben == 4 || oben == 3){
@@ -115,7 +114,7 @@ public class Bot extends Thread {
 			else moveDirection("links");
 		}		
 		
-		if (lastMove.equals("rechts")){
+		else if (lastMove.equals("rechts")){
 			if (rechts == 4 || rechts == 3){
 				if(unten == 4 || unten == 3){
 					if (oben == 4 || oben == 3) moveDirection("links");
@@ -127,10 +126,9 @@ public class Bot extends Thread {
 				interrupt();
 			}
 			else moveDirection("rechts");
-			
 		}
 				
-		if (lastMove.equals("oben")){
+		else if (lastMove.equals("oben")){
 			if (oben == 4 || oben == 3){
 				if(rechts == 4 || rechts == 3){
 					if (links == 4 || links == 3) moveDirection("unten");
@@ -144,22 +142,28 @@ public class Bot extends Thread {
 			else moveDirection("oben");					
 		}
 		
-		if (lastMove.equals("unten")){
+		else if (lastMove.equals("unten")){
 			if (unten == 4 || unten == 3){
 				if (links == 4 || links == 3){
 					if (rechts == 4 || rechts == 3) moveDirection("oben");
 					else moveDirection("rechts");
 				}
-				else moveDirection("links");
+				else{ 
+					moveDirection("links");
+					System.out.println(xNeu + " " + yNeu);
+				}
 			}
-			if (unten == 1){
+			else if (unten == 1){
 				interrupt();
 			}
 			else moveDirection("unten");
-			
 		}
 	}
 	
+	/**
+	 * Fuehrt die gueltige Bewegung aus. Dient hauptsaechlich der Uebersichtlichkeit.
+	 * @param richtung ist die Richtung, in die sich der Bot bewegen soll
+	 */	
 	public void moveDirection(String richtung){
 		if (richtung.equals("links")){
 			yNeu = -1;

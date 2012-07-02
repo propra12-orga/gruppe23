@@ -659,13 +659,13 @@ public class Menue implements KeyListener {
 	 */
 	static void spieler1_bombe() {
 
-		if ((Menue.get_hulk(1).get_max_bomben()) > 0) { // falls der 1.
+		if ((get_hulk(1).get_max_bomben()) > 0) { // falls der 1.
 														// Spieler (noch)
 														// eine Bombe legen
 														// darf...
 
-			Menue.get_hulk(1).set_max_bomben(
-					(Menue.get_hulk(1).get_max_bomben()) - 1); 	// ...dekrementiere
+			get_hulk(1).set_max_bomben(
+					(get_hulk(1).get_max_bomben()) - 1); 	// ...dekrementiere
 																// die
 																// Anzahl
 																// der
@@ -691,13 +691,13 @@ public class Menue implements KeyListener {
 	 */
 	static void spieler2_bombe() {
 
-		if ((Menue.get_hulk(2).get_max_bomben()) > 0) { // falls der 2.
+		if ((get_hulk(2).get_max_bomben()) > 0) { // falls der 2.
 														// Spieler (noch)
 														// eine Bombe legen
 														// darf...
 
-			Menue.get_hulk(2).set_max_bomben(
-					(Menue.get_hulk(2).get_max_bomben()) - 1); 	// ...dekrementiere
+			get_hulk(2).set_max_bomben(
+					(get_hulk(2).get_max_bomben()) - 1); 	// ...dekrementiere
 																// die
 																// Anzahl
 																// der
@@ -791,7 +791,7 @@ public class Menue implements KeyListener {
 		}
 
 		// Niederlage Spieler 1
-		else if (Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 6) { 	// falls
+		else if (Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 6 || (map[hulk1.get_x()+x][hulk1.get_y() + y] == 10 && Menue.getBot())) { 	// falls
 																		// das
 																		// naechste
 																		// Feld
@@ -803,7 +803,7 @@ public class Menue implements KeyListener {
 			System.out.println(meldung + " hat verloren."); 	// Test
 			System.out.println(); 							// Test
 			sound.playTod();
-
+			if(bot) bot1.botInterrupt();
 			abfrage_neustarten();
 		}
 

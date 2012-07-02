@@ -221,6 +221,7 @@ public class Map extends JPanel {
 			
 			Menue.sound.playItem();
 		}
+		
 
 		if (z == 1) {
 			map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] = 1; 	// weise dem naechsten Feld das Hulk-Icon zu
