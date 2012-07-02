@@ -538,7 +538,10 @@ public class Menue implements KeyListener {
 
 	// keyPressed-Methode:
 	/**
-	 * Horcht , ob eine Taste gedrueckt wurde und wertet die Aktion gegebenfalls aus . Gueltige Aktionen sind : Hoch -, Links -, Rechts -, Runtertaste ( Bewegung ) und Leertaste ( Bombe ) für den 1. Spieler sowie W, A, S, D ( Bewegung ) und E ( Bombe ) für den 2. Spieler
+	 * Horcht , ob eine Taste gedrueckt wurde und wertet die Aktion gegebenfalls
+	 * aus . Gueltige Aktionen sind : Hoch -, Links -, Rechts -, Runtertaste (
+	 * Bewegung ) und Leertaste ( Bombe ) für den 1. Spieler sowie W, A, S, D (
+	 * Bewegung ) und E ( Bombe ) für den 2. Spieler
 	 */
 	public void keyPressed(KeyEvent Key) {
 		// Key-Methoden fuer 1. Spieler
@@ -748,7 +751,10 @@ public class Menue implements KeyListener {
 
 	// spieler1_aktionen2-Methode:
 	/**
-	 * Ueberprueft , ob sich die 1. Spielfigur in die gewuenschte Richtung bewegen kann . Je nachdem , welches Feld als nächstes betreten wird , werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg , Niederlage ).
+	 * Ueberprueft , ob sich die 1. Spielfigur in die gewuenschte Richtung
+	 * bewegen kann . Je nachdem , welches Feld als nächstes betreten wird ,
+	 * werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg ,
+	 * Niederlage ).
 	 */
 	static void spieler1_aktionen2(int x, int y) {
 		if (Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 2 				// falls
@@ -808,7 +814,10 @@ public class Menue implements KeyListener {
 
 	// spieler2_aktionen-Methode:
 	/**
-	 * Ueberprueft , ob sich die 2. Spielfigur in die gewuenschte Richtung bewegen kann . Je nachdem , welches Feld als nächstes betreten wird , werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg , Niederlage ).
+	 * Ueberprueft , ob sich die 2. Spielfigur in die gewuenschte Richtung
+	 * bewegen kann . Je nachdem , welches Feld als nächstes betreten wird ,
+	 * werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg ,
+	 * Niederlage ).
 	 */
 	static void spieler2_aktionen(int x, int y) {
 		// Bewegung Spieler 2
@@ -901,7 +910,10 @@ public class Menue implements KeyListener {
 
 	// spiel_neustarten-Methode:
 	/**
-	 * Startet das Spiel folgendermaßen neu : Zuruecksetzen der Spielfiguren , max . Anzahl Bomben und Bomben - Radien , Entfernen aktueller Bomben , Reinitialisieren der internen und grafischen Spielfelder. Erweitert fuer Bot.
+	 * Startet das Spiel folgendermaßen neu : Zuruecksetzen der Spielfiguren ,
+	 * max . Anzahl Bomben und Bomben - Radien , Entfernen aktueller Bomben ,
+	 * Reinitialisieren der internen und grafischen Spielfelder. Erweitert fuer
+	 * Bot.
 	 */
 	static void spiel_neustarten() {
 
@@ -978,7 +990,8 @@ public class Menue implements KeyListener {
 
 	// abfrage_neustarten-Methode:
 	/**
-	 * Fragt den Benutzer , ob er das Spiel neustarten oder beenden möchte und fuehrt die jeweilige Aktion aus .
+	 * Fragt den Benutzer , ob er das Spiel neustarten oder beenden möchte und
+	 * fuehrt die jeweilige Aktion aus .
 	 */
 	static void abfrage_neustarten() {
 		int eingabe = 0;
@@ -1483,7 +1496,8 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Laden" , lädt ein zuvor gespeichertes Spiel
+	 * Klasse fuer Menuebuttonorganisation "Laden" , lädt ein zuvor
+	 * gespeichertes Spiel
 	 * 
 	 * @author Tobias Korfmacher
 	 */
@@ -1605,7 +1619,9 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Ueberprueft , ob man sich bereits im HotSeat - Modus befindet und wechselt anderenfalls dorthin . Anschließend wird das Spiel neugestartet .
+		 * Ueberprueft , ob man sich bereits im HotSeat - Modus befindet und
+		 * wechselt anderenfalls dorthin . Anschließend wird das Spiel
+		 * neugestartet .
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (hotSeat == false) {
@@ -1995,8 +2011,13 @@ public class Menue implements KeyListener {
 		 * Setzt den Map - Editor fort falls er schonmal gelaufen ist
 		 */
 		public void actionPerformed(ActionEvent e) {
-			mapping.setVisible(false);
-			game.setVisible(true);
+			if (editorlaeuft) {
+				mapping.setVisible(false);
+				game.setVisible(true);
+			} else
+			 JOptionPane.showMessageDialog(null,
+						"Der Editor läuft nicht!");
+			
 		}
 
 	}
@@ -2027,7 +2048,8 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klassen für den Button "Schwierigkeit" erstellen . ( zur änderung der Schwierigkeit )
+	 * Klassen für den Button "Schwierigkeit" erstellen . ( zur änderung der
+	 * Schwierigkeit )
 	 * 
 	 * @author Andrej Morlang
 	 */
