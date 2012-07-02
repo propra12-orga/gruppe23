@@ -46,6 +46,7 @@ public class Menue implements KeyListener {
 	JCheckBox noob, Leicht, Mittel, Schwer, mntmLevel_1, mntmLevel_2;	// alternativ kan man auch "RadioButton" verwenden
 	ButtonGroup gruppe = new ButtonGroup();				// zum gruppieren der knoepfe
 	ButtonGroup gruppe2 = new ButtonGroup();			// (es kann nur ein knopf in der gruppe ausgewahlt werden)
+	ButtonGroup gruppe3 = new ButtonGroup();
 	public static boolean mapLoaded = false;
 
 	// private int anzahlLevel = 2; // nacher levelanzahl get methode;
@@ -349,33 +350,33 @@ public class Menue implements KeyListener {
 		JMenu mnModus = new JMenu("Modus"); // Menuepunkt "Modus" erstellen
 		menuBar.add(mnModus); // Menuepunkt "Modus" hinzufuegen
 
-		JMenuItem mntmSingleplayer = new JMenuItem("Singleplayer"); // Untermenuepunkt
+		JCheckBox mntmSingleplayer = new JCheckBox("Singleplayer"); // Untermenuepunkt
 																	// "Singleplayer"
 																	// erstellen
 		mnModus.add(mntmSingleplayer); // Untermenuepunkt "Singleplayer"
 										// hinzufuegen
 		mntmSingleplayer.setAction(Action_Singleplayer); // Aktion
-															// "Action_Singleplayer"
-															// hinzufuegen
+		gruppe3.add(mntmSingleplayer);													// "Action_Singleplayer"
+		// hinzufuegen
 
 		JMenu mnMultiplayer = new JMenu("Multiplayer"); // Untermenue
 														// "Multiplayer"
 														// erstellen
 		mnModus.add(mnMultiplayer); // Untermenue "Multiplayer" hinzufuegen
 
-		JMenuItem mntmHotSeat = new JMenuItem("Hot Seat"); // Untermenuepunkt
+		JCheckBox mntmHotSeat = new JCheckBox("Hot Seat"); // Untermenuepunkt
 															// "Hot Seat"
 															// erstellen
 		mnMultiplayer.add(mntmHotSeat); // Untermenuepunkt "Hot Seat"
 										// hinzufuegen
 		mntmHotSeat.setAction(Action_HotSeat); // Aktion "Action_HotSeat"
-												// hinzufuegen
+		gruppe3.add(mntmHotSeat);										// hinzufuegen
 
-		JMenuItem mntmMultiplayerBot = new JMenuItem("Bot"); // Menueunterpunkt
+		JCheckBox mntmMultiplayerBot = new JCheckBox("Bot"); // Menueunterpunkt
 																// "Bot"
 																// erstellen
 		mnMultiplayer.add(mntmMultiplayerBot); // Menueunterpunkt "Multiplayer -
-												// Bot hinzugefuegen
+		gruppe3.add(mntmMultiplayerBot);										// Bot hinzugefuegen
 		mntmMultiplayerBot.setAction(Action_MultiplayerBot);
 
 		JMenu mnLAN = new JMenu("LAN"); // Untermenue
@@ -383,17 +384,17 @@ public class Menue implements KeyListener {
 										// erstellen
 		mnMultiplayer.add(mnLAN); // Untermenue "LAN" hinzufuegen
 
-		JMenuItem mntmServer = new JMenuItem("Server"); // Untermenuepunkt
+		JCheckBox mntmServer = new JCheckBox("Server"); // Untermenuepunkt
 														// "Server" erstellen
 		mnLAN.add(mntmServer); // Untermenuepunkt "Server" hinzufuegen
 		mntmServer.setAction(Action_Server); // Aktion "Action_Server"
-												// hinzufuegen
+		gruppe3.add(mntmServer);										// hinzufuegen
 
-		JMenuItem mntmClient = new JMenuItem("Client"); // Untermenuepunkt
+		JCheckBox mntmClient = new JCheckBox("Client"); // Untermenuepunkt
 														// "Client" erstellen
 		mnLAN.add(mntmClient); // Untermenuepunkt "Client" hinzufuegen
 		mntmClient.setAction(Action_Client); // Aktion "Action_Client"
-												// hinzufuegen
+		gruppe3.add(mntmClient);										// hinzufuegen
 
 		JMenu mnLevel = new JMenu("Level"); // Menuepunkt "Level" erstellen
 		menuBar.add(mnLevel); // Menuepunkt "Level" hinzufuegen
@@ -538,10 +539,7 @@ public class Menue implements KeyListener {
 
 	// keyPressed-Methode:
 	/**
-	 * Horcht , ob eine Taste gedrueckt wurde und wertet die Aktion gegebenfalls
-	 * aus . Gueltige Aktionen sind : Hoch -, Links -, Rechts -, Runtertaste (
-	 * Bewegung ) und Leertaste ( Bombe ) für den 1. Spieler sowie W, A, S, D (
-	 * Bewegung ) und E ( Bombe ) für den 2. Spieler
+	 * Horcht , ob eine Taste gedrueckt wurde und wertet die Aktion gegebenfalls aus . Gueltige Aktionen sind : Hoch -, Links -, Rechts -, Runtertaste ( Bewegung ) und Leertaste ( Bombe ) für den 1. Spieler sowie W, A, S, D ( Bewegung ) und E ( Bombe ) für den 2. Spieler
 	 */
 	public void keyPressed(KeyEvent Key) {
 		// Key-Methoden fuer 1. Spieler
@@ -749,10 +747,7 @@ public class Menue implements KeyListener {
 
 	// spieler1_aktionen2-Methode:
 	/**
-	 * Ueberprueft , ob sich die 1. Spielfigur in die gewuenschte Richtung
-	 * bewegen kann . Je nachdem , welches Feld als nächstes betreten wird ,
-	 * werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg ,
-	 * Niederlage ).
+	 * Ueberprueft , ob sich die 1. Spielfigur in die gewuenschte Richtung bewegen kann . Je nachdem , welches Feld als nächstes betreten wird , werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg , Niederlage ).
 	 */
 	static void spieler1_aktionen2(int x, int y) {
 		if (Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 2 				// falls
@@ -788,9 +783,8 @@ public class Menue implements KeyListener {
 																		// Ziel-Feld
 																		// ist
 			String meldung = hulk1.get_Spielername();
-			JOptionPane.showMessageDialog(null,
-					meldung + " hat gewonnen!");
-			System.out.println(meldung+" hat gewonnen."); 	// Test
+			JOptionPane.showMessageDialog(null, meldung + " hat gewonnen!");
+			System.out.println(meldung + " hat gewonnen."); 	// Test
 			System.out.println(); 							// Test
 			sound.playZiel();
 			abfrage_neustarten();
@@ -805,9 +799,8 @@ public class Menue implements KeyListener {
 																		// Explosions-Feld
 																		// ist
 			String meldung = hulk1.get_Spielername();
-			JOptionPane.showMessageDialog(null,
-					meldung + " hat verloren!");
-			System.out.println(meldung+" hat verloren."); 	// Test
+			JOptionPane.showMessageDialog(null, meldung + " hat verloren!");
+			System.out.println(meldung + " hat verloren."); 	// Test
 			System.out.println(); 							// Test
 			sound.playTod();
 
@@ -818,10 +811,7 @@ public class Menue implements KeyListener {
 
 	// spieler2_aktionen-Methode:
 	/**
-	 * Ueberprueft , ob sich die 2. Spielfigur in die gewuenschte Richtung
-	 * bewegen kann . Je nachdem , welches Feld als nächstes betreten wird ,
-	 * werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg ,
-	 * Niederlage ).
+	 * Ueberprueft , ob sich die 2. Spielfigur in die gewuenschte Richtung bewegen kann . Je nachdem , welches Feld als nächstes betreten wird , werden unterschiedliche Aktionen durchgefuehrt ( Bewegung , Sieg , Niederlage ).
 	 */
 	static void spieler2_aktionen(int x, int y) {
 		// Bewegung Spieler 2
@@ -856,11 +846,10 @@ public class Menue implements KeyListener {
 																		// Feld
 																		// das
 																		// Ziel-Feld
-																			// ist
+																		// ist
 			String meldung = hulk2.get_Spielername();
-			JOptionPane.showMessageDialog(null,
-					meldung + " hat gewonnen!");
-			System.out.println(meldung+" hat gewonnen.");	// Test
+			JOptionPane.showMessageDialog(null, meldung + " hat gewonnen!");
+			System.out.println(meldung + " hat gewonnen.");	// Test
 			System.out.println(); 							// Test
 			sound.playZiel();
 			abfrage_neustarten();
@@ -874,10 +863,9 @@ public class Menue implements KeyListener {
 																		// ein
 																		// Explosions-Feld
 			String meldung = hulk2.get_Spielername();
-			JOptionPane.showMessageDialog(null,
-					meldung + " hat verloren!");
-			System.out.println(meldung+" hat verloren.");															// ist
-										// Test
+			JOptionPane.showMessageDialog(null, meldung + " hat verloren!");
+			System.out.println(meldung + " hat verloren.");															// ist
+			// Test
 			System.out.println(); 							// Test
 			sound.playTod();
 
@@ -921,13 +909,10 @@ public class Menue implements KeyListener {
 
 	// spiel_neustarten-Methode:
 	/**
-	 * Startet das Spiel folgendermaßen neu : Zuruecksetzen der Spielfiguren ,
-	 * max . Anzahl Bomben und Bomben - Radien , Entfernen aktueller Bomben ,
-	 * Reinitialisieren der internen und grafischen Spielfelder. Erweitert fuer
-	 * Bot.
+	 * Startet das Spiel folgendermaßen neu : Zuruecksetzen der Spielfiguren , max . Anzahl Bomben und Bomben - Radien , Entfernen aktueller Bomben , Reinitialisieren der internen und grafischen Spielfelder. Erweitert fuer Bot.
 	 */
 	static void spiel_neustarten() {
-		
+
 		System.out.println("Spiel neugestartet"); 	// Test
 		System.out.println(); 						// Test
 
@@ -989,13 +974,11 @@ public class Menue implements KeyListener {
 		game.setVisible(true);
 		// Bilder erneut skalieren:
 		game.bilder_skalieren();
-		
 
 		// Spielfeld grafisch reinitialisieren:
 		game.removeAll();
 		game.refresh();
-		
-		
+
 		// Boolean-Werte zuruecksetzen:
 		antwort_erhalten = false;
 		anfrage_geschickt = false;
@@ -1003,8 +986,7 @@ public class Menue implements KeyListener {
 
 	// abfrage_neustarten-Methode:
 	/**
-	 * Fragt den Benutzer , ob er das Spiel neustarten oder beenden möchte und
-	 * fuehrt die jeweilige Aktion aus .
+	 * Fragt den Benutzer , ob er das Spiel neustarten oder beenden möchte und fuehrt die jeweilige Aktion aus .
 	 */
 	static void abfrage_neustarten() {
 		int eingabe = 0;
@@ -1045,7 +1027,7 @@ public class Menue implements KeyListener {
 					spieltimer = new Zeit();
 					spieltimer.laufzeit(zeit);
 					// die Zeit ist in Sekunden 180sek = 3min
-												// (Spielzeit/Rundenzeit)
+					// (Spielzeit/Rundenzeit)
 				}
 
 			}
@@ -1510,8 +1492,7 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "Laden" , lädt ein zuvor
-	 * gespeichertes Spiel
+	 * Klasse fuer Menuebuttonorganisation "Laden" , lädt ein zuvor gespeichertes Spiel
 	 * 
 	 * @author Tobias Korfmacher
 	 */
@@ -1640,9 +1621,7 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Ueberprueft , ob man sich bereits im HotSeat - Modus befindet und
-		 * wechselt anderenfalls dorthin . Anschließend wird das Spiel
-		 * neugestartet .
+		 * Ueberprueft , ob man sich bereits im HotSeat - Modus befindet und wechselt anderenfalls dorthin . Anschließend wird das Spiel neugestartet .
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (hotSeat == false) {
@@ -1923,7 +1902,7 @@ public class Menue implements KeyListener {
 					editorlaeuft = true;
 					mapping.setVisible(true);
 					frame.getContentPane().add(mapping);
-				//	frame.pack();
+					//	frame.pack();
 
 					break;
 				case 1:
@@ -2036,9 +2015,8 @@ public class Menue implements KeyListener {
 				mapping.setVisible(false);
 				game.setVisible(true);
 			} else
-			 JOptionPane.showMessageDialog(null,
-					 "Der Editor läuft nicht!");
-			
+				JOptionPane.showMessageDialog(null, "Der Editor läuft nicht!");
+
 		}
 
 	}
@@ -2069,8 +2047,7 @@ public class Menue implements KeyListener {
 	}
 
 	/**
-	 * Klassen für den Button "Schwierigkeit" erstellen . ( zur änderung der
-	 * Schwierigkeit )
+	 * Klassen für den Button "Schwierigkeit" erstellen . ( zur änderung der Schwierigkeit )
 	 * 
 	 * @author Andrej Morlang
 	 */
@@ -2297,14 +2274,15 @@ public class Menue implements KeyListener {
 		});
 
 	}
-		
-	public static void set_editor_laeuft(boolean is){
+
+	public static void set_editor_laeuft(boolean is) {
 		editorlaeuft = is;
 	}
-	public static boolean get_editor_laeuft(){
+
+	public static boolean get_editor_laeuft() {
 		return editorlaeuft;
 	}
-	
+
 	public static boolean get_mapLoaded() {
 		return mapLoaded;
 	}
