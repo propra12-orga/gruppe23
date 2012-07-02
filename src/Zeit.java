@@ -63,16 +63,16 @@ public class Zeit extends JLabel {
 
 		// run-Methode:
 		/**
-		 * startet den TimerTask-Thread Bombe (Ueberprueft gleichzeitig, ob das Spiel waehrend des Countdown neugestartet wurde
+		 * startet den TimerTask-Thread Bombe (Ueberprueft gleichzeitig, ob das Spiel waehrend des Countdown neugestartet wurde)
 		 */
 		public void run() {
-			if (Menue.get_game().bomb[bomb_x][bomb_y].liegt == true) { // falls das Spiel nicht waehrend des Timers neugestartet wurde
+			if (Menue.get_game().bomb[bomb_x][bomb_y].liegt == true && Menue.get_game().bomb[bomb_x][bomb_y].detoniert == false) { // falls das Spiel nicht waehrend des Timers neugestartet wurde
 
 				Menue.get_game().bomb[bomb_x][bomb_y].bombe_detonieren(Spieler,
 						bomben_radius); // Detonation der Bombe				
-
-				timer.cancel(); // Timer terminieren
 			}
+			
+			timer.cancel(); // Timer terminieren
 
 		}
 
@@ -113,8 +113,7 @@ public class Zeit extends JLabel {
 		/**
 		 * startet den TimerTask-Thread Detonation nach Ablauf der Zeit x (timer_starten-Methode), welcher die Detonationsschritte vollzieht
 		 */
-		public void run() {
-			timer.cancel(); // Timer terminieren	
+		public void run() {	
 
 			// Verschwinden der Explosion:
 			for (int x = -radius, y = -radius; x <= radius; x++, y++) {

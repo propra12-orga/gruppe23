@@ -14,7 +14,7 @@ public class Bombe extends JLabel {
 	public int x = 0; // x-Koordinate (horizontale Position)
 	public int y = 0; // y-Koordinate (vertikale Position)
 	Zeit timer = new Zeit(); // Timer erstellen
-	boolean liegt = false;
+	boolean liegt = false, detoniert = false;
 
 	// Pro Richtung kann die Bombe maximal einen Treffer verursachen:
 	boolean treffer_oben = false, treffer_rechts = false,
@@ -313,6 +313,7 @@ public class Bombe extends JLabel {
 																	// ein
 																	// Bombe-Feld
 																	// ist...
+						
 						Menue.get_game().bomb[this.x + x][this.y]
 								.bombe_detonieren(Spieler, bomben_radius); // ...lass
 																			// auch
@@ -320,6 +321,7 @@ public class Bombe extends JLabel {
 																			// andere
 																			// Bombe
 																			// detonieren
+						Menue.get_game().bomb[this.x + x][this.y].detoniert = true;
 					}
 
 				}
@@ -343,6 +345,7 @@ public class Bombe extends JLabel {
 																			// andere
 																			// Bombe
 																			// detonieren
+						Menue.get_game().bomb[this.x][this.y + y].detoniert = true;
 					}
 
 				}
@@ -658,6 +661,7 @@ public class Bombe extends JLabel {
 																			// andere
 																			// Bombe
 																			// detonieren
+						Menue.get_game().bomb[this.x + x][this.y].detoniert = true;
 					}
 				}
 
@@ -680,6 +684,7 @@ public class Bombe extends JLabel {
 																			// andere
 																			// Bombe
 																			// detonieren
+						Menue.get_game().bomb[this.x][this.y + y].detoniert = true;
 					}
 				}
 			}

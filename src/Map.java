@@ -62,7 +62,8 @@ public class Map extends JPanel {
 	public void move_Bot(int x, int y, int Botnummer) {
 		/* Grafische Fortbewegung der Spielfigur: */
 		map[Menue.get_bot(Botnummer).get_x()][Menue.get_bot(Botnummer).get_y()] = 2;
-		map[Menue.get_bot(Botnummer).get_x() + x][Menue.get_bot(Botnummer).get_y() + y] = 10;
+		map[Menue.get_bot(Botnummer).get_x() + x][Menue.get_bot(Botnummer)
+				.get_y() + y] = 10;
 
 		/* Logische Fortbewegung der Spielfigur: */
 		Menue.get_bot(Botnummer).set_x(Menue.get_bot(Botnummer).get_x() + x); 					// setze horizontale Hulk-Position weiter
@@ -90,7 +91,7 @@ public class Map extends JPanel {
 		int iconSatz = MapLoader.get_iconSatz();
 		String exit_pic = "/Pics/" + iconSatz + "/Exit.png",	// Grafik-Quelle:
 																// http://openclipart.org/detail/126307/panneau-sortie--traffic-sign-exit-by-lmproulx
-		block_pic = "/Pics/" + iconSatz + "/Block.png",	// Grafik-Quelle:
+		block_pic = "/Pics/" + iconSatz + "/Block.gif",	// Grafik-Quelle:
 														// http://openclipart.org/detail/151531/char-somua-s35-by-spadassin-151531
 		weg_pic = "/Pics/" + iconSatz + "/Weg.png", mauer_pic = "/Pics/"
 				+ iconSatz + "/Mauer.png",	// Grafik-Quelle:
@@ -179,28 +180,29 @@ public class Map extends JPanel {
 				&& Menue.get_hulk(z).get_max_bomben() < 8) {							// ...und der Spieler noch nicht bei max. 8 Bomben angelangt ist...
 			Menue.get_hulk(z).set_max_bomben(
 					Menue.get_hulk(z).get_max_bomben() + 1);							// ...dann erhoehe die maximale Anzahl an Bomben um 1
-			if (z == 1 && Menue.clientThread == null) {
-				Menue.max_bomben_S1.setText("Max. Anzahl Bomben Spieler 1: "
+			if (Menue.hotSeat) {
+				Menue.max_bomben[z].setText("Max. Anzahl Bomben Spieler " + z
+						+ ": " + Menue.get_hulk(z).get_max_bomben());
+			}
+
+			else {
+				Menue.max_bomben[z].setText("Max. Anzahl Bomben: "
 						+ Menue.get_hulk(z).get_max_bomben());
 			}
 
-			else if (z == 2 && (Menue.hotSeat || Menue.clientThread != null)) {
-				Menue.max_bomben_S2.setText("Max. Anzahl Bomben Spieler 2: "
-						+ Menue.get_hulk(z).get_max_bomben());
-			}
 			Menue.sound.playItem();
 		}
 
 		if (map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] == 15) {	// falls das naechste Feld das Flammen-Item-Icon enthaelt...
 			Menue.get_hulk(z).set_bomben_radius(
 					Menue.get_hulk(z).get_bomben_radius() + 1);							// ...dann erhoehe die maximale Anzahl an Bomben um 1
-			if (z == 1 && Menue.clientThread == null) {
-				Menue.bomben_radius_S1.setText("Bomben-Radius Spieler 1: "
-						+ Menue.get_hulk(z).get_bomben_radius());
+			if (Menue.hotSeat) {
+				Menue.bomben_radius[z].setText("Bomben-Radius Spieler " + z
+						+ ": " + Menue.get_hulk(z).get_bomben_radius());
 			}
 
-			else if (z == 2 && (Menue.hotSeat || Menue.clientThread != null)) {
-				Menue.bomben_radius_S2.setText("Bomben-Radius Spieler 2: "
+			else {
+				Menue.bomben_radius[z].setText("Bomben-Radius: "
 						+ Menue.get_hulk(z).get_bomben_radius());
 			}
 
@@ -218,6 +220,11 @@ public class Map extends JPanel {
 		/* Logische Fortbewegung der Spielfigur: */
 		Menue.get_hulk(z).set_x(Menue.get_hulk(z).get_x() + x); // setze horizontale Hulk-Position weiter
 		Menue.get_hulk(z).set_y(Menue.get_hulk(z).get_y() + y); // setze vertikale Hulk-Position weiter
+
+		removeAll(); 	// ...entferne alle bisherigen Komponenten
+						// vom Panel...
+		refresh(); 	// ...und zeichne alle Komponenten des
+					// Panels neu
 	}
 
 	// bombe_legen-Methode:

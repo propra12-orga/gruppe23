@@ -1,8 +1,11 @@
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
@@ -42,7 +45,7 @@ public class MapLoader {
 
 		int k = 0, l = 0;
 		int[][] map = new int[n][n];
-		String filename = "src/Maps/Level-" + i + ".txt";
+		String filename = "src/Maps/Level/Level-" + i + ".txt";
 
 		try {
 			FileReader f = new FileReader(filename);
@@ -101,7 +104,7 @@ public class MapLoader {
 	public static void level_speichern(int[][] map, String levelname) {
 
 		String[] line = new String[n];
-		String path = "src/Maps/" + levelname + ".txt";
+		String path = "src/Maps/Game/" + levelname + ".txt";
 		for (int i = 0; i < n; i++) {
 			line[i] = "";
 		}
@@ -150,7 +153,7 @@ public class MapLoader {
 
 		String[] line = new String[n];
 		// JFileChooser-Objekt erstellen
-		JFileChooser chooser = new JFileChooser(new File("./src/Maps"));
+		JFileChooser chooser = new JFileChooser(new File("./src/Maps/Game"));
 		// Dialog zum Speichern von Dateien anzeigen
 		int state = chooser.showSaveDialog(null);
 		if (state == JFileChooser.APPROVE_OPTION) {
@@ -218,7 +221,7 @@ public class MapLoader {
 
 		String[] line = new String[n];
 		// JFileChooser-Objekt erstellen
-		JFileChooser chooser = new JFileChooser(new File("./src/Maps"));
+		JFileChooser chooser = new JFileChooser(new File("./src/Maps/Game"));
 		// Dialog zum Speichern von Dateien anzeigen
 		int state = chooser.showSaveDialog(null);
 		if (state == JFileChooser.APPROVE_OPTION) {
@@ -292,7 +295,7 @@ public class MapLoader {
 
 		JFileChooser fc = new JFileChooser();
 		fc.setMultiSelectionEnabled(false);
-		fc.setCurrentDirectory(new File("./src/Maps"));
+		fc.setCurrentDirectory(new File("./src/Maps/Game"));
 		fc.setFileFilter(new FileFilter() {
 
 			public boolean accept(File f) {
@@ -592,4 +595,22 @@ public class MapLoader {
 //		}
 //		
 //	}
+	  public static boolean copy(File in, File out) throws IOException {
+		  boolean fred;
+	        FileChannel inChannel = new FileInputStream(in).getChannel();
+	        FileChannel outChannel = new FileOutputStream(out).getChannel();
+	        try {
+	            inChannel.transferTo(0, inChannel.size(), outChannel);
+	            fred = true;
+	        } catch (IOException e) {
+	        	fred = false;
+	            throw e;
+	        } finally {
+	            if (inChannel != null)
+	                inChannel.close();
+	            if (outChannel != null)
+	                outChannel.close();
+	        }
+	        return fred;
+	    } 
 }
