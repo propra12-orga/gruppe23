@@ -1025,7 +1025,7 @@ public class Menue implements KeyListener {
 			eingabe = JOptionPane.showConfirmDialog(null,
 					"Möchten Sie noch eine Runde spielen?", "Spiel zuende",
 					JOptionPane.YES_NO_OPTION);
-
+			System.out.print(eingabe);
 			if (eingabe == 0) {
 				//				if (clientThread != null) {
 				//					clientThread.out
@@ -1042,13 +1042,14 @@ public class Menue implements KeyListener {
 				if (zeit != 0) {
 					spieltimer.timer.cancel();
 					spieltimer = new Zeit();
-					spieltimer.laufzeit(zeit); 	// die Zeit ist in Sekunden 180sek = 3min
+					spieltimer.laufzeit(zeit);
+					// die Zeit ist in Sekunden 180sek = 3min
 												// (Spielzeit/Rundenzeit)
 				}
 
 			}
 
-			else if (eingabe == 1) {
+			else if (eingabe == 1 || eingabe == -1) {
 				System.exit(0);
 			}
 
