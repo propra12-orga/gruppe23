@@ -10,7 +10,6 @@ import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -120,9 +119,9 @@ public class MapEditor extends JPanel {
 		//				frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
 		final String levelnummer = "Level-" + eingabe;
-		JLabel levelname = new JLabel(levelnummer, JLabel.CENTER);
+		//		JLabel levelname = new JLabel(levelnummer, JLabel.CENTER);
+		//	add(levelname, BorderLayout.NORTH);
 
-		add(levelname, BorderLayout.NORTH);
 		JButton save_button = new JButton("Level speichern");
 		ActionListener save = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

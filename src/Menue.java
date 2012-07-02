@@ -547,29 +547,29 @@ public class Menue implements KeyListener {
 		// Key-Methoden fuer 1. Spieler
 		// Pfeiltaste oben:
 		if (Key.getKeyCode() == KeyEvent.VK_UP) {
-			a[0] = 0;
-			a[1] = -1;
-			a[2] = 1;
-		}
-
-		// Pfeiltaste links:
-		else if (Key.getKeyCode() == KeyEvent.VK_LEFT) {
 			a[0] = -1;
 			a[1] = 0;
 			a[2] = 1;
 		}
 
+		// Pfeiltaste links:
+		else if (Key.getKeyCode() == KeyEvent.VK_LEFT) {
+			a[0] = 0;
+			a[1] = -1;
+			a[2] = 1;
+		}
+
 		// Pfeiltaste rechts:
 		else if (Key.getKeyCode() == KeyEvent.VK_RIGHT) {
-			a[0] = 1;
-			a[1] = 0;
+			a[0] = 0;
+			a[1] = 1;
 			a[2] = 1;
 		}
 
 		// Pfeiltaste unten:
 		else if (Key.getKeyCode() == KeyEvent.VK_DOWN) {
-			a[0] = 0;
-			a[1] = 1;
+			a[0] = 1;
+			a[1] = 0;
 			a[2] = 1;
 		}
 
@@ -599,32 +599,30 @@ public class Menue implements KeyListener {
 		// Key-Methoden fuer 2. Spieler
 		// Taste W (oben):
 		else if (Key.getKeyCode() == KeyEvent.VK_W && hotSeat) {
-
-			a[0] = 0;
-			a[1] = -1;
+			a[0] = -1;
+			a[1] = 0;
 			a[2] = 2;
 		}
 
 		// Taste A (links):
 		else if (Key.getKeyCode() == KeyEvent.VK_A && hotSeat) {
 
-			a[0] = -1;
-			a[1] = 0;
+			a[0] = 0;
+			a[1] = -1;
 			a[2] = 2;
 		}
 
 		// Taste S (unten):
 		else if (Key.getKeyCode() == KeyEvent.VK_S && hotSeat) {
-
-			a[0] = 0;
-			a[1] = 1;
+			a[0] = 1;
+			a[1] = 0;
 			a[2] = 2;
 		}
 
 		// Taste D (rechts):
 		else if (Key.getKeyCode() == KeyEvent.VK_D && hotSeat) {
-			a[0] = 1;
-			a[1] = 0;
+			a[0] = 0;
+			a[1] = 1;
 			a[2] = 2;
 		}
 
@@ -867,7 +865,7 @@ public class Menue implements KeyListener {
 																		// ein
 																		// Explosions-Feld
 																		// ist
-			System.out.println("Spieler 2 hat verloren"); 	// Test
+			System.out.println("Spieler 2 hat verloren"); 	// Test // POPUp Wer gewonnen hat
 			System.out.println(); 							// Test
 			sound.playTod();
 
@@ -978,6 +976,7 @@ public class Menue implements KeyListener {
 		game.setVisible(true);
 		// Bilder erneut skalieren:
 		game.bilder_skalieren();
+		
 
 		// Spielfeld grafisch reinitialisieren:
 		game.removeAll();
@@ -1566,7 +1565,14 @@ public class Menue implements KeyListener {
 		 * Speichert den aktuellen Spielstand in einer Datei .
 		 */
 		public void actionPerformed(ActionEvent e) {
-			MapLoader.level_speichern(map);
+
+			if (twoPlayer) {
+				String filename = MapLoader.level_speichern(map, hulk1, hulk2);
+			} else {
+				String filename = MapLoader.level_speichern(map, hulk1);
+			}
+			hulk1.set_max_bomben(MapLoader.get_max1());
+			hulk1.set_bomben_radius(MapLoader.get_radius2());
 		}
 
 	}
@@ -1903,7 +1909,7 @@ public class Menue implements KeyListener {
 					editorlaeuft = true;
 					mapping.setVisible(true);
 					frame.getContentPane().add(mapping);
-					frame.pack();
+				//	frame.pack();
 
 					break;
 				case 1:
@@ -2017,7 +2023,7 @@ public class Menue implements KeyListener {
 				game.setVisible(true);
 			} else
 			 JOptionPane.showMessageDialog(null,
-						"Der Editor läuft nicht!");
+ "Der Editor läuft nicht!");
 			
 		}
 
@@ -2277,7 +2283,14 @@ public class Menue implements KeyListener {
 		});
 
 	}
-
+		
+	public static void set_editor_laeuft(boolean is){
+		editorlaeuft = is;
+	}
+	public static boolean get_editor_laeuft(){
+		return editorlaeuft;
+	}
+	
 	public static boolean get_mapLoaded() {
 		return mapLoaded;
 	}
