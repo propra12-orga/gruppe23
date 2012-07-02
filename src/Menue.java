@@ -231,8 +231,9 @@ public class Menue implements KeyListener {
 	static Zeit spieltimer = new Zeit(); // objekt zeit (mit Zeitlimit)
 	static boolean anfrage_geschickt = false;
 	private static boolean running; // Abfrage für den Timer
-	static JLabel bomben_radius_S1, bomben_radius_S2, max_bomben_S1,
-			max_bomben_S2, zeitAnzeige;
+	static JLabel zeitAnzeige;
+	static JLabel[] bomben_radius = new JLabel[3];
+	static JLabel[] max_bomben = new JLabel[3];
 	static JLabel[] meldungen = new JLabel[5];
 	static Timer tim;
 
@@ -474,25 +475,25 @@ public class Menue implements KeyListener {
 		meldungen[2] = new JLabel();
 		meldungen[3] = new JLabel();
 		meldungen[4] = new JLabel();
-		bomben_radius_S1 = new JLabel("Bomben-Radius: "
+		bomben_radius[1] = new JLabel("Bomben-Radius: "
 				+ get_hulk(1).get_bomben_radius());
-		bomben_radius_S2 = new JLabel();
-		max_bomben_S1 = new JLabel("Max. Anzahl Bomben: "
+		bomben_radius[2] = new JLabel();
+		max_bomben[1] = new JLabel("Max. Anzahl Bomben: "
 				+ get_hulk(1).get_max_bomben());
-		max_bomben_S2 = new JLabel();
+		max_bomben[2] = new JLabel();
 		zeitAnzeige = new JLabel();
 
 		// Deklarationen oder Aktuelle Meldungen einfuegen
 
 		// Labels für Zeit oder Meldungen!
 		south.add(meldungen[0]);
-		south.add(bomben_radius_S1);
+		south.add(bomben_radius[1]);
 		south.add(meldungen[1]);
-		south.add(max_bomben_S1);
+		south.add(max_bomben[1]);
 		south.add(meldungen[2]);
-		south.add(bomben_radius_S2);
+		south.add(bomben_radius[2]);
 		south.add(meldungen[3]);
-		south.add(max_bomben_S2);
+		south.add(max_bomben[2]);
 		south.add(meldungen[4]);
 		south.add(zeitAnzeige);
 
@@ -766,10 +767,7 @@ public class Menue implements KeyListener {
 			game.move_Hulk(x, y, 1); 	// ...dann bewege
 										// Spielerfigur 1 auf
 										// dem Spielfeld,...
-			game.removeAll(); 	// ...entferne alle bisherigen Komponenten
-								// vom Panel...
-			game.refresh(); // ...und zeichne alle Komponenten des
-							// Panels neu
+
 			a[0] = 0;
 			a[1] = 0;
 		}
@@ -831,9 +829,7 @@ public class Menue implements KeyListener {
 			game.move_Hulk(x, y, 2); 	// ...dann bewege
 										// Spielfigur 2 auf dem
 										// Spielfeld,...
-			game.removeAll(); 	// ...entferne alle bisherigen Komponenten
-								// vom Panel...
-			game.refresh(); 	// ...und zeichne alle Komponenten des
+
 			// Panels neu
 			a[0] = 0;
 			a[1] = 0;
@@ -928,32 +924,32 @@ public class Menue implements KeyListener {
 		get_hulk(2).set_bomben_radius(2);
 
 		if (clientThread != null) {
-			bomben_radius_S1.setText("");
-			max_bomben_S1.setText("");
-			bomben_radius_S2.setText("Bomben-Radius: "
+			bomben_radius[1].setText("");
+			max_bomben[1].setText("");
+			bomben_radius[2].setText("Bomben-Radius: "
 					+ get_hulk(2).get_bomben_radius());
-			max_bomben_S2.setText("Max. Anzahl Bomben: "
+			max_bomben[2].setText("Max. Anzahl Bomben: "
 					+ get_hulk(2).get_max_bomben());
 		}
 
 		else if (hotSeat) {
-			bomben_radius_S1.setText("Bomben-Radius Spieler 1: "
+			bomben_radius[1].setText("Bomben-Radius Spieler 1: "
 					+ get_hulk(1).get_bomben_radius());
-			max_bomben_S1.setText("Max. Anzahl Bomben Spieler 1: "
+			max_bomben[1].setText("Max. Anzahl Bomben Spieler 1: "
 					+ get_hulk(1).get_max_bomben());
-			bomben_radius_S2.setText("Bomben-Radius Spieler 2: "
+			bomben_radius[2].setText("Bomben-Radius Spieler 2: "
 					+ get_hulk(2).get_bomben_radius());
-			max_bomben_S2.setText("Max. Anzahl Bomben Spieler 2: "
+			max_bomben[2].setText("Max. Anzahl Bomben Spieler 2: "
 					+ get_hulk(2).get_max_bomben());
 		}
 
 		else {
-			bomben_radius_S1.setText("Bomben-Radius: "
+			bomben_radius[1].setText("Bomben-Radius: "
 					+ get_hulk(1).get_bomben_radius());
-			max_bomben_S1.setText("Max. Anzahl Bomben: "
+			max_bomben[1].setText("Max. Anzahl Bomben: "
 					+ get_hulk(1).get_max_bomben());
-			bomben_radius_S2.setText("");
-			max_bomben_S2.setText("");
+			bomben_radius[2].setText("");
+			max_bomben[2].setText("");
 		}
 
 		if (bot) {
@@ -1050,8 +1046,8 @@ public class Menue implements KeyListener {
 		bot = false;
 		botStop();
 
-		bomben_radius_S2.setText("");
-		max_bomben_S2.setText("");
+		bomben_radius[2].setText("");
+		max_bomben[2].setText("");
 		for (int nr = 0; nr < 5; nr++) {
 			meldungen[nr].setText("");
 		}
