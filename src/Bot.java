@@ -1,3 +1,5 @@
+import javax.swing.JOptionPane;
+
 /**
  * Steuert die KI im Einzelspieler
  * 
@@ -44,7 +46,8 @@ public class Bot extends Thread {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		while (run) {
+		while (true) {
+			if (!run) break;
 			try {
 				move();
 			} catch (InterruptedException e) {
@@ -62,7 +65,7 @@ public class Bot extends Thread {
 		xNeu = 0;
 		yNeu = 0;
 	
-		map = Menue.get_map();
+		map = Map.get_map();
 		
 		rechts = map[x][y + 1];
 		links = map[x][y - 1];
@@ -109,7 +112,13 @@ public class Bot extends Thread {
 				else moveDirection("oben");
 			}
 			else if (links == 1){
-				interrupt();
+				String meldung = Menue.get_hulk(1).get_Spielername();
+				JOptionPane.showMessageDialog(null, meldung + " hat verloren!");
+				System.out.println(meldung + " hat verloren."); 	// Test
+				System.out.println(); 							// Test
+				Menue.sound.playTod();
+				Menue.abfrage_neustarten();
+				botInterrupt();
 			}
 			else moveDirection("links");
 		}		
@@ -123,7 +132,13 @@ public class Bot extends Thread {
 				else moveDirection("unten");
 			}
 			else if (links == 1){
-				interrupt();
+				String meldung = Menue.get_hulk(1).get_Spielername();
+				JOptionPane.showMessageDialog(null, meldung + " hat verloren!");
+				System.out.println(meldung + " hat verloren."); 	// Test
+				System.out.println(); 							// Test
+				Menue.sound.playTod();
+				Menue.abfrage_neustarten();
+				botInterrupt();
 			}
 			else moveDirection("rechts");
 		}
@@ -137,7 +152,13 @@ public class Bot extends Thread {
 				else moveDirection("rechts");
 			}
 			else if (oben == 1){
-				interrupt();
+				String meldung = Menue.get_hulk(1).get_Spielername();
+				JOptionPane.showMessageDialog(null, meldung + " hat verloren!");
+				System.out.println(meldung + " hat verloren."); 	// Test
+				System.out.println(); 							// Test
+				Menue.sound.playTod();
+				Menue.abfrage_neustarten();
+				botInterrupt();
 			}
 			else moveDirection("oben");					
 		}
@@ -154,7 +175,13 @@ public class Bot extends Thread {
 				}
 			}
 			else if (unten == 1){
-				interrupt();
+				String meldung = Menue.get_hulk(1).get_Spielername();
+				JOptionPane.showMessageDialog(null, meldung + " hat verloren!");
+				System.out.println(meldung + " hat verloren."); 	// Test
+				System.out.println(); 							// Test
+				Menue.sound.playTod();
+				Menue.abfrage_neustarten();
+				botInterrupt();
 			}
 			else moveDirection("unten");
 		}

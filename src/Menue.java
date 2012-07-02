@@ -791,7 +791,7 @@ public class Menue implements KeyListener {
 		}
 
 		// Niederlage Spieler 1
-		else if (Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 6 || (map[hulk1.get_x()+x][hulk1.get_y() + y] == 10 && Menue.getBot())) { 	// falls
+		else if (Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 6 || (map[hulk1.get_x()+x][hulk1.get_y() + y] == 10 && getBot())) { 	// falls
 																		// das
 																		// naechste
 																		// Feld
