@@ -236,6 +236,8 @@ public class Menue implements KeyListener {
 	static JLabel[] max_bomben = new JLabel[3];
 	static JLabel[] meldungen = new JLabel[5];
 	static Timer tim;
+	static ActionListener action;
+	static int timerZeit;
 
 	private static int[][] map; // Internes Spielfeld
 	/**
@@ -907,6 +909,7 @@ public class Menue implements KeyListener {
 	/**
 	 * Startet das Spiel folgendermaßen neu : Zuruecksetzen der Spielfiguren , max . Anzahl Bomben und Bomben - Radien , Entfernen aktueller Bomben , Reinitialisieren der internen und grafischen Spielfelder. Erweitert fuer Bot.
 	 */
+	@SuppressWarnings("serial")
 	static void spiel_neustarten() {
 
 		System.out.println("Spiel neugestartet"); 	// Test
@@ -964,7 +967,36 @@ public class Menue implements KeyListener {
 			}
 
 		}
+		
+		if (running && tim != null) {
+			tim.stop();
+			tim = null;
+			action = new ActionListener() {
+				int timeLeft = zeit;
 
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (timeLeft > 0 && running) {
+
+						zeitAnzeige.setText("Restzeit: " + timeLeft);
+						timeLeft--;
+					}
+
+					else {
+						running = false;
+						tim.stop();
+
+					}
+				}
+			};
+			tim = new Timer(timerZeit, action) {
+				{
+					setInitialDelay(0);
+				}
+			};
+			tim.start();
+		}
+		
 		// Spielfeld intern reinitialisieren:
 		Map.set_map(MapLoader.laden(MapLoader.get_level()));
 		game.setVisible(true);
@@ -1339,15 +1371,19 @@ public class Menue implements KeyListener {
 				zeit = 45;
 
 			}
-			if (running)
+			
+			if (running && tim != null) {
 				tim.stop();
+				tim = null;
+			}
+			
 			spiel_neustarten();
 			anfrage_geschickt = false;
 			antwort_erhalten = false;
-			int timerZeit = 1000;
+			timerZeit = 1000;
 
 			running = true;
-			ActionListener action = new ActionListener() {
+			action = new ActionListener() {
 				int timeLeft = zeit;
 
 				@Override
