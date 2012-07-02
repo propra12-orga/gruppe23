@@ -787,7 +787,10 @@ public class Menue implements KeyListener {
 																		// das
 																		// Ziel-Feld
 																		// ist
-			System.out.println("Spieler 1 hat gewonnen"); 	// Test
+			String meldung = hulk1.get_Spielername();
+			JOptionPane.showMessageDialog(null,
+					meldung + " hat gewonnen!");
+			System.out.println(meldung+" hat gewonnen."); 	// Test
 			System.out.println(); 							// Test
 			sound.playZiel();
 			abfrage_neustarten();
@@ -801,7 +804,10 @@ public class Menue implements KeyListener {
 																		// ein
 																		// Explosions-Feld
 																		// ist
-			System.out.println("Spieler 1 hat verloren"); 	// Test
+			String meldung = hulk1.get_Spielername();
+			JOptionPane.showMessageDialog(null,
+					meldung + " hat verloren!");
+			System.out.println(meldung+" hat verloren."); 	// Test
 			System.out.println(); 							// Test
 			sound.playTod();
 
@@ -850,8 +856,11 @@ public class Menue implements KeyListener {
 																		// Feld
 																		// das
 																		// Ziel-Feld
-																		// ist
-			System.out.println("Spieler 2 hat gewonnen"); 	// Test
+																			// ist
+			String meldung = hulk2.get_Spielername();
+			JOptionPane.showMessageDialog(null,
+					meldung + " hat gewonnen!");
+			System.out.println(meldung+" hat gewonnen.");	// Test
 			System.out.println(); 							// Test
 			sound.playZiel();
 			abfrage_neustarten();
@@ -864,8 +873,11 @@ public class Menue implements KeyListener {
 																		// Feld
 																		// ein
 																		// Explosions-Feld
-																		// ist
-			System.out.println("Spieler 2 hat verloren"); 	// Test // POPUp Wer gewonnen hat
+			String meldung = hulk2.get_Spielername();
+			JOptionPane.showMessageDialog(null,
+					meldung + " hat verloren!");
+			System.out.println(meldung+" hat verloren.");															// ist
+										// Test
 			System.out.println(); 							// Test
 			sound.playTod();
 
@@ -2023,7 +2035,7 @@ public class Menue implements KeyListener {
 				game.setVisible(true);
 			} else
 			 JOptionPane.showMessageDialog(null,
- "Der Editor läuft nicht!");
+					 "Der Editor läuft nicht!");
 			
 		}
 
