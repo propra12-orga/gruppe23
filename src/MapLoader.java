@@ -21,6 +21,7 @@ public class MapLoader {
 	static int radius1, radius2;
 	static int max1, max2;
 
+
 	/* METHODEN: */
 
 	// laden-Methode:

@@ -30,11 +30,12 @@ public class MapEditor extends JPanel {
 	private static boolean abfrageHulk1 = false;
 	private static boolean abfrageHulk2 = false;
 	private static boolean abfrageAusgang = false;
-	private static File f,f2;
+	private static File f;
 	private static String eingabe;
 	private static boolean exist = false;
 	private static JButton feld[][] = new JButton[n][n];
 	private static int oldLevel = MapLoader.get_level();
+	private static int frameWi, frameHe;
 
 	/* Konstruktor: */
 	public MapEditor() {
@@ -48,7 +49,9 @@ public class MapEditor extends JPanel {
 		setVisible(true);
 		int anzahlIcons = 9;
 		boolean richtigeAbfrage = false;
-
+		frameWi=Menue.get_width();
+		frameHe=Menue.get_height();
+		
 		do {
 			eingabe = JOptionPane.showInputDialog(null,
 					"Bitte geben Sie die Level-Nummer ein:", "Levelnummer",
@@ -56,9 +59,17 @@ public class MapEditor extends JPanel {
 
 			if (eingabe == null) {
 				System.out.println("Boo");
+				Menue.get_game().setVisible(true);
+				MapLoader.set_level(oldLevel);
 				richtigeAbfrage = true;
-				setVisible(false);
+				setVisible(false);		
+				Menue.get_game().bilder_skalieren();
+				Menue.get_game().init(); // Spielfeld zeichnen
+				Menue.get_game().setFocusable(true); // Spielfeld fokussierbar machen
+				Menue.get_game().requestFocus(); // Fokus auf Spielfeld setzen
+				Menue.setFrame(frameWi,frameHe);
 				Menue.spiel_neustarten();
+				
 				return 0;
 			} else if (eingabe.equals("")) {
 				richtigeAbfrage = false;
@@ -204,11 +215,15 @@ public class MapEditor extends JPanel {
 		ActionListener test = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				MapLoader.level_speichern(map, eingabe);
+				MapLoader.level_speichern(map, "Level-" + eingabe);
 				Menue.get_game().setVisible(true);
 				MapLoader.set_level(Integer.parseInt(eingabe));
+				Menue.get_game().bilder_skalieren();
+				Menue.get_game().init(); // Spielfeld zeichnen
+				Menue.get_game().setFocusable(true); // Spielfeld fokussierbar machen
+				Menue.get_game().requestFocus(); // Fokus auf Spielfeld setzen
+				Menue.setFrame(frameWi,frameHe);
 				Menue.spiel_neustarten();
-
 			}
 
 		};
