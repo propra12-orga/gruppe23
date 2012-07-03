@@ -40,7 +40,7 @@ public class Menue implements KeyListener {
 	static JCheckBox ton = new JCheckBox("Ton");
 
 	public static Sound sound = new Sound();
-	public static boolean tonStatus;
+
 
 	public static boolean theme;
 
@@ -457,13 +457,6 @@ public class Menue implements KeyListener {
 
 		JMenu mnOption = new JMenu("Einstellungen"); // Menuepunkt "Einstellungen" erstellen
 		menuBar.add(mnOption); // Menuepunkt "Einstellungen" hinzufuegen
-
-		JMenuItem mntmConfig = new JMenuItem("Konfigurieren"); // Untermenuepunkt
-																// "Singleplayer"
-																// erstellen
-		mnOption.add(mntmConfig); // Untermenuepunkt "Singleplayer"
-									// hinzufuegen
-		mntmConfig.setAction(Action_Config); // Aktion
 		
 		ton.setSelected(true);
 		ton.addActionListener(action_ton);
@@ -1810,34 +1803,7 @@ public class Menue implements KeyListener {
 
 	}
 
-	/**
-	 * Klasse fuer Menuebuttonorganisation "Singleplayer" , wechselt zum Singleplayer - Modus
-	 * 
-	 * @author Kolja Salewski
-	 */
-	private class Action_Config extends AbstractAction {
-		private static final long serialVersionUID = 1L;
-
-		// Konstruktor:
-		/**
-		 * Setzt den Namen und die Kurzbeschreibung des Singleplayer - Buttons
-		 */
-		public Action_Config() {
-			putValue(NAME, "konfigurieren");
-			putValue(SHORT_DESCRIPTION, "Einstellungen konfigurieren");
-		}
-
-		// actionPerformed-Methode:
-		/**
 	
-		 */
-		public void actionPerformed(ActionEvent e) {
-
-			// hier die einstellungen einfügen
-		}
-
-	}
-
 	/**
 	 * Klasse fuer Menuebuttonorganisation "Level 1" , wechselt zu Level 1
 	 * 
@@ -2145,16 +2111,9 @@ public class Menue implements KeyListener {
 		}
 		
 		public void actionPerformed(ActionEvent e){
-			if(ton.isSelected()){
-				tonStatus = false;
-				ton.setSelected(false);
-				System.out.println(tonStatus);
-			}
-			else {
-				tonStatus = true;
-				ton.setSelected(true);
-				System.out.println(tonStatus);
-			}
+			
+			ton.isSelected();
+
 		}
 	}
 
@@ -2215,19 +2174,6 @@ public class Menue implements KeyListener {
 	 */
 	public static int[] get_newPos() {
 		return a;
-	}
-	
-	public static void set_Ton(){
-		if(ton.isSelected()){
-			tonStatus = false;
-			ton.setSelected(false);
-			System.out.println(tonStatus);
-		}
-		else {
-			tonStatus = true;
-			ton.setSelected(true);
-			System.out.println(tonStatus);
-		}
 	}
 
 	// get_game-Methode:
