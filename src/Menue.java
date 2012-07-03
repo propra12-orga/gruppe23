@@ -1021,16 +1021,16 @@ public class Menue implements KeyListener {
 		}
 
 		if (serverThread != null && serverThread.verbunden) {
-			serverThread.out.println("Möchten Sie noch eine Runde spielen?");
-			createAndShowGui(
-					"Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
-					" auf Antwort...", 60, 600, 100, 0, "", "rueckfrage");
+//			serverThread.out.println("Möchten Sie noch eine Runde spielen?");
+//			createAndShowGui(
+//					"Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
+//					" auf Antwort...", 60, 600, 100, 0, "", "rueckfrage");
 
-			//			serverThread.out
-			//			.println("Spieler 1 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
-			//			createAndShowGui(
-			//				"Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
-			//			" auf Antwort...", 60, 600, 100, 0, "", "neustart");
+						serverThread.out
+						.println("Spieler 1 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
+						createAndShowGui(
+							"Spieler 2 wurde eine Anfrage zum Neustart des Spiels geschickt. Warte ",
+						" auf Antwort...", 60, 600, 100, 0, "", "neustart");
 		}
 
 		if (clientThread == null && (serverThread == null || (serverThread != null && !serverThread.verbunden))) {
@@ -1117,26 +1117,26 @@ public class Menue implements KeyListener {
 			public void actionPerformed(ActionEvent e) {
 				Window win = SwingUtilities.getWindowAncestor(label);
 
-				try {
-					((JDialog) win)
-							.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-				}
-
-				catch (NullPointerException npe) {
-
-				}
+//				try {
+//					((JDialog) win)
+//							.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+//				}
+//
+//				catch (NullPointerException npe) {
+//
+//				}
 
 				if (timeLeft > 0 && antwort_erhalten == false) {
 					label.setText(text_anfang + timeLeft + " Sekunden"
 							+ text_ende);
-					try {
-						win.setSize(breite, hoehe);
-					}
-
-					catch (NullPointerException npe) {
-						System.out.println("Fenster nicht gefunden");
-						((Timer) e.getSource()).stop();
-					}
+//					try {
+//						win.setSize(breite, hoehe);
+//					}
+//
+//					catch (NullPointerException npe) {
+//						System.out.println("Fenster nicht gefunden");
+//						((Timer) e.getSource()).stop();
+//					}
 
 					antwort_verarbeiten(win, e, level, schwierigkeitsgrad,
 							aktion);
