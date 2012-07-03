@@ -48,6 +48,7 @@ public class Menue implements KeyListener {
 	ButtonGroup gruppe2 = new ButtonGroup();			// (es kann nur ein knopf in der gruppe ausgewahlt werden)
 	ButtonGroup gruppe3 = new ButtonGroup();
 	public static boolean mapLoaded = false;
+
 //	public static boolean botStop;
 
 	// private int anzahlLevel = 2; // nacher levelanzahl get methode;

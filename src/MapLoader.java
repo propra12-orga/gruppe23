@@ -45,7 +45,7 @@ public class MapLoader {
 
 		int k = 0, l = 0;
 		int[][] map = new int[n][n];
-		String filename = "src/Maps/Level/Level-" + i + ".txt";
+		String filename = "src/Maps/Level-" + i + ".txt";
 
 		try {
 			FileReader f = new FileReader(filename);
@@ -104,7 +104,7 @@ public class MapLoader {
 	public static void level_speichern(int[][] map, String levelname) {
 
 		String[] line = new String[n];
-		String path = "src/Maps/Game/" + levelname + ".txt";
+		String path = "src/Maps/" + levelname + ".txt";
 		for (int i = 0; i < n; i++) {
 			line[i] = "";
 		}
@@ -147,13 +147,13 @@ public class MapLoader {
 		}
 
 	}
-
+	
 	// level_speichern-Methode 2:
 	public static String level_speichern(int[][] map, Hulk hulk1) {// ueber filechooser
 
 		String[] line = new String[n];
 		// JFileChooser-Objekt erstellen
-		JFileChooser chooser = new JFileChooser(new File("./src/Maps/Game"));
+		JFileChooser chooser = new JFileChooser(new File("./src/Maps/"));
 		// Dialog zum Speichern von Dateien anzeigen
 		int state = chooser.showSaveDialog(null);
 		if (state == JFileChooser.APPROVE_OPTION) {
@@ -221,7 +221,7 @@ public class MapLoader {
 
 		String[] line = new String[n];
 		// JFileChooser-Objekt erstellen
-		JFileChooser chooser = new JFileChooser(new File("./src/Maps/Game"));
+		JFileChooser chooser = new JFileChooser(new File("./src/Maps/"));
 		// Dialog zum Speichern von Dateien anzeigen
 		int state = chooser.showSaveDialog(null);
 		if (state == JFileChooser.APPROVE_OPTION) {
@@ -295,7 +295,7 @@ public class MapLoader {
 
 		JFileChooser fc = new JFileChooser();
 		fc.setMultiSelectionEnabled(false);
-		fc.setCurrentDirectory(new File("./src/Maps/Game"));
+		fc.setCurrentDirectory(new File("./src/Maps/"));
 		fc.setFileFilter(new FileFilter() {
 
 			public boolean accept(File f) {
@@ -572,29 +572,7 @@ public class MapLoader {
 		}
 		return max2;
 	}
-//	public static boolean twoPlayergame(String filename) {
-//		int abfrage = 0;
-//		try {
-//			FileReader f = new FileReader(filename);
-//			f.read();f.read();f.read();f.read();f.read();
-//			f.read();f.read();f.read();f.read();f.read();
-//			abfrage = Character.getNumericValue(f.read());
-//			f.close();
-//		}
-//
-//		catch (IOException e) {
-//			System.err.println(e.getMessage());
-//			e.printStackTrace();
-//			System.exit(1);
-//		}
-//		if(abfrage == 1){
-//			return false;
-//		}
-//		else{
-//			return true;
-//		}
-//		
-//	}
+
 	  public static boolean copy(File in, File out) throws IOException {
 		  boolean fred;
 	        FileChannel inChannel = new FileInputStream(in).getChannel();

@@ -4,7 +4,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
@@ -70,14 +69,12 @@ public class MapEditor extends JPanel {
 		} while (richtigeAbfrage != true);
 
 		// datei existiert?
-		String dateiName = "src/Maps/Game/Level-";
-		dateiName = dateiName + eingabe + ".txt";
-		String dateiName2 = "src/Maps/Level/Level-";
+		String dateiName = "src/Maps/Level-";
 		dateiName = dateiName + eingabe + ".txt";
 
+
 		f = new File(dateiName);
-		f2 = new File(dateiName2);
-		if (f.exists() == true || f2.exists()== true) {
+		if (f.exists() == true) {
 
 			iconSatz = MapLoader.get_iconSatzLevel(dateiName);
 			MapLoader.set_iconSatz(iconSatz);
@@ -156,7 +153,7 @@ public class MapEditor extends JPanel {
 					saved = true;
 				}
 
-				Menue.spiel_neustarten();
+				//Menue.spiel_neustarten();
 			}
 
 		};
@@ -207,6 +204,7 @@ public class MapEditor extends JPanel {
 		ActionListener test = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
+				MapLoader.level_speichern(map, eingabe);
 				Menue.get_game().setVisible(true);
 				MapLoader.set_level(Integer.parseInt(eingabe));
 				Menue.spiel_neustarten();
@@ -215,30 +213,24 @@ public class MapEditor extends JPanel {
 
 		};
 
-		JButton freigabe_button = new JButton("Level freigeben");
-		ActionListener freigabe = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				boolean copy = false;
-				// level implentieren wenn es läuft!
-				// level in level ordner koppieren
-
-		        try {
-					copy = MapLoader.copy(f,f2);
-				} catch (IOException e1) {
-					
-					e1.printStackTrace();
-				} 
-				if(copy){
-					JOptionPane.showMessageDialog(null,
-							"Das Level wurde erfolgreich eingebunden");// einbindung ins menue fehlt noch. kolja
-				}else{
-					JOptionPane.showMessageDialog(null,
-							"Es gab Probleme beim einbinden");
-				}
-
-			}
-
-		};
+//		JButton freigabe_button = new JButton("Level freigeben");
+//		ActionListener freigabe = new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				boolean copy = false;
+//				// level implentieren wenn es läuft!
+//				// level in level ordner koppieren
+//
+//				if(copy){
+//					JOptionPane.showMessageDialog(null,
+//							"Das Level wurde erfolgreich eingebunden");// einbindung ins menue fehlt noch. kolja
+//				}else{
+//					JOptionPane.showMessageDialog(null,
+//							"Es gab Probleme beim einbinden");
+//				}
+//
+//			}
+//
+//		};
 
 		// Icons
 		JRadioButton icon[] = new JRadioButton[anzahlIcons];
@@ -264,11 +256,11 @@ public class MapEditor extends JPanel {
 		exit_button.addActionListener(exit);
 		save_button.addActionListener(save);
 		test_button.addActionListener(test);
-		freigabe_button.addActionListener(freigabe);
+//		freigabe_button.addActionListener(freigabe);
 		place.add(exit_button);
 		place.add(save_button);
 		place.add(test_button);
-		place.add(freigabe_button);
+//		place.add(freigabe_button);
 		add(place, BorderLayout.WEST);
 		JPanel buttonPanel = new JPanel(new GridLayout(n, n));
 
