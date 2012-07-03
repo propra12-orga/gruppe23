@@ -1008,13 +1008,15 @@ public class Menue implements KeyListener {
 				reset_Hulk();
 
 		// Maximale Anzahl an Bomben zuruecksetzen bzw. aus Level laden:
-		get_hulk(1).set_max_bomben(MapLoader.get_max1());
-		get_hulk(2).set_max_bomben(MapLoader.get_max2());
-
+		get_hulk(1).set_max_bomben(1);
+		MapLoader.set_max1(1);
+		get_hulk(2).set_max_bomben(1);
+		MapLoader.set_max2(1);
 		// Bomben-Radius zuruecksetzen:
-		get_hulk(1).set_bomben_radius(MapLoader.get_radius1());
-		get_hulk(2).set_bomben_radius(MapLoader.get_radius2());
-		
+		get_hulk(1).set_bomben_radius(2);
+		MapLoader.set_radius1(2);
+		get_hulk(2).set_bomben_radius(2);
+		MapLoader.set_radius2(2);
 		game.setVisible(true);
 		//frame.pack();
 

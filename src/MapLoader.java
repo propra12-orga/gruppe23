@@ -18,8 +18,8 @@ public class MapLoader {
 	static int level = 1;
 	static int iconSatz = 1;
 	static Hulk hulk1, hulk2;
-	static int radius1, radius2;
-	static int max1, max2;
+	static int radius1=2, radius2=2;
+	static int max1=1, max2=1;
 
 
 	/* METHODEN: */
@@ -55,9 +55,9 @@ public class MapLoader {
 			radius1 = Character.getNumericValue(f.read());
 			if(twoPlayerSet){
 				f.read();
-				max2 = Character.getNumericValue(f.read());
+				max2 = 1;
 				f.read();
-				radius2 =Character.getNumericValue(f.read());
+				radius2 =2;
 			}
 
 			while ((c = f.read()) != -1) {
