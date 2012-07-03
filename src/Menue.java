@@ -44,7 +44,7 @@ public class Menue implements KeyListener {
 
 	public static boolean theme;
 
-	static JCheckBox noob, Leicht, Mittel, Schwer, mntmLevel_1, mntmLevel_2, mntmSingleplayer;	// alternativ kan man auch "RadioButton" verwenden
+	static JCheckBox noob, Leicht, Mittel, Schwer, mntmLevel_1, mntmLevel_2, mntmSingleplayer, mntmHotSeat;	// alternativ kan man auch "RadioButton" verwenden
 	ButtonGroup gruppe = new ButtonGroup();				// zum gruppieren der knoepfe
 	ButtonGroup gruppe2 = new ButtonGroup();			// (es kann nur ein knopf in der gruppe ausgewahlt werden)
 	ButtonGroup gruppe3 = new ButtonGroup();
@@ -365,7 +365,7 @@ public class Menue implements KeyListener {
 														// erstellen
 		mnModus.add(mnMultiplayer); // Untermenue "Multiplayer" hinzufuegen
 
-		JCheckBox mntmHotSeat = new JCheckBox("Hot Seat"); // Untermenuepunkt
+		mntmHotSeat = new JCheckBox("Hot Seat"); // Untermenuepunkt
 															// "Hot Seat"
 															// erstellen
 		mnMultiplayer.add(mntmHotSeat); // Untermenuepunkt "Hot Seat"
@@ -582,7 +582,7 @@ public class Menue implements KeyListener {
 
 		// Leertaste (Bombe):
 		else if (Key.getKeyCode() == KeyEvent.VK_SPACE) {
-			if (clientThread != null) {
+			if (clientThread != null && clientThread.verbunden) {
 				spieler2_bombe();
 
 				clientThread.out.println("bomb");
@@ -730,7 +730,7 @@ public class Menue implements KeyListener {
 	 */
 	void spieler1_aktionen(int x, int y) {
 		// Bewegung Spieler 1
-		if (clientThread != null) {
+		if (clientThread != null && clientThread.verbunden) {
 			spieler2_aktionen(x, y);
 
 			clientThread.out.println("" + x);
@@ -1344,7 +1344,7 @@ public class Menue implements KeyListener {
 	@SuppressWarnings("serial")
 	static void schwierigkeitsgrad_aendern(String schwierigkeitsgrad) {
 		if (clientThread != null && anfrage_geschickt == false
-				&& antwort_erhalten == false) {
+				&& antwort_erhalten == false && clientThread.verbunden) {
 			anfrage_geschickt = true;
 			clientThread.out
 					.println("Spieler 2 moechte zum Schwierigkeitsgrad '"
@@ -1471,7 +1471,10 @@ public class Menue implements KeyListener {
 			clientThread.interrupt();
 
 			try {
-				clientThread.socket.close();
+				if (clientThread.socket != null) {
+					clientThread.socket.close();
+				}
+				
 			}
 
 			catch (IOException e) {
@@ -1521,7 +1524,7 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			if (clientThread != null) {
+			if (clientThread != null && clientThread.verbunden) {
 				clientThread.out
 						.println("Spieler 2 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
 				createAndShowGui(
@@ -1653,7 +1656,7 @@ public class Menue implements KeyListener {
 		 * Ueberprueft , ob man sich im Mehrspieler - Modus befindet und wechselt ggf . zum Einzelspieler - Modus . Anschliessend wird das Spiel neugestartet .
 		 */
 		public void actionPerformed(ActionEvent e) {
-			if (twoPlayer == true || serverThread != null) {
+			if (twoPlayer == true || serverThread != null || clientThread != null) {
 				singleplayer_starten();
 			}
 //			if (bot){
@@ -1738,7 +1741,6 @@ public class Menue implements KeyListener {
 				}
 				
 				Menue.lan = true;
-				Menue.hotSeat = false;
 
 				System.out.println("Server-Modus aktiviert"); 	// Test
 				System.out.println(); 							// Test
@@ -1773,10 +1775,8 @@ public class Menue implements KeyListener {
 		 * Ueberprueft , ob man sich bereits im Client - Modus befindet und wechselt anderenfalls dorthin . Falls man sich vorher im Server - Modus befunden hat , wird der Server - Thread beendet . Der Client - Modus wird als neuer Thread gestartet
 		 */
 		public void actionPerformed(ActionEvent e) {
-			if (clientThread == null) {
-				twoPlayer = true;
+			if (clientThread == null) {				
 				lan = true;
-				hotSeat = false;
 
 				if (serverThread != null) {
 					serverThread.interrupt();
@@ -1833,7 +1833,7 @@ public class Menue implements KeyListener {
 		 */
 		public void actionPerformed(ActionEvent e) {
 
-			if (clientThread != null) {
+			if (clientThread != null && clientThread.verbunden) {
 				clientThread.out
 						.println("Spieler 2 moechte zu Level 1 wechseln. Soll zu Level 1 gewechselt werden?");
 				createAndShowGui(
@@ -1880,7 +1880,7 @@ public class Menue implements KeyListener {
 		 * Wechselt zum 2. Level und startet das Spiel neu
 		 */
 		public void actionPerformed(ActionEvent e) {
-			if (clientThread != null) {
+			if (clientThread != null && clientThread.verbunden) {
 				clientThread.out
 						.println("Spieler 2 moechte zu Level 2 wechseln. Soll zu Level 2 gewechselt werden?");
 				createAndShowGui(
