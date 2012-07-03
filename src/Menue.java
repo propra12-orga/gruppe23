@@ -44,7 +44,7 @@ public class Menue implements KeyListener {
 
 	public static boolean theme;
 
-	JCheckBox noob, Leicht, Mittel, Schwer, mntmLevel_1, mntmLevel_2;	// alternativ kan man auch "RadioButton" verwenden
+	static JCheckBox noob, Leicht, Mittel, Schwer, mntmLevel_1, mntmLevel_2, mntmSingleplayer;	// alternativ kan man auch "RadioButton" verwenden
 	ButtonGroup gruppe = new ButtonGroup();				// zum gruppieren der knoepfe
 	ButtonGroup gruppe2 = new ButtonGroup();			// (es kann nur ein knopf in der gruppe ausgewahlt werden)
 	ButtonGroup gruppe3 = new ButtonGroup();
@@ -351,7 +351,7 @@ public class Menue implements KeyListener {
 		JMenu mnModus = new JMenu("Modus"); // Menuepunkt "Modus" erstellen
 		menuBar.add(mnModus); // Menuepunkt "Modus" hinzufuegen
 
-		JCheckBox mntmSingleplayer = new JCheckBox("Singleplayer", true); // Untermenuepunkt
+		mntmSingleplayer = new JCheckBox("Singleplayer", true); // Untermenuepunkt
 		// "Singleplayer"
 		// erstellen
 		mnModus.add(mntmSingleplayer); // Untermenuepunkt "Singleplayer"
@@ -1092,6 +1092,8 @@ public class Menue implements KeyListener {
 //		bot = false;
 //
 //		botStop();
+		
+		mntmSingleplayer.setSelected(true);
 
 		bomben_radius[2].setText("");
 		max_bomben[2].setText("");
@@ -1373,21 +1375,22 @@ public class Menue implements KeyListener {
 			if (schwierigkeitsgrad.equals("Anfänger")) {
 				zeit = 0;
 				zeitAnzeige.setText("");
+				noob.setSelected(true);
 			}
 
 			else if (schwierigkeitsgrad.equals("Leicht")) {
 				zeit = 180;
-
+				Leicht.setSelected(true);
 			}
 
 			else if (schwierigkeitsgrad.equals("Mittel")) {
 				zeit = 90;
-
+				Mittel.setSelected(true);
 			}
 
 			else if (schwierigkeitsgrad.equals("Schwer")) {
 				zeit = 45;
-
+				Schwer.setSelected(true);
 			}
 
 			if (running && tim != null) {

@@ -453,6 +453,17 @@ public class MapLoader {
 	// set_level-Methode:
 	public static void set_level(int level) {
 		MapLoader.level = level; // level speichern
+		
+		switch (level) {
+			case 1: // Block/Bomben-Item
+				Menue.mntmLevel_1.setSelected(true);
+				break;
+	
+			case 2: // Hulk
+				Menue.mntmLevel_2.setSelected(true);
+				break;
+		}
+		
 	}
 
 	public static int get_icon_x(int[][] map, int i) {
