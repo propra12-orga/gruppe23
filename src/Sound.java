@@ -7,10 +7,12 @@ public class Sound {
 	
 	public Sound(){}	
 	public void playItem(){ 
-		StdAudio.play("src/media/Item.wav");		//selfmade
+		if(Menue.ton.isSelected())
+			StdAudio.play("src/media/Item.wav");		//selfmade
 	}
 	
 	public void playExplosion(){
+		if(Menue.ton.isSelected())
 		StdAudio.play("src/media/explosion.wav");	//
 	}
 	
@@ -19,10 +21,12 @@ public class Sound {
 //	}
 //	
 	public void playZiel(){
+		if(Menue.ton.isSelected())
 		StdAudio.play("src/media/ziel.wav");	//selfmade
 	}
 	
 	public void playTod(){
+		if(Menue.ton.isSelected())
 		StdAudio.play("src/media/tod.wav");		//selfmade
 	}
 }
