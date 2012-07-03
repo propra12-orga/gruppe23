@@ -12,7 +12,7 @@ public class Client extends Thread {
 	BufferedReader in;
 	int x, y, level;
 	String in_string, out_string, antwort = "leer", schwierigkeitsgrad = "";
-	boolean anfrage_erhalten = false;
+	boolean anfrage_erhalten = false, verbunden = false;
 	
 	/* METHODEN: */
 	
@@ -36,8 +36,16 @@ public class Client extends Thread {
 		}
 
 		try {
+			// Ausgabe:
+			Menue.meldungen[4].setText("Es wird versucht sich mit Server zu verbinden...");
+			
 			// Socket erstellen:
 			socket = new Socket(server_ip,4711);
+			
+			// Verbindungsstatus aktualisieren:
+			verbunden = true;
+			Menue.twoPlayer = true;
+			Menue.hotSeat = false;
 			
 			// Writer fuer Aus- & Read fuer Eingabe erstellen
 			out = new PrintWriter(socket.getOutputStream(), true);
@@ -55,11 +63,13 @@ public class Client extends Thread {
 		
 		catch (UnknownHostException e) {
 			JOptionPane.showMessageDialog(null, "Server unter der angegebenen IP-Adresse nicht erreichbar.");
+			Menue.meldungen[4].setText("");
 			return 0;
 		}
 		
 		catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Server unter der angegebenen IP-Adresse nicht erreichbar.");
+			Menue.meldungen[4].setText("");
 			return 0;
 		}			
 		
@@ -242,6 +252,15 @@ public class Client extends Thread {
 		Menue.set_clientThread(null);
 		System.out.println("Client beendet");	// Test
 		System.out.println();					// Test
+		
+		if (Menue.hotSeat) {
+			Menue.mntmHotSeat.setSelected(true);			
+		}
+		
+		else {
+			Menue.mntmSingleplayer.setSelected(true);
+		}
+		
 		interrupt();
 	}
 	

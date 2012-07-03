@@ -39,7 +39,6 @@ public class Server extends Thread {
 			
 			// Ausgabe:
 			Menue.meldungen[0].setText("Ihre IP-Adresse(n):");
-			//System.out.println("Ihre IP-Adresse(n):");					// Test
 	        String localHost = InetAddress.getLocalHost().getHostName();
 	        meldungen_zaehler = 1;
 	        for (InetAddress ia : InetAddress.getAllByName(localHost)) {
@@ -48,26 +47,21 @@ public class Server extends Thread {
 	        			meldungen_zaehler = 1;
 	        		}
 	        		
-	        		//System.out.println(ia.getHostAddress());			// Test
         			Menue.meldungen[meldungen_zaehler].setText(ia.getHostAddress());
         			meldungen_zaehler++;	        		 
 	        	}
 	    	}
 	        Menue.meldungen[4].setText("Es wird auf einen Client gewartet...");
-//			System.out.println("Es wird auf einen Client gewartet...");	// Test
-//			System.out.println();										// Test
 			
 			clientSocket = serverSocket.accept();
 			
 			// Verbindungsstatus aktualisieren:
 			verbunden = true;
 			Menue.twoPlayer = true;
+			Menue.hotSeat = false;
 			for (int nr = 0; nr < 5; nr++) {
 				Menue.meldungen[nr].setText("");
 			}
-//			Menue.meldungen[4].setText("Verbindung mit Client aufgebaut");
-//			System.out.println("Verbindung mit Client aufgebaut");	// Test
-//			System.out.println();									// Test
 
 			// Writer fuer Aus- & Read fuer Eingabe erstellen
 			out = new PrintWriter(clientSocket.getOutputStream(), true);
