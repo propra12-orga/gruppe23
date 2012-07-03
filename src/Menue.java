@@ -1629,7 +1629,7 @@ public class Menue implements KeyListener {
 		 * Ueberprueft , ob man sich im Mehrspieler - Modus befindet und wechselt ggf . zum Einzelspieler - Modus . Anschliessend wird das Spiel neugestartet .
 		 */
 		public void actionPerformed(ActionEvent e) {
-			if (twoPlayer == true) {
+			if (twoPlayer == true || serverThread != null) {
 				singleplayer_starten();
 			}
 //			if (bot){
@@ -1712,6 +1712,9 @@ public class Menue implements KeyListener {
 					System.out.println("Client beendet"); 	// Test
 					System.out.println(); 					// Test
 				}
+				
+				Menue.lan = true;
+				Menue.hotSeat = false;
 
 				System.out.println("Server-Modus aktiviert"); 	// Test
 				System.out.println(); 							// Test

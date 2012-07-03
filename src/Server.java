@@ -62,8 +62,6 @@ public class Server extends Thread {
 			// Verbindungsstatus aktualisieren:
 			verbunden = true;
 			Menue.twoPlayer = true;
-			Menue.lan = true;
-			Menue.hotSeat = false;
 			for (int nr = 0; nr < 5; nr++) {
 				Menue.meldungen[nr].setText("");
 			}
