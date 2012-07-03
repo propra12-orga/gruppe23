@@ -13,7 +13,6 @@ import java.io.IOException;
 import javax.swing.AbstractAction;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -23,7 +22,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
-import javax.swing.WindowConstants;
 
 /**
  * Beinhaltet die Main- Methode , erstellt Fenster & Menue , startet & beendet das Programm , verwaltet Tastatureingaben und fuehrt Neustart des Spiels durch
@@ -569,6 +567,17 @@ public class Menue implements KeyListener {
 			a[0] = 1;
 			a[1] = 0;
 			a[2] = 1;
+		}	
+		// Cheat1:
+		else if (Key.getKeyCode() == 85) {
+			MapLoader.set_max1((MapLoader.get_max1()+1));
+			hulk1.set_max_bomben(MapLoader.get_max1());
+		
+		}
+		// Cheat2:
+		else if (Key.getKeyCode() == 73) {
+			MapLoader.set_radius1((MapLoader.get_radius1()+1));	
+			hulk1.set_bomben_radius(MapLoader.get_radius1());
 		}
 
 		// Leertaste (Bombe):
@@ -587,6 +596,7 @@ public class Menue implements KeyListener {
 				}
 
 			}
+			
 
 			else {
 				spieler1_bombe();
@@ -911,16 +921,7 @@ public class Menue implements KeyListener {
 //		System.out.println("Spiel neugestartet"); 	// Test
 //		System.out.println(); 						// Test
 
-		// Hulk zurueckpositionieren:
-		reset_Hulk();
-
-		// Maximale Anzahl an Bomben zuruecksetzen:
-		get_hulk(1).set_max_bomben(1);
-		get_hulk(2).set_max_bomben(1);
-
-		// Bomben-Radius zuruecksetzen:
-		get_hulk(1).set_bomben_radius(2);
-		get_hulk(2).set_bomben_radius(2);
+		
 
 		if (clientThread != null) {
 			bomben_radius[1].setText("");
@@ -995,6 +996,18 @@ public class Menue implements KeyListener {
 
 		// Spielfeld intern reinitialisieren:
 		Map.set_map(MapLoader.laden(MapLoader.get_level()));
+		
+		// Hulk zurueckpositionieren:
+				reset_Hulk();
+
+		// Maximale Anzahl an Bomben zuruecksetzen bzw. aus Level laden:
+		get_hulk(1).set_max_bomben(MapLoader.get_max1());
+		get_hulk(2).set_max_bomben(MapLoader.get_max2());
+
+		// Bomben-Radius zuruecksetzen:
+		get_hulk(1).set_bomben_radius(MapLoader.get_radius1());
+		get_hulk(2).set_bomben_radius(MapLoader.get_radius2());
+		
 		game.setVisible(true);
 		frame.pack();
 
@@ -1601,8 +1614,11 @@ public class Menue implements KeyListener {
 			} else {
 				String filename = MapLoader.level_speichern(map, hulk1);
 			}
+			
+			if(twoPlayer){
 			hulk1.set_max_bomben(MapLoader.get_max1());
 			hulk1.set_bomben_radius(MapLoader.get_radius2());
+			}
 		}
 
 	}
