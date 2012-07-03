@@ -1016,7 +1016,7 @@ public class Menue implements KeyListener {
 		get_hulk(2).set_bomben_radius(MapLoader.get_radius2());
 		
 		game.setVisible(true);
-		frame.pack();
+		//frame.pack();
 
 		// Bilder erneut skalieren:
 		game.bilder_skalieren();
@@ -1623,10 +1623,11 @@ public class Menue implements KeyListener {
 			} else {
 				String filename = MapLoader.level_speichern(map, hulk1);
 			}
-			
-			if(twoPlayer){
 			hulk1.set_max_bomben(MapLoader.get_max1());
-			hulk1.set_bomben_radius(MapLoader.get_radius2());
+			hulk1.set_bomben_radius(MapLoader.get_radius1());
+			if(twoPlayer){
+			hulk2.set_max_bomben(MapLoader.get_max2());
+			hulk2.set_bomben_radius(MapLoader.get_radius2());
 			}
 		}
 
@@ -2396,5 +2397,14 @@ public class Menue implements KeyListener {
 	public static boolean get_mapLoaded() {
 		return mapLoaded;
 	}
+	public static void setFrame(int width, int height){
+		frame.setSize(width, height);
+	}
 
+	public static int get_width(){
+		return frame.getSize().width;
+	}
+	public static int get_height(){
+		return frame.getSize().height;
+	}
 }
