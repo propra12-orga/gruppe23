@@ -68,8 +68,7 @@ public class Zeit extends JLabel {
 		public void run() {
 			if (Menue.get_game().bomb[bomb_x][bomb_y].liegt == true && Menue.get_game().bomb[bomb_x][bomb_y].detoniert == false) { // falls das Spiel nicht waehrend des Timers neugestartet wurde
 
-				Menue.get_game().bomb[bomb_x][bomb_y].bombe_detonieren(Spieler,
-						bomben_radius); // Detonation der Bombe				
+				Menue.get_game().bomb[bomb_x][bomb_y].bombe_detonieren(Spieler,	bomben_radius); // Detonation der Bombe				
 			}
 			
 			timer.cancel(); // Timer terminieren

@@ -36,8 +36,11 @@ public class Menue implements KeyListener {
 	 * Hauptframe des Programmes
 	 */
 	static JFrame frame;
+	
+	static JCheckBox ton = new JCheckBox("Ton");
 
 	public static Sound sound = new Sound();
+	public static boolean tonStatus;
 
 	public static boolean theme;
 
@@ -452,8 +455,8 @@ public class Menue implements KeyListener {
 		Schwer.setAction(Action_Schwer);
 		gruppe.add(Schwer);
 
-		JMenu mnOption = new JMenu("Einstellungen"); // Menuepunkt "Modus" erstellen
-		menuBar.add(mnOption); // Menuepunkt "Modus" hinzufuegen
+		JMenu mnOption = new JMenu("Einstellungen"); // Menuepunkt "Einstellungen" erstellen
+		menuBar.add(mnOption); // Menuepunkt "Einstellungen" hinzufuegen
 
 		JMenuItem mntmConfig = new JMenuItem("Konfigurieren"); // Untermenuepunkt
 																// "Singleplayer"
@@ -461,6 +464,10 @@ public class Menue implements KeyListener {
 		mnOption.add(mntmConfig); // Untermenuepunkt "Singleplayer"
 									// hinzufuegen
 		mntmConfig.setAction(Action_Config); // Aktion
+		
+		ton.setSelected(true);
+		ton.addActionListener(action_ton);
+		mnOption.add(ton);
 												// "Action_Singleplayer"
 												// hinzufuegen
 
@@ -1110,6 +1117,8 @@ public class Menue implements KeyListener {
 		spiel_neustarten();
 	}
 
+	public Action_Ton action_ton = new Action_Ton();
+	
 	// createAndShowGui-Methode:
 	/**
 	 * Oeffnet Timer - Dialog
@@ -2124,6 +2133,30 @@ public class Menue implements KeyListener {
 		}
 
 	}
+	
+	private class Action_Ton extends AbstractAction{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 2328261324126369246L;
+
+		public Action_Ton(){
+			
+		}
+		
+		public void actionPerformed(ActionEvent e){
+			if(ton.isSelected()){
+				tonStatus = false;
+				ton.setSelected(false);
+				System.out.println(tonStatus);
+			}
+			else {
+				tonStatus = true;
+				ton.setSelected(true);
+				System.out.println(tonStatus);
+			}
+		}
+	}
 
 	private class Action_Leicht extends AbstractAction {
 		private static final long serialVersionUID = 1L;
@@ -2182,6 +2215,19 @@ public class Menue implements KeyListener {
 	 */
 	public static int[] get_newPos() {
 		return a;
+	}
+	
+	public static void set_Ton(){
+		if(ton.isSelected()){
+			tonStatus = false;
+			ton.setSelected(false);
+			System.out.println(tonStatus);
+		}
+		else {
+			tonStatus = true;
+			ton.setSelected(true);
+			System.out.println(tonStatus);
+		}
 	}
 
 	// get_game-Methode:

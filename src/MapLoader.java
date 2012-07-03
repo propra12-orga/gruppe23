@@ -33,10 +33,10 @@ public class MapLoader {
 		twoPlayerSet = Menue.getMultiplayer();
 //		botSet = Menue.getBot();
 
-		if (!Menue.theme) {
-			Menue.sound.playTheme();
-			Menue.theme = true;
-		}
+//		if (!Menue.theme) {
+//			Menue.sound.playTheme();
+//			Menue.theme = true;
+//		}
 
 		int c = 0;
 
