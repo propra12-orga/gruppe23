@@ -243,8 +243,8 @@ public class Menue implements KeyListener {
 	 */
 	private static MapEditor mapping;
 	static boolean editorlaeuft = false;
-	@SuppressWarnings("unused")
-	private static Start starter;
+	
+
 
 	/**
 	 * Objekt der Map - Klasse ; enthaelt die Daten des Spielfeldes ;
@@ -1619,11 +1619,11 @@ public class Menue implements KeyListener {
 		 */
 		public void actionPerformed(ActionEvent e) {
 
-			if (twoPlayer) {
-				String filename = MapLoader.level_speichern(map, hulk1, hulk2);
-			} else {
-				String filename = MapLoader.level_speichern(map, hulk1);
-			}
+//			if (twoPlayer) {
+//				String filename = MapLoader.level_speichern(map, hulk1, hulk2);
+//			} else {
+//				String filename = MapLoader.level_speichern(map, hulk1);
+//			}
 			hulk1.set_max_bomben(MapLoader.get_max1());
 			hulk1.set_bomben_radius(MapLoader.get_radius1());
 			if(twoPlayer){
