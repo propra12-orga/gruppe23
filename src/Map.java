@@ -49,43 +49,43 @@ public class Map extends JPanel {
 
 	// move_Hulk-Methode:
 
-	/**
-	 * Aehnliche Methode zu move_hulk(), prueft label der Bot-Bewegung und veraendert diese entsprechend
-	 * 
-	 * @param x
-	 *            Horizontale Koordinate
-	 * @param y
-	 *            vertikale Koordinate
-	 * @param Botnummer
-	 *            1 entspricht Bot fuer 2. Spieler, 2 fuer 3. Spieler etc.
-	 */
-	public void move_Bot(int x, int y, int Botnummer) {
-		/* Grafische Fortbewegung der Spielfigur: */
-		map[Menue.get_bot(Botnummer).get_x()][Menue.get_bot(Botnummer).get_y()] = 2;
-		map[Menue.get_bot(Botnummer).get_x() + x][Menue.get_bot(Botnummer)
-				.get_y() + y] = 10;
-
-		/* Logische Fortbewegung der Spielfigur: */
-		Menue.get_bot(Botnummer).set_x(Menue.get_bot(Botnummer).get_x() + x); 					// setze horizontale Hulk-Position weiter
-		Menue.get_bot(Botnummer).set_y(Menue.get_bot(Botnummer).get_y() + y); 					// setze vertikale Hulk-Position weiter
-
-		System.out.println("Neue Position des " + Botnummer
-						+ "ten Bots: "
-						+ Menue.get_bot(Botnummer).get_x()					// Test
-						+ "te Spalte, " + Menue.get_bot(Botnummer).get_y()
-						+ "te Zeile"); 										// Test
-		System.out.println();												// Test		
-	}
+//	/**
+//	 * Aehnliche Methode zu move_hulk(), prueft label der Bot-Bewegung und veraendert diese entsprechend
+//	 * 
+//	 * @param x
+//	 *            Horizontale Koordinate
+//	 * @param y
+//	 *            vertikale Koordinate
+//	 * @param Botnummer
+//	 *            1 entspricht Bot fuer 2. Spieler, 2 fuer 3. Spieler etc.
+//	 */
+//	public void move_Bot(int x, int y, int Botnummer) {
+//		/* Grafische Fortbewegung der Spielfigur: */
+//		map[Menue.get_bot(Botnummer).get_x()][Menue.get_bot(Botnummer).get_y()] = 2;
+//		map[Menue.get_bot(Botnummer).get_x() + x][Menue.get_bot(Botnummer)
+//				.get_y() + y] = 10;
+//
+//		/* Logische Fortbewegung der Spielfigur: */
+//		Menue.get_bot(Botnummer).set_x(Menue.get_bot(Botnummer).get_x() + x); 					// setze horizontale Hulk-Position weiter
+//		Menue.get_bot(Botnummer).set_y(Menue.get_bot(Botnummer).get_y() + y); 					// setze vertikale Hulk-Position weiter
+//
+//		System.out.println("Neue Position des " + Botnummer
+//						+ "ten Bots: "
+//						+ Menue.get_bot(Botnummer).get_x()					// Test
+//						+ "te Spalte, " + Menue.get_bot(Botnummer).get_y()
+//						+ "te Zeile"); 										// Test
+//		System.out.println();												// Test		
+//	}
 	
-	// bombe_Bot-Methode:
-	public void bombe_Bot(int botnummer) {
-		bomb_x = Menue.get_bot(botnummer).get_x();
-		bomb_y = Menue.get_bot(botnummer).get_y();
-		bomb[bomb_x][bomb_y] = new Bombe(bomb_x, bomb_y);
-		add(bomb[bomb_x][bomb_y]); 					// Bombe hinzufuegen
-		bomb[bomb_x][bomb_y].aktivieren(0, Menue.get_bot(botnummer).get_bomben_radius()); // Bombe aktivieren
-		map[bomb_x][bomb_y] = 5; 					// Bombe darstellen
-	}
+//	// bombe_Bot-Methode:
+//	public void bombe_Bot(int botnummer) {
+//		bomb_x = Menue.get_bot(botnummer).get_x();
+//		bomb_y = Menue.get_bot(botnummer).get_y();
+//		bomb[bomb_x][bomb_y] = new Bombe(bomb_x, bomb_y);
+//		add(bomb[bomb_x][bomb_y]); 					// Bombe hinzufuegen
+//		bomb[bomb_x][bomb_y].aktivieren(0, Menue.get_bot(botnummer).get_bomben_radius()); // Bombe aktivieren
+//		map[bomb_x][bomb_y] = 5; 					// Bombe darstellen
+//	}
 
 	void bilder_skalieren() {
 		int iconSatz = MapLoader.get_iconSatz();

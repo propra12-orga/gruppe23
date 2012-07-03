@@ -48,22 +48,22 @@ public class Menue implements KeyListener {
 	ButtonGroup gruppe2 = new ButtonGroup();			// (es kann nur ein knopf in der gruppe ausgewahlt werden)
 	ButtonGroup gruppe3 = new ButtonGroup();
 	public static boolean mapLoaded = false;
-	public static boolean botStop;
+//	public static boolean botStop;
 
 	// private int anzahlLevel = 2; // nacher levelanzahl get methode;
 	//
 	//
 	// private JFrame frame;
 
-	/**
-	 * true, wenn Bot aktiviert ist
-	 */
-	public static boolean bot = false;
+//	/**
+//	 * true, wenn Bot aktiviert ist
+//	 */
+//	public static boolean bot = false;
 
-	/**
-	 * Bot1-Objekt (Bestimmung der Bewegung und Bombenaktion fuer Bot1)
-	 */
-	public static Bot bot1;
+//	/**
+//	 * Bot1-Objekt (Bestimmung der Bewegung und Bombenaktion fuer Bot1)
+//	 */
+//	public static Bot bot1;
 
 	/**
 	 * Button im Leistenmenue ( Schliesst das Programm )
@@ -187,8 +187,8 @@ public class Menue implements KeyListener {
 	// Map-
 	// Editor
 
-	private final Action_MultiplayerBot Action_MultiplayerBot = new Action_MultiplayerBot(); // Aktion
-	//zum Wechsel
+//	private final Action_MultiplayerBot Action_MultiplayerBot = new Action_MultiplayerBot(); // Aktion
+//	//zum Wechsel
 	//in den
 	//botgesteuerten
 	//Multiplayer-Modus
@@ -287,7 +287,7 @@ public class Menue implements KeyListener {
 		}
 		hulk1 = new Hulk(hulk1Startx, hulk1Starty, 1); // 1. Spielerfigur erzeugen // getHulkfunktion anwenden
 		hulk2 = new Hulk(hulk2Startx, hulk2Starty, 10); // 2. Spielerfigur erzeugt hulk 2 funktion
-		bot1 = new Bot();	//1. Bot erzeugen
+//		bot1 = new Bot();	//1. Bot erzeugen
 
 		initialize();
 		a = new int[3];
@@ -295,10 +295,10 @@ public class Menue implements KeyListener {
 
 	/* METHODEN: */
 
-	private static void botStart() {
-		if (bot1.getStart() == 0)
-			bot1.start();
-	}
+//	private static void botStart() {
+//		if (bot1.getStart() == 0)
+//			bot1.start();
+//	}
 
 	// initialize-Methode:
 	/**
@@ -371,12 +371,12 @@ public class Menue implements KeyListener {
 		mntmHotSeat.setAction(Action_HotSeat); // Aktion "Action_HotSeat"
 		gruppe3.add(mntmHotSeat);										// hinzufuegen
 
-		JCheckBox mntmMultiplayerBot = new JCheckBox("Bot"); // Menueunterpunkt
+//		JCheckBox mntmMultiplayerBot = new JCheckBox("Bot"); // Menueunterpunkt
 																// "Bot"
 																// erstellen
-		mnMultiplayer.add(mntmMultiplayerBot); // Menueunterpunkt "Multiplayer -
-		gruppe3.add(mntmMultiplayerBot);										// Bot hinzugefuegen
-		mntmMultiplayerBot.setAction(Action_MultiplayerBot);
+//		mnMultiplayer.add(mntmMultiplayerBot); // Menueunterpunkt "Multiplayer -
+//		gruppe3.add(mntmMultiplayerBot);										// Bot hinzugefuegen
+//		mntmMultiplayerBot.setAction(Action_MultiplayerBot);
 
 		JMenu mnLAN = new JMenu("LAN"); // Untermenue
 										// "LAN"
@@ -785,8 +785,7 @@ public class Menue implements KeyListener {
 		}
 
 		// Niederlage Spieler 1
-		else if (Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 6
-				|| (map[hulk1.get_x() + x][hulk1.get_y() + y] == 10 && getBot())) { 	// falls
+		else if (Map.map[hulk1.get_x() + x][hulk1.get_y() + y] == 6) { 	// falls
 			// das
 			// naechste
 			// Feld
@@ -798,8 +797,8 @@ public class Menue implements KeyListener {
 			System.out.println(meldung + " hat verloren."); 	// Test
 			System.out.println(); 							// Test
 			sound.playTod();
-			if (bot)
-				bot1.botInterrupt();
+//			if (bot)
+//				bot1.botInterrupt();
 			abfrage_neustarten();
 		}
 
@@ -874,14 +873,14 @@ public class Menue implements KeyListener {
 	public void keyReleased(KeyEvent Key) {
 	}
 
-	//botStop-Methode
-	/**
-	 * beendet den Bot-Thread. Verwendung bei Wechsel des Spielmodus.
-	 */
-	public static void botStop() {
-		bot1.botInterrupt();
-		botStop = true;
-	}
+//	//botStop-Methode
+//	/**
+//	 * beendet den Bot-Thread. Verwendung bei Wechsel des Spielmodus.
+//	 */
+//	public static void botStop() {
+//		bot1.botInterrupt();
+//		botStop = true;
+//	}
 
 	// reset_Hulk-Methode:
 	/**
@@ -894,11 +893,11 @@ public class Menue implements KeyListener {
 		hulk2.set_x(hulk2.get_startX());
 		hulk2.set_y(hulk2.get_startY());
 
-		if (bot) {
-			bot1.set_x(bot1.get_startX());
-			bot1.set_y(bot1.get_startY());
-			botStart();
-		}
+//		if (bot) {
+//			bot1.set_x(bot1.get_startX());
+//			bot1.set_y(bot1.get_startY());
+//			botStart();
+//		}
 	}
 
 	// spiel_neustarten-Methode:
@@ -908,8 +907,8 @@ public class Menue implements KeyListener {
 	@SuppressWarnings("serial")
 	static void spiel_neustarten() {
 
-		System.out.println("Spiel neugestartet"); 	// Test
-		System.out.println(); 						// Test
+//		System.out.println("Spiel neugestartet"); 	// Test
+//		System.out.println(); 						// Test
 
 		// Hulk zurueckpositionieren:
 		reset_Hulk();
@@ -951,10 +950,10 @@ public class Menue implements KeyListener {
 			max_bomben[2].setText("");
 		}
 
-		if (bot) {
-			get_bot(1).set_bomben_radius(2);
-			get_bot(1).set_max_bomben(1);
-		}
+//		if (bot) {
+//			get_bot(1).set_bomben_radius(2);
+//			get_bot(1).set_max_bomben(1);
+//		}
 
 		// Gelegte Bomben entfernen:
 		for (int x = 0; x < n; x++) {
@@ -1076,9 +1075,9 @@ public class Menue implements KeyListener {
 	static void singleplayer_starten() {
 		twoPlayer = false;
 		hotSeat = false;
-		bot = false;
-
-		botStop();
+//		bot = false;
+//
+//		botStop();
 
 		bomben_radius[2].setText("");
 		max_bomben[2].setText("");
@@ -1632,13 +1631,13 @@ public class Menue implements KeyListener {
 			if (twoPlayer == true) {
 				singleplayer_starten();
 			}
-			if (bot){
-				bot = false;
-				botStop();
-				bot1.set_x(bot1.get_startX());
-				bot1.set_y(bot1.get_startY());
-				map[(bot1.get_startX())][(bot1.get_startY())]=2;
-			}
+//			if (bot){
+//				bot = false;
+//				botStop();
+//				bot1.set_x(bot1.get_startX());
+//				bot1.set_y(bot1.get_startY());
+//				map[(bot1.get_startX())][(bot1.get_startY())]=2;
+//			}
 
 		}
 
@@ -2059,31 +2058,31 @@ public class Menue implements KeyListener {
 
 	}
 
-	/**
-	 * Klasse fuer Menuebuttonorganisation "Multiplayer - Bot" , aktiviert den Bot als 2. Spieler
-	 * 
-	 * @author Sebastian Dittmann
-	 * 
-	 */
-	public class Action_MultiplayerBot extends AbstractAction {
-		private static final long serialVersionUID = 1L;
-
-		public Action_MultiplayerBot() {
-			putValue(NAME, "Bot");
-			putValue(SHORT_DESCRIPTION, "Wechsel in Bot-Modus");
-		}
-
-		public void actionPerformed(ActionEvent e) {
-			if (bot == false) {
-				bot = true;
-				botStop = false;
-				System.out.println("Bot aktiviert"); //Test
-				System.out.println();
-
-				spiel_neustarten();
-			}
-		}
-	}
+//	/**
+//	 * Klasse fuer Menuebuttonorganisation "Multiplayer - Bot" , aktiviert den Bot als 2. Spieler
+//	 * 
+//	 * @author Sebastian Dittmann
+//	 * 
+//	 */
+//	public class Action_MultiplayerBot extends AbstractAction {
+//		private static final long serialVersionUID = 1L;
+//
+//		public Action_MultiplayerBot() {
+//			putValue(NAME, "Bot");
+//			putValue(SHORT_DESCRIPTION, "Wechsel in Bot-Modus");
+//		}
+//
+//		public void actionPerformed(ActionEvent e) {
+//			if (bot == false) {
+//				bot = true;
+//				botStop = false;
+//				System.out.println("Bot aktiviert"); //Test
+//				System.out.println();
+//
+//				spiel_neustarten();
+//			}
+//		}
+//	}
 
 	/**
 	 * Klassen für den Button "Schwierigkeit" erstellen . ( zur änderung der Schwierigkeit )
@@ -2238,14 +2237,14 @@ public class Menue implements KeyListener {
 	}
 
 	//get_bot-Methode:
-
-	/**
-	 * @return bot1-Objekt fuer eventuelle Erweiterung auf mehrere Bots
-	 */
-
-	public static Bot get_bot(int bot) {
-		return bot1;
-	}
+//
+//	/**
+//	 * @return bot1-Objekt fuer eventuelle Erweiterung auf mehrere Bots
+//	 */
+//
+//	public static Bot get_bot(int bot) {
+//		return bot1;
+//	}
 
 	// getMultiplayer-Methode:
 	/**
@@ -2285,13 +2284,13 @@ public class Menue implements KeyListener {
 	// return exp;
 	// }
 
-	/**
-	 * 
-	 * @return Boolean-Wert, ob Bot aktiviert ist
-	 */
-	public static boolean getBot() {
-		return bot;
-	}
+//	/**
+//	 * 
+//	 * @return Boolean-Wert, ob Bot aktiviert ist
+//	 */
+//	public static boolean getBot() {
+//		return bot;
+//	}
 
 	public static void set_mapLoaded(boolean Wert) {
 		mapLoaded = Wert;

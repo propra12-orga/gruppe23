@@ -16,7 +16,7 @@ import javax.swing.filechooser.FileFilter;
  * @author Tobias Korfmacher
  */
 public class MapLoader {
-	public static boolean twoPlayerSet, botSet;
+	public static boolean twoPlayerSet;
 	static int n = 13;
 	static int level = 1;
 	static int iconSatz = 1;
@@ -34,7 +34,7 @@ public class MapLoader {
 	 */
 	public static int[][] laden(int i) { // mit parameter i als level nummer
 		twoPlayerSet = Menue.getMultiplayer();
-		botSet = Menue.getBot();
+//		botSet = Menue.getBot();
 
 		if (!Menue.theme) {
 			Menue.sound.playTheme();
@@ -81,11 +81,11 @@ public class MapLoader {
 
 				map[1][n - 2] = 2;
 			}
-
-			if (botSet) {
-				map[n - 2][n - 2] = 10;
-				map[1][n - 2] = 2;
-			}
+//
+//			if (botSet) {
+//				map[n - 2][n - 2] = 10;
+//				map[1][n - 2] = 2;
+//			}
 
 			Menue.set_mapLoaded(true);
 			f.close();
@@ -289,7 +289,7 @@ public class MapLoader {
 	// level_laden-Methode:
 	public static int[][] level_laden() {
 		twoPlayerSet = Menue.getMultiplayer();
-		botSet = Menue.getBot();
+//		botSet = Menue.getBot();
 
 
 
@@ -367,10 +367,10 @@ public class MapLoader {
 					map[1][n - 2] = 2;
 				}
 
-				if (botSet) {
-					map[n - 2][n - 2] = 10;
-					map[1][n - 2] = 2;
-				}
+//				if (botSet) {
+//					map[n - 2][n - 2] = 10;
+//					map[1][n - 2] = 2;
+//				}
 
 				System.out.println(); // Test
 

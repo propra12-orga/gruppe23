@@ -31,6 +31,7 @@ public class Bombe extends JLabel {
 	 * @param y
 	 *            uebernimmt y-Koord. der Bombe
 	 */
+	
 	public Bombe(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -65,16 +66,16 @@ public class Bombe extends JLabel {
 	 */
 	public void bombe_detonieren(int Spieler, int bomben_radius) {
 		Menue.sound.playExplosion();
-		if (Spieler == 0) {
-			Menue.get_bot(1).set_max_bomben(Menue.get_bot(1).get_max_bomben() + 1);
-		}
-		else {
+//		if (Spieler == 0) {
+//			Menue.get_bot(1).set_max_bomben(Menue.get_bot(1).get_max_bomben() + 1);
+//		}
+		
 		Menue.get_hulk(Spieler).set_max_bomben(
 				Menue.get_hulk(Spieler).get_max_bomben() + 1); // Spieler darf
 																// wieder eine
 																// Bombe mehr
 																// legen
-		}
+		
 
 		/* Ausbreitung der Detonation nach rechts und unten: */
 		for (int x = 0, y = 0; x <= bomben_radius; x++, y++) {
@@ -377,12 +378,12 @@ public class Bombe extends JLabel {
 
 				}
 				
-				if (Menue.get_bot(1).get_x() == this.x + x && Menue.get_bot(1).get_y() == this.y + y){
-					Menue.botStop();
-					Menue.sound.playTod();
-					System.out.println("Gewonnen!"); // Test
-					System.out.println(); // Test
-				}
+//				if (Menue.get_bot(1).get_x() == this.x + x && Menue.get_bot(1).get_y() == this.y + y){
+//					Menue.botStop();
+//					Menue.sound.playTod();
+//					System.out.println("Gewonnen!"); // Test
+//					System.out.println(); // Test
+//				}
 
 			}
 
