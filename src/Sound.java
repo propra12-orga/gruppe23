@@ -14,10 +14,10 @@ public class Sound {
 		StdAudio.play("src/media/explosion.wav");	//
 	}
 	
-	public void playTheme(){
-//		StdAudio.loop("src/media/theme.wav");
-	}
-	
+//	public void playTheme(){
+////		StdAudio.loop("src/media/theme.wav");
+//	}
+//	
 	public void playZiel(){
 		StdAudio.play("src/media/ziel.wav");	//selfmade
 	}
