@@ -62,8 +62,6 @@ public class Server extends Thread {
 			// Verbindungsstatus aktualisieren:
 			verbunden = true;
 			Menue.twoPlayer = true;
-			Menue.lan = true;
-			Menue.hotSeat = false;
 			for (int nr = 0; nr < 5; nr++) {
 				Menue.meldungen[nr].setText("");
 			}
@@ -78,6 +76,27 @@ public class Server extends Thread {
 		    // Client die aktuelle Levelnr. mitteilen:
 		    out.println("level");
 		    out.println(MapLoader.get_level());
+		    
+		    // Client den aktuellen Schwierigkeitsgrad mitteilen:
+		    out.println("schwierigkeitsgrad");
+		    
+			switch (Menue.zeit) {
+				case 0: // Block/Bomben-Item
+					out.println("Anfänger");
+					break;
+	
+				case 180: // Hulk
+					out.println("Leicht");
+					break;
+	
+				case 90: // Weg
+					out.println("Mittel");
+					break;
+	
+				case 45: // Block
+					out.println("Schwer");
+					break;
+			}
 		    
 			// Spiel neustarten
 			Menue.spiel_neustarten();

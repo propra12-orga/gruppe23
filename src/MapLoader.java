@@ -1,11 +1,8 @@
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.channels.FileChannel;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
@@ -51,6 +48,16 @@ public class MapLoader {
 			FileReader f = new FileReader(filename);
 
 			iconSatz = Character.getNumericValue(f.read());
+			f.read();
+			max1 = Character.getNumericValue(f.read());
+			f.read();
+			radius1 = Character.getNumericValue(f.read());
+			if(twoPlayerSet){
+				f.read();
+				max2 = Character.getNumericValue(f.read());
+				f.read();
+				radius2 =Character.getNumericValue(f.read());
+			}
 
 			while ((c = f.read()) != -1) {
 				if (Character.getNumericValue(c) != -1) {
@@ -573,22 +580,16 @@ public class MapLoader {
 		return max2;
 	}
 
-	  public static boolean copy(File in, File out) throws IOException {
-		  boolean fred;
-	        FileChannel inChannel = new FileInputStream(in).getChannel();
-	        FileChannel outChannel = new FileOutputStream(out).getChannel();
-	        try {
-	            inChannel.transferTo(0, inChannel.size(), outChannel);
-	            fred = true;
-	        } catch (IOException e) {
-	        	fred = false;
-	            throw e;
-	        } finally {
-	            if (inChannel != null)
-	                inChannel.close();
-	            if (outChannel != null)
-	                outChannel.close();
-	        }
-	        return fred;
-	    } 
+	 public static void set_max1(int fred){
+		 max1 = fred;
+	 }
+	 public static void set_max2(int fred){
+		 max2 = fred;
+	 }
+	 public static void set_radius1(int fred){
+		 radius1 = fred;
+	 }
+	 public static void set_radius2(int fred){
+		 radius2 = fred;
+	 }
 }
