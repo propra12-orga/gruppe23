@@ -26,7 +26,7 @@ import javax.swing.Timer;
 /**
  * Beinhaltet die Main- Methode , erstellt Fenster & Menue , startet & beendet das Programm , verwaltet Tastatureingaben und fuehrt Neustart des Spiels durch
  * 
- * @author Kolja Salewskiw
+ * @author Kolja Salewski
  */
 public class Menue implements KeyListener {
 
@@ -235,7 +235,7 @@ public class Menue implements KeyListener {
 	static JLabel[] meldungen = new JLabel[5];
 	static Timer tim;
 	static ActionListener action;
-	static int timerZeit;
+	static int timerZeit = 1000;
 
 	private static int[][] map; // Internes Spielfeld
 	/**
@@ -921,8 +921,6 @@ public class Menue implements KeyListener {
 //		System.out.println("Spiel neugestartet"); 	// Test
 //		System.out.println(); 						// Test
 
-		
-
 		if (clientThread != null) {
 			bomben_radius[1].setText("");
 			max_bomben[1].setText("");
@@ -965,16 +963,21 @@ public class Menue implements KeyListener {
 
 		}
 
+		// Spieltimer zurücksetzen:	
 		if (running && tim != null) {
 			tim.stop();
 			tim = null;
+		}
+
+		// Spieltimer ggf. neustarten:
+		if (zeit != 0) {
+			running = true;
 			action = new ActionListener() {
 				int timeLeft = zeit;
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if (timeLeft > 0 && running) {
-
 						zeitAnzeige.setText("Restzeit: " + timeLeft);
 						timeLeft--;
 					}
@@ -986,12 +989,18 @@ public class Menue implements KeyListener {
 					}
 				}
 			};
+			
 			tim = new Timer(timerZeit, action) {
 				{
 					setInitialDelay(0);
 				}
 			};
+			
 			tim.start();
+
+			spieltimer.timer.cancel();
+			spieltimer = new Zeit(); 	// objekt zeit (mit Zeitlimit)
+			spieltimer.laufzeit(zeit);	// zeit in Sekunden
 		}
 
 		// Spielfeld intern reinitialisieren:
@@ -1065,14 +1074,6 @@ public class Menue implements KeyListener {
 				//				else {
 				spiel_neustarten();
 				//				}
-
-				if (zeit != 0) {
-					spieltimer.timer.cancel();
-					spieltimer = new Zeit();
-					spieltimer.laufzeit(zeit);
-					// die Zeit ist in Sekunden 180sek = 3min
-					// (Spielzeit/Rundenzeit)
-				}
 
 			}
 
@@ -1341,7 +1342,6 @@ public class Menue implements KeyListener {
 	/**
 	 * Aendert den Schwierigkeitsgrad
 	 */
-	@SuppressWarnings("serial")
 	static void schwierigkeitsgrad_aendern(String schwierigkeitsgrad) {
 		if (clientThread != null && anfrage_geschickt == false
 				&& antwort_erhalten == false && clientThread.verbunden) {
@@ -1395,50 +1395,7 @@ public class Menue implements KeyListener {
 				Schwer.setSelected(true);
 			}
 
-			if (running && tim != null) {
-				tim.stop();
-				tim = null;
-			}
-
 			spiel_neustarten();
-			anfrage_geschickt = false;
-			antwort_erhalten = false;
-			timerZeit = 1000;
-
-			running = true;
-			action = new ActionListener() {
-				int timeLeft = zeit;
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if (timeLeft > 0 && running) {
-
-						zeitAnzeige.setText("Restzeit: " + timeLeft);
-						timeLeft--;
-					}
-
-					else {
-						running = false;
-						tim.stop();
-
-					}
-				}
-			};
-			tim = new Timer(timerZeit, action) {
-				{
-					setInitialDelay(0);
-				}
-			};
-			tim.start();
-
-			if (zeit != 0) {
-				spieltimer.timer.cancel();
-				spieltimer = new Zeit(); 	// objekt zeit (mit Zeitlimit)
-				spieltimer.laufzeit(zeit);	// zeit in Sekunden
-				Zeit.set_restZeit(zeit);
-
-			}
-
 		}
 
 	}

@@ -14,7 +14,6 @@ public class Zeit extends JLabel {
 	int bomb_x, bomb_y;
 	public int spielzeit;	   //Zeit pro durchlauf
 	int n = MapLoader.get_n();
-	private static int restZeit = 0;
 
 	/* METHODEN: */
 
@@ -188,14 +187,6 @@ public class Zeit extends JLabel {
 	 */
 	public void set_bomb_y(int bomb_y) {
 		this.bomb_y = bomb_y;
-	}
-
-	public static void set_restZeit(int zeit) {
-		restZeit = zeit;
-	}
-
-	public static int get_restZeit() {
-		return restZeit;
 	}
 
 }
