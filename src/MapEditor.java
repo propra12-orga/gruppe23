@@ -30,7 +30,7 @@ public class MapEditor extends JPanel {
 	private static boolean abfrageHulk1 = false;
 	private static boolean abfrageHulk2 = false;
 	private static boolean abfrageAusgang = false;
-	private static File f,f2;
+	private static File f;
 	private static String eingabe;
 	private static boolean exist = false;
 	private static JButton feld[][] = new JButton[n][n];
@@ -56,8 +56,11 @@ public class MapEditor extends JPanel {
 
 			if (eingabe == null) {
 				System.out.println("Boo");
+				Menue.get_game().setVisible(true);
+				MapLoader.set_level(oldLevel);
 				richtigeAbfrage = true;
 				setVisible(false);
+				
 				Menue.spiel_neustarten();
 				return 0;
 			} else if (eingabe.equals("")) {
@@ -204,7 +207,7 @@ public class MapEditor extends JPanel {
 		ActionListener test = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				MapLoader.level_speichern(map, eingabe);
+				MapLoader.level_speichern(map, "Level-" + eingabe);
 				Menue.get_game().setVisible(true);
 				MapLoader.set_level(Integer.parseInt(eingabe));
 				Menue.spiel_neustarten();
