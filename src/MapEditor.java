@@ -36,6 +36,7 @@ public class MapEditor extends JPanel {
 	private static JButton feld[][] = new JButton[n][n];
 	private static int oldLevel = MapLoader.get_level();
 	private static int frameWi, frameHe;
+	private static String levelnummer;
 
 	/* Konstruktor: */
 	public MapEditor() {
@@ -131,7 +132,7 @@ public class MapEditor extends JPanel {
 		//				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		//				frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
-		final String levelnummer = "Level-" + eingabe;
+		 levelnummer = "Level-" + eingabe;
 		//		JLabel levelname = new JLabel(levelnummer, JLabel.CENTER);
 		//	add(levelname, BorderLayout.NORTH);
 
@@ -427,10 +428,8 @@ public class MapEditor extends JPanel {
 			};
 
 				feld[i][j] = new JButton();
-
 				pic = getPic(map[i][j]);
 				feld[i][j].setIcon(pic);
-
 				feld[i][j].setPreferredSize(new Dimension(40,40));// Button-Größe
 				feld[i][j].addActionListener(list);
 				buttonPanel.add(feld[i][j]);
@@ -509,5 +508,24 @@ public class MapEditor extends JPanel {
 		}
 		return pic;
 	}
+	public static boolean get_saved(){
+		return saved;
+	}
+	public static void set_saved(boolean fred){
+		 saved = fred;
+	}
+	public static int[][] get_map(){
+		return map;
+	}
+	public static String get_levelnummer(){
+		return levelnummer;
+	}
+	public static boolean get_exist(){
+		return exist;
+	}
+	public static File get_f(){
+		return f;
+	}
+	
 
 }

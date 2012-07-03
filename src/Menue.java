@@ -8,6 +8,8 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 import javax.swing.AbstractAction;
@@ -309,7 +311,9 @@ public class Menue implements KeyListener {
 	private void initialize() {
 		frame = new JFrame(); // Fenster erstellen
 		frame.setTitle("Bomberhulk"); // Fenstertitel setzen
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Programm beim
+		
+		frame.addWindowListener(new WindowListener());
+	//	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Programm beim
 																// Schliessen
 																// des Fensters
 																// beenden
@@ -2315,4 +2319,46 @@ public class Menue implements KeyListener {
 	public static int get_height(){
 		return frame.getSize().height;
 	}
+	class WindowListener extends WindowAdapter
+	  {
+	    public void windowClosing(WindowEvent e)
+	    {
+	    	if(editorlaeuft){
+	    		if(!MapEditor.get_saved()){
+	    			int eingabe = JOptionPane.showConfirmDialog(null,
+							"Bevor Sie schliessen wollen, \n" +
+							"wollen Sie die neue Map noch speichern?",
+							"Nicht so schnell?", JOptionPane.YES_NO_CANCEL_OPTION);
+
+					switch (eingabe) {
+					case 0:
+						MapLoader.level_speichern(MapEditor.get_map(), MapEditor.get_levelnummer());
+						MapEditor.set_saved(true);
+						e.getWindow().dispose();               
+			    		System.exit(0);
+						
+						break;
+					case 1:
+						
+						if (!MapEditor.get_exist()) {
+							MapEditor.get_f().deleteOnExit();
+							MapEditor.get_f().delete();
+							e.getWindow().dispose();               
+				    		System.exit(0);
+						}
+						
+						break;
+					case 2: // abbrechen nichts machen
+						break;
+					}
+					
+	    		}
+	    		
+	    }
+	    	else{
+	    		e.getWindow().dispose();               
+	    		System.exit(0);   
+	    }
+	    }           
+	  }
 }
