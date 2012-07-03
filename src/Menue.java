@@ -1033,7 +1033,7 @@ public class Menue implements KeyListener {
 			//			" auf Antwort...", 60, 600, 100, 0, "", "neustart");
 		}
 
-		if (clientThread == null && !serverThread.verbunden) {
+		if (clientThread == null && (serverThread == null || (serverThread != null && !serverThread.verbunden))) {
 			eingabe = JOptionPane.showConfirmDialog(null,
 					"Möchten Sie noch eine Runde spielen?", "Spiel zuende",
 					JOptionPane.YES_NO_OPTION);
