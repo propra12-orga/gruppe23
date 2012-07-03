@@ -213,7 +213,7 @@ public class Menue implements KeyListener {
 																		// ..
 	private final Action_Schwer Action_Schwer = new Action_Schwer(); // ..
 																		// (Schwer).
-	private final Action_Config Action_Config = new Action_Config(); // Aktion
+	
 	//zum Wechsel
 	// Konfigurieren der Einstellungen!
 	//erstellen
