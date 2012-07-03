@@ -26,7 +26,7 @@ import javax.swing.Timer;
 /**
  * Beinhaltet die Main- Methode , erstellt Fenster & Menue , startet & beendet das Programm , verwaltet Tastatureingaben und fuehrt Neustart des Spiels durch
  * 
- * @author Kolja Salewski
+ * @author Kolja Salewskiw
  */
 public class Menue implements KeyListener {
 
