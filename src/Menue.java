@@ -8,6 +8,8 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 import javax.swing.AbstractAction;
@@ -44,7 +46,7 @@ public class Menue implements KeyListener {
 
 	public static boolean theme;
 
-	static JCheckBox noob, Leicht, Mittel, Schwer, mntmLevel_1, mntmLevel_2, mntmSingleplayer;	// alternativ kan man auch "RadioButton" verwenden
+	static JCheckBox noob, Leicht, Mittel, Schwer, mntmLevel_1, mntmLevel_2, mntmSingleplayer, mntmHotSeat;	// alternativ kan man auch "RadioButton" verwenden
 	ButtonGroup gruppe = new ButtonGroup();				// zum gruppieren der knoepfe
 	ButtonGroup gruppe2 = new ButtonGroup();			// (es kann nur ein knopf in der gruppe ausgewahlt werden)
 	ButtonGroup gruppe3 = new ButtonGroup();
@@ -235,7 +237,7 @@ public class Menue implements KeyListener {
 	static JLabel[] meldungen = new JLabel[5];
 	static Timer tim;
 	static ActionListener action;
-	static int timerZeit;
+	static int timerZeit = 1000;
 
 	private static int[][] map; // Internes Spielfeld
 	/**
@@ -243,8 +245,8 @@ public class Menue implements KeyListener {
 	 */
 	private static MapEditor mapping;
 	static boolean editorlaeuft = false;
-	@SuppressWarnings("unused")
-	private static Start starter;
+	
+
 
 	/**
 	 * Objekt der Map - Klasse ; enthaelt die Daten des Spielfeldes ;
@@ -309,7 +311,9 @@ public class Menue implements KeyListener {
 	private void initialize() {
 		frame = new JFrame(); // Fenster erstellen
 		frame.setTitle("Bomberhulk"); // Fenstertitel setzen
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Programm beim
+		
+		frame.addWindowListener(new WindowListener());
+	//	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Programm beim
 																// Schliessen
 																// des Fensters
 																// beenden
@@ -365,7 +369,7 @@ public class Menue implements KeyListener {
 														// erstellen
 		mnModus.add(mnMultiplayer); // Untermenue "Multiplayer" hinzufuegen
 
-		JCheckBox mntmHotSeat = new JCheckBox("Hot Seat"); // Untermenuepunkt
+		mntmHotSeat = new JCheckBox("Hot Seat"); // Untermenuepunkt
 															// "Hot Seat"
 															// erstellen
 		mnMultiplayer.add(mntmHotSeat); // Untermenuepunkt "Hot Seat"
@@ -582,7 +586,7 @@ public class Menue implements KeyListener {
 
 		// Leertaste (Bombe):
 		else if (Key.getKeyCode() == KeyEvent.VK_SPACE) {
-			if (clientThread != null) {
+			if (clientThread != null && clientThread.verbunden) {
 				spieler2_bombe();
 
 				clientThread.out.println("bomb");
@@ -730,7 +734,7 @@ public class Menue implements KeyListener {
 	 */
 	void spieler1_aktionen(int x, int y) {
 		// Bewegung Spieler 1
-		if (clientThread != null) {
+		if (clientThread != null && clientThread.verbunden) {
 			spieler2_aktionen(x, y);
 
 			clientThread.out.println("" + x);
@@ -917,11 +921,25 @@ public class Menue implements KeyListener {
 	 */
 	@SuppressWarnings("serial")
 	static void spiel_neustarten() {
+		
+		
+		
+		// Maximale Anzahl an Bomben zuruecksetzen bzw. aus Level laden:
+				get_hulk(1).set_max_bomben(1);
+				MapLoader.set_max1(1);
+				get_hulk(2).set_max_bomben(1);
+				MapLoader.set_max2(1);
+				// Bomben-Radius zuruecksetzen:
+				get_hulk(1).set_bomben_radius(2);
+				MapLoader.set_radius1(2);
+				get_hulk(2).set_bomben_radius(2);
+				MapLoader.set_radius2(2);
+				game.setVisible(true);
+				//frame.pack();
+
 
 //		System.out.println("Spiel neugestartet"); 	// Test
 //		System.out.println(); 						// Test
-
-		
 
 		if (clientThread != null) {
 			bomben_radius[1].setText("");
@@ -965,16 +983,21 @@ public class Menue implements KeyListener {
 
 		}
 
+		// Spieltimer zurücksetzen:	
 		if (running && tim != null) {
 			tim.stop();
 			tim = null;
+		}
+
+		// Spieltimer ggf. neustarten:
+		if (zeit != 0) {
+			running = true;
 			action = new ActionListener() {
 				int timeLeft = zeit;
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if (timeLeft > 0 && running) {
-
 						zeitAnzeige.setText("Restzeit: " + timeLeft);
 						timeLeft--;
 					}
@@ -986,12 +1009,18 @@ public class Menue implements KeyListener {
 					}
 				}
 			};
+			
 			tim = new Timer(timerZeit, action) {
 				{
 					setInitialDelay(0);
 				}
 			};
+			
 			tim.start();
+
+			spieltimer.timer.cancel();
+			spieltimer = new Zeit(); 	// objekt zeit (mit Zeitlimit)
+			spieltimer.laufzeit(zeit);	// zeit in Sekunden
 		}
 
 		// Spielfeld intern reinitialisieren:
@@ -1000,19 +1029,7 @@ public class Menue implements KeyListener {
 		// Hulk zurueckpositionieren:
 				reset_Hulk();
 
-		// Maximale Anzahl an Bomben zuruecksetzen bzw. aus Level laden:
-		get_hulk(1).set_max_bomben(1);
-		MapLoader.set_max1(1);
-		get_hulk(2).set_max_bomben(1);
-		MapLoader.set_max2(1);
-		// Bomben-Radius zuruecksetzen:
-		get_hulk(1).set_bomben_radius(2);
-		MapLoader.set_radius1(2);
-		get_hulk(2).set_bomben_radius(2);
-		MapLoader.set_radius2(2);
-		game.setVisible(true);
-		//frame.pack();
-
+		
 		// Bilder erneut skalieren:
 		game.bilder_skalieren();
 
@@ -1066,17 +1083,35 @@ public class Menue implements KeyListener {
 				spiel_neustarten();
 				//				}
 
-				if (zeit != 0) {
-					spieltimer.timer.cancel();
-					spieltimer = new Zeit();
-					spieltimer.laufzeit(zeit);
-					// die Zeit ist in Sekunden 180sek = 3min
-					// (Spielzeit/Rundenzeit)
-				}
-
 			}
 
 			else if (eingabe == 1 || eingabe == -1) {
+				if (editorlaeuft) {
+					if(!MapEditor.get_saved()){
+	    			int abfrage = JOptionPane.showConfirmDialog(null,
+							"Bevor Sie  den Editor schliessen wollen, \n" +
+							"wollen Sie die neue Map noch speichern?",
+							"Nicht so schnell?", JOptionPane.YES_NO_CANCEL_OPTION);
+
+					switch (abfrage) {
+					case 0:
+						MapLoader.level_speichern(MapEditor.get_map(), MapEditor.get_levelnummer());
+						MapEditor.set_saved(true);
+						break;
+					case 1:
+						
+						if (!MapEditor.get_exist()) {
+							MapEditor.get_f().deleteOnExit();
+							MapEditor.get_f().delete();
+						}
+						
+						break;
+					case 2: // abbrechen nichts machen
+						break;
+					}
+					
+	    		}
+			}
 				System.exit(0);
 			}
 
@@ -1341,10 +1376,9 @@ public class Menue implements KeyListener {
 	/**
 	 * Aendert den Schwierigkeitsgrad
 	 */
-	@SuppressWarnings("serial")
 	static void schwierigkeitsgrad_aendern(String schwierigkeitsgrad) {
 		if (clientThread != null && anfrage_geschickt == false
-				&& antwort_erhalten == false) {
+				&& antwort_erhalten == false && clientThread.verbunden) {
 			anfrage_geschickt = true;
 			clientThread.out
 					.println("Spieler 2 moechte zum Schwierigkeitsgrad '"
@@ -1395,50 +1429,7 @@ public class Menue implements KeyListener {
 				Schwer.setSelected(true);
 			}
 
-			if (running && tim != null) {
-				tim.stop();
-				tim = null;
-			}
-
 			spiel_neustarten();
-			anfrage_geschickt = false;
-			antwort_erhalten = false;
-			timerZeit = 1000;
-
-			running = true;
-			action = new ActionListener() {
-				int timeLeft = zeit;
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if (timeLeft > 0 && running) {
-
-						zeitAnzeige.setText("Restzeit: " + timeLeft);
-						timeLeft--;
-					}
-
-					else {
-						running = false;
-						tim.stop();
-
-					}
-				}
-			};
-			tim = new Timer(timerZeit, action) {
-				{
-					setInitialDelay(0);
-				}
-			};
-			tim.start();
-
-			if (zeit != 0) {
-				spieltimer.timer.cancel();
-				spieltimer = new Zeit(); 	// objekt zeit (mit Zeitlimit)
-				spieltimer.laufzeit(zeit);	// zeit in Sekunden
-				Zeit.set_restZeit(zeit);
-
-			}
-
 		}
 
 	}
@@ -1471,7 +1462,10 @@ public class Menue implements KeyListener {
 			clientThread.interrupt();
 
 			try {
-				clientThread.socket.close();
+				if (clientThread.socket != null) {
+					clientThread.socket.close();
+				}
+				
 			}
 
 			catch (IOException e) {
@@ -1502,6 +1496,31 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
+			if (editorlaeuft) {
+				if(!MapEditor.get_saved()){
+    			int eingabe = JOptionPane.showConfirmDialog(null,
+						"Bevor Sie  den Editor schliessen wollen, \n" +
+						"wollen Sie die neue Map noch speichern?",
+						"Nicht so schnell?", JOptionPane.YES_NO_CANCEL_OPTION);
+
+				switch (eingabe) {
+					case 0:
+						MapLoader.level_speichern(MapEditor.get_map(), MapEditor.get_levelnummer());
+						MapEditor.set_saved(true);
+						break;
+					case 1:
+						
+						if (!MapEditor.get_exist()) {
+							MapEditor.get_f().deleteOnExit();
+							MapEditor.get_f().delete();
+						}
+						
+						break;
+					case 2: // abbrechen nichts machen
+						break;
+					}
+				}	
+    		}
 			System.exit(0);
 		}
 
@@ -1521,7 +1540,7 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			if (clientThread != null) {
+			if (clientThread != null && clientThread.verbunden) {
 				clientThread.out
 						.println("Spieler 2 moechte das Spiel neustarten. Soll das Spiel neugestartet werden?");
 				createAndShowGui(
@@ -1616,11 +1635,11 @@ public class Menue implements KeyListener {
 		 */
 		public void actionPerformed(ActionEvent e) {
 
-			if (twoPlayer) {
-				String filename = MapLoader.level_speichern(map, hulk1, hulk2);
-			} else {
-				String filename = MapLoader.level_speichern(map, hulk1);
-			}
+//			if (twoPlayer) {
+//				String filename = MapLoader.level_speichern(map, hulk1, hulk2);
+//			} else {
+//				String filename = MapLoader.level_speichern(map, hulk1);
+//			}
 			hulk1.set_max_bomben(MapLoader.get_max1());
 			hulk1.set_bomben_radius(MapLoader.get_radius1());
 			if(twoPlayer){
@@ -1653,7 +1672,7 @@ public class Menue implements KeyListener {
 		 * Ueberprueft , ob man sich im Mehrspieler - Modus befindet und wechselt ggf . zum Einzelspieler - Modus . Anschliessend wird das Spiel neugestartet .
 		 */
 		public void actionPerformed(ActionEvent e) {
-			if (twoPlayer == true || serverThread != null) {
+			if (twoPlayer == true || serverThread != null || clientThread != null) {
 				singleplayer_starten();
 			}
 //			if (bot){
@@ -1738,7 +1757,6 @@ public class Menue implements KeyListener {
 				}
 				
 				Menue.lan = true;
-				Menue.hotSeat = false;
 
 				System.out.println("Server-Modus aktiviert"); 	// Test
 				System.out.println(); 							// Test
@@ -1773,10 +1791,8 @@ public class Menue implements KeyListener {
 		 * Ueberprueft , ob man sich bereits im Client - Modus befindet und wechselt anderenfalls dorthin . Falls man sich vorher im Server - Modus befunden hat , wird der Server - Thread beendet . Der Client - Modus wird als neuer Thread gestartet
 		 */
 		public void actionPerformed(ActionEvent e) {
-			if (clientThread == null) {
-				twoPlayer = true;
+			if (clientThread == null) {				
 				lan = true;
-				hotSeat = false;
 
 				if (serverThread != null) {
 					serverThread.interrupt();
@@ -1833,7 +1849,7 @@ public class Menue implements KeyListener {
 		 */
 		public void actionPerformed(ActionEvent e) {
 
-			if (clientThread != null) {
+			if (clientThread != null && clientThread.verbunden) {
 				clientThread.out
 						.println("Spieler 2 moechte zu Level 1 wechseln. Soll zu Level 1 gewechselt werden?");
 				createAndShowGui(
@@ -1880,7 +1896,7 @@ public class Menue implements KeyListener {
 		 * Wechselt zum 2. Level und startet das Spiel neu
 		 */
 		public void actionPerformed(ActionEvent e) {
-			if (clientThread != null) {
+			if (clientThread != null && clientThread.verbunden) {
 				clientThread.out
 						.println("Spieler 2 moechte zu Level 2 wechseln. Soll zu Level 2 gewechselt werden?");
 				createAndShowGui(
@@ -1940,7 +1956,7 @@ public class Menue implements KeyListener {
 					editorlaeuft = true;
 					mapping.setVisible(true);
 					frame.getContentPane().add(mapping);
-					//	frame.pack();
+					frame.pack();
 
 					break;
 				case 1:
@@ -1955,7 +1971,7 @@ public class Menue implements KeyListener {
 				mapping = new MapEditor();
 				editorlaeuft = true;
 				mapping.setVisible(true);
-				frame.getContentPane().add(mapping);
+				frame.getContentPane().add(mapping);	
 				frame.pack();
 			}
 
@@ -2046,12 +2062,38 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Setzt den Map - Editor fort falls er schonmal gelaufen ist
+		 * Schliesst den editor fort falls er schonmal gelaufen ist
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (editorlaeuft) {
-				mapping.setVisible(false);
-				game.setVisible(true);
+				if(!MapEditor.get_saved()){
+    			int eingabe = JOptionPane.showConfirmDialog(null,
+						"Bevor Sie   schliessen wollen, \n" +
+						"wollen Sie die editierte Map noch speichern?",
+						"Nicht so schnell?", JOptionPane.YES_NO_CANCEL_OPTION);
+
+				switch (eingabe) {
+					case 0:
+						MapLoader.level_speichern(MapEditor.get_map(), MapEditor.get_levelnummer());
+						MapEditor.set_saved(true);
+						break;
+					case 1:
+						
+						if (!MapEditor.get_exist()) {
+							MapEditor.get_f().deleteOnExit();
+							MapEditor.get_f().delete();
+						}
+						
+						break;
+					case 2: // abbrechen nichts machen
+						break;
+					}
+				
+				}
+				setMappingVisible(false);
+				setGameVisible(true);
+				spiel_neustarten();
+				
 			} else
 				JOptionPane.showMessageDialog(null, "Der Editor läuft nicht!");
 
@@ -2358,4 +2400,62 @@ public class Menue implements KeyListener {
 	public static int get_height(){
 		return frame.getSize().height;
 	}
+	class WindowListener extends WindowAdapter
+	  {
+	    public void windowClosing(WindowEvent e)
+	    {
+		    	if(editorlaeuft){
+		    		if(!MapEditor.get_saved()){
+		    			int eingabe = JOptionPane.showConfirmDialog(null,
+								"Bevor Sie schliessen wollen, \n" +
+								"wollen Sie die neue Map noch speichern?",
+								"Nicht so schnell?", JOptionPane.YES_NO_CANCEL_OPTION);
+	
+						switch (eingabe) {
+						case 0:
+							MapLoader.level_speichern(MapEditor.get_map(), MapEditor.get_levelnummer());
+							MapEditor.set_saved(true);
+							e.getWindow().dispose();               
+				    		System.exit(0);
+							
+							break;
+						case 1:
+							
+							if (!MapEditor.get_exist()) {
+								MapEditor.get_f().deleteOnExit();
+								MapEditor.get_f().delete();
+								e.getWindow().dispose();               
+					    		System.exit(0);
+							}
+							
+							break;
+						case 2: // abbrechen nichts machen
+							break;
+						}
+						
+		    		}
+		    		
+		    }
+		    	else{
+		    		e.getWindow().dispose();               
+		    		System.exit(0);   
+		    }
+	    }           
+	  }
+	/**
+	 * bekommt einen Boolean wert übergeben und macht den mapeditor sichtbar oder wieder unsichtbar
+	 * 
+	 * */
+	
+	public static void setMappingVisible(boolean an){
+		mapping.setVisible(an);
+	}
+	/**
+	 * bekommt einen Boolean wert übergeben und macht das Game sichtbar oder wieder unsichtbar
+	 * 
+	 * */
+	public static void setGameVisible(boolean aus){
+		game.setVisible(aus);
+	}
+		
 }

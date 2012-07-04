@@ -53,12 +53,11 @@ public class MapLoader {
 			max1 = Character.getNumericValue(f.read());
 			f.read();
 			radius1 = Character.getNumericValue(f.read());
-			if(twoPlayerSet){
-				f.read();
-				max2 = 1;
-				f.read();
-				radius2 =2;
-			}
+			f.read();
+			max2 = Character.getNumericValue(f.read());;
+			f.read();
+			radius2 = Character.getNumericValue(f.read());
+			
 
 			while ((c = f.read()) != -1) {
 				if (Character.getNumericValue(c) != -1) {
@@ -130,7 +129,7 @@ public class MapLoader {
 		BufferedWriter out = null;
 		try {
 			out = new BufferedWriter(new FileWriter(path));
-			out.write("" + iconSatz);
+			out.write("" + iconSatz+":"+radius1+":"+max1+":"+radius2+":"+max2);
 			out.newLine();
 			for (int i = 0; i < n; i++) {
 				out.write(line[i]);
@@ -338,6 +337,7 @@ public class MapLoader {
 				radius1 = (Character.getNumericValue(f.read()));
 				f.read();
 				max1 = (Character.getNumericValue(f.read()));
+				f.read();
 				radius2 = (Character.getNumericValue(f.read()));
 				f.read();
 				max2 = (Character.getNumericValue(f.read()));
