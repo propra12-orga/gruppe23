@@ -2402,40 +2402,40 @@ public class Menue implements KeyListener {
 	}
 	class WindowListener extends WindowAdapter
 	  {
-	    public void windowClosing(WindowEvent e)
-	    {
-		    	if(editorlaeuft){
-		    		if(!MapEditor.get_saved()){
-		    			int eingabe = JOptionPane.showConfirmDialog(null,
-								"Bevor Sie schliessen wollen, \n" +
-								"wollen Sie die neue Map noch speichern?",
-								"Nicht so schnell?", JOptionPane.YES_NO_CANCEL_OPTION);
-	
-						switch (eingabe) {
-						case 0:
-							MapLoader.level_speichern(MapEditor.get_map(), MapEditor.get_levelnummer());
-							MapEditor.set_saved(true);
-							e.getWindow().dispose();               
-				    		System.exit(0);
-							
-							break;
-						case 1:
-							
-							if (!MapEditor.get_exist()) {
-								MapEditor.get_f().deleteOnExit();
-								MapEditor.get_f().delete();
+		 public void windowClosing(WindowEvent e)
+		    {
+			    	if(editorlaeuft){
+			    		if(!MapEditor.get_saved()){
+			    			int eingabe = JOptionPane.showConfirmDialog(null,
+									"Bevor Sie schliessen wollen, \n" +
+									"wollen Sie die neue Map noch speichern?",
+									"Nicht so schnell?", JOptionPane.YES_NO_CANCEL_OPTION);
+		
+							switch (eingabe) {
+							case 0:
+								MapLoader.level_speichern(MapEditor.get_map(), MapEditor.get_levelnummer());
+								MapEditor.set_saved(true);
 								e.getWindow().dispose();               
 					    		System.exit(0);
+								
+								break;
+							case 1:
+								if (!MapEditor.get_exist()) {
+									MapEditor.get_f().deleteOnExit();
+									MapEditor.get_f().delete();
+								}
+								e.getWindow().dispose();               
+					    		System.exit(0);
+								
+								break;
+							case 2: // abbrechen nichts machen
+								frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+								break;
 							}
 							
-							break;
-						case 2: // abbrechen nichts machen
-							break;
-						}
-						
-		    		}
-		    		
-		    }
+			    		}
+			    		
+			    }
 		    	else{
 		    		e.getWindow().dispose();               
 		    		System.exit(0);   
