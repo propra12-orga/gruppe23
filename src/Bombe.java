@@ -359,23 +359,32 @@ public class Bombe extends JLabel {
 													// nicht ueber den
 													// Spielfeldrand hinaus geht
 				if (Menue.get_hulk(1).get_x() == this.x + x
-						&& Menue.get_hulk(1).get_y() == this.y // falls die
-																// Detonation
-																// die erste...
-						|| Menue.get_hulk(2).get_x() == this.x + x
-						&& Menue.get_hulk(2).get_y() == this.y) { // ...oder
-																	// zweite
-																	// Spielfigur
-																	// trifft
+						&& Menue.get_hulk(1).get_y() == this.y) { 	// falls die
+																	// Detonation
+							 										// die erste...	
 					if (treffer_rechts == false && hulk_getroffen == false) {
 						hulk_getroffen = true;
 						Menue.sound.playTod();
-						System.out.println("Game over"); // Test
-						System.out.println(); // Test
+						System.out.println("Game over"); 	// Test
+						System.out.println(); 				// Test
 						
 						Menue.abfrage_neustarten();
 					}
-
+					
+				}		
+				
+				if (Menue.getMultiplayer()) {							// ...oder
+					if (Menue.get_hulk(2).get_x() == this.x + x			// zweite
+							&& Menue.get_hulk(2).get_y() == this.y) {	// Spielfigur
+																		// trifft
+						hulk_getroffen = true;
+						Menue.sound.playTod();
+						System.out.println("Game over"); 	// Test
+						System.out.println(); 				// Test
+						
+						Menue.abfrage_neustarten();
+					}
+					
 				}
 				
 //				if (Menue.get_bot(1).get_x() == this.x + x && Menue.get_bot(1).get_y() == this.y + y){
@@ -392,15 +401,11 @@ public class Bombe extends JLabel {
 													// nicht ueber den
 													// Spielfeldrand hinaus geht
 				if (Menue.get_hulk(1).get_x() == this.x
-						&& Menue.get_hulk(1).get_y() == this.y + y // falls die
-																	// Detonation
-																	// die
-																	// erste...
-						|| Menue.get_hulk(2).get_x() == this.x
-						&& Menue.get_hulk(2).get_y() == this.y + y) { // ...oder
-																		// zweite
-																		// Spielfigur
-																		// trifft
+						&& Menue.get_hulk(1).get_y() == this.y + y) { 	// falls die
+																		// Detonation
+																		// die
+																		// erste...
+
 					if (treffer_unten == false && hulk_getroffen == false) {
 						hulk_getroffen = true;
 						Menue.sound.playTod();
@@ -410,6 +415,20 @@ public class Bombe extends JLabel {
 						Menue.abfrage_neustarten();
 					}
 
+				}
+				
+				if (Menue.getMultiplayer()) {								// ...oder
+					if (Menue.get_hulk(2).get_x() == this.x					// zweite
+							&& Menue.get_hulk(2).get_y() == this.y + y) {	// Spielfigur
+																			// trifft
+						hulk_getroffen = true;
+						Menue.sound.playTod();
+						System.out.println("Game over"); 	// Test
+						System.out.println(); 				// Test
+						
+						Menue.abfrage_neustarten();
+					}
+					
 				}
 
 			}
@@ -696,22 +715,32 @@ public class Bombe extends JLabel {
 													// nicht ueber den
 													// Spielfeldrand hinaus geht
 				if (Menue.get_hulk(1).get_x() == this.x + x
-						&& Menue.get_hulk(1).get_y() == this.y // falls die
-																// Detonation
-																// die erste...
-						|| Menue.get_hulk(2).get_x() == this.x + x
-						&& Menue.get_hulk(2).get_y() == this.y) { // ...oder
-																	// zweite
-																	// Spielfigur
-																	// trifft
+						&& Menue.get_hulk(1).get_y() == this.y) { 	// falls die
+																	// Detonation
+																	// die erste...
+
 					if (treffer_links == false && hulk_getroffen == false) {
 						hulk_getroffen = true;
-						System.out.println("Game over"); // Test
-						System.out.println(); // Test
+						System.out.println("Game over"); 	// Test
+						System.out.println(); 				// Test
 						Menue.sound.playTod();
 						Menue.abfrage_neustarten();
 					}
 
+				}
+				
+				if (Menue.getMultiplayer()) {							// ...oder
+					if (Menue.get_hulk(2).get_x() == this.x + x			// zweite
+							&& Menue.get_hulk(2).get_y() == this.y) {	// Spielfigur
+																		// trifft
+						hulk_getroffen = true;
+						Menue.sound.playTod();
+						System.out.println("Game over"); 	// Test
+						System.out.println(); 				// Test
+						
+						Menue.abfrage_neustarten();
+					}
+					
 				}
 
 			}
@@ -721,15 +750,11 @@ public class Bombe extends JLabel {
 													// nicht ueber den
 													// Spielfeldrand hinaus geht
 				if (Menue.get_hulk(1).get_x() == this.x
-						&& Menue.get_hulk(1).get_y() == this.y + y // falls die
-																	// Detonation
-																	// die
-																	// erste...
-						|| Menue.get_hulk(2).get_x() == this.x
-						&& Menue.get_hulk(2).get_y() == this.y + y) { // ...oder
-																		// zweite
-																		// Spielfigur
-																		// trifft
+						&& Menue.get_hulk(1).get_y() == this.y + y) { 	// falls die
+																		// Detonation
+																		// die
+																		// erste...
+
 					if (treffer_oben == false && hulk_getroffen == false) {
 						hulk_getroffen = true;
 						System.out.println("Game over"); // Test
@@ -738,6 +763,20 @@ public class Bombe extends JLabel {
 						Menue.abfrage_neustarten();						
 					}
 
+				}
+				
+				if (Menue.getMultiplayer()) {								// ...oder
+					if (Menue.get_hulk(2).get_x() == this.x					// zweite
+							&& Menue.get_hulk(2).get_y() == this.y + y) {	// Spielfigur
+																			// trifft
+						hulk_getroffen = true;
+						Menue.sound.playTod();
+						System.out.println("Game over"); 	// Test
+						System.out.println(); 				// Test
+						
+						Menue.abfrage_neustarten();
+					}
+					
 				}
 
 			}
