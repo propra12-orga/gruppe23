@@ -551,6 +551,14 @@ public class Bombe extends JLabel {
 					}
 
 				}
+				
+				else if (Map.get_map()[this.x + x][this.y] == 15 || Map.get_map()[this.x + x][this.y] == 12){
+					if (treffer_links == false) {						// wandele Item in explosion um
+						treffer_links = true;
+						Map.get_map()[this.x + x][this.y] = 6;
+						
+					}
+				}
 
 				if (Map.get_map()[this.x + x][this.y] == 2) { // falls das
 																// Zielfeld der
@@ -658,6 +666,12 @@ public class Bombe extends JLabel {
 					}
 
 				}
+				else if (Map.get_map()[this.x][this.y + y] == 15 || Map.get_map()[this.x][this.y + y] == 12){
+					if (treffer_oben == false) {							
+						treffer_oben = true;
+						Map.get_map()[this.x][this.y + y] = 6;	
+					}		
+				}	
 
 				if (Map.get_map()[this.x][this.y + y] == 2) { // falls das
 																// Zielfeld der
@@ -713,7 +727,9 @@ public class Bombe extends JLabel {
 					}
 					
 				}
+				
 
+				
 				// vertikales Treffen von Explosion & Bombe:
 				if (this.y + y > 0 && this.y + y < n) { // falls die Detonation
 														// nicht ueber den
