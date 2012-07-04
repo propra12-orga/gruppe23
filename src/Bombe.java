@@ -167,6 +167,18 @@ public class Bombe extends JLabel {
 					}
 
 				}
+				
+				else if (Map.get_map()[this.x + x][this.y] == 15 || Map.get_map()[this.x + x][this.y] == 12){
+					if (treffer_rechts == false) {						// wandele Item in explosion um
+						treffer_rechts = true;
+						Map.get_map()[this.x + x][this.y] = 6;
+					}
+				}	
+
+
+
+
+
 
 				if (Map.get_map()[this.x + x][this.y] == 2) { // falls das
 																// Zielfeld der
@@ -272,6 +284,14 @@ public class Bombe extends JLabel {
 																// um
 					}
 
+				}
+				
+				
+				else if (Map.get_map()[this.x][this.y + y] == 15 || Map.get_map()[this.x][this.y + y] == 12){
+					if (treffer_unten == false) {							
+						treffer_unten = true;
+						Map.get_map()[this.x][this.y + y] = 6;				// wandele Item in explosion um
+					}
 				}
 
 				if (Map.get_map()[this.x][this.y + y] == 2) { // falls das
