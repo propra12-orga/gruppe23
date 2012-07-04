@@ -178,9 +178,9 @@ public class MapEditor extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 
 				if (saved) {
-					setVisible(false);
+					Menue.setMappingVisible(false);
 					MapLoader.set_level(oldLevel);
-					Menue.get_game().setVisible(true);
+					Menue.setGameVisible(true);
 					Menue.spiel_neustarten();
 				}
 
@@ -193,16 +193,19 @@ public class MapEditor extends JPanel {
 					case 0:
 						MapLoader.level_speichern(map, levelnummer);
 						saved = true;
-						setVisible(false);
+						Menue.setMappingVisible(false);
 						MapLoader.set_level(oldLevel);
+						Menue.setGameVisible(true);
+						Menue.spiel_neustarten();
 						break;
 					case 1:
-						setVisible(false);
+						Menue.setMappingVisible(false);
 						if (!exist) {
 							f.deleteOnExit();
 							f.delete();//  funktioniert noch nicht
 						}
 						MapLoader.set_level(oldLevel);
+						Menue.setGameVisible(true);
 						Menue.spiel_neustarten();
 						break;
 					case 2: // abbrechen nichts machen
@@ -217,13 +220,15 @@ public class MapEditor extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				MapLoader.level_speichern(map, "Level-" + eingabe);
-				Menue.get_game().setVisible(true);
-				MapLoader.set_level(Integer.parseInt(eingabe));
-				Menue.get_game().bilder_skalieren();
-				Menue.get_game().init(); // Spielfeld zeichnen
-				Menue.get_game().setFocusable(true); // Spielfeld fokussierbar machen
-				Menue.get_game().requestFocus(); // Fokus auf Spielfeld setzen
-				Menue.setFrame(frameWi,frameHe);
+				Menue.setMappingVisible(false);
+				Menue.setGameVisible(true);
+//				Menue.get_game().setVisible(true);
+//				MapLoader.set_level(Integer.parseInt(eingabe));
+//				Menue.get_game().bilder_skalieren();
+//				Menue.get_game().init(); // Spielfeld zeichnen
+//				Menue.get_game().setFocusable(true); // Spielfeld fokussierbar machen
+//				Menue.get_game().requestFocus(); // Fokus auf Spielfeld setzen
+//				Menue.setFrame(frameWi,frameHe);
 				Menue.spiel_neustarten();
 			}
 

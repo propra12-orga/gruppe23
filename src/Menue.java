@@ -1086,6 +1086,32 @@ public class Menue implements KeyListener {
 			}
 
 			else if (eingabe == 1 || eingabe == -1) {
+				if (editorlaeuft) {
+					if(!MapEditor.get_saved()){
+	    			int abfrage = JOptionPane.showConfirmDialog(null,
+							"Bevor Sie  den Editor schliessen wollen, \n" +
+							"wollen Sie die neue Map noch speichern?",
+							"Nicht so schnell?", JOptionPane.YES_NO_CANCEL_OPTION);
+
+					switch (abfrage) {
+					case 0:
+						MapLoader.level_speichern(MapEditor.get_map(), MapEditor.get_levelnummer());
+						MapEditor.set_saved(true);
+						break;
+					case 1:
+						
+						if (!MapEditor.get_exist()) {
+							MapEditor.get_f().deleteOnExit();
+							MapEditor.get_f().delete();
+						}
+						
+						break;
+					case 2: // abbrechen nichts machen
+						break;
+					}
+					
+	    		}
+			}
 				System.exit(0);
 			}
 
@@ -1470,6 +1496,31 @@ public class Menue implements KeyListener {
 		}
 
 		public void actionPerformed(ActionEvent e) {
+			if (editorlaeuft) {
+				if(!MapEditor.get_saved()){
+    			int eingabe = JOptionPane.showConfirmDialog(null,
+						"Bevor Sie  den Editor schliessen wollen, \n" +
+						"wollen Sie die neue Map noch speichern?",
+						"Nicht so schnell?", JOptionPane.YES_NO_CANCEL_OPTION);
+
+				switch (eingabe) {
+					case 0:
+						MapLoader.level_speichern(MapEditor.get_map(), MapEditor.get_levelnummer());
+						MapEditor.set_saved(true);
+						break;
+					case 1:
+						
+						if (!MapEditor.get_exist()) {
+							MapEditor.get_f().deleteOnExit();
+							MapEditor.get_f().delete();
+						}
+						
+						break;
+					case 2: // abbrechen nichts machen
+						break;
+					}
+				}	
+    		}
 			System.exit(0);
 		}
 
@@ -1905,7 +1956,7 @@ public class Menue implements KeyListener {
 					editorlaeuft = true;
 					mapping.setVisible(true);
 					frame.getContentPane().add(mapping);
-					//	frame.pack();
+					frame.pack();
 
 					break;
 				case 1:
@@ -1920,7 +1971,7 @@ public class Menue implements KeyListener {
 				mapping = new MapEditor();
 				editorlaeuft = true;
 				mapping.setVisible(true);
-				frame.getContentPane().add(mapping);
+				frame.getContentPane().add(mapping);	
 				frame.pack();
 			}
 
@@ -2011,12 +2062,38 @@ public class Menue implements KeyListener {
 
 		// actionPerformed-Methode:
 		/**
-		 * Setzt den Map - Editor fort falls er schonmal gelaufen ist
+		 * Schliesst den editor fort falls er schonmal gelaufen ist
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (editorlaeuft) {
-				mapping.setVisible(false);
-				game.setVisible(true);
+				if(!MapEditor.get_saved()){
+    			int eingabe = JOptionPane.showConfirmDialog(null,
+						"Bevor Sie   schliessen wollen, \n" +
+						"wollen Sie die editierte Map noch speichern?",
+						"Nicht so schnell?", JOptionPane.YES_NO_CANCEL_OPTION);
+
+				switch (eingabe) {
+					case 0:
+						MapLoader.level_speichern(MapEditor.get_map(), MapEditor.get_levelnummer());
+						MapEditor.set_saved(true);
+						break;
+					case 1:
+						
+						if (!MapEditor.get_exist()) {
+							MapEditor.get_f().deleteOnExit();
+							MapEditor.get_f().delete();
+						}
+						
+						break;
+					case 2: // abbrechen nichts machen
+						break;
+					}
+				
+				}
+				setMappingVisible(false);
+				setGameVisible(true);
+				spiel_neustarten();
+				
 			} else
 				JOptionPane.showMessageDialog(null, "Der Editor läuft nicht!");
 
@@ -2327,42 +2404,58 @@ public class Menue implements KeyListener {
 	  {
 	    public void windowClosing(WindowEvent e)
 	    {
-	    	if(editorlaeuft){
-	    		if(!MapEditor.get_saved()){
-	    			int eingabe = JOptionPane.showConfirmDialog(null,
-							"Bevor Sie schliessen wollen, \n" +
-							"wollen Sie die neue Map noch speichern?",
-							"Nicht so schnell?", JOptionPane.YES_NO_CANCEL_OPTION);
-
-					switch (eingabe) {
-					case 0:
-						MapLoader.level_speichern(MapEditor.get_map(), MapEditor.get_levelnummer());
-						MapEditor.set_saved(true);
-						e.getWindow().dispose();               
-			    		System.exit(0);
-						
-						break;
-					case 1:
-						
-						if (!MapEditor.get_exist()) {
-							MapEditor.get_f().deleteOnExit();
-							MapEditor.get_f().delete();
+		    	if(editorlaeuft){
+		    		if(!MapEditor.get_saved()){
+		    			int eingabe = JOptionPane.showConfirmDialog(null,
+								"Bevor Sie schliessen wollen, \n" +
+								"wollen Sie die neue Map noch speichern?",
+								"Nicht so schnell?", JOptionPane.YES_NO_CANCEL_OPTION);
+	
+						switch (eingabe) {
+						case 0:
+							MapLoader.level_speichern(MapEditor.get_map(), MapEditor.get_levelnummer());
+							MapEditor.set_saved(true);
 							e.getWindow().dispose();               
 				    		System.exit(0);
+							
+							break;
+						case 1:
+							
+							if (!MapEditor.get_exist()) {
+								MapEditor.get_f().deleteOnExit();
+								MapEditor.get_f().delete();
+								e.getWindow().dispose();               
+					    		System.exit(0);
+							}
+							
+							break;
+						case 2: // abbrechen nichts machen
+							break;
 						}
 						
-						break;
-					case 2: // abbrechen nichts machen
-						break;
-					}
-					
-	    		}
-	    		
-	    }
-	    	else{
-	    		e.getWindow().dispose();               
-	    		System.exit(0);   
-	    }
+		    		}
+		    		
+		    }
+		    	else{
+		    		e.getWindow().dispose();               
+		    		System.exit(0);   
+		    }
 	    }           
 	  }
+	/**
+	 * bekommt einen Boolean wert übergeben und macht den mapeditor sichtbar oder wieder unsichtbar
+	 * 
+	 * */
+	
+	public static void setMappingVisible(boolean an){
+		mapping.setVisible(an);
+	}
+	/**
+	 * bekommt einen Boolean wert übergeben und macht das Game sichtbar oder wieder unsichtbar
+	 * 
+	 * */
+	public static void setGameVisible(boolean aus){
+		game.setVisible(aus);
+	}
+		
 }
