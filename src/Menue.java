@@ -917,6 +917,22 @@ public class Menue implements KeyListener {
 	 */
 	@SuppressWarnings("serial")
 	static void spiel_neustarten() {
+		
+		
+		
+		// Maximale Anzahl an Bomben zuruecksetzen bzw. aus Level laden:
+				get_hulk(1).set_max_bomben(1);
+				MapLoader.set_max1(1);
+				get_hulk(2).set_max_bomben(1);
+				MapLoader.set_max2(1);
+				// Bomben-Radius zuruecksetzen:
+				get_hulk(1).set_bomben_radius(2);
+				MapLoader.set_radius1(2);
+				get_hulk(2).set_bomben_radius(2);
+				MapLoader.set_radius2(2);
+				game.setVisible(true);
+				//frame.pack();
+
 
 //		System.out.println("Spiel neugestartet"); 	// Test
 //		System.out.println(); 						// Test
@@ -1009,19 +1025,7 @@ public class Menue implements KeyListener {
 		// Hulk zurueckpositionieren:
 				reset_Hulk();
 
-		// Maximale Anzahl an Bomben zuruecksetzen bzw. aus Level laden:
-		get_hulk(1).set_max_bomben(1);
-		MapLoader.set_max1(1);
-		get_hulk(2).set_max_bomben(1);
-		MapLoader.set_max2(1);
-		// Bomben-Radius zuruecksetzen:
-		get_hulk(1).set_bomben_radius(2);
-		MapLoader.set_radius1(2);
-		get_hulk(2).set_bomben_radius(2);
-		MapLoader.set_radius2(2);
-		game.setVisible(true);
-		//frame.pack();
-
+		
 		// Bilder erneut skalieren:
 		game.bilder_skalieren();
 

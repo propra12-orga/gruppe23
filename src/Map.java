@@ -101,9 +101,9 @@ public class Map extends JPanel {
 		weg_pic = "/Pics/" + iconSatz + "/Weg.png", mauer_pic = "/Pics/"
 				+ iconSatz + "/Mauer.png", // Grafik-Quelle:
 											// http://openclipart.org/detail/3318/house-by-barretr
-		hulk_pic = "/Pics/" + iconSatz + "/Hulk.png", // Grafik-Quelle:
+		hulk_pic = "/Pics/" + iconSatz + "/Hulk.gif", // Grafik-Quelle:
 														// http://openclipart.org/detail/168616/hunk-by-bedpanner
-		hulk2_pic = "/Pics/" + iconSatz + "/Hulk2.png", // Grafik-Quelle:
+		hulk2_pic = "/Pics/" + iconSatz + "/Hulk2.gif", // Grafik-Quelle:
 														// http://openclipart.org/detail/168616/hunk-by-bedpanner
 		bomb_pic = "/Pics/" + iconSatz + "/Bombe.gif", // Grafik-Quelle:
 														// http://openclipart.org/detail/165734/dynamite-by-magnesus
