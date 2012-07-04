@@ -314,15 +314,17 @@ public class Bombe extends JLabel {
 																	// ein
 																	// Bombe-Feld
 																	// ist...
+						if (treffer_rechts == false) {
+							Menue.get_game().bomb[this.x + x][this.y]
+									.bombe_detonieren(Spieler, bomben_radius); // ...lass
+																				// auch
+																				// die
+																				// andere
+																				// Bombe
+																				// detonieren
+							Menue.get_game().bomb[this.x + x][this.y].detoniert = true;
+						}
 						
-						Menue.get_game().bomb[this.x + x][this.y]
-								.bombe_detonieren(Spieler, bomben_radius); // ...lass
-																			// auch
-																			// die
-																			// andere
-																			// Bombe
-																			// detonieren
-						Menue.get_game().bomb[this.x + x][this.y].detoniert = true;
 					}
 
 				}
@@ -338,15 +340,18 @@ public class Bombe extends JLabel {
 																	// Detonation
 																	// ein
 																	// Bombe-Feld
-																	// ist
-						Menue.get_game().bomb[this.x][this.y + y]
-								.bombe_detonieren(Spieler, bomben_radius); // ...lass
-																			// auch
-																			// die
-																			// andere
-																			// Bombe
-																			// detonieren
-						Menue.get_game().bomb[this.x][this.y + y].detoniert = true;
+																	// ist...
+						if (treffer_unten == false) {
+							Menue.get_game().bomb[this.x][this.y + y]
+									.bombe_detonieren(Spieler, bomben_radius); // ...lass
+																				// auch
+																				// die
+																				// andere
+																				// Bombe
+																				// detonieren
+							Menue.get_game().bomb[this.x][this.y + y].detoniert = true;
+						}
+						
 					}
 
 				}
@@ -674,15 +679,19 @@ public class Bombe extends JLabel {
 																	// ein
 																	// Bombe-Feld
 																	// ist...
-						Menue.get_game().bomb[this.x + x][this.y]
-								.bombe_detonieren(Spieler, bomben_radius); // ...lass
-																			// auch
-																			// die
-																			// andere
-																			// Bombe
-																			// detonieren
-						Menue.get_game().bomb[this.x + x][this.y].detoniert = true;
+						if (treffer_links == false) {
+							Menue.get_game().bomb[this.x + x][this.y]
+									.bombe_detonieren(Spieler, bomben_radius); // ...lass
+																				// auch
+																				// die
+																				// andere
+																				// Bombe
+																				// detonieren
+							Menue.get_game().bomb[this.x + x][this.y].detoniert = true;
+						}
+						
 					}
+					
 				}
 
 				// vertikales Treffen von Explosion & Bombe:
@@ -697,16 +706,21 @@ public class Bombe extends JLabel {
 																	// ein
 																	// Bombe-Feld
 																	// ist
-						Menue.get_game().bomb[this.x][this.y + y]
-								.bombe_detonieren(Spieler, bomben_radius); // ...lass
-																			// auch
-																			// die
-																			// andere
-																			// Bombe
-																			// detonieren
-						Menue.get_game().bomb[this.x][this.y + y].detoniert = true;
+						if (treffer_oben == false) {
+							Menue.get_game().bomb[this.x][this.y + y]
+									.bombe_detonieren(Spieler, bomben_radius); // ...lass
+																				// auch
+																				// die
+																				// andere
+																				// Bombe
+																				// detonieren
+							Menue.get_game().bomb[this.x][this.y + y].detoniert = true;
+						}
+						
 					}
+					
 				}
+				
 			}
 
 			/* Treffen von Detonation & Hulk: */
