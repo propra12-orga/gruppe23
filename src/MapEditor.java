@@ -17,24 +17,30 @@ import javax.swing.JRadioButton;
 
 // Autor T. K.
 public class MapEditor extends JPanel {
-	private static final long serialVersionUID = 1L;
-	final static int n = MapLoader.get_n();
-	private static int[][] map = new int[n][n];
-	protected static boolean saved = false;
-	private static int power;
-	Icon pic;
-	static int iconSatz;
-	private static boolean abfrageHulk1 = false;
-	private static boolean abfrageHulk2 = false;
-	private static boolean abfrageAusgang = false;
-	private static boolean abbruch = false;
-	private static File f;
-	private static String eingabe;
-	private static boolean exist = false;
-	private static JButton feld[][] = new JButton[n][n];
-	private static int oldLevel = MapLoader.get_level();
-	private static int frameWi, frameHe;
-	private static String levelnummer;
+	private static final long 	serialVersionUID 	= 1L;
+	final static int 			n 					= MapLoader.get_n();
+	private static int[][] 		map 				= new int[n][n];
+	protected static boolean 	saved 				= false;
+	Icon 						pic;
+	static int 					iconSatz;
+	
+	private static boolean 		abfrageHulk1 		= false,
+								abfrageHulk2 		= false,
+								abfrageAusgang 		= false,
+								abbruch 			= false,
+								exist 				= false;
+	
+	private static File 		f;
+	
+	private static String 		eingabe,
+								levelnummer;
+	
+	private static JButton 		feld[][] 			= new JButton[n][n];
+	
+	private static int 			oldLevel 			= MapLoader.get_level(),
+								frameWi,
+								frameHe,
+								power;
 
 	/* Konstruktor: */
 	public MapEditor() {
@@ -52,9 +58,9 @@ public class MapEditor extends JPanel {
 		frameHe=Menue.get_height();
 		
 		do {
-			eingabe = JOptionPane.showInputDialog(null,
-					"Bitte geben Sie die Level-Nummer ein:", "Levelnummer",		//Levelnummerdialog
-					JOptionPane.OK_CANCEL_OPTION);
+			eingabe = 	JOptionPane.showInputDialog(null,
+						"Bitte geben Sie die Level-Nummer ein:", "Levelnummer", // Levelnummerdialog
+						JOptionPane.OK_CANCEL_OPTION);
 
 			if (eingabe == null) {
 				System.out.println("Boo"); // Test
@@ -64,12 +70,12 @@ public class MapEditor extends JPanel {
 				richtigeAbfrage = true;
 				setVisible(false);		
 				Menue.get_game().bilder_skalieren(MapLoader.get_iconSatz());
-				Menue.get_game().init(); // Spielfeld zeichnen
-				Menue.get_game().setFocusable(true); // Spielfeld fokussierbar machen
-				Menue.get_game().requestFocus(); // Fokus auf Spielfeld setzen
+				Menue.get_game().init(); 				// Spielfeld zeichnen
+				Menue.get_game().setFocusable(true); 	// Spielfeld fokussierbar machen
+				Menue.get_game().requestFocus(); 		// Fokus auf Spielfeld setzen
 				Menue.setFrame(frameWi,frameHe);
 				Menue.spiel_neustarten();
-				abbruch =true;
+				abbruch = true;
 				
 				return 0;
 			}
@@ -117,7 +123,7 @@ public class MapEditor extends JPanel {
 					break;
 			}
 
-			for (int i = 0; i < n; i++) {// Map mit Mauern umranden!
+			for (int i = 0; i < n; i++) { // Map mit Mauern umranden
 
 				map[i][0] = 4;
 				map[0][i] = 4;
@@ -127,7 +133,7 @@ public class MapEditor extends JPanel {
 			}
 			
 			for (int i = 1; i < n - 1; i++) {
-				for (int j = 1; j < n - 1; j++) {// Rest mit weg füllen	
+				for (int j = 1; j < n - 1; j++) { // Rest mit Weg fuellen	
 					map[i][j] = 2;
 				}
 				
@@ -136,34 +142,36 @@ public class MapEditor extends JPanel {
 			MapLoader.level_speichern(map, "Level-" + eingabe);
 		}
 		
-		//				frame = new JFrame();
-		//				frame.setBounds(100, 100, 450, 300);
-		//				frame.setTitle("Map-Editor"); // Fenstertitel setzen
-		//				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		//				frame.getContentPane().setLayout(new BorderLayout(0, 0));
+//		frame = new JFrame();
+//		frame.setBounds(100, 100, 450, 300);
+//		frame.setTitle("Map-Editor"); // Fenstertitel setzen
+//		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
-		 levelnummer = "Level-" + eingabe;
-		//		JLabel levelname = new JLabel(levelnummer, JLabel.CENTER);
-		//	add(levelname, BorderLayout.NORTH);
+		levelnummer = "Level-" + eingabe;
+		
+//		JLabel levelname = new JLabel(levelnummer, JLabel.CENTER);
+//		add(levelname, BorderLayout.NORTH);
 
 		JButton save_button = new JButton("Level speichern");
 		
 		ActionListener save = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (exist) {
-					int dateiAbfrage = JOptionPane.showConfirmDialog(null,
-							"Die Datei existiert bereits.\n"
-									+ "Möchten Sie die Datei überschreiben?",
-							"Überschreiben?", JOptionPane.YES_NO_OPTION);
+					int dateiAbfrage = 	JOptionPane.showConfirmDialog(null,
+										"Die Datei existiert bereits.\n"
+										+ "Möchten Sie die Datei überschreiben?",
+										"Überschreiben?",
+										JOptionPane.YES_NO_OPTION);
 
 					if (dateiAbfrage == 0) {
 
 					}
 
 					else {
-						String ersatzNummer = JOptionPane.showInputDialog(null,
-								"Geben Sie die einen Ersatznamen ein!",
-								"ersatz", JOptionPane.PLAIN_MESSAGE);
+						String ersatzNummer = 	JOptionPane.showInputDialog(null,
+												"Geben Sie die einen Ersatznamen ein!",
+												"ersatz", JOptionPane.PLAIN_MESSAGE);
 
 						MapLoader.level_speichern(map, "Level-" + ersatzNummer);
 						saved = true;
@@ -176,16 +184,17 @@ public class MapEditor extends JPanel {
 					saved = true;
 				}
 
-				//Menue.spiel_neustarten();
+//				Menue.spiel_neustarten();
 			}
 
 		};
 		
 		setVisible(true); // frame.setVisible(true)
 		JPanel place = new JPanel(new GridLayout(1,4));
-		//		frame.setResizable(false); // Fenster soll nicht skalierbar sein
+		
+//		frame.setResizable(false); // Fenster soll nicht skalierbar sein
 
-		JButton exit_button = new JButton("Editor Beenden"); // Editor beenden button hinzu
+		JButton exit_button = new JButton("Editor beenden"); // "Editor beenden"-Button hinzufuegen
 		
 		ActionListener exit = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -198,36 +207,38 @@ public class MapEditor extends JPanel {
 				}
 
 				else if (!abbruch) {
-					System.out.println("Speichern?");//Test
-					int eingabe = JOptionPane.showConfirmDialog(null,
-							"Wollen Sie die neue Map speichern?",
-							"Gespeichert?", JOptionPane.YES_NO_CANCEL_OPTION);
+					System.out.println("Speichern?"); // Test
+					
+					int eingabe = 	JOptionPane.showConfirmDialog(null,
+									"Wollen Sie die neue Map speichern?",
+									"Gespeichert?",
+									JOptionPane.YES_NO_CANCEL_OPTION);
 
 					switch (eingabe) {
-					case 0:
-						MapLoader.level_speichern(map, levelnummer);
-						saved = true;
-						Menue.setMappingVisible(false);
-						MapLoader.set_level(oldLevel);
-						Menue.setGameVisible(true);
-						Menue.spiel_neustarten();
-						break;
-						
-					case 1:
-						Menue.setMappingVisible(false);
-						
-						if (!exist) {
-							f.deleteOnExit();
-							f.delete();//  funktioniert noch nicht
-						}
-						
-						MapLoader.set_level(oldLevel);
-						Menue.setGameVisible(true);
-						Menue.spiel_neustarten();
-						break;
-						
-					case 2: // abbrechen nichts machen
-						break;
+						case 0:
+							MapLoader.level_speichern(map, levelnummer);
+							saved = true;
+							Menue.setMappingVisible(false);
+							MapLoader.set_level(oldLevel);
+							Menue.setGameVisible(true);
+							Menue.spiel_neustarten();
+							break;
+							
+						case 1:
+							Menue.setMappingVisible(false);
+							
+							if (!exist) {
+								f.deleteOnExit();
+								f.delete(); // funktioniert noch nicht
+							}
+							
+							MapLoader.set_level(oldLevel);
+							Menue.setGameVisible(true);
+							Menue.spiel_neustarten();
+							break;
+							
+						case 2: // abbrechen, nichts machen
+							break;
 					}
 					
 				}
@@ -247,9 +258,9 @@ public class MapEditor extends JPanel {
 //				Menue.get_game().setVisible(true);
 //				MapLoader.set_level(Integer.parseInt(eingabe));
 //				Menue.get_game().bilder_skalieren();
-//				Menue.get_game().init(); // Spielfeld zeichnen
-//				Menue.get_game().setFocusable(true); // Spielfeld fokussierbar machen
-//				Menue.get_game().requestFocus(); // Fokus auf Spielfeld setzen
+//				Menue.get_game().init(); 				// Spielfeld zeichnen
+//				Menue.get_game().setFocusable(true); 	// Spielfeld fokussierbar machen
+//				Menue.get_game().requestFocus(); 		// Fokus auf Spielfeld setzen
 //				Menue.setFrame(frameWi,frameHe);
 				Menue.spiel_neustarten();
 			}
@@ -265,7 +276,7 @@ public class MapEditor extends JPanel {
 //
 //				if(copy){
 //					JOptionPane.showMessageDialog(null,
-//							"Das Level wurde erfolgreich eingebunden");// einbindung ins menue fehlt noch. kolja
+//							"Das Level wurde erfolgreich eingebunden"); // Einbindung ins Menue fehlt noch. kolja
 //				}else{
 //					JOptionPane.showMessageDialog(null,
 //							"Es gab Probleme beim einbinden");
@@ -328,13 +339,20 @@ public class MapEditor extends JPanel {
 								else {
 									System.out.println("Hulk1 wurde schon gesetzt"); // Test
 									
-									int neu = JOptionPane.showConfirmDialog(null,"Neue Position?", "Bereits gesetzt",
-											JOptionPane.YES_NO_OPTION);
+									int neu = 	JOptionPane.showConfirmDialog
+												(null,"Neue Position?",
+												"Bereits gesetzt",
+												JOptionPane.YES_NO_OPTION);
 									
 									if(neu == 0) {
 										// Alte Position des Hulks mit Weg ueberschreiben:
-										feld[MapLoader.get_icon_x(map, 1)][MapLoader.get_icon_y(map, 1)].setIcon(getPic(2));
-										map[MapLoader.get_icon_x(map, 1)][MapLoader.get_icon_y(map, 1)] = 2;
+										feld	[MapLoader.get_icon_x(map, 1)]
+												[MapLoader.get_icon_y(map, 1)]
+												.setIcon(getPic(2));
+										
+										map		[MapLoader.get_icon_x(map, 1)]
+												[MapLoader.get_icon_y(map, 1)]
+												= 2;
 										
 										// Neue Position des Hulks setzen:
 										power = 1;
@@ -375,12 +393,20 @@ public class MapEditor extends JPanel {
 								else {
 									System.out.println("Ausgang wurde schon gesetzt"); // Test
 									
-									int neu = JOptionPane.showConfirmDialog(null,"Neue Position?", "Bereits gesetzt", JOptionPane.YES_NO_OPTION);
+									int neu = 	JOptionPane.showConfirmDialog
+												(null,"Neue Position?",
+												"Bereits gesetzt",
+												JOptionPane.YES_NO_OPTION);
 									
 									if (neu == 0) {
 										// Alte Position des Ausgangs mit Weg ueberschreiben:
-										feld[MapLoader.get_icon_x(map, 7)][MapLoader.get_icon_y(map, 7)].setIcon(getPic(2));
-										map[MapLoader.get_icon_x(map, 7)][MapLoader.get_icon_y(map, 7)] = 2;
+										feld	[MapLoader.get_icon_x(map, 7)]
+												[MapLoader.get_icon_y(map, 7)]
+												.setIcon(getPic(2));
+										
+										map		[MapLoader.get_icon_x(map, 7)]
+												[MapLoader.get_icon_y(map, 7)]
+												= 2;
 										
 										// Neue Position des Ausgangs setzen:
 										power = 7;
@@ -406,13 +432,19 @@ public class MapEditor extends JPanel {
 								else {
 									System.out.println("Ausgang wurde schon gesetzt"); // Test
 									
-									int neu = JOptionPane.showConfirmDialog(null,"Neue Position?", "Bereits gesetzt",
-											JOptionPane.YES_NO_OPTION);
+									int neu = 	JOptionPane.showConfirmDialog
+												(null,"Neue Position?", "Bereits gesetzt",
+												JOptionPane.YES_NO_OPTION);
 									
 									if (neu == 0) {
 										// Alte Position des Block-Ausgangs mit Weg ueberschreiben:
-										feld[MapLoader.get_icon_x(map, 8)][MapLoader.get_icon_y(map, 8)].setIcon(getPic(2));
-										map[MapLoader.get_icon_x(map, 8)][MapLoader.get_icon_y(map, 8)] = 2;
+										feld	[MapLoader.get_icon_x(map, 8)]
+												[MapLoader.get_icon_y(map, 8)]
+												.setIcon(getPic(2));
+										
+										map		[MapLoader.get_icon_x(map, 8)]
+												[MapLoader.get_icon_y(map, 8)]
+												= 2;
 										
 										// Neue Position des Block-Ausgangs setzen:
 										power = 8;
@@ -448,13 +480,19 @@ public class MapEditor extends JPanel {
 								else {
 									System.out.println("Hulk2 wurde schon gesetzt"); // Test
 									
-									int neu = JOptionPane.showConfirmDialog(null,"Neue Position?", "Bereits gesetzt",
-									JOptionPane.YES_NO_OPTION);
+									int neu = 	JOptionPane.showConfirmDialog
+												(null,"Neue Position?",
+												"Bereits gesetzt",
+												JOptionPane.YES_NO_OPTION);
 									
 									if (neu == 0) {
 										// Alte Position des 2. Hulks mit Weg ueberschreiben:
-										feld[MapLoader.get_icon_x(map, 10)][MapLoader.get_icon_y(map, 10)].setIcon(getPic(2));
-										map[MapLoader.get_icon_x(map, 10)][MapLoader.get_icon_y(map, 10)] = 2;
+										feld	[MapLoader.get_icon_x(map, 10)]
+												[MapLoader.get_icon_y(map, 10)]
+												.setIcon(getPic(2));
+										map		[MapLoader.get_icon_x(map, 10)]
+												[MapLoader.get_icon_y(map, 10)]
+												= 2;
 										
 										// Neue Position des 2. Hulks setzen:
 										power = 10;
@@ -561,31 +599,31 @@ public class MapEditor extends JPanel {
 		return pic;
 	}
 	
-	public static boolean get_saved(){
+	public static boolean get_saved() {
 		return saved;
 	}
 	
-	public static void set_saved(boolean fred){
+	public static void set_saved(boolean fred) {
 		saved = fred;
 	}
 	
-	public static int[][] get_map(){
+	public static int[][] get_map() {
 		return map;
 	}
 	
-	public static String get_levelnummer(){
+	public static String get_levelnummer() {
 		return levelnummer;
 	}
 	
-	public static boolean get_exist(){
+	public static boolean get_exist() {
 		return exist;
 	}
 	
-	public static File get_f(){
+	public static File get_f() {
 		return f;
 	}	
 	
-	public static boolean abgebrochen(){
+	public static boolean abgebrochen() {
 		return abbruch;
 	}
 

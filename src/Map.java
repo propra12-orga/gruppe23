@@ -14,22 +14,41 @@ import javax.swing.SwingConstants;
  */
 public class Map extends JPanel {
 	// Deklaration & Initialisierung:
-	private static final long serialVersionUID = 1L;
-	int n = MapLoader.get_n(); 				// Spielfeldgroesse
-	static int[][] map; 					// Spielfeld
-	Bombe bomb[][] = new Bombe[n][n]; 		// Bomben erstellen
-	int bomb_x, bomb_y;
-	JLabel[][] label = new JLabel[n][n]; 	// JLabel-Array erstellen
-	public static boolean twoPlayerset; 	// Multiplayerabfrage
-	int hoehe = 50, breite = 50;
+	private static final long 	serialVersionUID 	= 1L;
+	int 						n 					= MapLoader.get_n();	// Spielfeldgroesse
+	static int[][] 				map; 										// Spielfeld
+	Bombe 						bomb[][] 			= new Bombe[n][n]; 		// Bomben erstellen
+	
+	int 						bomb_x,
+								bomb_y;
+	
+	JLabel[][] 					label 				= new JLabel[n][n]; 	// JLabel-Array erstellen
+	public static boolean 		twoPlayerset; 								// Multiplayerabfrage
+	
+	int 						hoehe 				= 50,
+								breite 				= 50;
 	
 	// Icons:
-	Icon 	block_icon, hulk_icon, hulk2_icon, weg_icon, exit_icon, mauer_icon,
-			bomb_icon, exp_icon, bomben_item_icon, flammen_item_icon;
+	Icon 						block_icon,
+								hulk_icon,
+								hulk2_icon,
+								weg_icon,
+								exit_icon,
+								mauer_icon,
+								bomb_icon,
+								exp_icon,
+								bomben_item_icon,
+								flammen_item_icon;
 	
 	// Dateipfade zu Grafiken:
-	String 	exit_pic, block_pic, weg_pic, mauer_pic,
-			hulk_pic, hulk2_pic, bomb_pic, exp_pic;
+	String 						exit_pic,
+								block_pic,
+								weg_pic,
+								mauer_pic,
+								hulk_pic,
+								hulk2_pic,
+								bomb_pic,
+								exp_pic;
 
 	/* Konstruktor: */
 	public Map(int[][] map) {
@@ -146,22 +165,22 @@ public class Map extends JPanel {
 	}
 
 	/**
-	 * Setzt die Icons "Hulk" und "Weg" , die bei einer Bewegung verändert
+	 * Setzt die Icons "Hulk" und "Weg" , die bei einer Bewegung veraendert
 	 * werden
 	 * 
-	 * @param * X - Koordinate im Map - Array , um welche die Spielfigur bewegt
-	 *        werden soll
+	 * @param * 	X - Koordinate im Map - Array , um welche die Spielfigur bewegt
+	 *        		werden soll
 	 * @param y
-	 *            Y - Koordinate im Map - Array , um welche die Spielfigur
-	 *            bewegt werden soll
+	 *            	Y - Koordinate im Map - Array , um welche die Spielfigur
+	 *            	bewegt werden soll
 	 * @param z
-	 *            zu bewegende Spielfigur ( 1 : = Spieler 1 , 2 : = Spieler 2
-	 *            ... )
+	 *            	zu bewegende Spielfigur ( 1 : = Spieler 1 , 2 : = Spieler 2
+	 *            	... )
 	 */
 	public void move_Hulk(int x, int y, int z) {
 		/* Grafische Fortbewegung der Spielfigur: */
 		if (map[Menue.get_hulk(z).get_x()][Menue.get_hulk(z).get_y()] == 1
-				|| map[Menue.get_hulk(z).get_x()][Menue.get_hulk(z).get_y()] == 10) { // falls
+				|| map[Menue.get_hulk(z).get_x()][Menue.get_hulk(z).get_y()] == 10) { 	// falls
 																						// das
 																						// Feld
 																						// das
@@ -170,7 +189,7 @@ public class Map extends JPanel {
 																						// oder
 																						// 10)
 																						// beinhaltet,...
-			map[Menue.get_hulk(z).get_x()][Menue.get_hulk(z).get_y()] = 2; // ...weise
+			map[Menue.get_hulk(z).get_x()][Menue.get_hulk(z).get_y()] = 2; 	// ...weise
 																			// dem
 																			// Feld
 																			// das
@@ -186,14 +205,14 @@ public class Map extends JPanel {
 																					// das
 																					// Bomben-Item-Icon
 																					// enthaelt...
-				&& Menue.get_hulk(z).get_max_bomben() < 8) { // ...und der
+				&& Menue.get_hulk(z).get_max_bomben() < 8) { 	// ...und der
 																// Spieler noch
 																// nicht bei
 																// max. 8 Bomben
 																// angelangt
 																// ist...
 			Menue.get_hulk(z).set_max_bomben(
-					Menue.get_hulk(z).get_max_bomben() + 1); // ...dann erhoehe
+					Menue.get_hulk(z).get_max_bomben() + 1); 	// ...dann erhoehe
 																// die maximale
 																// Anzahl an
 																// Bomben um 1
@@ -210,7 +229,7 @@ public class Map extends JPanel {
 			Menue.sound.playItem();
 		}
 
-		if (map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] == 15) { // falls
+		if (map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] == 15) { 	// falls
 																						// das
 																						// naechste
 																						// Feld
@@ -237,7 +256,7 @@ public class Map extends JPanel {
 		}
 
 		if (z == 1) {
-			map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] = 1; // weise
+			map[Menue.get_hulk(z).get_x() + x][Menue.get_hulk(z).get_y() + y] = 1; 	// weise
 																					// dem
 																					// naechsten
 																					// Feld
@@ -266,10 +285,10 @@ public class Map extends JPanel {
 																// Hulk-Position
 																// weiter
 
-		removeAll(); // ...entferne alle bisherigen Komponenten
+		removeAll(); 	// ...entferne alle bisherigen Komponenten
 						// vom Panel...
-		refresh(); // ...und zeichne alle Komponenten des
-					// Panels neu
+		refresh(); 		// ...und zeichne alle Komponenten des
+						// Panels neu
 	}
 
 	// bombe_legen-Methode:
