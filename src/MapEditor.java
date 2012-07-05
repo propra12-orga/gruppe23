@@ -3,12 +3,13 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.io.File;
 import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -21,7 +22,7 @@ public class MapEditor extends JPanel {
 	private static int[][] map = new int[n][n];
 	protected static boolean saved = false;
 	private static int power;
-	ImageIcon pic;
+	Icon pic;
 	static int iconSatz;
 	private static boolean abfrageHulk1 = false;
 	private static boolean abfrageHulk2 = false;
@@ -55,12 +56,13 @@ public class MapEditor extends JPanel {
 					JOptionPane.OK_CANCEL_OPTION);
 
 			if (eingabe == null) {
-				System.out.println("Boo");
+				System.out.println("Boo"); // Test
+				
 				Menue.get_game().setVisible(true);
 				MapLoader.set_level(oldLevel);
 				richtigeAbfrage = true;
 				setVisible(false);		
-				Menue.get_game().bilder_skalieren();
+				Menue.get_game().bilder_skalieren(MapLoader.get_iconSatz());
 				Menue.get_game().init(); // Spielfeld zeichnen
 				Menue.get_game().setFocusable(true); // Spielfeld fokussierbar machen
 				Menue.get_game().requestFocus(); // Fokus auf Spielfeld setzen
@@ -102,15 +104,15 @@ public class MapEditor extends JPanel {
 					JOptionPane.YES_NO_OPTION);
 			
 			switch (iconAbfrage) {
-			case 0:
-				MapLoader.set_iconSatz(1);
-				iconSatz = 1;
-				break;
-				
-			case 1:
-				MapLoader.set_iconSatz(2);
-				iconSatz = 2;
-				break;
+				case 0:
+					MapLoader.set_iconSatz(1);
+					iconSatz = 1;
+					break;
+					
+				case 1:
+					MapLoader.set_iconSatz(2);
+					iconSatz = 2;
+					break;
 			}
 
 			for (int i = 0; i < n; i++) {// Map mit Mauern umranden!
@@ -315,35 +317,30 @@ public class MapEditor extends JPanel {
 						if (name != null) {
 							if (name == "Hulk") {
 								if (!abfrageHulk1) {
-									power = 1;
-									
-									pic = new ImageIcon(
-											Map.class.getResource("/Pics/"
-													+ iconSatz + "/Hulk.png"));
+									power = 1;									
+									pic = getPic(1);
 									abfrageHulk1 = true;									
 								}
 								
 								else {
-									System.out.println("Hulk1 wurde schon gesetzt");
+									System.out.println("Hulk1 wurde schon gesetzt"); // Test
+									
 									int neu = JOptionPane.showConfirmDialog(null,"Neue Position?", "Bereits gesetzt",
 											JOptionPane.YES_NO_OPTION);
 									
 									if(neu == 0) {
-										feld[MapLoader.get_icon_x(map, 1)][MapLoader.get_icon_y(map, 1)].setIcon(new ImageIcon(
-												Map.class.getResource("/Pics/"
-														+ iconSatz + "/Weg.png")));
+										// Alte Position des Hulks mit Weg ueberschreiben:
+										feld[MapLoader.get_icon_x(map, 1)][MapLoader.get_icon_y(map, 1)].setIcon(getPic(2));
 										map[MapLoader.get_icon_x(map, 1)][MapLoader.get_icon_y(map, 1)] = 2;
+										
+										// Neue Position des Hulks setzen:
 										power = 1;
-										pic = new ImageIcon(
-											Map.class.getResource("/Pics/"
-													+ iconSatz + "/Hulk.png"));
+										pic = getPic(1);
 									}
 									
 									else {
 										power = 2;
-										pic = new ImageIcon(
-										Map.class.getResource("/Pics/"
-												+ iconSatz + "/Weg.png"));
+										pic = getPic(2);
 									}
 										
 								}
@@ -352,48 +349,44 @@ public class MapEditor extends JPanel {
 							
 							else if (name == "Weg") {
 								power = 2;
-								pic = new ImageIcon(
-										Map.class.getResource("/Pics/"
-												+ iconSatz + "/Weg.png"));
+								pic = getPic(2);
 							}
 							
 							else if (name == "Block") {
 								power = 3;
-								pic = new ImageIcon(
-										Map.class.getResource("/Pics/"
-												+ iconSatz + "/Block.png"));
+								pic = getPic(3);
 							}
 							
 							else if (name == "Mauer") {
 								power = 4;
-								pic = new ImageIcon(Map.class.getResource("/Pics/" + iconSatz + "/Mauer.png"));
+								pic = getPic(4);
 							}
 							
 							else if (name == "Ausgang") {
 								if (!abfrageAusgang) {
 									power = 7;
-									pic = new ImageIcon(
-											Map.class.getResource("/Pics/"
-													+ iconSatz + "/Exit.png"));
+									pic = getPic(7);
 									abfrageAusgang = true;
 								}
 								
 								else {
-									System.out.println("Ausgang wurde schon gesetzt");
+									System.out.println("Ausgang wurde schon gesetzt"); // Test
+									
 									int neu = JOptionPane.showConfirmDialog(null,"Neue Position?", "Bereits gesetzt", JOptionPane.YES_NO_OPTION);
 									
 									if (neu == 0) {
-										feld[MapLoader.get_icon_x(map, 7)][MapLoader.get_icon_y(map, 7)].setIcon(new ImageIcon(
-												Map.class.getResource("/Pics/" + iconSatz + "/Weg.png")));
+										// Alte Position des Ausgangs mit Weg ueberschreiben:
+										feld[MapLoader.get_icon_x(map, 7)][MapLoader.get_icon_y(map, 7)].setIcon(getPic(2));
 										map[MapLoader.get_icon_x(map, 7)][MapLoader.get_icon_y(map, 7)] = 2;
+										
+										// Neue Position des Ausgangs setzen:
 										power = 7;
-										pic = new ImageIcon(Map.class.getResource("/Pics/" + iconSatz + "/Exit.png"));
+										pic = getPic(7);
 									}
 									
 									else {
 										power = 2;
-										pic = new ImageIcon(
-										Map.class.getResource("/Pics/" + iconSatz + "/Weg.png"));
+										pic = getPic(2);
 									}
 									
 								}
@@ -403,30 +396,29 @@ public class MapEditor extends JPanel {
 							else if (name == "Block-Ausgang") {
 								if (!abfrageAusgang) {
 									power = 8;
-									pic = new ImageIcon(
-											Map.class.getResource("/Pics/"
-													+ iconSatz + "/Exit.png"));
+									pic = getPic(8);
 									abfrageAusgang = true;
 								}
 								
 								else {
-									System.out.println("Ausgang wurde schon gesetzt");
+									System.out.println("Ausgang wurde schon gesetzt"); // Test
+									
 									int neu = JOptionPane.showConfirmDialog(null,"Neue Position?", "Bereits gesetzt",
 											JOptionPane.YES_NO_OPTION);
 									
 									if (neu == 0) {
-										feld[MapLoader.get_icon_x(map, 8)][MapLoader.get_icon_y(map, 8)].setIcon(new ImageIcon(
-												Map.class.getResource("/Pics/" + iconSatz + "/Weg.png")));
+										// Alte Position des Block-Ausgangs mit Weg ueberschreiben:
+										feld[MapLoader.get_icon_x(map, 8)][MapLoader.get_icon_y(map, 8)].setIcon(getPic(2));
 										map[MapLoader.get_icon_x(map, 8)][MapLoader.get_icon_y(map, 8)] = 2;
+										
+										// Neue Position des Block-Ausgangs setzen:
 										power = 8;
-										pic = new ImageIcon(Map.class.getResource("/Pics/" + iconSatz + "/Exit.png"));
+										pic = getPic(8);
 									}
 									
 									else {
 										power = 2;
-										pic = new ImageIcon(
-										Map.class.getResource("/Pics/"
-												+ iconSatz + "/Weg.png"));
+										pic = getPic(2);
 									}
 										
 								}
@@ -435,42 +427,40 @@ public class MapEditor extends JPanel {
 							
 							else if (name == "Block/Flammen-Item") {
 								power = 9;
-								pic = new ImageIcon(
-										Map.class
-												.getResource("/Pics/Flammen-Item.png"));
+								pic = getPic(9);
 							}
 							
 							else if (name == "Block/Bomben-Item") {
 								power = 12;
-								pic = new ImageIcon(
-										Map.class
-												.getResource("/Pics/Bomben-Item.png"));
+								pic = getPic(12);
 							}
 							
 							else if (name == "2.Spieler") {
 								if (!abfrageHulk2) {
 									power = 10;
-									pic = new ImageIcon(Map.class.getResource("/Pics/" + iconSatz + "/Hulk2.png"));
+									pic = getPic(10);
 									abfrageHulk2 = true;
 								}
 								
 								else {
-									System.out.println("Hulk2 wurde schon gesetzt");
+									System.out.println("Hulk2 wurde schon gesetzt"); // Test
+									
 									int neu = JOptionPane.showConfirmDialog(null,"Neue Position?", "Bereits gesetzt",
 									JOptionPane.YES_NO_OPTION);
 									
 									if (neu == 0) {
-										feld[MapLoader.get_icon_x(map, 10)][MapLoader.get_icon_y(map, 10)].setIcon(new ImageIcon(
-											Map.class.getResource("/Pics/" + iconSatz + "/Weg.png")));
+										// Alte Position des 2. Hulks mit Weg ueberschreiben:
+										feld[MapLoader.get_icon_x(map, 10)][MapLoader.get_icon_y(map, 10)].setIcon(getPic(2));
 										map[MapLoader.get_icon_x(map, 10)][MapLoader.get_icon_y(map, 10)] = 2;
+										
+										// Neue Position des 2. Hulks setzen:
 										power = 10;
-										pic = new ImageIcon(Map.class.getResource("/Pics/" + iconSatz + "/Hulk2.png"));
+										pic = getPic(10);
 									}
 									
 									else {
 										power = 2;
-										pic = new ImageIcon(
-										Map.class.getResource("/Pics/" + iconSatz + "/Weg.png"));
+										pic = getPic(2);
 									}
 										
 								}
@@ -489,7 +479,7 @@ public class MapEditor extends JPanel {
 				feld[i][j] = new JButton();
 				pic = getPic(map[i][j]);
 				feld[i][j].setIcon(pic);
-				feld[i][j].setPreferredSize(new Dimension(40,40));// Button-Größe
+				feld[i][j].setPreferredSize(new Dimension(40,40)); // Button-Größe
 				feld[i][j].addActionListener(list);
 				buttonPanel.add(feld[i][j]);
 			}
@@ -507,6 +497,7 @@ public class MapEditor extends JPanel {
 		
 		while (e.hasMoreElements()) {
 			AbstractButton b = e.nextElement();
+			
 			if (b.isSelected())
 				return (JRadioButton) b;
 		}
@@ -514,54 +505,54 @@ public class MapEditor extends JPanel {
 		return null;
 	}
 
-	public static ImageIcon getPic(int i) {
-		ImageIcon pic = null;
+	public static Icon getPic(int i) {
+		Icon pic = null;
+		Menue.get_game().bilder_skalieren(iconSatz);
 		
 		switch (i) {
-		case 0: // Block/Bomben-Item 	
-			pic = new ImageIcon(Map.class.getResource("/Pics/Bomben-Item.png"));
-			break;
-			
-		case 1: // Hulk
-			pic = new ImageIcon(Map.class.getResource("/Pics/" + iconSatz + "/Hulk.png"));
-			break;
-
-		case 2: // Weg
-			pic = new ImageIcon(Map.class.getResource("/Pics/" + iconSatz + "/Weg.png"));
-			break;
-
-		case 3: // Block
-			pic = new ImageIcon(Map.class.getResource("/Pics/" + iconSatz + "/Block.png"));
-			break;
-
-		case 4: // Mauer (nicht zerstoerbar)
-			pic = new ImageIcon(Map.class.getResource("/Pics/" + iconSatz + "/Mauer.png"));
-			break;
-
-		case 7: // Ausgang
-			pic = new ImageIcon(Map.class.getResource("/Pics/" + iconSatz + "/Exit.png"));
-			break;
-
-		case 8: // Block/Ausgang	
-			pic = new ImageIcon(Map.class.getResource("/Pics/" + iconSatz + "/Exit.png"));
-			break;
-
-		case 9: // Block/Flammen-Item 	
-			pic = new ImageIcon(Map.class.getResource("/Pics/Flammen-Item.png"));
-			break;
-
-		case 10: // 2. Spieler
-			pic = new ImageIcon(Map.class.getResource("/Pics/" + iconSatz + "/Hulk2.png"));
-			break;
-			
-		case 12: // Block/Bomben-Item 	
-			pic = new ImageIcon(Map.class.getResource("/Pics/Bomben-Item.png"));
-			break;
-			
-		case 15: // Block/Flammen-Item 	
-			pic = new ImageIcon(Map.class.getResource("/Pics/Flammen-Item.png"));
-			break;
-
+			case 0: // Block/Bomben-Item 	
+				pic = Menue.get_game().bomben_item_icon;
+				break;
+				
+			case 1: // Hulk
+				pic = Menue.get_game().hulk_icon;
+				break;
+	
+			case 2: // Weg
+				pic = Menue.get_game().weg_icon;
+				break;
+	
+			case 3: // Block
+				pic = Menue.get_game().block_icon;
+				break;
+	
+			case 4: // Mauer (nicht zerstoerbar)
+				pic = Menue.get_game().mauer_icon;
+				break;
+	
+			case 7: // Ausgang
+				pic = Menue.get_game().exit_icon;
+				break;
+	
+			case 8: // Block/Ausgang	
+				pic = Menue.get_game().exit_icon;
+				break;
+	
+			case 9: // Block/Flammen-Item 	
+				pic = Menue.get_game().flammen_item_icon;
+				break;
+	
+			case 10: // 2. Spieler
+				pic = Menue.get_game().hulk2_icon;
+				break;
+				
+			case 12: // Block/Bomben-Item 	
+				pic = Menue.get_game().bomben_item_icon;
+				break;
+				
+			case 15: // Block/Flammen-Item 	
+				pic = Menue.get_game().flammen_item_icon;
+				break;
 		}
 		
 		return pic;
@@ -572,7 +563,7 @@ public class MapEditor extends JPanel {
 	}
 	
 	public static void set_saved(boolean fred){
-		 saved = fred;
+		saved = fred;
 	}
 	
 	public static int[][] get_map(){

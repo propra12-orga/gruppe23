@@ -10,27 +10,26 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 /**
- * 
  * @author Tobias Korfmacher
- * 
  */
-
 public class Map extends JPanel {
 	// Deklaration & Initialisierung:
 	private static final long serialVersionUID = 1L;
-	int n = MapLoader.get_n(); // Spielfeldgroesse
-	static int[][] map; // Spielfeld
-	Bombe bomb[][] = new Bombe[n][n]; // Bomben erstellen
+	int n = MapLoader.get_n(); 				// Spielfeldgroesse
+	static int[][] map; 					// Spielfeld
+	Bombe bomb[][] = new Bombe[n][n]; 		// Bomben erstellen
 	int bomb_x, bomb_y;
-	JLabel[][] label = new JLabel[n][n]; // JLabel-Array erstellen
-	public static boolean twoPlayerset; // Multiplayerabfrage
+	JLabel[][] label = new JLabel[n][n]; 	// JLabel-Array erstellen
+	public static boolean twoPlayerset; 	// Multiplayerabfrage
 	int hoehe = 50, breite = 50;
+	
 	// Icons:
-	Icon block_icon, hulk_icon, hulk2_icon, weg_icon, exit_icon, mauer_icon,
+	Icon 	block_icon, hulk_icon, hulk2_icon, weg_icon, exit_icon, mauer_icon,
 			bomb_icon, exp_icon, bomben_item_icon, flammen_item_icon;
+	
 	// Dateipfade zu Grafiken:
-	String exit_pic, block_pic, weg_pic, mauer_pic, hulk_pic, hulk2_pic,
-			bomb_pic, exp_pic;
+	String 	exit_pic, block_pic, weg_pic, mauer_pic,
+			hulk_pic, hulk2_pic, bomb_pic, exp_pic;
 
 	/* Konstruktor: */
 	public Map(int[][] map) {
@@ -92,77 +91,58 @@ public class Map extends JPanel {
 	// map[bomb_x][bomb_y] = 5; // Bombe darstellen
 	// }
 
-	void bilder_skalieren() {
-		int iconSatz = MapLoader.get_iconSatz();
-		String exit_pic = "/Pics/" + iconSatz + "/Exit.png", // Grafik-Quelle:
-																// http://openclipart.org/detail/126307/panneau-sortie--traffic-sign-exit-by-lmproulx
-		block_pic = "/Pics/" + iconSatz + "/Block.gif", // Grafik-Quelle:
-														// http://openclipart.org/detail/151531/char-somua-s35-by-spadassin-151531
-		weg_pic = "/Pics/" + iconSatz + "/Weg.png", mauer_pic = "/Pics/"
-				+ iconSatz + "/Mauer.png", // Grafik-Quelle:
-											// http://openclipart.org/detail/3318/house-by-barretr
-		hulk_pic = "/Pics/" + iconSatz + "/Hulk.gif", // Grafik-Quelle:
-														// http://openclipart.org/detail/168616/hunk-by-bedpanner
-		hulk2_pic = "/Pics/" + iconSatz + "/Hulk2.gif", // Grafik-Quelle:
-														// http://openclipart.org/detail/168616/hunk-by-bedpanner
-		bomb_pic = "/Pics/" + iconSatz + "/Bombe.gif", // Grafik-Quelle:
-														// http://openclipart.org/detail/165734/dynamite-by-magnesus
-		exp_pic = "/Pics/" + iconSatz + "/EXP.png"; // Grafik-Quelle:
-		// http://openclipart.org/detail/122959/pow-by-viscious-speed
+	void bilder_skalieren(int iconSatz) {						
+																// Grafik-Quellen:
+		String exit_pic = "/Pics/" + iconSatz + "/Exit.png", 	// http://openclipart.org/detail/126307/panneau-sortie--traffic-sign-exit-by-lmproulx
+		block_pic 		= "/Pics/" + iconSatz + "/Block.gif", 	// http://openclipart.org/detail/151531/char-somua-s35-by-spadassin-151531
+		weg_pic 		= "/Pics/" + iconSatz + "/Weg.png",
+		mauer_pic 		= "/Pics/" + iconSatz + "/Mauer.png", 	// http://openclipart.org/detail/3318/house-by-barretr
+		hulk_pic 		= "/Pics/" + iconSatz + "/Hulk.gif", 	// http://openclipart.org/detail/168616/hunk-by-bedpanner
+		hulk2_pic 		= "/Pics/" + iconSatz + "/Hulk2.gif", 	// http://openclipart.org/detail/168616/hunk-by-bedpanner
+		bomb_pic 		= "/Pics/" + iconSatz + "/Bombe.gif", 	// http://openclipart.org/detail/165734/dynamite-by-magnesus
+		exp_pic 		= "/Pics/" + iconSatz + "/EXP.png"; 	// http://openclipart.org/detail/122959/pow-by-viscious-speed
 
 		Image source, scaledImage;
 
-		source = new ImageIcon(Map.class.getResource(block_pic)).getImage();
-		scaledImage = source.getScaledInstance(breite, hoehe,
-				Image.SCALE_DEFAULT);
-		block_icon = new ImageIcon(scaledImage);
+		source 				= new ImageIcon(Map.class.getResource(block_pic)).getImage();
+		scaledImage 		= source.getScaledInstance(breite, hoehe, Image.SCALE_FAST);
+		block_icon 			= new ImageIcon(scaledImage);
 
-		source = new ImageIcon(Map.class.getResource(hulk_pic)).getImage();
-		scaledImage = source.getScaledInstance(breite, hoehe,
-				Image.SCALE_DEFAULT);
-		hulk_icon = new ImageIcon(scaledImage);
+		source 				= new ImageIcon(Map.class.getResource(hulk_pic)).getImage();
+		scaledImage 		= source.getScaledInstance(breite, hoehe, Image.SCALE_FAST);
+		hulk_icon 			= new ImageIcon(scaledImage);
 
-		source = new ImageIcon(Map.class.getResource(weg_pic)).getImage();
-		scaledImage = source.getScaledInstance(breite, hoehe,
-				Image.SCALE_DEFAULT);
-		weg_icon = new ImageIcon(scaledImage);
+		source 				= new ImageIcon(Map.class.getResource(weg_pic)).getImage();
+		scaledImage 		= source.getScaledInstance(breite, hoehe, Image.SCALE_FAST);
+		weg_icon 			= new ImageIcon(scaledImage);
 
-		source = new ImageIcon(Map.class.getResource(mauer_pic)).getImage();
-		scaledImage = source.getScaledInstance(breite, hoehe,
-				Image.SCALE_DEFAULT);
-		mauer_icon = new ImageIcon(scaledImage);
+		source 				= new ImageIcon(Map.class.getResource(mauer_pic)).getImage();
+		scaledImage 		= source.getScaledInstance(breite, hoehe, Image.SCALE_FAST);
+		mauer_icon 			= new ImageIcon(scaledImage);
 
-		source = new ImageIcon(Map.class.getResource(bomb_pic)).getImage();
-		scaledImage = source.getScaledInstance(breite, hoehe,
-				Image.SCALE_DEFAULT);
-		bomb_icon = new ImageIcon(scaledImage);
+		source 				= new ImageIcon(Map.class.getResource(bomb_pic)).getImage();
+		scaledImage 		= source.getScaledInstance(breite, hoehe, Image.SCALE_FAST);
+		bomb_icon 			= new ImageIcon(scaledImage);
 
-		source = new ImageIcon(Map.class.getResource(exp_pic)).getImage();
-		scaledImage = source.getScaledInstance(breite, hoehe,
-				Image.SCALE_DEFAULT);
-		exp_icon = new ImageIcon(scaledImage);
+		source 				= new ImageIcon(Map.class.getResource(exp_pic)).getImage();
+		scaledImage 		= source.getScaledInstance(breite, hoehe, Image.SCALE_FAST);
+		exp_icon 			= new ImageIcon(scaledImage);
 
-		source = new ImageIcon(Map.class.getResource(exit_pic)).getImage();
-		scaledImage = source.getScaledInstance(breite, hoehe,
-				Image.SCALE_DEFAULT);
-		exit_icon = new ImageIcon(scaledImage);
+		source 				= new ImageIcon(Map.class.getResource(exit_pic)).getImage();
+		scaledImage 		= source.getScaledInstance(breite, hoehe, Image.SCALE_FAST);
+		exit_icon 			= new ImageIcon(scaledImage);
 
-		source = new ImageIcon(Map.class.getResource(hulk2_pic)).getImage();
-		scaledImage = source.getScaledInstance(breite, hoehe,
-				Image.SCALE_DEFAULT);
-		hulk2_icon = new ImageIcon(scaledImage);
+		source 				= new ImageIcon(Map.class.getResource(hulk2_pic)).getImage();
+		scaledImage 		= source.getScaledInstance(breite, hoehe, Image.SCALE_FAST);
+		hulk2_icon 			= new ImageIcon(scaledImage);
 
-		source = new ImageIcon(Map.class.getResource("/Pics/Bomben-Item.png"))
-				.getImage();
-		scaledImage = source.getScaledInstance(breite, hoehe,
-				Image.SCALE_DEFAULT);
-		bomben_item_icon = new ImageIcon(scaledImage);
+		source 				= new ImageIcon(Map.class.getResource("/Pics/Bomben-Item.png")).getImage();
+		scaledImage 		= source.getScaledInstance(breite, hoehe, Image.SCALE_FAST);
+		bomben_item_icon 	= new ImageIcon(scaledImage);
 
-		source = new ImageIcon(Map.class.getResource("/Pics/Flammen-Item.png"))
-				.getImage();
-		scaledImage = source.getScaledInstance(breite, hoehe,
-				Image.SCALE_DEFAULT);
-		flammen_item_icon = new ImageIcon(scaledImage);
+		source 				= new ImageIcon(Map.class.getResource("/Pics/Flammen-Item.png")).getImage();
+		scaledImage 		= source.getScaledInstance(breite, hoehe, Image.SCALE_FAST);
+		flammen_item_icon 	= new ImageIcon(scaledImage);
 	}
 
 	/**
@@ -298,10 +278,9 @@ public class Map extends JPanel {
 		bomb_y = Menue.get_hulk(Spieler).get_y();
 		bomb[bomb_x][bomb_y] = new Bombe(bomb_x, bomb_y);
 
-		add(bomb[bomb_x][bomb_y]); // Bombe hinzufuegen
-		bomb[bomb_x][bomb_y].aktivieren(Spieler, Menue.get_hulk(Spieler)
-				.get_bomben_radius()); // Bombe aktivieren
-		map[bomb_x][bomb_y] = 5; // Bombe darstellen
+		add(bomb[bomb_x][bomb_y]); 																// Bombe hinzufuegen
+		bomb[bomb_x][bomb_y].aktivieren(Spieler, Menue.get_hulk(Spieler).get_bomben_radius()); 	// Bombe aktivieren
+		map[bomb_x][bomb_y] = 5; 																// Bombe darstellen
 	}
 
 	// refresh-Methode:
@@ -312,7 +291,7 @@ public class Map extends JPanel {
 				label[i][j] = new JLabel(); // fuer jedes einzele Arrayelement
 											// wird ein neues Label erstellt
 				label[i][j].setHorizontalAlignment(SwingConstants.CENTER);
-				label_laden(label[i][j], map[i][j]); // laedt in das Label das
+				label_laden(label[i][j], map[i][j]); 	// laedt in das Label das
 														// Bild (Map hat die
 														// Werte ob Hulk, etc..)
 				gbc_label[i][j] = new GridBagConstraints();
@@ -323,12 +302,13 @@ public class Map extends JPanel {
 				gbc_label[i][j].gridy = j;
 				gbc_label[i][j].weightx = 1.0;
 				gbc_label[i][j].weighty = 1.0;
-				add(label[i][j], gbc_label[i][j]); // Label auf Panel laden
-				label[i][j].repaint(); // Zeichnen
-				label[i][j].setVisible(true); // Sichtbarkeit setzen
+				add(label[i][j], gbc_label[i][j]); 	// Label auf Panel laden
+				label[i][j].repaint(); 				// Zeichnen
+				label[i][j].setVisible(true); 		// Sichtbarkeit setzen
 			}
 
 		}
+		
 		updateUI();
 	}
 
@@ -337,13 +317,13 @@ public class Map extends JPanel {
 		int n = MapLoader.get_n();
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		setLayout(gbl_contentPane);
-
 		GridBagConstraints[][] gbc_label = new GridBagConstraints[n][n];
+		
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				label[i][j] = new JLabel(); // fuer jedes einzele Arrayelement
 											// wird ein neues Label erstellt
-				label_laden(label[i][j], map[i][j]); // laedt in das Label das
+				label_laden(label[i][j], map[i][j]); 	// laedt in das Label das
 														// Bild (Map hat die
 														// Werte ob Hulk, etc..)
 				gbc_label[i][j] = new GridBagConstraints();
@@ -363,69 +343,69 @@ public class Map extends JPanel {
 	// label_laden-Methode:
 	public void label_laden(JLabel label, int i) {
 		switch (i) {
-		case 0: // Block/Bomben-Item
-			label.setIcon(block_icon);
-			break;
-
-		case 1: // Hulk
-			label.setIcon(hulk_icon);
-			break;
-
-		case 2: // Weg
-			label.setIcon(weg_icon);
-			break;
-
-		case 3: // Block
-			label.setIcon(block_icon);
-			break;
-
-		case 4: // Mauer (nicht zerstoerbar)
-			label.setIcon(mauer_icon);
-			break;
-
-		case 5: // Bombe
-			label.setIcon(bomb_icon);
-			break;
-
-		case 6: // Explosion
-			label.setIcon(exp_icon);
-			break;
-
-		case 7: // Ausgang
-			label.setIcon(exit_icon);
-			break;
-
-		case 8: // Block/Ausgang
-			label.setIcon(block_icon);
-			break;
-
-		case 9: // Block/Flammen-Item
-			label.setIcon(block_icon);
-			break;
-
-		case 10: // 2. Spieler
-			label.setIcon(hulk2_icon);
-			break;
-
-		case 11: // Explosion/Bomben-Item
-			label.setIcon(exp_icon);
-			break;
-
-		case 12: // Bomben-Item
-			label.setIcon(bomben_item_icon);
-			break;
-
-		case 13: // Explosion/Ausgang
-			label.setIcon(exp_icon);
-			break;
-
-		case 14: // Explosion/Flammen-Item
-			label.setIcon(exp_icon);
-			break;
-
-		case 15: // Flammen-Item
-			label.setIcon(flammen_item_icon);
-			break;
+			case 0: // Block/Bomben-Item
+				label.setIcon(block_icon);
+				break;
+	
+			case 1: // Hulk
+				label.setIcon(hulk_icon);
+				break;
+	
+			case 2: // Weg
+				label.setIcon(weg_icon);
+				break;
+	
+			case 3: // Block
+				label.setIcon(block_icon);
+				break;
+	
+			case 4: // Mauer (nicht zerstoerbar)
+				label.setIcon(mauer_icon);
+				break;
+	
+			case 5: // Bombe
+				label.setIcon(bomb_icon);
+				break;
+	
+			case 6: // Explosion
+				label.setIcon(exp_icon);
+				break;
+	
+			case 7: // Ausgang
+				label.setIcon(exit_icon);
+				break;
+	
+			case 8: // Block/Ausgang
+				label.setIcon(block_icon);
+				break;
+	
+			case 9: // Block/Flammen-Item
+				label.setIcon(block_icon);
+				break;
+	
+			case 10: // 2. Spieler
+				label.setIcon(hulk2_icon);
+				break;
+	
+			case 11: // Explosion/Bomben-Item
+				label.setIcon(exp_icon);
+				break;
+	
+			case 12: // Bomben-Item
+				label.setIcon(bomben_item_icon);
+				break;
+	
+			case 13: // Explosion/Ausgang
+				label.setIcon(exp_icon);
+				break;
+	
+			case 14: // Explosion/Flammen-Item
+				label.setIcon(exp_icon);
+				break;
+	
+			case 15: // Flammen-Item
+				label.setIcon(flammen_item_icon);
+				break;
 		}
 
 	}

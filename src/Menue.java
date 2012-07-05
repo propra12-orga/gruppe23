@@ -503,7 +503,7 @@ public class Menue implements KeyListener {
 
 		frame.getContentPane().add(game); // Spielfeld hinzufuegen
 
-		game.bilder_skalieren();
+		game.bilder_skalieren(MapLoader.get_iconSatz());
 		game.init(); // Spielfeld zeichnen
 		game.addKeyListener(this); // Keylistener zum Spielfeld hinzufuegen
 		game.setFocusable(true); // Spielfeld fokussierbar machen
@@ -520,7 +520,7 @@ public class Menue implements KeyListener {
 				frame.setSize(size, size + 50);
 				game.breite = frame.getSize().width / 13;
 				game.hoehe = frame.getSize().height / 13;
-				game.bilder_skalieren();
+				game.bilder_skalieren(MapLoader.get_iconSatz());
 				game.removeAll(); // ...entferne alle bisherigen Komponenten vom Panel...
 				game.refresh();
 			}
@@ -1031,7 +1031,7 @@ public class Menue implements KeyListener {
 
 		
 		// Bilder erneut skalieren:
-		game.bilder_skalieren();
+		game.bilder_skalieren(MapLoader.get_iconSatz());
 
 		// Spielfeld grafisch reinitialisieren:
 		game.removeAll();
