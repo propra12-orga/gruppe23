@@ -1087,7 +1087,7 @@ public class Menue implements KeyListener {
 
 			else if (eingabe == 1 || eingabe == -1) {
 				if (editorlaeuft) {
-					if(!MapEditor.get_saved()){
+					if(!MapEditor.get_saved() && !MapEditor.abgebrochen()){
 	    			int abfrage = JOptionPane.showConfirmDialog(null,
 							"Bevor Sie  den Editor schliessen wollen, \n" +
 							"wollen Sie die neue Map noch speichern?",
@@ -1497,7 +1497,7 @@ public class Menue implements KeyListener {
 
 		public void actionPerformed(ActionEvent e) {
 			if (editorlaeuft) {
-				if(!MapEditor.get_saved()){
+				if(!MapEditor.get_saved() && !MapEditor.abgebrochen()){
     			int eingabe = JOptionPane.showConfirmDialog(null,
 						"Bevor Sie  den Editor schliessen wollen, \n" +
 						"wollen Sie die neue Map noch speichern?",
@@ -2066,7 +2066,7 @@ public class Menue implements KeyListener {
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (editorlaeuft) {
-				if(!MapEditor.get_saved()){
+				if(!MapEditor.get_saved() && !MapEditor.abgebrochen()){
     			int eingabe = JOptionPane.showConfirmDialog(null,
 						"Bevor Sie   schliessen wollen, \n" +
 						"wollen Sie die editierte Map noch speichern?",
@@ -2405,7 +2405,7 @@ public class Menue implements KeyListener {
 		 public void windowClosing(WindowEvent e)
 		    {
 			    	if(editorlaeuft){
-			    		if(!MapEditor.get_saved()){
+			    		if(!MapEditor.get_saved() && !MapEditor.abgebrochen()){
 			    			int eingabe = JOptionPane.showConfirmDialog(null,
 									"Bevor Sie schliessen wollen, \n" +
 									"wollen Sie die neue Map noch speichern?",
