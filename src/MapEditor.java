@@ -522,19 +522,13 @@ public class MapEditor extends JPanel {
 				pic = getPic(map[i][j]);
 				feld[i][j].setIcon(pic);
 				feld[i][j].setPreferredSize(new Dimension(40,40)); // Button-Größe
-				if(i == 0){
-					
-				}else if(j == 0){
-					
-				}else if(i == n-1){
-					
-				}else if( j == n-1){
-					
-				}else{
-					feld[i][j].addActionListener(list);
-				}
-				
-				
+					if(i == 0 || j == 0 || i == n-1 || j == n-1){
+						
+					}
+					else{
+						feld[i][j].addActionListener(list);
+					}
+
 				buttonPanel.add(feld[i][j]);
 				}	
 			
