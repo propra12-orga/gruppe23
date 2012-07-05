@@ -319,8 +319,8 @@ public class Map extends JPanel {
 				gbc_label[i][j].anchor = GridBagConstraints.CENTER;
 				gbc_label[i][j].fill = GridBagConstraints.BOTH;
 				gbc_label[i][j].insets = new Insets(0, 0, 0, 0);
-				gbc_label[i][j].gridx = j;
-				gbc_label[i][j].gridy = i;
+				gbc_label[i][j].gridx = i;
+				gbc_label[i][j].gridy = j;
 				gbc_label[i][j].weightx = 1.0;
 				gbc_label[i][j].weighty = 1.0;
 				add(label[i][j], gbc_label[i][j]); // Label auf Panel laden
@@ -349,8 +349,8 @@ public class Map extends JPanel {
 				gbc_label[i][j] = new GridBagConstraints();
 				gbc_label[i][j].anchor = GridBagConstraints.CENTER;
 				gbc_label[i][j].fill = GridBagConstraints.BOTH;
-				gbc_label[i][j].gridx = j;
-				gbc_label[i][j].gridy = i;
+				gbc_label[i][j].gridx = i;
+				gbc_label[i][j].gridy = j;
 				gbc_label[i][j].weightx = 1.0;
 				gbc_label[i][j].weighty = 1.0;
 				add(label[i][j], gbc_label[i][j]); // Label auf Panel laden

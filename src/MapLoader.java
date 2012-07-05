@@ -467,28 +467,34 @@ public class MapLoader {
 	}
 
 	public static int get_icon_x(int[][] map, int i) {
-		int found = 0;
+		int found = 0, zaehler = 0;
 		for (int a = 0; a < MapLoader.get_n(); a++) {
 			for (int b = 0; b < MapLoader.get_n(); b++) {
-				if (map[a][b] == i)
+				if (map[a][b] == i) {
 					found = a;
+					zaehler++;
+				}
 			}
 		}
 
 		return found;
+//		return zaehler;
 
 	}
 
 	public static int get_icon_y(int[][] map, int i) {
-		int found = 0;
+		int found = 0, zaehler = 0;
 		for (int a = 0; a < MapLoader.get_n(); a++) {
 			for (int b = 0; b < MapLoader.get_n(); b++) {
-				if (map[a][b] == i)
+				if (map[a][b] == i) {
 					found = b;
+					zaehler++;
+				}
 			}
 		}
 
 		return found;
+//		return zaehler;
 	}
 
 	public static int get_max1() {

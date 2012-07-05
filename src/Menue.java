@@ -547,31 +547,32 @@ public class Menue implements KeyListener {
 		// Key-Methoden fuer 1. Spieler
 		// Pfeiltaste oben:
 		if (Key.getKeyCode() == KeyEvent.VK_UP) {
-			a[0] = -1;
-			a[1] = 0;
-			a[2] = 1;
-		}
-
-		// Pfeiltaste links:
-		else if (Key.getKeyCode() == KeyEvent.VK_LEFT) {
 			a[0] = 0;
 			a[1] = -1;
 			a[2] = 1;
 		}
 
+		// Pfeiltaste links:
+		else if (Key.getKeyCode() == KeyEvent.VK_LEFT) {			
+			a[0] = -1;
+			a[1] = 0;
+			a[2] = 1;
+		}
+
 		// Pfeiltaste rechts:
 		else if (Key.getKeyCode() == KeyEvent.VK_RIGHT) {
-			a[0] = 0;
-			a[1] = 1;
+			a[0] = 1;
+			a[1] = 0;
 			a[2] = 1;
 		}
 
 		// Pfeiltaste unten:
-		else if (Key.getKeyCode() == KeyEvent.VK_DOWN) {
-			a[0] = 1;
-			a[1] = 0;
+		else if (Key.getKeyCode() == KeyEvent.VK_DOWN) {			
+			a[0] = 0;
+			a[1] = 1;
 			a[2] = 1;
-		}	
+		}
+		
 		// Cheat1:
 		else if (Key.getKeyCode() == 85) {
 			MapLoader.set_max1((MapLoader.get_max1()+1));
@@ -611,30 +612,29 @@ public class Menue implements KeyListener {
 		// Key-Methoden fuer 2. Spieler
 		// Taste W (oben):
 		else if (Key.getKeyCode() == KeyEvent.VK_W && hotSeat) {
-			a[0] = -1;
-			a[1] = 0;
-			a[2] = 2;
-		}
-
-		// Taste A (links):
-		else if (Key.getKeyCode() == KeyEvent.VK_A && hotSeat) {
-
 			a[0] = 0;
 			a[1] = -1;
 			a[2] = 2;
 		}
 
+		// Taste A (links):
+		else if (Key.getKeyCode() == KeyEvent.VK_A && hotSeat) {
+			a[0] = -1;
+			a[1] = 0;
+			a[2] = 2;
+		}
+
 		// Taste S (unten):
 		else if (Key.getKeyCode() == KeyEvent.VK_S && hotSeat) {
-			a[0] = 1;
-			a[1] = 0;
+			a[0] = 0;
+			a[1] = 1;
 			a[2] = 2;
 		}
 
 		// Taste D (rechts):
 		else if (Key.getKeyCode() == KeyEvent.VK_D && hotSeat) {
-			a[0] = 0;
-			a[1] = 1;
+			a[0] = 1;
+			a[1] = 0;
 			a[2] = 2;
 		}
 

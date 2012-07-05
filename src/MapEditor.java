@@ -309,6 +309,9 @@ public class MapEditor extends JPanel {
 											JOptionPane.YES_NO_OPTION);
 									
 										if(neu == 0){
+											feld[MapLoader.get_icon_x(map, 1)][MapLoader.get_icon_y(map, 1)].setIcon(new ImageIcon(
+													Map.class.getResource("/Pics/"
+															+ iconSatz + "/Weg.png")));
 											map[MapLoader.get_icon_x(map, 1)][MapLoader.get_icon_y(map, 1)] = 2;
 											power = 1;
 											pic = new ImageIcon(
@@ -351,8 +354,10 @@ public class MapEditor extends JPanel {
 									int neu = JOptionPane.showConfirmDialog(null,"Neue Position?", "Bereits gesetz",
 											JOptionPane.YES_NO_OPTION);
 										if(neu == 0){
+										feld[MapLoader.get_icon_x(map, 7)][MapLoader.get_icon_y(map, 7)].setIcon(new ImageIcon(
+												Map.class.getResource("/Pics/" + iconSatz + "/Weg.png")));
 										map[MapLoader.get_icon_x(map, 7)][MapLoader.get_icon_y(map, 7)] = 2;
-										power = 8;
+										power = 7;
 										pic = new ImageIcon(
 												Map.class.getResource("/Pics/"
 														+ iconSatz + "/Exit.png"));
@@ -377,7 +382,10 @@ public class MapEditor extends JPanel {
 									int neu = JOptionPane.showConfirmDialog(null,"Neue Position?", "Bereits gesetz",
 											JOptionPane.YES_NO_OPTION);
 										if(neu == 0){
-										map[MapLoader.get_icon_x(map, 7)][MapLoader.get_icon_y(map, 7)] = 2;
+										feld[MapLoader.get_icon_x(map, 8)][MapLoader.get_icon_y(map, 8)].setIcon(new ImageIcon(
+												Map.class.getResource("/Pics/"
+														+ iconSatz + "/Weg.png")));
+										map[MapLoader.get_icon_x(map, 8)][MapLoader.get_icon_y(map, 8)] = 2;
 										power = 8;
 										pic = new ImageIcon(
 												Map.class.getResource("/Pics/"
@@ -408,10 +416,13 @@ public class MapEditor extends JPanel {
 													+ iconSatz + "/Hulk2.png"));
 									abfrageHulk2 = true;
 								} else {
-									System.out.println("Hulk1 wurde schon gesetzt");
+									System.out.println("Hulk2 wurde schon gesetzt");
 									int neu = JOptionPane.showConfirmDialog(null,"Neue Position?", "Bereits gesetz",
 									JOptionPane.YES_NO_OPTION);
 										if(neu == 0){
+										feld[MapLoader.get_icon_x(map, 10)][MapLoader.get_icon_y(map, 10)].setIcon(new ImageIcon(
+											Map.class.getResource("/Pics/"
+													+ iconSatz + "/Weg.png")));
 										map[MapLoader.get_icon_x(map, 10)][MapLoader.get_icon_y(map, 10)] = 2;
 										power = 10;
 										pic = new ImageIcon(
