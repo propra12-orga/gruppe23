@@ -1943,44 +1943,45 @@ public class Menue implements KeyListener {
 		 * Startet den Map - Editor
 		 */
 		public void actionPerformed(ActionEvent e) {
-			if (lan == true) {
-				int antwort = JOptionPane.showConfirmDialog(null,
-						"Diese Aktion beendet den LAN-Modus. Fortfahren?",
-						"LAN-Modus", JOptionPane.YES_NO_OPTION);
-				switch (antwort) {
-				case 0:
+			if (!editorlaeuft) {
+				if (lan == true) {
+					int antwort = JOptionPane.showConfirmDialog(null,
+							"Diese Aktion beendet den LAN-Modus. Fortfahren?",
+							"LAN-Modus", JOptionPane.YES_NO_OPTION);
+					switch (antwort) {
+					case 0:
+						lan_modus_beenden();
+						mapping = new MapEditor();
+						editorlaeuft = true;
+						frame.getContentPane().add(mapping);
+						frame.pack();
 
-					lan_modus_beenden();
-					game.setVisible(false);
+						break;
+					case 1:
+						break;
+					}
+
+				}
+
+				else {
+
 					mapping = new MapEditor();
 					editorlaeuft = true;
-					mapping.setVisible(true);
 					frame.getContentPane().add(mapping);
 					frame.pack();
-
-					break;
-				case 1:
-					break;
 				}
 
 			}
-
-			else {
-
-				game.setVisible(false);
-				mapping = new MapEditor();
-				editorlaeuft = true;
-				mapping.setVisible(true);
-				frame.getContentPane().add(mapping);	
-				frame.pack();
-			}
+			setGameVisible(false);
+			setMappingVisible(true);
 
 		}
 
 	}
 
 	/**
-	 * Klasse fuer Menuebuttonorganisation "MapEditor" , fortsetzen den Map - Editor
+	 * Klasse fuer Menuebuttonorganisation "MapEditor" , fortsetzen des Map - Editor, falls er
+	 * schon lief, sonst wird eine neue instanz erstellt.
 	 * 
 	 * @author Tobias Korfmacher
 	 */
@@ -2032,9 +2033,9 @@ public class Menue implements KeyListener {
 				}
 
 			}
+			setGameVisible(false);
+			setMappingVisible(true);
 
-			game.setVisible(false);
-			mapping.setVisible(true);
 		}
 
 	}
