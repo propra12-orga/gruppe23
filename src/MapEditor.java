@@ -316,12 +316,52 @@ public class MapEditor extends JPanel {
 		
 		ActionListener test = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
+				
+				int moep;
+				System.out.println("Speichern?"); // Test
+				if(!abfrageHulk1){
+						moep = 	JOptionPane.showConfirmDialog(null,
+							"Es wurde noch kein 1. Spieler gesetzt.\nTrotzdem testen?",
+							"Konsistenzabfrage?",
+							JOptionPane.YES_NO_OPTION);
+						switch (moep) {
+						case 0:
+							setVisible(false);
+							MapLoader.level_speichern(map, "Level-" + eingabe);
+							Menue.setMappingVisible(false);
+							Menue.setGameVisible(true);
+							Menue.spiel_neustarten();
+						case 1:
+								// editieren fortsetzen
+							break;
+
+					}
+				} else if(!abfrageAusgang){
+						moep = 	JOptionPane.showConfirmDialog(null,
+							"Es wurde noch kein Ausgang gesetzt.\nTrotzdem testen?",
+							"Konsistenzabfrage?",
+							JOptionPane.YES_NO_OPTION);
+				
+						switch (moep) {
+							case 0:
+								MapLoader.level_speichern(map, "Level-" + eingabe);
+								Menue.setMappingVisible(false);
+								Menue.setGameVisible(true);
+								Menue.spiel_neustarten();
+								break;
+							case 1:
+									// editieren fortsetzen
+								break;
+
+						}
+						
+				}
+				else{
 				MapLoader.level_speichern(map, "Level-" + eingabe);
 				Menue.setMappingVisible(false);
 				Menue.setGameVisible(true);
-
 				Menue.spiel_neustarten();
+				}
 			}
 
 		};

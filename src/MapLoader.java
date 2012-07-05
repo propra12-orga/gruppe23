@@ -194,7 +194,7 @@ public class MapLoader {
 			try {
 				out = new BufferedWriter(new FileWriter(path));
 				out.write("" + iconSatz + ":" + hulk1.get_bomben_radius() + ":"
-						+ hulk1.get_max_bomben());
+						+ hulk1.get_max_bomben() + ":2:1");
 				out.newLine();
 				for (int i = 0; i < n; i++) {
 					out.write(line[i]);
