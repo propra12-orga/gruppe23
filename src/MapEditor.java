@@ -3,7 +3,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.io.File;
 import java.util.Enumeration;
 
@@ -27,6 +26,7 @@ public class MapEditor extends JPanel {
 	private static boolean 		abfrageHulk1 		= false,
 								abfrageHulk2 		= false,
 								abfrageAusgang 		= false,
+								ausgangVersteckt    = false,
 								abbruch 			= false,
 								exist 				= false;
 	
@@ -426,7 +426,7 @@ public class MapEditor extends JPanel {
 							else if (name == "Block-Ausgang") {
 								if (!abfrageAusgang) {
 									power = 8;
-									pic = getPic(8);
+									pic = getPic(7);
 									abfrageAusgang = true;
 								}
 								
@@ -449,7 +449,7 @@ public class MapEditor extends JPanel {
 										
 										// Neue Position des Block-Ausgangs setzen:
 										power = 8;
-										pic = getPic(8);
+										pic = getPic(7);
 									}
 									
 									else {
@@ -522,11 +522,25 @@ public class MapEditor extends JPanel {
 				pic = getPic(map[i][j]);
 				feld[i][j].setIcon(pic);
 				feld[i][j].setPreferredSize(new Dimension(40,40)); // Button-Größe
-				feld[i][j].addActionListener(list);
+				if(i == 0){
+					
+				}else if(j == 0){
+					
+				}else if(i == n-1){
+					
+				}else if( j == n-1){
+					
+				}else{
+					feld[i][j].addActionListener(list);
+				}
+				
+				
 				buttonPanel.add(feld[i][j]);
-			}
+				}	
+			
 			
 			add(buttonPanel);
+			
 		}
 		
 		return 1;		
