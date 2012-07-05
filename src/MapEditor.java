@@ -215,6 +215,7 @@ public class MapEditor extends JPanel {
 					MapLoader.set_level(oldLevel);
 					Menue.setGameVisible(true);
 					Menue.spiel_neustarten();
+					Menue.set_editor_laeuft(false);
 				}
 
 				else if (!abbruch) {
@@ -236,6 +237,7 @@ public class MapEditor extends JPanel {
 								MapLoader.set_level(oldLevel);
 								Menue.setGameVisible(true);
 								Menue.spiel_neustarten();
+								Menue.set_editor_laeuft(false);
 								break;
 								
 							case 1:
@@ -260,6 +262,7 @@ public class MapEditor extends JPanel {
 									MapLoader.set_level(oldLevel);
 									Menue.setGameVisible(true);
 									Menue.spiel_neustarten();
+									Menue.set_editor_laeuft(false);
 									break;
 									
 								case 1:
@@ -283,19 +286,19 @@ public class MapEditor extends JPanel {
 								MapLoader.set_level(oldLevel);
 								Menue.setGameVisible(true);
 								Menue.spiel_neustarten();
+								Menue.set_editor_laeuft(false);
 								break;
 								
 							case 1:
 								Menue.setMappingVisible(false);
-								
 								if (!exist) {
 									f.deleteOnExit();
 									f.delete();
 								}
-								
 								MapLoader.set_level(oldLevel);
 								Menue.setGameVisible(true);
 								Menue.spiel_neustarten();
+								Menue.set_editor_laeuft(false);
 								break;
 								
 							case 2: // abbrechen, nichts machen
