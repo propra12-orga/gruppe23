@@ -158,43 +158,53 @@ public class MapEditor extends JPanel {
 		
 		ActionListener save = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (exist) {
-					int dateiAbfrage = 	JOptionPane.showConfirmDialog(null,
-										"Die Datei existiert bereits.\n"
-										+ "Möchten Sie die Datei überschreiben?",
-										"Überschreiben?",
-										JOptionPane.YES_NO_OPTION);
-
-					if (dateiAbfrage == 0) {
-
+				if(!abfrageHulk1){
+					JOptionPane.showMessageDialog(null, "Es  wurde noch kein 1. Spieler gesetzt,\nbitte setzen!");
+				}else if(!abfrageAusgang){
+					JOptionPane.showMessageDialog(null, "Es  wurde noch kein Ausgang gesetzt,\nbitte setzen!");
+				}
+				// abfrage ob beendet werden soll 
+				else{
+					if(exist) {
+							int dateiAbfrage = 	JOptionPane.showConfirmDialog(null,
+												"Die Datei existiert bereits.\n"
+												+ "Möchten Sie die Datei überschreiben?",
+												"Überschreiben?",
+												JOptionPane.YES_NO_OPTION);
+		
+							if (dateiAbfrage == 0) {
+		
+							}
+		
+							else {
+								String ersatzNummer = 	JOptionPane.showInputDialog(null,
+														"Geben Sie die einen Ersatznamen ein!",
+														"ersatz", JOptionPane.PLAIN_MESSAGE);
+		
+								MapLoader.level_speichern(map, "Level-" + ersatzNummer);
+								saved = true;
+							}
+		
+						}
+		
+						else {
+							MapLoader.level_speichern(map, levelnummer);
+							saved = true;
 					}
-
-					else {
-						String ersatzNummer = 	JOptionPane.showInputDialog(null,
-												"Geben Sie die einen Ersatznamen ein!",
-												"ersatz", JOptionPane.PLAIN_MESSAGE);
-
-						MapLoader.level_speichern(map, "Level-" + ersatzNummer);
-						saved = true;
-					}
-
 				}
 
-				else {
-					MapLoader.level_speichern(map, levelnummer);
-					saved = true;
-				}
-
-//				Menue.spiel_neustarten();
 			}
 
 		};
 		
 		setVisible(true); // frame.setVisible(true)
 		JPanel place = new JPanel(new GridLayout(1,4));
-		
-//		frame.setResizable(false); // Fenster soll nicht skalierbar sein
 
+		/**
+		 * Der Button zum beenden des Editors, abfragen ob das level ausgang und hulk hat und abfrage
+		 * ob das level schon gespeichert wurde, falls nicht gespeichert werden soll wird die erstellte datei wieder 
+		 * entfernt um den ordner nicht vollzu spamen*/
+		
 		JButton exit_button = new JButton("Editor beenden"); // "Editor beenden"-Button hinzufuegen
 		
 		ActionListener exit = new ActionListener() {
@@ -208,40 +218,91 @@ public class MapEditor extends JPanel {
 				}
 
 				else if (!abbruch) {
+					int bla;
 					System.out.println("Speichern?"); // Test
-					
-					int eingabe = 	JOptionPane.showConfirmDialog(null,
-									"Wollen Sie die neue Map speichern?",
-									"Gespeichert?",
-									JOptionPane.YES_NO_CANCEL_OPTION);
+					if(!abfrageHulk1){
+							bla = 	JOptionPane.showConfirmDialog(null,
+								"Es wurde noch kein 1. Spieler gesetzt. Trotzdem beenden?",
+								"Konsistenzabfrage?",
+								JOptionPane.YES_NO_OPTION);
+							switch (bla) {
+							case 0:
+								Menue.setMappingVisible(false);
+								if (!exist) {
+									f.deleteOnExit();
+									f.delete();
+								}
+								
+								MapLoader.set_level(oldLevel);
+								Menue.setGameVisible(true);
+								Menue.spiel_neustarten();
+								break;
+								
+							case 1:
+									// editieren fortsetzen
+								break;
 
-					switch (eingabe) {
-						case 0:
-							MapLoader.level_speichern(map, levelnummer);
-							saved = true;
-							Menue.setMappingVisible(false);
-							MapLoader.set_level(oldLevel);
-							Menue.setGameVisible(true);
-							Menue.spiel_neustarten();
-							break;
-							
-						case 1:
-							Menue.setMappingVisible(false);
-							
-							if (!exist) {
-								f.deleteOnExit();
-								f.delete(); // funktioniert noch nicht
+						}
+					} else if(!abfrageAusgang){
+					bla = 	JOptionPane.showConfirmDialog(null,
+								"Es wurde noch kein Ausgang gesetzt. Trotzdem beenden?",
+								"Konsistenzabfrage?",
+								JOptionPane.YES_NO_OPTION);
+					
+							switch (bla) {
+								case 0:
+									Menue.setMappingVisible(false);
+									if (!exist) {
+										f.deleteOnExit();
+										f.delete();
+									}
+									
+									MapLoader.set_level(oldLevel);
+									Menue.setGameVisible(true);
+									Menue.spiel_neustarten();
+									break;
+									
+								case 1:
+										// editieren fortsetzen
+									break;
+
 							}
 							
-							MapLoader.set_level(oldLevel);
-							Menue.setGameVisible(true);
-							Menue.spiel_neustarten();
-							break;
-							
-						case 2: // abbrechen, nichts machen
-							break;
 					}
-					
+					else{
+						int eingabe = 	JOptionPane.showConfirmDialog(null,
+										"Wollen Sie die neue Map speichern?",
+										"Gespeichert?",
+										JOptionPane.YES_NO_CANCEL_OPTION);
+	
+						switch (eingabe) {
+							case 0:
+								MapLoader.level_speichern(map, levelnummer);
+								saved = true;
+								Menue.setMappingVisible(false);
+								MapLoader.set_level(oldLevel);
+								Menue.setGameVisible(true);
+								Menue.spiel_neustarten();
+								break;
+								
+							case 1:
+								Menue.setMappingVisible(false);
+								
+								if (!exist) {
+									f.deleteOnExit();
+									f.delete();
+								}
+								
+								MapLoader.set_level(oldLevel);
+								Menue.setGameVisible(true);
+								Menue.spiel_neustarten();
+								break;
+								
+							case 2: // abbrechen, nichts machen
+								break;
+						}
+						
+					}
 				}
 				
 			}
