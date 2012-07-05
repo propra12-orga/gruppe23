@@ -80,6 +80,13 @@ public class Hulk {
 	public int get_startY() {
 		return startPos[1];
 	}
+	
+	/***/
+	
+	public void set_Start(int staX, int staY){
+		startPos[0]=staX;
+		startPos[1]=staY;
+	}
 
 	// get_Icon-Methode:
 	/**

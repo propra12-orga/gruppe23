@@ -281,6 +281,7 @@ public class Menue implements KeyListener {
 		// Startposition von Hulk 1 aus dem Spielfeld auslesen
 		hulk1Startx = MapLoader.get_icon_x(map, 1);
 		hulk1Starty = MapLoader.get_icon_y(map, 1);
+		
 		// Startposition von Hulk 2 aus dem Spielfeld auslesen
 		if (twoPlayer) {
 			hulk2Startx = MapLoader.get_icon_x(map, 10);
@@ -899,7 +900,7 @@ public class Menue implements KeyListener {
 
 	// reset_Hulk-Methode:
 	/**
-	 * Setzt die beiden Spielfiguren auf ihre Startpositionen zurueck . Die 1. Spielfigur landet immer in der oberen linken Ecke . Die 2. Spielfigur landet immer in der unteren rechten Ecke .
+	 * Setzt die beiden Spielfiguren auf ihre Startpositionen zurueck . Die 1. Spielfigur landet je nach map in der regel immer in der oberen linken Ecke . Die 2. Spielfigur landet immer in der unteren rechten Ecke .
 	 */
 	static void reset_Hulk() {
 		hulk1.set_x(hulk1.get_startX());
@@ -1027,6 +1028,7 @@ public class Menue implements KeyListener {
 		Map.set_map(MapLoader.laden(MapLoader.get_level()));
 		
 		// Hulk zurueckpositionieren:
+				hulk1.set_Start(MapLoader.get_icon_x(map, 1),MapLoader.get_icon_y(map, 1));
 				reset_Hulk();
 
 		
