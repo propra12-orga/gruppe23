@@ -594,8 +594,12 @@ public class MapEditor extends JPanel {
 		return f;
 	}	
 	
-	public static boolean abgebrochen(){
+	public static boolean get_abbruch(){
 		return abbruch;
+	}
+	
+	public void set_abbruch(boolean wert){
+		abbruch = wert;
 	}
 
 }
