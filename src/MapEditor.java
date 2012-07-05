@@ -98,7 +98,6 @@ public class MapEditor extends JPanel {
 		f = new File(dateiName);
 		
 		if (f.exists() == true) {
-
 			iconSatz = MapLoader.get_iconSatzLevel(dateiName);
 			MapLoader.set_iconSatz(iconSatz);
 
@@ -138,9 +137,11 @@ public class MapEditor extends JPanel {
 				}
 				
 			}
-
+			
 			MapLoader.level_speichern(map, "Level-" + eingabe);
 		}
+		
+		Menue.get_game().bilder_skalieren(iconSatz);
 		
 //		frame = new JFrame();
 //		frame.setBounds(100, 100, 450, 300);
@@ -548,7 +549,6 @@ public class MapEditor extends JPanel {
 
 	public static Icon getPic(int i) {
 		Icon pic = null;
-		Menue.get_game().bilder_skalieren(iconSatz);
 		
 		switch (i) {
 			case 0: // Block/Bomben-Item 	
