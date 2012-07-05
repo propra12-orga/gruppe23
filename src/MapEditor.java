@@ -317,13 +317,7 @@ public class MapEditor extends JPanel {
 				MapLoader.level_speichern(map, "Level-" + eingabe);
 				Menue.setMappingVisible(false);
 				Menue.setGameVisible(true);
-//				Menue.get_game().setVisible(true);
-//				MapLoader.set_level(Integer.parseInt(eingabe));
-//				Menue.get_game().bilder_skalieren();
-//				Menue.get_game().init(); 				// Spielfeld zeichnen
-//				Menue.get_game().setFocusable(true); 	// Spielfeld fokussierbar machen
-//				Menue.get_game().requestFocus(); 		// Fokus auf Spielfeld setzen
-//				Menue.setFrame(frameWi,frameHe);
+
 				Menue.spiel_neustarten();
 			}
 
@@ -392,6 +386,7 @@ public class MapEditor extends JPanel {
 						
 						if (name != null) {
 							if (name == "Hulk") {
+								abfrage(a,b);
 								if (!abfrageHulk1) {
 									power = 1;									
 									pic = getPic(1);
@@ -431,21 +426,25 @@ public class MapEditor extends JPanel {
 							}
 							
 							else if (name == "Weg") {
+								abfrage(a,b);
 								power = 2;
 								pic = getPic(2);
 							}
 							
 							else if (name == "Block") {
+								abfrage(a,b);
 								power = 3;
 								pic = getPic(3);
 							}
 							
 							else if (name == "Mauer") {
+								abfrage(a,b);
 								power = 4;
 								pic = getPic(4);
 							}
 							
 							else if (name == "Ausgang") {
+								abfrage(a,b);
 								if (!abfrageAusgang) {
 									power = 7;
 									pic = getPic(7);
@@ -485,6 +484,7 @@ public class MapEditor extends JPanel {
 							}
 							
 							else if (name == "Block-Ausgang") {
+								abfrage(a,b);
 								if (!abfrageAusgang) {
 									power = 8;
 									pic = getPic(7);
@@ -523,16 +523,19 @@ public class MapEditor extends JPanel {
 							}
 							
 							else if (name == "Block/Flammen-Item") {
+								abfrage(a,b);
 								power = 9;
 								pic = getPic(9);
 							}
 							
 							else if (name == "Block/Bomben-Item") {
+								abfrage(a,b);
 								power = 12;
 								pic = getPic(12);
 							}
 							
 							else if (name == "2.Spieler") {
+								abfrage(a,b);
 								if (!abfrageHulk2) {
 									power = 10;
 									pic = getPic(10);
@@ -700,4 +703,15 @@ public class MapEditor extends JPanel {
 		abbruch = wert;
 	}
 
+	public static void abfrage(int a, int b){
+		if(map[a][b] == 1){
+			abfrageHulk1 = false;
+		}
+		else if(map[a][b]== 7 || map[a][b] == 8){
+			abfrageAusgang = false;
+		}
+		else if(map[a][b] == 10){
+			abfrageHulk2 = false;
+		}
+	}
 }
