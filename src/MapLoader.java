@@ -21,7 +21,6 @@ public class MapLoader {
 	static int radius1=2, radius2=2;
 	static int max1=1, max2=1;
 
-
 	/* METHODEN: */
 
 	// laden-Methode:
@@ -56,14 +55,15 @@ public class MapLoader {
 			f.read();
 			max2 = Character.getNumericValue(f.read());;
 			f.read();
-			radius2 = Character.getNumericValue(f.read());
-			
+			radius2 = Character.getNumericValue(f.read());			
 
 			while ((c = f.read()) != -1) {
 				if (Character.getNumericValue(c) != -1) {
 					if (Character.getNumericValue(c) != 58) {
 						map[k][l] = Character.getNumericValue(c);
-					} else {
+					}
+					
+					else {
 						f.read();
 					}
 
@@ -83,6 +83,7 @@ public class MapLoader {
 			if (twoPlayerSet) {
 				if (get_icon_x(map, 10) == 0 && get_icon_y(map, 10) == 0)
 					map[n - 2][n - 2] = 10;
+				
 				else
 					map[get_icon_x(map, 10)][get_icon_y(map, 10)] = 10; // hulk2 aus map auslesen lassen
 
@@ -236,11 +237,15 @@ public class MapLoader {
 			String path = chooser.getSelectedFile().getAbsolutePath();
 			String search = ".txt";
 			int find = path.indexOf(search);
+			
 			if (find != 0) {
-			path.replace(".txt", "");
-			} else {
-			path += ".txt";
+				path.replace(".txt", "");
 			}
+			
+			else {
+				path += ".txt";
+			}
+			
 			for (int i = 0; i < n; i++) {
 				line[i] = "";
 			}
@@ -258,6 +263,7 @@ public class MapLoader {
 			}
 
 			BufferedWriter out = null;
+			
 			try {
 				out = new BufferedWriter(new FileWriter(path));
 				out.write("" + iconSatz + ":" + hulk1.get_bomben_radius() + ":"
@@ -286,9 +292,11 @@ public class MapLoader {
 				}
 
 			}
+			
 			return path;
-		} else
-
+		}
+		
+		else
 			System.out.println("Auswahl abgebrochen");
 		return null;
 	}
@@ -297,8 +305,6 @@ public class MapLoader {
 	public static int[][] level_laden() {
 		twoPlayerSet = Menue.getMultiplayer();
 //		botSet = Menue.getBot();
-
-
 
 		JFileChooser fc = new JFileChooser();
 		fc.setMultiSelectionEnabled(false);
@@ -313,8 +319,11 @@ public class MapLoader {
 			public String getDescription() {
 				return "BomberHulk - Maps(*.txt)";
 			}
+			
 		});
+		
 		int state = fc.showOpenDialog(null);
+		
 		if (state == JFileChooser.APPROVE_OPTION) {
 
 			File file = fc.getSelectedFile();
@@ -421,6 +430,7 @@ public class MapLoader {
 
 	public static int get_iconSatzLevel(String filename) {
 		int satz = 1;
+		
 		try {
 			FileReader f = new FileReader(filename);
 
@@ -435,6 +445,7 @@ public class MapLoader {
 			e.printStackTrace();
 			System.exit(1);
 		}
+		
 		return satz;
 	}
 
@@ -467,34 +478,35 @@ public class MapLoader {
 	}
 
 	public static int get_icon_x(int[][] map, int i) {
-		int found = 0, zaehler = 0;
+		int found = 0;
+		
 		for (int a = 0; a < MapLoader.get_n(); a++) {
 			for (int b = 0; b < MapLoader.get_n(); b++) {
 				if (map[a][b] == i) {
 					found = a;
-					zaehler++;
 				}
+				
 			}
+			
 		}
 
 		return found;
-//		return zaehler;
-
 	}
 
 	public static int get_icon_y(int[][] map, int i) {
-		int found = 0, zaehler = 0;
+		int found = 0;
+		
 		for (int a = 0; a < MapLoader.get_n(); a++) {
 			for (int b = 0; b < MapLoader.get_n(); b++) {
 				if (map[a][b] == i) {
 					found = b;
-					zaehler++;
 				}
+				
 			}
+			
 		}
 
 		return found;
-//		return zaehler;
 	}
 
 	public static int get_max1() {
@@ -530,6 +542,7 @@ public class MapLoader {
 			e.printStackTrace();
 			System.exit(1);
 		}
+		
 		return radius1;
 	}
 
@@ -553,6 +566,7 @@ public class MapLoader {
 			e.printStackTrace();
 			System.exit(1);
 		}
+		
 		return radius2;
 	}
 
@@ -575,6 +589,7 @@ public class MapLoader {
 			e.printStackTrace();
 			System.exit(1);
 		}
+		
 		return max1;
 	}
 
@@ -595,19 +610,24 @@ public class MapLoader {
 			e.printStackTrace();
 			System.exit(1);
 		}
+		
 		return max2;
 	}
 
 	 public static void set_max1(int fred){
 		 max1 = fred;
 	 }
+	 
 	 public static void set_max2(int fred){
 		 max2 = fred;
 	 }
+	 
 	 public static void set_radius1(int fred){
 		 radius1 = fred;
 	 }
+	 
 	 public static void set_radius2(int fred){
 		 radius2 = fred;
 	 }
+	 
 }
