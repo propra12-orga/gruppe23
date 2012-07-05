@@ -449,6 +449,7 @@ public class MapEditor extends JPanel {
 									power = 7;
 									pic = getPic(7);
 									abfrageAusgang = true;
+									ausgangVersteckt = false;
 								}
 								
 								else {
@@ -461,17 +462,29 @@ public class MapEditor extends JPanel {
 									
 									if (neu == 0) {
 										// Alte Position des Ausgangs mit Weg ueberschreiben:
-										feld	[MapLoader.get_icon_x(map, 7)]
-												[MapLoader.get_icon_y(map, 7)]
-												.setIcon(getPic(2));
+										if(!ausgangVersteckt){
+											feld	[MapLoader.get_icon_x(map, 7)]
+													[MapLoader.get_icon_y(map, 7)]
+															.setIcon(getPic(2));
 										
-										map		[MapLoader.get_icon_x(map, 7)]
-												[MapLoader.get_icon_y(map, 7)]
-												= 2;
+											map		[MapLoader.get_icon_x(map, 7)]
+													[MapLoader.get_icon_y(map, 7)]
+														= 2;
+										}
+										else{
+											feld	[MapLoader.get_icon_x(map, 8)]
+													[MapLoader.get_icon_y(map, 8)]
+															.setIcon(getPic(2));
+										
+											map		[MapLoader.get_icon_x(map, 8)]
+													[MapLoader.get_icon_y(map, 8)]
+														= 2;						
+										}
 										
 										// Neue Position des Ausgangs setzen:
 										power = 7;
 										pic = getPic(7);
+										ausgangVersteckt = false;
 									}
 									
 									else {
@@ -489,6 +502,7 @@ public class MapEditor extends JPanel {
 									power = 8;
 									pic = getPic(7);
 									abfrageAusgang = true;
+									ausgangVersteckt = true;
 								}
 								
 								else {
@@ -500,17 +514,29 @@ public class MapEditor extends JPanel {
 									
 									if (neu == 0) {
 										// Alte Position des Block-Ausgangs mit Weg ueberschreiben:
-										feld	[MapLoader.get_icon_x(map, 8)]
-												[MapLoader.get_icon_y(map, 8)]
-												.setIcon(getPic(2));
+										if(!ausgangVersteckt){
+											feld	[MapLoader.get_icon_x(map, 7)]
+													[MapLoader.get_icon_y(map, 7)]
+															.setIcon(getPic(2));
 										
-										map		[MapLoader.get_icon_x(map, 8)]
-												[MapLoader.get_icon_y(map, 8)]
-												= 2;
+											map		[MapLoader.get_icon_x(map, 7)]
+													[MapLoader.get_icon_y(map, 7)]
+														= 2;
+										}
+										else{
+											feld	[MapLoader.get_icon_x(map, 8)]
+													[MapLoader.get_icon_y(map, 8)]
+															.setIcon(getPic(2));
+										
+											map		[MapLoader.get_icon_x(map, 8)]
+													[MapLoader.get_icon_y(map, 8)]
+														= 2;						
+										}
 										
 										// Neue Position des Block-Ausgangs setzen:
 										power = 8;
 										pic = getPic(7);
+										ausgangVersteckt = true;
 									}
 									
 									else {
