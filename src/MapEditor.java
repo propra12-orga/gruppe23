@@ -26,6 +26,7 @@ public class MapEditor extends JPanel {
 	private static boolean abfrageHulk1 = false;
 	private static boolean abfrageHulk2 = false;
 	private static boolean abfrageAusgang = false;
+	private static boolean abbruch = false;
 	private static File f;
 	private static String eingabe;
 	private static boolean exist = false;
@@ -51,7 +52,7 @@ public class MapEditor extends JPanel {
 		
 		do {
 			eingabe = JOptionPane.showInputDialog(null,
-					"Bitte geben Sie die Level-Nummer ein:", "Levelnummer",
+					"Bitte geben Sie die Level-Nummer ein:", "Levelnummer",		//Levelnummerdialog
 					JOptionPane.OK_CANCEL_OPTION);
 
 			if (eingabe == null) {
@@ -66,6 +67,7 @@ public class MapEditor extends JPanel {
 				Menue.get_game().requestFocus(); // Fokus auf Spielfeld setzen
 				Menue.setFrame(frameWi,frameHe);
 				Menue.spiel_neustarten();
+				abbruch =true;
 				
 				return 0;
 			}
@@ -158,7 +160,7 @@ public class MapEditor extends JPanel {
 
 					else {
 						String ersatzNummer = JOptionPane.showInputDialog(null,
-								"Geben Sie die einen ersatznamen ein!",
+								"Geben Sie die einen Ersatznamen ein!",
 								"ersatz", JOptionPane.PLAIN_MESSAGE);
 
 						MapLoader.level_speichern(map, "Level-" + ersatzNummer);
@@ -193,7 +195,8 @@ public class MapEditor extends JPanel {
 					Menue.spiel_neustarten();
 				}
 
-				else {
+				else if (!abbruch) {
+					System.out.println("Speichern?");//Test
 					int eingabe = JOptionPane.showConfirmDialog(null,
 							"Wollen Sie die neue Map speichern?",
 							"Gespeichert?", JOptionPane.YES_NO_CANCEL_OPTION);
@@ -590,5 +593,9 @@ public class MapEditor extends JPanel {
 	public static File get_f(){
 		return f;
 	}	
+	
+	public static boolean abgebrochen(){
+		return abbruch;
+	}
 
 }
