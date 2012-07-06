@@ -126,7 +126,7 @@ public class MapLoader {
 
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				line[i] += map[i][j];
+				line[i] += map[j][i];
 				
 				if (j < n - 1) {
 					line[i] += ":";
@@ -196,7 +196,7 @@ public class MapLoader {
 
 			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < n; j++) {
-					line[i] += map[i][j];
+					line[i] += map[j][i];
 					
 					if (j < n - 1) {
 						line[i] += ":";
@@ -276,7 +276,7 @@ public class MapLoader {
 
 			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < n; j++) {
-					line[i] += map[i][j];
+					line[i] += map[j][i];
 					
 					if (j < n - 1) {
 						line[i] += ":";

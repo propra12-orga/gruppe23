@@ -189,7 +189,8 @@ public class MapEditor extends JPanel {
 											JOptionPane.YES_NO_OPTION);
 	
 						if (dateiAbfrage == 0) {
-	
+							MapLoader.level_speichern(map, levelnummer);
+							saved = true;
 						}
 	
 						else {
@@ -451,11 +452,11 @@ public class MapEditor extends JPanel {
 //		place.add(freigabe_button);
 		add(place, BorderLayout.WEST);
 		JPanel buttonPanel = new JPanel(new GridLayout(n, n));
-
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				final int a = i;
-				final int b = j;
+		
+		for (int zeile = 0; zeile < n; zeile++) {
+			for (int spalte = 0; spalte < n; spalte++) {				
+				final int a = spalte;
+				final int b = zeile;
 				
 				ActionListener list = new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
@@ -464,6 +465,7 @@ public class MapEditor extends JPanel {
 						if (name != null) {
 							if (name == "Hulk") {
 								abfrage(a,b);
+								
 								if (!abfrageHulk1) {
 									power = 1;									
 									pic = getPic(1);
@@ -478,7 +480,7 @@ public class MapEditor extends JPanel {
 												"Bereits gesetzt",
 												JOptionPane.YES_NO_OPTION);
 									
-									if(neu == 0) {
+									if (neu == 0) {
 										// Alte Position des Hulks mit Weg ueberschreiben:
 										feld	[MapLoader.get_icon_x(map, 1)]
 												[MapLoader.get_icon_y(map, 1)]
@@ -543,21 +545,21 @@ public class MapEditor extends JPanel {
 										if (!ausgangVersteckt) {
 											feld	[MapLoader.get_icon_x(map, 7)]
 													[MapLoader.get_icon_y(map, 7)]
-															.setIcon(getPic(2));
+													.setIcon(getPic(2));
 										
 											map		[MapLoader.get_icon_x(map, 7)]
 													[MapLoader.get_icon_y(map, 7)]
-														= 2;
+													= 2;
 										}
 										
 										else {
 											feld	[MapLoader.get_icon_x(map, 8)]
 													[MapLoader.get_icon_y(map, 8)]
-															.setIcon(getPic(2));
+													.setIcon(getPic(2));
 										
 											map		[MapLoader.get_icon_x(map, 8)]
 													[MapLoader.get_icon_y(map, 8)]
-														= 2;						
+													= 2;						
 										}
 										
 										// Neue Position des Ausgangs setzen:
@@ -597,21 +599,21 @@ public class MapEditor extends JPanel {
 										if (!ausgangVersteckt) {
 											feld	[MapLoader.get_icon_x(map, 7)]
 													[MapLoader.get_icon_y(map, 7)]
-															.setIcon(getPic(2));
+													.setIcon(getPic(2));
 										
 											map		[MapLoader.get_icon_x(map, 7)]
 													[MapLoader.get_icon_y(map, 7)]
-														= 2;
+													= 2;
 										}
 										
 										else {
 											feld	[MapLoader.get_icon_x(map, 8)]
 													[MapLoader.get_icon_y(map, 8)]
-															.setIcon(getPic(2));
+													.setIcon(getPic(2));
 										
 											map		[MapLoader.get_icon_x(map, 8)]
 													[MapLoader.get_icon_y(map, 8)]
-														= 2;						
+													= 2;						
 										}
 										
 										// Neue Position des Block-Ausgangs setzen:
@@ -663,6 +665,7 @@ public class MapEditor extends JPanel {
 										feld	[MapLoader.get_icon_x(map, 10)]
 												[MapLoader.get_icon_y(map, 10)]
 												.setIcon(getPic(2));
+										
 										map		[MapLoader.get_icon_x(map, 10)]
 												[MapLoader.get_icon_y(map, 10)]
 												= 2;
@@ -690,20 +693,20 @@ public class MapEditor extends JPanel {
 						
 				};
 
-				feld[i][j] = new JButton();
-				pic = getPic(map[i][j]);
-				feld[i][j].setIcon(pic);
-				feld[i][j].setPreferredSize(new Dimension(40,40)); // Button-Groessee
+				feld[spalte][zeile] = new JButton();
+				pic = getPic(map[spalte][zeile]);
+				feld[spalte][zeile].setIcon(pic);
+				feld[spalte][zeile].setPreferredSize(new Dimension(40,40)); // Button-Groessee
 				
-				if (i == 0 || j == 0 || i == n-1 || j == n-1) {
+				if (zeile == 0 || spalte == 0 || zeile == n-1 || spalte == n-1) {
 					
 				}
 				
 				else {
-					feld[i][j].addActionListener(list);
+					feld[spalte][zeile].addActionListener(list);
 				}
 
-				buttonPanel.add(feld[i][j]);
+				buttonPanel.add(feld[spalte][zeile]);
 			}			
 			
 			add(buttonPanel);			
