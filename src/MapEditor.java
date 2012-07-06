@@ -21,9 +21,9 @@ public class MapEditor extends JPanel {
 	private static int[][] 		map 				= new int[n][n];
 	protected static boolean 	saved 				= false;
 	Icon 						pic;
-	static int 					iconSatz;
+	static int 					iconSatz, testX, testY;
 	
-	private static boolean 		abfrageHulk1 		= false,
+	private static boolean 	abfrageHulk1 		= false,
 								abfrageHulk2 		= false,
 								abfrageAusgang 		= false,
 								ausgangVersteckt    = false,
@@ -102,12 +102,22 @@ public class MapEditor extends JPanel {
 			MapLoader.set_iconSatz(iconSatz);
 
 			map = MapLoader.laden(MapLoader.get_level());
+			
+			testX = MapLoader.get_icon_x(map, 1);		//Existenz von Hulk1 wird geprueft
+			if (testX != 0) abfrageHulk1 = true;
+			testX = MapLoader.get_icon_x(map, 10);		//Existenz von Hulk2 wird geprueft
+			if (testX != 0) abfrageHulk2 = true;
+			testX = MapLoader.get_icon_x(map, 7);
+			if (testX != 0) abfrageAusgang = true;
+			testX = MapLoader.get_icon_x(map, 8);
+			if (testX != 0) ausgangVersteckt = true;
+			
 			exist = true;
 		}
 
 		else {
 			int iconAbfrage = JOptionPane.showConfirmDialog(null,
-					"Möchten Sie den ersten Icon-Satz nutzen?", "Icon-Satz?",
+					"Mï¿½chten Sie den ersten Icon-Satz nutzen?", "Icon-Satz?",
 					JOptionPane.YES_NO_OPTION);
 			
 			switch (iconAbfrage) {
@@ -168,8 +178,8 @@ public class MapEditor extends JPanel {
 					if(exist) {
 							int dateiAbfrage = 	JOptionPane.showConfirmDialog(null,
 												"Die Datei existiert bereits.\n"
-												+ "Möchten Sie die Datei überschreiben?",
-												"Überschreiben?",
+												+ "Mï¿½chten Sie die Datei ï¿½berschreiben?",
+												"ï¿½berschreiben?",
 												JOptionPane.YES_NO_OPTION);
 		
 							if (dateiAbfrage == 0) {
@@ -370,7 +380,7 @@ public class MapEditor extends JPanel {
 //		ActionListener freigabe = new ActionListener() {
 //			public void actionPerformed(ActionEvent e) {
 //				boolean copy = false;
-//				// level implentieren wenn es läuft!
+//				// level implentieren wenn es lï¿½uft!
 //				// level in level ordner koppieren
 //
 //				if(copy){
@@ -654,7 +664,7 @@ public class MapEditor extends JPanel {
 				feld[i][j] = new JButton();
 				pic = getPic(map[i][j]);
 				feld[i][j].setIcon(pic);
-				feld[i][j].setPreferredSize(new Dimension(40,40)); // Button-Größe
+				feld[i][j].setPreferredSize(new Dimension(40,40)); // Button-Grï¿½ï¿½e
 					if(i == 0 || j == 0 || i == n-1 || j == n-1){
 						
 					}

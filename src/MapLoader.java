@@ -478,7 +478,7 @@ public class MapLoader {
 	}
 
 	public static int get_icon_x(int[][] map, int i) {
-		int found = 0;
+		int found = -1;
 		
 		for (int a = 0; a < MapLoader.get_n(); a++) {
 			for (int b = 0; b < MapLoader.get_n(); b++) {
