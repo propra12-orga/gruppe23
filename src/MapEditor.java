@@ -185,7 +185,6 @@ public class MapEditor extends JPanel {
 		ActionListener exit = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (saved) {
-					System.out.println("Test");
 					Menue.setMappingVisible(false);
 					Menue.setGameVisible(true);
 					Menue.spiel_neustarten();
@@ -422,8 +421,6 @@ public class MapEditor extends JPanel {
 								}
 								
 								else {
-									System.out.println("Hulk1 wurde schon gesetzt"); // Test
-									
 									int neu = 	JOptionPane.showConfirmDialog
 												(null,"Neue Position?",
 												"Bereits gesetzt",
@@ -482,8 +479,6 @@ public class MapEditor extends JPanel {
 								}
 								
 								else {
-									System.out.println("Ausgang wurde schon gesetzt"); // Test
-									
 									int neu = 	JOptionPane.showConfirmDialog
 												(null,"Neue Position?",
 												"Bereits gesetzt",
@@ -537,8 +532,6 @@ public class MapEditor extends JPanel {
 								}
 								
 								else {
-									System.out.println("Ausgang wurde schon gesetzt"); // Test
-									
 									int neu = 	JOptionPane.showConfirmDialog
 												(null,"Neue Position?", "Bereits gesetzt",
 												JOptionPane.YES_NO_OPTION);
@@ -602,8 +595,6 @@ public class MapEditor extends JPanel {
 								}
 								
 								else {
-									System.out.println("Hulk2 wurde schon gesetzt"); // Test
-									
 									int neu = 	JOptionPane.showConfirmDialog
 												(null,"Neue Position?",
 												"Bereits gesetzt",

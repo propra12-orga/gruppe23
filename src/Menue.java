@@ -272,7 +272,6 @@ public class Menue implements KeyListener {
 		spiel_neugestartet = false;
 		// starter einfuegen
 		map = MapLoader.laden(MapLoader.get_level());
-		System.out.print(MapLoader.get_level());
 		game = new Map(map);
 
 		int hulk1Startx, hulk1Starty;
@@ -796,8 +795,6 @@ public class Menue implements KeyListener {
 																		// ist
 			String meldung = hulk1.get_Spielername();
 			JOptionPane.showMessageDialog(null, meldung + " hat gewonnen!");
-			System.out.println(meldung + " hat gewonnen."); 	// Test
-			System.out.println(); 							// Test
 			sound.playZiel();
 			abfrage_neustarten();
 		}
@@ -812,8 +809,6 @@ public class Menue implements KeyListener {
 			// ist
 			String meldung = hulk1.get_Spielername();
 			JOptionPane.showMessageDialog(null, meldung + " hat verloren!");
-			System.out.println(meldung + " hat verloren."); 	// Test
-			System.out.println(); 							// Test
 			sound.playTod();
 //			if (bot)
 //				bot1.botInterrupt();
@@ -860,8 +855,6 @@ public class Menue implements KeyListener {
 																		// ist
 			String meldung = hulk2.get_Spielername();
 			JOptionPane.showMessageDialog(null, meldung + " hat gewonnen!");
-			System.out.println(meldung + " hat gewonnen.");	// Test
-			System.out.println(); 							// Test
 			sound.playZiel();
 			abfrage_neustarten();
 		}
@@ -875,9 +868,6 @@ public class Menue implements KeyListener {
 																		// Explosions-Feld
 			String meldung = hulk2.get_Spielername();
 			JOptionPane.showMessageDialog(null, meldung + " hat verloren!");
-			System.out.println(meldung + " hat verloren.");															// ist
-			// Test
-			System.out.println(); 							// Test
 			sound.playTod();
 
 			abfrage_neustarten();
@@ -939,10 +929,7 @@ public class Menue implements KeyListener {
 		get_hulk(2).set_bomben_radius(2);
 		MapLoader.set_radius2(2);
 		game.setVisible(true);
-		//frame.pack();
 
-//		System.out.println("Spiel neugestartet"); 	// Test
-//		System.out.println(); 						// Test
 
 		if (clientThread != null) {
 			bomben_radius[1].setText("");
@@ -1071,7 +1058,6 @@ public class Menue implements KeyListener {
 			eingabe = JOptionPane.showConfirmDialog(null,
 					"Möchten Sie noch eine Runde spielen?", "Spiel zuende",
 					JOptionPane.YES_NO_OPTION);
-			System.out.print(eingabe);
 			if (eingabe == 0) {
 				//				if (clientThread != null) {
 				//					clientThread.out
@@ -1144,10 +1130,6 @@ public class Menue implements KeyListener {
 		if (lan == true) {
 			lan_modus_beenden();
 		}
-
-		System.out.println("Singleplayer-Modus aktiviert"); // Test
-		System.out.println(); 								// Test
-		
 		spiel_neustarten();
 	}
 
@@ -1456,8 +1438,6 @@ public class Menue implements KeyListener {
 			}
 
 			serverThread = null;
-			System.out.println("Server beendet"); 	// Test
-			System.out.println(); 					// Test
 		}
 
 		else if (clientThread != null) {
@@ -1475,8 +1455,6 @@ public class Menue implements KeyListener {
 			}
 
 			clientThread = null;
-			System.out.println("Client beendet"); 	// Test
-			System.out.println(); 					// Test
 		}
 
 		lan = false;
@@ -1718,10 +1696,6 @@ public class Menue implements KeyListener {
 				if (lan == true) {
 					lan_modus_beenden();
 				}
-
-				System.out.println("HotSeat-Modus aktiviert"); // Test
-				System.out.println(); // Test
-
 				spiel_neustarten();
 			}
 
@@ -1754,15 +1728,9 @@ public class Menue implements KeyListener {
 			if (serverThread == null) {
 				if (clientThread != null) {
 					clientThread.interrupt();
-					System.out.println("Client beendet"); 	// Test
-					System.out.println(); 					// Test
-				}
+					}
 				
 				Menue.lan = true;
-
-				System.out.println("Server-Modus aktiviert"); 	// Test
-				System.out.println(); 							// Test
-
 				serverThread = new Server();
 				serverThread.start();
 			}
@@ -1812,13 +1780,7 @@ public class Menue implements KeyListener {
 					}
 
 					serverThread = null;
-					System.out.println("Server beendet"); 	// Test
-					System.out.println();					// Test
 				}
-
-				System.out.println("Client-Modus aktiviert"); 	// Test
-				System.out.println(); 							// Test
-
 				clientThread = new Client();
 				clientThread.start();
 			}
@@ -1963,7 +1925,6 @@ public class Menue implements KeyListener {
 										JOptionPane.OK_CANCEL_OPTION);
 
 							if (eingabe == null) {
-								System.out.println("Boo"); // Test
 							}
 							
 							else if (eingabe.equals("")) {
@@ -1999,7 +1960,6 @@ public class Menue implements KeyListener {
 									JOptionPane.OK_CANCEL_OPTION);
 
 						if (eingabe == null) {
-							System.out.println("Boo"); // Test
 							richtigeAbfrage = true;
 						}
 						
