@@ -14,13 +14,19 @@ import javax.swing.filechooser.FileFilter;
  * @author Tobias Korfmacher
  */
 public class MapLoader {
-	public static boolean twoPlayerSet;
-	static int n = 13;
-	static int level = 1;
-	static int iconSatz = 1;
-	static Hulk hulk1, hulk2;
-	static int radius1=2, radius2=2;
-	static int max1=1, max2=1;
+	public static boolean 	twoPlayerSet;
+	static int 				n 				= 13;
+	static int 				level 			= 1;
+	static int 				iconSatz 		= 1;
+	
+	static Hulk 			hulk1,
+							hulk2;
+	
+	static int 				radius1 		= 2,
+							radius2 		= 2;
+	
+	static int 				max1 			= 1,
+							max2 			= 1;
 
 	/* METHODEN: */
 
@@ -40,12 +46,16 @@ public class MapLoader {
 //			Menue.theme = true;
 //		}
 		
-		String temp[] = new String[n+1];
-		int[][] map = new int[n][n];
-		String filename = "src/Maps/Level-" + i + ".txt";
+		String 	temp[] 		= new String[n+1];
+		String 	filename 	= "src/Maps/Level-" + i + ".txt";
+		String ze[] 		= new String[temp.length];
+		String delimiter 	= ":";
+		int[][] map 		= new int[n][n];		
 
 		try {
-			FileReader f = new FileReader(filename);
+			int 			t  	= 1;
+			FileReader 		f 	= new FileReader(filename);
+			BufferedReader 	br	= new BufferedReader(f);
 			
 			iconSatz = Character.getNumericValue(f.read());
 			f.read();
@@ -55,34 +65,27 @@ public class MapLoader {
 			f.read();
 			max2 = Character.getNumericValue(f.read());;
 			f.read();
-			radius2 = Character.getNumericValue(f.read());
+			radius2 = Character.getNumericValue(f.read());			
 			
-			BufferedReader br = new BufferedReader(f);
-			br.readLine();
+			br.readLine();		
 			
-			int t  = 1;
-			
-			do
-		    {
-		      temp[t] = br.readLine();
-		      t++;		      
-		    }
-			
+			do {
+				temp[t] = br.readLine();
+				t++;		      
+		    }			
 		    while (t <= n);
-				String ze[] = new String[temp.length];
-				String delimiter = ":";
-				
-				for(int z = 1; z <= n; z ++){
-					System.out.println(z);
-					ze = temp[z].split(delimiter);
-					 
-			    	for(int spalte = 0; spalte < n; spalte++) {
-			    		map[spalte][z-1] = Integer.parseInt(ze[spalte]);
-			    		System.out.print(map[spalte][z-1]);
-			    	}
-			    	  
-			    	System.out.println();
-				}
+			
+			for (int zeile = 1; zeile <= n; zeile ++) {
+				System.out.println(zeile);
+				ze = temp[zeile].split(delimiter);
+				 
+		    	for (int spalte = 0; spalte < n; spalte++) {
+		    		map[spalte][zeile-1] = Integer.parseInt(ze[spalte]);
+		    		System.out.print(map[spalte][zeile-1]);
+		    	}
+		    	  
+		    	System.out.println();
+			}
 			
 			if (twoPlayerSet) {
 				if (get_icon_x(map, 10) == 0 && get_icon_y(map, 10) == 0)
@@ -114,17 +117,17 @@ public class MapLoader {
 
 	// level_speichern-Methode 1:
 	public static void level_speichern(int[][] map, String levelname) {
-
 		String[] line = new String[n];
 		String path = "src/Maps/" + levelname + ".txt";
+		
 		for (int i = 0; i < n; i++) {
 			line[i] = "";
 		}
 
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-
 				line[i] += map[i][j];
+				
 				if (j < n - 1) {
 					line[i] += ":";
 				}
@@ -139,6 +142,7 @@ public class MapLoader {
 			out = new BufferedWriter(new FileWriter(path));
 			out.write("" + iconSatz+":"+radius1+":"+max1+":"+radius2+":"+max2);
 			out.newLine();
+			
 			for (int i = 0; i < n; i++) {
 				out.write(line[i]);
 				out.newLine();
@@ -165,18 +169,18 @@ public class MapLoader {
 	
 	// level_speichern-Methode 2:
 	public static String level_speichern(int[][] map, Hulk hulk1) { // ueber filechooser
-		String[] line = new String[n];
+		String[] 		line 	= new String[n];
 		
 		// JFileChooser-Objekt erstellen
-		JFileChooser chooser = new JFileChooser(new File("./src/Maps/"));
+		JFileChooser 	chooser = new JFileChooser(new File("./src/Maps/"));
 		
 		// Dialog zum Speichern von Dateien anzeigen
-		int state = chooser.showSaveDialog(null);
+		int 			state 	= chooser.showSaveDialog(null);
 		
 		if (state == JFileChooser.APPROVE_OPTION) {
-			String path = chooser.getSelectedFile().getAbsolutePath();
-			String search = ".txt";
-			int find = path.indexOf(search);
+			String 	path 	= chooser.getSelectedFile().getAbsolutePath();
+			String 	search 	= ".txt";
+			int 	find 	= path.indexOf(search);
 			
 			if (find != 0) {
 				path.replace(".txt", "");
@@ -244,17 +248,17 @@ public class MapLoader {
 
 	// level_speichern-Methode mit 2 spielern:
 	public static String level_speichern(int[][] map, Hulk hulk1, Hulk hulk2) { // ueber filechooser
-		String[] line = new String[n];
+		String[] 		line 	= new String[n];
 		
 		// JFileChooser-Objekt erstellen
-		JFileChooser chooser = new JFileChooser(new File("./src/Maps/"));
+		JFileChooser 	chooser = new JFileChooser(new File("./src/Maps/"));
 		
 		// Dialog zum Speichern von Dateien anzeigen
-		int state = chooser.showSaveDialog(null);
+		int 			state 	= chooser.showSaveDialog(null);
 		
 		if (state == JFileChooser.APPROVE_OPTION) {
-			String path = chooser.getSelectedFile().getAbsolutePath();
-			String search = ".txt";
+			String path 	= chooser.getSelectedFile().getAbsolutePath();
+			String search 	= ".txt";
 			
 			int find = path.indexOf(search);
 			
@@ -348,19 +352,27 @@ public class MapLoader {
 		int state = fc.showOpenDialog(null);
 		
 		if (state == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			String levelname = file.getName();
-			int[][] map = new int[n][n];
+			File 	file 		= fc.getSelectedFile();
+			String 	levelname 	= file.getName();
+			int[][] map 		= new int[n][n];
 			
 			MapLoader.set_level(get_level_nummer(levelname));
 
 			try {
-				FileReader f = new FileReader(file);
+				FileReader 		f 			= new FileReader(file);
+				BufferedReader 	br 			= new BufferedReader(f);
+				String 			temp[] 		= new String[n+1];
+				String 			ze[] 		= new String[temp.length];
+				String 			delimiter 	= ":";
+				int 			t  			= 1;
 
 				System.out.println("Spielfeld eingelesen:"); // Test
+				
 				iconSatz = Character.getNumericValue(f.read());
 				set_iconSatz(iconSatz);
-				System.out.println("IconSatz: " + iconSatz);
+				
+				System.out.println("IconSatz: " + iconSatz); // Test
+				
 				f.read();
 				radius1 = (Character.getNumericValue(f.read()));
 				f.read();
@@ -370,11 +382,7 @@ public class MapLoader {
 				f.read();
 				max2 = (Character.getNumericValue(f.read()));
 
-				String temp[] = new String[n+1];
-				BufferedReader br = new BufferedReader(f);
-				br.readLine();
-				
-				int t  = 1;
+				br.readLine();				
 				
 				do
 			    {
@@ -382,9 +390,6 @@ public class MapLoader {
 			      t++;		      
 			    }				
 			    while (t <= n);
-				
-				String ze[] = new String[temp.length];
-				String delimiter = ":";
 				 
 				for (int z = 1; z <= n; z ++) {
 					System.out.println(z);
@@ -395,7 +400,7 @@ public class MapLoader {
 			    		System.out.print(" " +map[spalte][z-1]);
 			    	}
 			    	  
-			    	System.out.println();
+			    	System.out.println(); // Test
 				}				
 
 				System.out.println(); // Test
@@ -427,7 +432,7 @@ public class MapLoader {
 		}
 
 		else
-			System.out.println("Auswahl abgebrochen");
+			System.out.println("Auswahl abgebrochen"); // Test
 
 		return null;
 	}
@@ -479,6 +484,7 @@ public class MapLoader {
 	public static int get_level_nummer(String levelname) {
 		levelname = levelname.replace("Level-", "");
 		levelname = levelname.replace(".txt", "");
+		
 		return Integer.parseInt(levelname);
 	}
 
