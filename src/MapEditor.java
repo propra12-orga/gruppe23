@@ -21,9 +21,12 @@ public class MapEditor extends JPanel {
 	private static int[][] 		map 				= new int[n][n];
 	protected static boolean 	saved 				= false;
 	Icon 						pic;
-	static int 					iconSatz, testX, testY;
 	
-	private static boolean 	abfrageHulk1 		= false,
+	static int 					iconSatz,
+								testX,
+								testY;
+	
+	private static boolean 		abfrageHulk1 		= false,
 								abfrageHulk2 		= false,
 								abfrageAusgang 		= false,
 								ausgangVersteckt    = false,
@@ -117,7 +120,7 @@ public class MapEditor extends JPanel {
 
 		else {
 			int iconAbfrage = JOptionPane.showConfirmDialog(null,
-					"M�chten Sie den ersten Icon-Satz nutzen?", "Icon-Satz?",
+					"Moechten Sie den ersten Icon-Satz nutzen?", "Icon-Satz?",
 					JOptionPane.YES_NO_OPTION);
 			
 			switch (iconAbfrage) {
@@ -168,39 +171,43 @@ public class MapEditor extends JPanel {
 		
 		ActionListener save = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(!abfrageHulk1){
+				if (!abfrageHulk1) {
 					JOptionPane.showMessageDialog(null, "Es  wurde noch kein 1. Spieler gesetzt,\nbitte setzen!");
-				}else if(!abfrageAusgang){
+				}
+				
+				else if (!abfrageAusgang) {
 					JOptionPane.showMessageDialog(null, "Es  wurde noch kein Ausgang gesetzt,\nbitte setzen!");
 				}
+				
 				// abfrage ob beendet werden soll 
-				else{
+				else {
 					if(exist) {
-							int dateiAbfrage = 	JOptionPane.showConfirmDialog(null,
-												"Die Datei existiert bereits.\n"
-												+ "M�chten Sie die Datei �berschreiben?",
-												"�berschreiben?",
-												JOptionPane.YES_NO_OPTION);
-		
-							if (dateiAbfrage == 0) {
-		
-							}
-		
-							else {
-								String ersatzNummer = 	JOptionPane.showInputDialog(null,
-														"Geben Sie die einen Ersatznamen ein!",
-														"ersatz", JOptionPane.PLAIN_MESSAGE);
-		
-								MapLoader.level_speichern(map, "Level-" + ersatzNummer);
-								saved = true;
-							}
-		
+						int dateiAbfrage = 	JOptionPane.showConfirmDialog(null,
+											"Die Datei existiert bereits.\n"
+											+ "Moechten Sie die Datei ueberschreiben?",
+											"Ueberschreiben?",
+											JOptionPane.YES_NO_OPTION);
+	
+						if (dateiAbfrage == 0) {
+	
+						}
+	
+						else {
+							String ersatzNummer = 	JOptionPane.showInputDialog(null,
+													"Geben Sie die einen Ersatznamen ein!",
+													"ersatz", JOptionPane.PLAIN_MESSAGE);
+	
+							MapLoader.level_speichern(map, "Level-" + ersatzNummer);
+							saved = true;
 						}
 		
-						else {
-							MapLoader.level_speichern(map, levelnummer);
-							saved = true;
 					}
+		
+					else {
+						MapLoader.level_speichern(map, levelnummer);
+						saved = true;
+					}
+					
 				}
 
 			}
@@ -219,7 +226,6 @@ public class MapEditor extends JPanel {
 		
 		ActionListener exit = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				if (saved) {
 					Menue.setMappingVisible(false);
 					MapLoader.set_level(oldLevel);
@@ -230,40 +236,20 @@ public class MapEditor extends JPanel {
 
 				else if (!abbruch) {
 					int bla;
-					System.out.println("Speichern?"); // Test
-					if(!abfrageHulk1){
-							bla = 	JOptionPane.showConfirmDialog(null,
-								"Es wurde noch kein 1. Spieler gesetzt. Trotzdem beenden?",
-								"Konsistenzabfrage?",
-								JOptionPane.YES_NO_OPTION);
-							switch (bla) {
-							case 0:
-								Menue.setMappingVisible(false);
-								if (!exist) {
-									f.deleteOnExit();
-									f.delete();
-								}
-								
-								MapLoader.set_level(oldLevel);
-								Menue.setGameVisible(true);
-								Menue.spiel_neustarten();
-								Menue.set_editor_laeuft(false);
-								break;
-								
-							case 1:
-									// editieren fortsetzen
-								break;
-
-						}
-					} else if(!abfrageAusgang){
-					bla = 	JOptionPane.showConfirmDialog(null,
-								"Es wurde noch kein Ausgang gesetzt. Trotzdem beenden?",
-								"Konsistenzabfrage?",
-								JOptionPane.YES_NO_OPTION);
 					
+					System.out.println("Speichern?"); // Test
+					
+					if (!abfrageHulk1) {
+							bla = 	JOptionPane.showConfirmDialog(null,
+									"Es wurde noch kein 1. Spieler gesetzt." +
+									"Trotzdem beenden?",
+									"Konsistenzabfrage?",
+									JOptionPane.YES_NO_OPTION);
+							
 							switch (bla) {
 								case 0:
 									Menue.setMappingVisible(false);
+									
 									if (!exist) {
 										f.deleteOnExit();
 										f.delete();
@@ -276,13 +262,41 @@ public class MapEditor extends JPanel {
 									break;
 									
 								case 1:
-										// editieren fortsetzen
+									// Editieren fortsetzen
 									break;
-
-							}
+						}
 							
 					}
-					else{
+					
+					else if (!abfrageAusgang) {
+						bla = 	JOptionPane.showConfirmDialog(null,
+								"Es wurde noch kein Ausgang gesetzt. Trotzdem beenden?",
+								"Konsistenzabfrage?",
+								JOptionPane.YES_NO_OPTION);
+					
+						switch (bla) {
+							case 0:
+								Menue.setMappingVisible(false);
+								
+								if (!exist) {
+									f.deleteOnExit();
+									f.delete();
+								}
+								
+								MapLoader.set_level(oldLevel);
+								Menue.setGameVisible(true);
+								Menue.spiel_neustarten();
+								Menue.set_editor_laeuft(false);
+								break;
+								
+							case 1:
+								// Editieren fortsetzen
+								break;
+						}
+							
+					}
+					
+					else {
 						int eingabe = 	JOptionPane.showConfirmDialog(null,
 										"Wollen Sie die neue Map speichern?",
 										"Gespeichert?",
@@ -301,10 +315,12 @@ public class MapEditor extends JPanel {
 								
 							case 1:
 								Menue.setMappingVisible(false);
+								
 								if (!exist) {
 									f.deleteOnExit();
 									f.delete();
 								}
+								
 								MapLoader.set_level(oldLevel);
 								Menue.setGameVisible(true);
 								Menue.spiel_neustarten();
@@ -316,6 +332,7 @@ public class MapEditor extends JPanel {
 						}
 						
 					}
+					
 				}
 				
 			}
@@ -325,32 +342,37 @@ public class MapEditor extends JPanel {
 		JButton test_button = new JButton("Testen");
 		
 		ActionListener test = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
+			public void actionPerformed(ActionEvent e) {				
 				int moep;
+				
 				System.out.println("Speichern?"); // Test
-				if(!abfrageHulk1){
+				
+				if (!abfrageHulk1) {
 						moep = 	JOptionPane.showConfirmDialog(null,
 							"Es wurde noch kein 1. Spieler gesetzt.\nTrotzdem testen?",
 							"Konsistenzabfrage?",
 							JOptionPane.YES_NO_OPTION);
+						
 						switch (moep) {
-						case 0:
-							setVisible(false);
-							MapLoader.level_speichern(map, "Level-" + eingabe);
-							Menue.setMappingVisible(false);
-							Menue.setGameVisible(true);
-							Menue.spiel_neustarten();
-						case 1:
-								// editieren fortsetzen
-							break;
-
-					}
-				} else if(!abfrageAusgang){
+							case 0:
+								setVisible(false);
+								MapLoader.level_speichern(map, "Level-" + eingabe);
+								Menue.setMappingVisible(false);
+								Menue.setGameVisible(true);
+								Menue.spiel_neustarten();
+								
+							case 1:
+								// Editieren fortsetzen
+								break;
+						}
+						
+				}
+				
+				else if (!abfrageAusgang) {
 						moep = 	JOptionPane.showConfirmDialog(null,
-							"Es wurde noch kein Ausgang gesetzt.\nTrotzdem testen?",
-							"Konsistenzabfrage?",
-							JOptionPane.YES_NO_OPTION);
+								"Es wurde noch kein Ausgang gesetzt.\nTrotzdem testen?",
+								"Konsistenzabfrage?",
+								JOptionPane.YES_NO_OPTION);
 				
 						switch (moep) {
 							case 0:
@@ -359,19 +381,21 @@ public class MapEditor extends JPanel {
 								Menue.setGameVisible(true);
 								Menue.spiel_neustarten();
 								break;
+								
 							case 1:
-									// editieren fortsetzen
+								// Editieren fortsetzen
 								break;
-
 						}
 						
 				}
-				else{
-				MapLoader.level_speichern(map, "Level-" + eingabe);
-				Menue.setMappingVisible(false);
-				Menue.setGameVisible(true);
-				Menue.spiel_neustarten();
+				
+				else {
+					MapLoader.level_speichern(map, "Level-" + eingabe);
+					Menue.setMappingVisible(false);
+					Menue.setGameVisible(true);
+					Menue.spiel_neustarten();
 				}
+				
 			}
 
 		};
@@ -498,6 +522,7 @@ public class MapEditor extends JPanel {
 							
 							else if (name == "Ausgang") {
 								abfrage(a,b);
+								
 								if (!abfrageAusgang) {
 									power = 7;
 									pic = getPic(7);
@@ -515,7 +540,7 @@ public class MapEditor extends JPanel {
 									
 									if (neu == 0) {
 										// Alte Position des Ausgangs mit Weg ueberschreiben:
-										if(!ausgangVersteckt){
+										if (!ausgangVersteckt) {
 											feld	[MapLoader.get_icon_x(map, 7)]
 													[MapLoader.get_icon_y(map, 7)]
 															.setIcon(getPic(2));
@@ -524,7 +549,8 @@ public class MapEditor extends JPanel {
 													[MapLoader.get_icon_y(map, 7)]
 														= 2;
 										}
-										else{
+										
+										else {
 											feld	[MapLoader.get_icon_x(map, 8)]
 													[MapLoader.get_icon_y(map, 8)]
 															.setIcon(getPic(2));
@@ -551,6 +577,7 @@ public class MapEditor extends JPanel {
 							
 							else if (name == "Block-Ausgang") {
 								abfrage(a,b);
+								
 								if (!abfrageAusgang) {
 									power = 8;
 									pic = getPic(7);
@@ -567,7 +594,7 @@ public class MapEditor extends JPanel {
 									
 									if (neu == 0) {
 										// Alte Position des Block-Ausgangs mit Weg ueberschreiben:
-										if(!ausgangVersteckt){
+										if (!ausgangVersteckt) {
 											feld	[MapLoader.get_icon_x(map, 7)]
 													[MapLoader.get_icon_y(map, 7)]
 															.setIcon(getPic(2));
@@ -576,7 +603,8 @@ public class MapEditor extends JPanel {
 													[MapLoader.get_icon_y(map, 7)]
 														= 2;
 										}
-										else{
+										
+										else {
 											feld	[MapLoader.get_icon_x(map, 8)]
 													[MapLoader.get_icon_y(map, 8)]
 															.setIcon(getPic(2));
@@ -615,6 +643,7 @@ public class MapEditor extends JPanel {
 							
 							else if (name == "2.Spieler") {
 								abfrage(a,b);
+								
 								if (!abfrageHulk2) {
 									power = 10;
 									pic = getPic(10);
@@ -664,20 +693,20 @@ public class MapEditor extends JPanel {
 				feld[i][j] = new JButton();
 				pic = getPic(map[i][j]);
 				feld[i][j].setIcon(pic);
-				feld[i][j].setPreferredSize(new Dimension(40,40)); // Button-Gr��e
-					if(i == 0 || j == 0 || i == n-1 || j == n-1){
-						
-					}
-					else{
-						feld[i][j].addActionListener(list);
-					}
+				feld[i][j].setPreferredSize(new Dimension(40,40)); // Button-Groessee
+				
+				if (i == 0 || j == 0 || i == n-1 || j == n-1) {
+					
+				}
+				
+				else {
+					feld[i][j].addActionListener(list);
+				}
 
 				buttonPanel.add(feld[i][j]);
-				}	
+			}			
 			
-			
-			add(buttonPanel);
-			
+			add(buttonPanel);			
 		}
 		
 		return 1;		
@@ -783,14 +812,18 @@ public class MapEditor extends JPanel {
 	}
 
 	public static void abfrage(int a, int b){
-		if(map[a][b] == 1){
+		if (map[a][b] == 1) {
 			abfrageHulk1 = false;
 		}
-		else if(map[a][b]== 7 || map[a][b] == 8){
+		
+		else if (map[a][b]== 7 || map[a][b] == 8) {
 			abfrageAusgang = false;
 		}
-		else if(map[a][b] == 10){
+		
+		else if (map[a][b] == 10) {
 			abfrageHulk2 = false;
 		}
+		
 	}
+	
 }
