@@ -43,7 +43,6 @@ public class Menue implements KeyListener {
 
 	public static Sound sound = new Sound();
 
-
 	public static boolean theme;
 
 	static JCheckBox noob, Leicht, Mittel, Schwer, mntmLevel_1, mntmLevel_2, mntmSingleplayer, mntmHotSeat;	// alternativ kan man auch "RadioButton" verwenden
@@ -293,6 +292,8 @@ public class Menue implements KeyListener {
 		}
 		hulk1 = new Hulk(hulk1Startx, hulk1Starty, 1); // 1. Spielerfigur erzeugen // getHulkfunktion anwenden
 		hulk2 = new Hulk(hulk2Startx, hulk2Starty, 10); // 2. Spielerfigur erzeugt hulk 2 funktion
+		
+		reset_Hulk();
 //		bot1 = new Bot();	//1. Bot erzeugen
 
 		initialize();
@@ -906,7 +907,11 @@ public class Menue implements KeyListener {
 	static void reset_Hulk() {
 		hulk1.set_x(hulk1.get_startX());
 		hulk1.set_y(hulk1.get_startY());
-
+		
+		if(!twoPlayer) {
+			Map.map[hulk2.get_startX()][hulk2.get_startY()] = 2;
+		}
+		
 		hulk2.set_x(hulk2.get_startX());
 		hulk2.set_y(hulk2.get_startY());
 
@@ -922,23 +927,19 @@ public class Menue implements KeyListener {
 	 * Startet das Spiel folgendermaßen neu : Zuruecksetzen der Spielfiguren , max . Anzahl Bomben und Bomben - Radien , Entfernen aktueller Bomben , Reinitialisieren der internen und grafischen Spielfelder. Erweitert fuer Bot.
 	 */
 	@SuppressWarnings("serial")
-	static void spiel_neustarten() {
-		
-		
-		
+	static void spiel_neustarten() {		
 		// Maximale Anzahl an Bomben zuruecksetzen bzw. aus Level laden:
-				get_hulk(1).set_max_bomben(1);
-				MapLoader.set_max1(1);
-				get_hulk(2).set_max_bomben(1);
-				MapLoader.set_max2(1);
-				// Bomben-Radius zuruecksetzen:
-				get_hulk(1).set_bomben_radius(2);
-				MapLoader.set_radius1(2);
-				get_hulk(2).set_bomben_radius(2);
-				MapLoader.set_radius2(2);
-				game.setVisible(true);
-				//frame.pack();
-
+		get_hulk(1).set_max_bomben(1);
+		MapLoader.set_max1(1);
+		get_hulk(2).set_max_bomben(1);
+		MapLoader.set_max2(1);
+		// Bomben-Radius zuruecksetzen:
+		get_hulk(1).set_bomben_radius(2);
+		MapLoader.set_radius1(2);
+		get_hulk(2).set_bomben_radius(2);
+		MapLoader.set_radius2(2);
+		game.setVisible(true);
+		//frame.pack();
 
 //		System.out.println("Spiel neugestartet"); 	// Test
 //		System.out.println(); 						// Test
@@ -1028,13 +1029,11 @@ public class Menue implements KeyListener {
 		// Spielfeld intern reinitialisieren:
 		Map.set_map(MapLoader.laden(MapLoader.get_level()));
 		
-		// Hulk zurueckpositionieren:
-				hulk1.set_Start(MapLoader.get_icon_x(map, 1),MapLoader.get_icon_y(map, 1));
-				reset_Hulk();
-
-		
 		// Bilder erneut skalieren:
 		game.bilder_skalieren(MapLoader.get_iconSatz());
+		
+		// Hulk zurueckpositionieren:
+		reset_Hulk();
 
 		// Spielfeld grafisch reinitialisieren:
 		game.removeAll();
@@ -1042,7 +1041,7 @@ public class Menue implements KeyListener {
 
 		// Boolean-Werte zuruecksetzen:
 		antwort_erhalten = false;
-		anfrage_geschickt = false;
+		anfrage_geschickt = false;		
 	}
 
 	// abfrage_neustarten-Methode:
@@ -1148,7 +1147,7 @@ public class Menue implements KeyListener {
 
 		System.out.println("Singleplayer-Modus aktiviert"); // Test
 		System.out.println(); 								// Test
-
+		
 		spiel_neustarten();
 	}
 
@@ -1947,17 +1946,44 @@ public class Menue implements KeyListener {
 		 */
 		public void actionPerformed(ActionEvent e) {
 			if (!editorlaeuft) {
+				boolean richtigeAbfrage = false;
+				String 	eingabe;
+				
 				if (lan == true) {
 					int antwort = JOptionPane.showConfirmDialog(null,
 							"Diese Aktion beendet den LAN-Modus. Fortfahren?",
 							"LAN-Modus", JOptionPane.YES_NO_OPTION);
-					switch (antwort) {
+					switch (antwort) {					
 					case 0:
 						lan_modus_beenden();
-						mapping = new MapEditor();
-						editorlaeuft = true;
-						frame.getContentPane().add(mapping);
-						frame.pack();
+						
+						do {
+							eingabe = 	JOptionPane.showInputDialog(null,
+										"Bitte geben Sie die Level-Nummer ein:", "Levelnummer", // Levelnummerdialog
+										JOptionPane.OK_CANCEL_OPTION);
+
+							if (eingabe == null) {
+								System.out.println("Boo"); // Test
+							}
+							
+							else if (eingabe.equals("")) {
+								richtigeAbfrage = false;				
+							}
+							
+							else {
+								//MapLoader.set_level(Integer.parseInt(eingabe));
+								richtigeAbfrage = true;
+								mapping = new MapEditor(Integer.parseInt(eingabe));
+								editorlaeuft = true;
+								frame.getContentPane().add(mapping);
+								setGameVisible(false);
+								setMappingVisible(true);
+								//frame.pack();
+							}
+							
+						} while (richtigeAbfrage != true);
+						
+
 
 						break;
 					case 1:
@@ -1967,16 +1993,37 @@ public class Menue implements KeyListener {
 				}
 
 				else {
+					do {
+						eingabe = 	JOptionPane.showInputDialog(null,
+									"Bitte geben Sie die Level-Nummer ein:", "Levelnummer", // Levelnummerdialog
+									JOptionPane.OK_CANCEL_OPTION);
 
-					mapping = new MapEditor();
-					editorlaeuft = true;
-					frame.getContentPane().add(mapping);
-					frame.pack();
+						if (eingabe == null) {
+							System.out.println("Boo"); // Test
+							richtigeAbfrage = true;
+						}
+						
+						else if (eingabe.equals("")) {
+							richtigeAbfrage = false;				
+						}
+						
+						else {
+							//MapLoader.set_level(Integer.parseInt(eingabe));
+							richtigeAbfrage = true;
+							mapping = new MapEditor(Integer.parseInt(eingabe));
+							editorlaeuft = true;
+							frame.getContentPane().add(mapping);
+							setGameVisible(false);
+							setMappingVisible(true);
+							//frame.pack();
+						}
+						
+					} while (richtigeAbfrage != true);
 				}
 
 			}
-			setGameVisible(false);
-			setMappingVisible(true);
+//			setGameVisible(false);
+//			setMappingVisible(true);
 
 		}
 

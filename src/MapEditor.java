@@ -35,17 +35,20 @@ public class MapEditor extends JPanel {
 	
 	private static File 		f;
 	
-	private static String 		eingabe,
-								levelnummer;
+	private static String 		levelnummer;
 	
 	private static JButton 		feld[][] 			= new JButton[n][n];
 	
-	private static int 			oldLevel 			= MapLoader.get_level(),
-								frameWi,
-								frameHe,
-								power;
+	private static int 			power;
+	
+	private int					level;							
 
 	/* Konstruktor: */
+	public MapEditor(int level) {
+		this.level = level;
+		edit();
+	}
+	
 	public MapEditor() {
 		edit();
 	}
@@ -56,47 +59,10 @@ public class MapEditor extends JPanel {
 	public int edit() {
 		setVisible(true);
 		int anzahlIcons = 9;
-		boolean richtigeAbfrage = false;
-		frameWi=Menue.get_width();
-		frameHe=Menue.get_height();
-		
-		do {
-			eingabe = 	JOptionPane.showInputDialog(null,
-						"Bitte geben Sie die Level-Nummer ein:", "Levelnummer", // Levelnummerdialog
-						JOptionPane.OK_CANCEL_OPTION);
-
-			if (eingabe == null) {
-				System.out.println("Boo"); // Test
-				
-				Menue.get_game().setVisible(true);
-				MapLoader.set_level(oldLevel);
-				richtigeAbfrage = true;
-				setVisible(false);		
-				Menue.get_game().bilder_skalieren(MapLoader.get_iconSatz());
-				Menue.get_game().init(); 				// Spielfeld zeichnen
-				Menue.get_game().setFocusable(true); 	// Spielfeld fokussierbar machen
-				Menue.get_game().requestFocus(); 		// Fokus auf Spielfeld setzen
-				Menue.setFrame(frameWi,frameHe);
-				Menue.spiel_neustarten();
-				abbruch = true;
-				
-				return 0;
-			}
-			
-			else if (eingabe.equals("")) {
-				richtigeAbfrage = false;				
-			}
-			
-			else {
-				MapLoader.set_level(Integer.parseInt(eingabe));
-				richtigeAbfrage = true;
-			}
-			
-		} while (richtigeAbfrage != true);
 
 		// datei existiert?
 		String dateiName = "src/Maps/Level-";
-		dateiName = dateiName + eingabe + ".txt";
+		dateiName = dateiName + level + ".txt";
 
 		f = new File(dateiName);
 		
@@ -104,7 +70,7 @@ public class MapEditor extends JPanel {
 			iconSatz = MapLoader.get_iconSatzLevel(dateiName);
 			MapLoader.set_iconSatz(iconSatz);
 
-			map = MapLoader.laden(MapLoader.get_level());
+			map = MapLoader.laden(level);
 			
 			testX = MapLoader.get_icon_x(map, 1);		//Existenz von Hulk1 wird geprueft
 			if (testX != 0) abfrageHulk1 = true;
@@ -151,21 +117,12 @@ public class MapEditor extends JPanel {
 				
 			}
 			
-			MapLoader.level_speichern(map, "Level-" + eingabe);
+			MapLoader.level_speichern(map, "Level-" + level);
 		}
 		
 		Menue.get_game().bilder_skalieren(iconSatz);
-		
-//		frame = new JFrame();
-//		frame.setBounds(100, 100, 450, 300);
-//		frame.setTitle("Map-Editor"); // Fenstertitel setzen
-//		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-//		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
-		levelnummer = "Level-" + eingabe;
-		
-//		JLabel levelname = new JLabel(levelnummer, JLabel.CENTER);
-//		add(levelname, BorderLayout.NORTH);
+		levelnummer = "Level-" + level;
 
 		JButton save_button = new JButton("Level speichern");
 		
@@ -228,8 +185,8 @@ public class MapEditor extends JPanel {
 		ActionListener exit = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (saved) {
+					System.out.println("Test");
 					Menue.setMappingVisible(false);
-					MapLoader.set_level(oldLevel);
 					Menue.setGameVisible(true);
 					Menue.spiel_neustarten();
 					Menue.set_editor_laeuft(false);
@@ -237,8 +194,6 @@ public class MapEditor extends JPanel {
 
 				else if (!abbruch) {
 					int bla;
-					
-					System.out.println("Speichern?"); // Test
 					
 					if (!abfrageHulk1) {
 							bla = 	JOptionPane.showConfirmDialog(null,
@@ -256,7 +211,6 @@ public class MapEditor extends JPanel {
 										f.delete();
 									}
 									
-									MapLoader.set_level(oldLevel);
 									Menue.setGameVisible(true);
 									Menue.spiel_neustarten();
 									Menue.set_editor_laeuft(false);
@@ -284,7 +238,6 @@ public class MapEditor extends JPanel {
 									f.delete();
 								}
 								
-								MapLoader.set_level(oldLevel);
 								Menue.setGameVisible(true);
 								Menue.spiel_neustarten();
 								Menue.set_editor_laeuft(false);
@@ -308,7 +261,6 @@ public class MapEditor extends JPanel {
 								MapLoader.level_speichern(map, levelnummer);
 								saved = true;
 								Menue.setMappingVisible(false);
-								MapLoader.set_level(oldLevel);
 								Menue.setGameVisible(true);
 								Menue.spiel_neustarten();
 								Menue.set_editor_laeuft(false);
@@ -322,7 +274,6 @@ public class MapEditor extends JPanel {
 									f.delete();
 								}
 								
-								MapLoader.set_level(oldLevel);
 								Menue.setGameVisible(true);
 								Menue.spiel_neustarten();
 								Menue.set_editor_laeuft(false);
@@ -346,8 +297,6 @@ public class MapEditor extends JPanel {
 			public void actionPerformed(ActionEvent e) {				
 				int moep;
 				
-				System.out.println("Speichern?"); // Test
-				
 				if (!abfrageHulk1) {
 						moep = 	JOptionPane.showConfirmDialog(null,
 							"Es wurde noch kein 1. Spieler gesetzt.\nTrotzdem testen?",
@@ -357,7 +306,7 @@ public class MapEditor extends JPanel {
 						switch (moep) {
 							case 0:
 								setVisible(false);
-								MapLoader.level_speichern(map, "Level-" + eingabe);
+								MapLoader.level_speichern(map, "Level-" + level);
 								Menue.setMappingVisible(false);
 								Menue.setGameVisible(true);
 								Menue.spiel_neustarten();
@@ -377,7 +326,7 @@ public class MapEditor extends JPanel {
 				
 						switch (moep) {
 							case 0:
-								MapLoader.level_speichern(map, "Level-" + eingabe);
+								MapLoader.level_speichern(map, "Level-" + level);
 								Menue.setMappingVisible(false);
 								Menue.setGameVisible(true);
 								Menue.spiel_neustarten();
@@ -391,7 +340,7 @@ public class MapEditor extends JPanel {
 				}
 				
 				else {
-					MapLoader.level_speichern(map, "Level-" + eingabe);
+					MapLoader.level_speichern(map, "Level-" + level);
 					Menue.setMappingVisible(false);
 					Menue.setGameVisible(true);
 					Menue.spiel_neustarten();
@@ -716,6 +665,7 @@ public class MapEditor extends JPanel {
 	}
 
 	/* setter & getter: */
+	
 	// getSelectedButton-Methode:
 	public static JRadioButton getSelectedButton(ButtonGroup group) {
 		Enumeration<AbstractButton> e = group.getElements();

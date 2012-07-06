@@ -76,15 +76,12 @@ public class MapLoader {
 		    while (t <= n);
 			
 			for (int zeile = 1; zeile <= n; zeile ++) {
-				System.out.println(zeile);
 				ze = temp[zeile].split(delimiter);
 				 
 		    	for (int spalte = 0; spalte < n; spalte++) {
 		    		map[spalte][zeile-1] = Integer.parseInt(ze[spalte]);
-		    		System.out.print(map[spalte][zeile-1]);
 		    	}
 		    	  
-		    	System.out.println();
 			}
 			
 			if (twoPlayerSet) {
