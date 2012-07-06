@@ -1,5 +1,10 @@
-import java.io.*;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -22,9 +27,6 @@ public class Client extends Thread {
 	 * Writer fuer Aus- und Reader fuer Eingabe
 	 */
 	int starten() {		
-		System.out.println("Client gestartet");	// Test
-		System.out.println();					// Test
-		
 		// Eingabe der IP-Adresse:
 		String server_ip = JOptionPane.showInputDialog(null, "Bitte geben Sie " +
 							"die IP-Adresse des Servers ein: ", "Server-IP",
@@ -105,7 +107,6 @@ public class Client extends Thread {
 					switch (frage) {
 						case 0:
 							if (in_string.contains("Spieler")) {
-								System.out.println("yes geschickt");
 								out.println("yes");	
 							}
 							
@@ -130,7 +131,6 @@ public class Client extends Thread {
 				
 				// Antwort speichern:
 				else if (in_string.equals("yes") || in_string.equals("no")) {
-					System.out.println("antwort erhalten");
 					antwort = in_string;
 				}
 				
@@ -172,31 +172,18 @@ public class Client extends Thread {
 				
 				// 1. Spielfigur bewegen:
 				else {
-					System.out.println("x = " + in_string);	// Test
-					System.out.println();					// Test
-					
 					x = Integer.parseInt(in_string);						// ...interpretiere
 																			// den int-Wert der
 																			// Nachricht als x-
 																			// Bewegung,...
-					
-					System.out.println("x-Bewegung von Spieler 1: " + x); 	// Test
-					System.out.println();									// Test
-					
 					in_string = in.readLine();								// ...lese die
 																			// naechste
 																			// Nachricht,...
-					
-					System.out.println("y = " + in_string);	// Test
-					System.out.println();					// Test
 					
 					y = Integer.parseInt(in_string);						// ...interpretiere
 																			// den int-Wert der
 																			// zweiten Nachricht
 																			// als y-Bewegung und...
-					
-					System.out.println("y-Bewegung von Spieler 1: " + y); 	// Test
-					System.out.println();									// Test
 					
 					Menue.spieler1_aktionen2(x, y);							// ...fuehre die Bewegungen
 																			// mit der 1. Spielfigur
@@ -250,9 +237,6 @@ public class Client extends Thread {
 		 * Funktion beendet wurde:
 		 */
 		Menue.set_clientThread(null);
-		System.out.println("Client beendet");	// Test
-		System.out.println();					// Test
-		
 		if (Menue.hotSeat) {
 			Menue.mntmHotSeat.setSelected(true);			
 		}

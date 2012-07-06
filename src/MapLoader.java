@@ -76,15 +76,11 @@ public class MapLoader {
 		    while (t <= n);
 			
 			for (int zeile = 1; zeile <= n; zeile ++) {
-				System.out.println(zeile);
 				ze = temp[zeile].split(delimiter);
 				 
 		    	for (int spalte = 0; spalte < n; spalte++) {
 		    		map[spalte][zeile-1] = Integer.parseInt(ze[spalte]);
-		    		System.out.print(map[spalte][zeile-1]);
 		    	}
-		    	  
-		    	System.out.println();
 			}
 			
 			if (twoPlayerSet) {
@@ -201,8 +197,6 @@ public class MapLoader {
 					if (j < n - 1) {
 						line[i] += ":";
 					}
-					
-					System.out.println(line[i]);
 				}
 
 			}
@@ -240,8 +234,6 @@ public class MapLoader {
 			return path;
 		}
 		
-		else
-			System.out.println("Auswahl abgebrochen");
 		
 		return null;
 	}
@@ -281,8 +273,6 @@ public class MapLoader {
 					if (j < n - 1) {
 						line[i] += ":";
 					}
-					
-					System.out.println(line[i]);
 				}
 
 			}
@@ -321,10 +311,6 @@ public class MapLoader {
 			
 			return path;
 		}
-		
-		else
-			System.out.println("Auswahl abgebrochen");
-		
 		return null;
 	}
 
@@ -366,13 +352,9 @@ public class MapLoader {
 				String 			delimiter 	= ":";
 				int 			t  			= 1;
 
-				System.out.println("Spielfeld eingelesen:"); // Test
-				
+						
 				iconSatz = Character.getNumericValue(f.read());
 				set_iconSatz(iconSatz);
-				
-				System.out.println("IconSatz: " + iconSatz); // Test
-				
 				f.read();
 				radius1 = (Character.getNumericValue(f.read()));
 				f.read();
@@ -392,19 +374,12 @@ public class MapLoader {
 			    while (t <= n);
 				 
 				for (int z = 1; z <= n; z ++) {
-					System.out.println(z);
 					ze = temp[z].split(delimiter);
 					 
 			    	for(int spalte = 0; spalte < n; spalte++) {
 			    		map[spalte][z-1] = Integer.parseInt(ze[spalte]);
-			    		System.out.print(" " +map[spalte][z-1]);
-			    	}
-			    	  
-			    	System.out.println(); // Test
+			    		}
 				}				
-
-				System.out.println(); // Test
-
 				if (twoPlayerSet) {
 					map[n - 2][n - 2] = 10;
 					map[1][n - 2] = 2;
@@ -414,9 +389,6 @@ public class MapLoader {
 //					map[n - 2][n - 2] = 10;
 //					map[1][n - 2] = 2;
 //				}
-
-				System.out.println(); // Test
-
 				f.close();
 			}
 
@@ -430,10 +402,6 @@ public class MapLoader {
 			
 			return map;
 		}
-
-		else
-			System.out.println("Auswahl abgebrochen"); // Test
-
 		return null;
 	}
 
@@ -459,9 +427,6 @@ public class MapLoader {
 		
 		try {
 			FileReader f = new FileReader(filename);
-
-			System.out.println("Spielfeld eingelesen:"); // Test
-
 			satz = Character.getNumericValue(f.read());
 			f.close();
 		}
@@ -555,11 +520,7 @@ public class MapLoader {
 	public static int get_radiusLevel1(String filename) {
 		try {
 			FileReader f = new FileReader(filename);
-
-			System.out.println("Spielfeld eingelesen:"); // Test
-			
-			f.read();
-			f.read();
+			f.read();f.read();
 			radius1 = Character.getNumericValue(f.read());
 			f.close();
 		}
@@ -576,13 +537,7 @@ public class MapLoader {
 	public static int get_radiusLevel2(String filename) {
 		try {
 			FileReader f = new FileReader(filename);
-
-			System.out.println("Spielfeld eingelesen:"); // Test
-			f.read();
-			f.read();
-			f.read();
-			f.read();
-			f.read();
+			f.read();f.read();f.read();f.read();f.read();
 			radius2 = Character.getNumericValue(f.read());
 			f.close();
 		}
@@ -599,12 +554,7 @@ public class MapLoader {
 	public static int get_maxLevel1(String filename) {
 		try {
 			FileReader f = new FileReader(filename);
-
-			System.out.println("Spielfeld eingelesen:"); // Test
-			f.read();
-			f.read();
-			f.read();
-			f.read();
+			f.read();f.read();f.read();f.read();
 			max1 = Character.getNumericValue(f.read());
 			f.close();
 		}
@@ -621,8 +571,6 @@ public class MapLoader {
 	public static int get_maxLevel2(String filename) {
 		try {
 			FileReader f = new FileReader(filename);
-
-			System.out.println("Spielfeld eingelesen:"); // Test
 			f.read();f.read();f.read();f.read();
 			f.read();f.read();f.read();f.read();
 			max2 = Character.getNumericValue(f.read());

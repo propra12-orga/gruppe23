@@ -1,4 +1,5 @@
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  * zustaendig fuer die Koordinierung der Bombenplatzierung und Stellen des Timers
@@ -390,8 +391,7 @@ public class Bombe extends JLabel {
 					if (treffer_rechts == false && hulk_getroffen == false) {
 						hulk_getroffen = true;
 						Menue.sound.playTod();
-						System.out.println("Game over"); 	// Test
-						System.out.println(); 				// Test
+						JOptionPane.showMessageDialog(null, "GAME OVER ...");
 						
 						Menue.abfrage_neustarten();
 					}
@@ -404,21 +404,11 @@ public class Bombe extends JLabel {
 																		// trifft
 						hulk_getroffen = true;
 						Menue.sound.playTod();
-						System.out.println("Game over"); 	// Test
-						System.out.println(); 				// Test
-						
+						JOptionPane.showMessageDialog(null, "GAME OVER ...");
 						Menue.abfrage_neustarten();
 					}
 					
 				}
-				
-//				if (Menue.get_bot(1).get_x() == this.x + x && Menue.get_bot(1).get_y() == this.y + y){
-//					Menue.botStop();
-//					Menue.sound.playTod();
-//					System.out.println("Gewonnen!"); // Test
-//					System.out.println(); // Test
-//				}
-
 			}
 
 			// vertikal:
@@ -434,9 +424,7 @@ public class Bombe extends JLabel {
 					if (treffer_unten == false && hulk_getroffen == false) {
 						hulk_getroffen = true;
 						Menue.sound.playTod();
-						System.out.println("Game over"); // Test
-						System.out.println(); // Test
-						
+						JOptionPane.showMessageDialog(null, "GAME OVER ...");
 						Menue.abfrage_neustarten();
 					}
 
@@ -448,9 +436,7 @@ public class Bombe extends JLabel {
 																			// trifft
 						hulk_getroffen = true;
 						Menue.sound.playTod();
-						System.out.println("Game over"); 	// Test
-						System.out.println(); 				// Test
-						
+						JOptionPane.showMessageDialog(null, "GAME OVER ...");
 						Menue.abfrage_neustarten();
 					}
 					
@@ -771,8 +757,7 @@ public class Bombe extends JLabel {
 
 					if (treffer_links == false && hulk_getroffen == false) {
 						hulk_getroffen = true;
-						System.out.println("Game over"); 	// Test
-						System.out.println(); 				// Test
+						JOptionPane.showMessageDialog(null, "GAME OVER ...");
 						Menue.sound.playTod();
 						Menue.abfrage_neustarten();
 					}
@@ -785,9 +770,7 @@ public class Bombe extends JLabel {
 																		// trifft
 						hulk_getroffen = true;
 						Menue.sound.playTod();
-						System.out.println("Game over"); 	// Test
-						System.out.println(); 				// Test
-						
+						JOptionPane.showMessageDialog(null, "GAME OVER ...");
 						Menue.abfrage_neustarten();
 					}
 					
@@ -807,8 +790,7 @@ public class Bombe extends JLabel {
 
 					if (treffer_oben == false && hulk_getroffen == false) {
 						hulk_getroffen = true;
-						System.out.println("Game over"); // Test
-						System.out.println(); // Test
+						JOptionPane.showMessageDialog(null, "GAME OVER ...");
 						Menue.sound.playTod();
 						Menue.abfrage_neustarten();						
 					}
@@ -821,9 +803,7 @@ public class Bombe extends JLabel {
 																			// trifft
 						hulk_getroffen = true;
 						Menue.sound.playTod();
-						System.out.println("Game over"); 	// Test
-						System.out.println(); 				// Test
-						
+						JOptionPane.showMessageDialog(null, "GAME OVER ...");
 						Menue.abfrage_neustarten();
 					}
 					

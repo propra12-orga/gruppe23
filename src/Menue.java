@@ -1029,7 +1029,6 @@ public class Menue implements KeyListener {
 		Map.set_map(MapLoader.laden(MapLoader.get_level()));
 		
 		// Hulk zurueckpositionieren:
-				hulk1.set_Start(MapLoader.get_icon_x(map, 1),MapLoader.get_icon_y(map, 1));
 				reset_Hulk();
 
 		

@@ -30,9 +30,6 @@ public class Server extends Thread {
 	 * gestartet und begonnen auf Client-Nachrichten zu warten.
 	 */
 	void starten() {
-		System.out.println("Server gestartet");	// Test
-		System.out.println();					// Test
-		
 		try {
 			// Sockets erstellen:
 			serverSocket = new ServerSocket(4711);
@@ -138,7 +135,6 @@ public class Server extends Thread {
 					switch (frage) {
 						case 0:
 							if (in_string.contains("Spieler")) {
-								System.out.println("yes geschickt");
 								out.println("yes");	
 							}
 							
@@ -163,7 +159,6 @@ public class Server extends Thread {
 				
 				// Antwort speichern:
 				else if (in_string.equals("yes") || in_string.equals("no")) {
-					System.out.println("antwort erhalten");
 					antwort = in_string;
 				}
 				
@@ -205,31 +200,19 @@ public class Server extends Thread {
 				
 				// 2. Spielfigur bewegen:
 				else {														// ...sonst...
-					System.out.println("x = " + in_string);	// Test
-					System.out.println();					// Test
-					
 					x = Integer.parseInt(in_string);						// ...interpretiere
 																			// den int-Wert der
 																			// Nachricht als x-
 																			// Bewegung,...
 					
-					System.out.println("x-Bewegung von Spieler 2: " + x); 	// Test
-					System.out.println();									// Test
-					
 					in_string = in.readLine();								// ...lese die
 																			// naechste
 																			// Nachricht,...
-					System.out.println("y = " + in_string);	// Test
-					System.out.println();					// Test
-					
 					y = Integer.parseInt(in_string);						// ...interpretiere
 																			// den int-Wert der
 																			// zweiten Nachricht
 																			// als y-Bewegung und...
 					
-					System.out.println("y-Bewegung von Spieler 2: " + y); 	// Test
-					System.out.println();									// Test
-	
 					Menue.spieler2_aktionen(x, y);							// ...fuehre die Bewegungen
 																			// mit der 2. Spielfigur
 																			// durch
