@@ -1,3 +1,4 @@
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
@@ -29,6 +30,7 @@ public class MapLoader {
 	 * legt das zu ladene Level fest
 	 * @return map - Objekt
 	 */
+	@SuppressWarnings("null")
 	public static int[][] laden(int i) { // mit parameter i als level nummer
 		twoPlayerSet = Menue.getMultiplayer();
 //		botSet = Menue.getBot();
@@ -38,15 +40,14 @@ public class MapLoader {
 //			Menue.theme = true;
 //		}
 
-		int c = 0;
-
-		int k = 0, l = 0;
+		
+		String temp[] = new String[n+1];
 		int[][] map = new int[n][n];
 		String filename = "src/Maps/Level-" + i + ".txt";
 
 		try {
 			FileReader f = new FileReader(filename);
-
+			
 			iconSatz = Character.getNumericValue(f.read());
 			f.read();
 			max1 = Character.getNumericValue(f.read());
@@ -55,31 +56,32 @@ public class MapLoader {
 			f.read();
 			max2 = Character.getNumericValue(f.read());;
 			f.read();
-			radius2 = Character.getNumericValue(f.read());			
-
-			while ((c = f.read()) != -1) {
-				if (Character.getNumericValue(c) != -1) {
-					if (Character.getNumericValue(c) != 58) {
-						map[k][l] = Character.getNumericValue(c);
-					}
-					
-					else {
-						f.read();
-					}
-
-					if (k < n - 1) {
-						k++;
-					}
-
-					else if (l < n - 1) {
-						k = 0;
-						l++;
-					}
-
-				}
-
-			}
-
+			radius2 = Character.getNumericValue(f.read());
+			
+			BufferedReader br = new BufferedReader(f);
+			br.readLine();
+			
+			int t  = 1;
+			do
+		    {
+		      temp[t] = br.readLine();
+		      t++;		      
+		    }
+		    while (t <= n);
+					String ze[] = new String[temp.length];
+					 String delimiter = ":";
+					 for(int z = 1; z <= n; z ++){
+						 System.out.println(z);
+						 ze = temp[z].split(delimiter);
+						 
+				    	  for(int spalte = 0; spalte < n; spalte++) {
+				    		  map[spalte][z-1] = Integer.parseInt(ze[spalte]);
+				    		  System.out.print(map[spalte][z-1]);
+				    	  }
+				    	  
+				    	  System.out.println();
+					 }
+			
 			if (twoPlayerSet) {
 				if (get_icon_x(map, 10) == 0 && get_icon_y(map, 10) == 0)
 					map[n - 2][n - 2] = 10;
@@ -351,31 +353,31 @@ public class MapLoader {
 				f.read();
 				max2 = (Character.getNumericValue(f.read()));
 
-				while ((c = f.read()) != -1) {
-					if (Character.getNumericValue(c) != -1) {
-						if (Character.getNumericValue(c) != 58) {
-							map[k][l] = Character.getNumericValue(c);
-						}
-
-						else {
-							f.read();
-						}
-
-						System.out.print(map[k][l] + ", "); // Test
-
-						if (k < n - 1) {
-							k++;
-						}
-
-						else if (l < n - 1) {
-							System.out.println(); // Test
-							k = 0;
-							l++;
-						}
-
-					}
-
-				}
+				String temp[] = new String[n+1];
+				BufferedReader br = new BufferedReader(f);
+				br.readLine();
+				
+				int t  = 1;
+				do
+			    {
+			      temp[t] = br.readLine();
+			      t++;		      
+			    }
+			    while (t <= n);
+						String ze[] = new String[temp.length];
+						 String delimiter = ":";
+						 for(int z = 1; z <= n; z ++){
+							 System.out.println(z);
+							 ze = temp[z].split(delimiter);
+							 
+					    	  for(int spalte = 0; spalte < n; spalte++) {
+					    		  map[spalte][z-1] = Integer.parseInt(ze[spalte]);
+					    		  System.out.print(" " +map[spalte][z-1]);
+					    	  }
+					    	  
+					    	  System.out.println();
+						 }
+				
 
 				System.out.println(); // Test
 

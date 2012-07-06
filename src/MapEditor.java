@@ -609,7 +609,7 @@ public class MapEditor extends JPanel {
 							
 							else if (name == "Block/Bomben-Item") {
 								abfrage(a,b);
-								power = 12;
+								power = 0;
 								pic = getPic(12);
 							}
 							

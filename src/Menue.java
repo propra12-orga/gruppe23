@@ -273,6 +273,7 @@ public class Menue implements KeyListener {
 		spiel_neugestartet = false;
 		// starter einfuegen
 		map = MapLoader.laden(MapLoader.get_level());
+		System.out.print(MapLoader.get_level());
 		game = new Map(map);
 
 		int hulk1Startx, hulk1Starty;
