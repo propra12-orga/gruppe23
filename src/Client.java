@@ -46,6 +46,7 @@ public class Client extends Thread {
 			
 			// Verbindungsstatus aktualisieren:
 			verbunden = true;
+			Menue.meldungen[4].setText("");
 			Menue.twoPlayer = true;
 			Menue.hotSeat = false;
 			

@@ -81,6 +81,7 @@ public class MapLoader {
 		    	for (int spalte = 0; spalte < n; spalte++) {
 		    		map[spalte][zeile-1] = Integer.parseInt(ze[spalte]);
 		    	}
+
 			}
 			
 			if (twoPlayerSet) {
